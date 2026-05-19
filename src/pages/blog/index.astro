@@ -1,0 +1,183 @@
+---
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Blog | SmartOps SEO</title>
+    <meta name="description" content="Artigos sobre SEO, marketing digital e automação com IA para alavancar seu negócio." />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content="Blog | SmartOps SEO" />
+    <meta property="og:description" content="Artigos sobre SEO, marketing digital e automação com IA." />
+    <meta property="og:locale" content="pt_BR" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a href="/" class="site-name">SmartOps SEO</a>
+        <a href="/blog" aria-current="page">Blog</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Blog</h1>
+        <p>Artigos gerados com IA sobre SEO, automação e marketing digital.</p>
+      </section>
+
+      {posts.length === 0 ? (
+        <p class="empty">Nenhum artigo publicado ainda. Volte em breve!</p>
+      ) : (
+        <ul class="post-list">
+          {posts.map(post => (
+            <li class="post-card">
+              <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}`} class="card-link">
+                {post.data.heroImage && (
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.title}
+                    width="800"
+                    height="420"
+                    loading="lazy"
+                    decoding="async"
+                    class="card-image"
+                  />
+                )}
+                <div class="card-body">
+                  {post.data.tags.length > 0 && (
+                    <div class="tags">
+                      {post.data.tags.slice(0, 3).map(tag => (
+                        <span class="tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                  <h2 class="card-title">{post.data.title}</h2>
+                  <p class="card-desc">{post.data.description}</p>
+                  <div class="card-meta">
+                    <span>{post.data.author}</span>
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {formatDate(post.data.pubDate)}
+                    </time>
+                  </div>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+
+    <footer>
+      <p>&copy; {new Date().getFullYear()} SmartOps SEO. Todos os direitos reservados.</p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff; --bg2: #f9fafb; --fg: #111827; --muted: #6b7280;
+    --accent: #7c3aed; --accent-h: #6d28d9; --accent-bg: #ede9fe;
+    --border: #e5e7eb; --max-w: 900px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f1a; --bg2: #161625; --fg: #e8e8f0; --muted: #9ca3af;
+      --accent: #a78bfa; --accent-h: #8b5cf6; --accent-bg: #1e1b4b;
+      --border: #1f2937;
+    }
+  }
+
+  body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.7; }
+
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+  }
+
+  nav {
+    max-width: calc(var(--max-w) + 4rem); margin: 0 auto;
+    padding: 1rem 2rem; display: flex; align-items: center; gap: 1.5rem;
+  }
+
+  nav a { color: var(--fg); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.15s; }
+  nav a:hover, nav a[aria-current="page"] { color: var(--accent); }
+  .site-name { font-weight: 800; font-size: 1rem !important; margin-right: auto; }
+
+  main { max-width: calc(var(--max-w) + 4rem); margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  .hero { margin-bottom: 3rem; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+  .hero p { font-size: 1.1rem; color: var(--muted); }
+
+  .empty { color: var(--muted); font-size: 1.1rem; }
+
+  .post-list { list-style: none; display: grid; gap: 1.75rem; }
+
+  @media (min-width: 640px) {
+    .post-list { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .post-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .post-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  .card-link { display: block; text-decoration: none; color: inherit; height: 100%; }
+
+  .card-image { width: 100%; height: 200px; object-fit: cover; display: block; }
+
+  .card-body { padding: 1.5rem; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+  .tag {
+    background: var(--accent-bg); color: var(--accent);
+    font-size: 0.68rem; font-weight: 700;
+    padding: 0.2rem 0.6rem; border-radius: 9999px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  .card-title { font-size: 1.15rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+  .card-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+
+  .card-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: var(--muted);
+    padding-top: 1rem; border-top: 1px solid var(--border);
+  }
+
+  footer { padding: 2rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.875rem; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    nav { padding: 0.875rem 1rem; }
+    main { padding: 2rem 1rem 3rem; }
+  }
+</style>

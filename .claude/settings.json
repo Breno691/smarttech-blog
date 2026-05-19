@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"c:\\\\Users\\\\Breno Luiz\\\\smartops-seo\\\\src\\\\content\\\\config.ts\")"
+    ]
+  }
+}

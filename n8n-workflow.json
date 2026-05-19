@@ -1,0 +1,448 @@
+{
+  "name": "SmartOps SEO — Auto Blog Publisher",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "hours", "hoursInterval": 1 }]
+        }
+      },
+      "id": "aa000001-0000-0000-0000-000000000001",
+      "name": "⏰ Schedule — A cada hora",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 460]
+    },
+
+    {
+      "parameters": {
+        "operation": "getAll",
+        "documentId": { "__rl": true, "value": "SEU_SPREADSHEET_ID_AQUI", "mode": "id" },
+        "sheetName": { "__rl": true, "value": "Posts", "mode": "name" },
+        "filtersUI": {
+          "values": [{ "lookupColumn": "status", "lookupValue": "pendente" }]
+        },
+        "options": { "returnAllMatches": true }
+      },
+      "id": "aa000002-0000-0000-0000-000000000002",
+      "name": "📊 GSheets — Ler Pendentes",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [460, 460],
+      "credentials": {
+        "googleSheetsOAuth2Api": { "id": "CREDENTIAL_GSHEETS_ID", "name": "Google Sheets account" }
+      }
+    },
+
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-has-data",
+              "leftValue": "={{ $items().length }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "gt" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "aa000003-0000-0000-0000-000000000003",
+      "name": "🔍 IF — Tem pendentes?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 460]
+    },
+
+    {
+      "parameters": { "batchSize": 1, "options": {} },
+      "id": "aa000004-0000-0000-0000-000000000004",
+      "name": "🔄 Loop — 1 por vez",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [900, 360]
+    },
+
+    {
+      "parameters": {
+        "jsCode": "// ================================================\n// ETAPA 1: VALIDAR CAMPOS E GERAR SLUG\n// ================================================\nconst item = $input.item.json;\n\n// Validação de campos obrigatórios\nconst required = ['keyword', 'title'];\nfor (const field of required) {\n  if (!item[field] || String(item[field]).trim() === '') {\n    throw new Error(`Campo obrigatório ausente: \"${field}\" | Linha: ${item.row_number || 'N/A'}`);\n  }\n}\n\n// Gerador de slug SEO (remove acentos, lowercase, hífens)\nfunction generateSlug(text) {\n  return text\n    .toString()\n    .toLowerCase()\n    .normalize('NFD')\n    .replace(/[\\u0300-\\u036f]/g, '')  // remove acentos\n    .replace(/[^a-z0-9\\s-]/g, '')    // só letras/números/espaços\n    .trim()\n    .replace(/\\s+/g, '-')            // espaços → hífens\n    .replace(/-+/g, '-')             // múltiplos hífens → um\n    .substring(0, 60)                // máx 60 chars\n    .replace(/-$/, '');              // remove hífen final\n}\n\nconst slug = item.slug ? generateSlug(item.slug) : generateSlug(item.title);\nconst pubDate = new Date().toISOString().split('T')[0];\nconst timestamp = new Date().toISOString();\n\nreturn {\n  json: {\n    ...item,\n    slug,\n    pubDate,\n    timestamp,\n    filename: `${slug}.md`,\n    githubPath: `src/content/blog/${slug}.md`,\n    rowNumber: item.row_number || item['row_number'] || '',\n    author: item.author || 'SmartOps SEO',\n  }\n};"
+      },
+      "id": "aa000005-0000-0000-0000-000000000005",
+      "name": "⚙️ Code — Preparar Dados",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 360]
+    },
+
+    {
+      "parameters": {
+        "jsCode": "// ================================================\n// ETAPA 2: MONTAR PAYLOAD COMPLETO PARA OPENAI\n// ================================================\nconst d = $input.item.json;\n\nconst systemPrompt = `Você é um especialista em SEO técnico e copywriting com 10 anos de experiência criando conteúdo de alta performance para o Google.\n\nRESPONDA SOMENTE COM UM OBJETO JSON VÁLIDO — sem markdown, sem texto antes ou depois do JSON.\n\nESTRUTURA OBRIGATÓRIA DA RESPOSTA:\n{\n  \"title\": \"Título SEO otimizado entre 50 e 60 caracteres\",\n  \"description\": \"Meta description persuasiva entre 150 e 160 caracteres com call-to-action implícito\",\n  \"tags\": [\"tag1\", \"tag2\", \"tag3\", \"tag4\", \"tag5\"],\n  \"heroImage\": \"\",\n  \"content\": \"artigo completo em Markdown válido\"\n}\n\nREGRAS OBRIGATÓRIAS PARA O CAMPO content:\n1. Mínimo 1.500 palavras\n2. Keyword density: 1-2% (uso natural, nunca forçado)\n3. Português brasileiro formal mas acessível\n4. H2 (##) e H3 (###) devem conter a keyword ou variações semânticas/LSI\n5. FAQ obrigatório: 3-5 perguntas com H3, respondidas em 2-3 frases (melhora featured snippets)\n6. CTA explícito na conclusão\n7. Pelo menos 1 tabela comparativa ou de dados quando aplicável\n8. Use **negrito** para termos-chave importantes\n9. Parágrafos curtos (máx. 3-4 linhas) para melhor UX e SEO`;\n\nconst userPrompt = `Escreva um artigo SEO completo e profissional sobre: ${d.keyword}\n\nDATOS DO ARTIGO:\n- Título sugerido: ${d.title}\n- Público-alvo: ${d.target_audience || 'empreendedores e profissionais de marketing digital'}\n- Keyword principal: ${d.keyword}\n- Contexto adicional: ${d.description_hint || 'Não informado'}\n\nESTRUTURA OBRIGATÓRIA DO CAMPO \"content\" (em Markdown):\n\n## Introdução\nAbra com a keyword principal nas primeiras 100 palavras.\nApresente o problema ou oportunidade central que o artigo resolve.\nTermine com um gancho que motive o leitor a continuar.\n\n## [H2: Benefícios e Fundamentos de ${d.keyword}]\n3-4 parágrafos densos de valor.\nUse uma lista bullet com os pontos principais.\nInclua pelo menos um dado estatístico ou estudo relevante.\n\n## [H2: Como Implementar ${d.keyword} — Passo a Passo]\nLista numerada com etapas claras e acionáveis.\nCada etapa deve ter uma ação concreta.\nSubtítulos H3 para cada fase principal se necessário.\nMini-case ou exemplo prático.\n\n## [H2: Estratégias Avançadas e Erros a Evitar]\nTáticas avançadas para resultados acima da média.\nTabela comparativa ou de dados (obrigatória aqui se aplicável).\nLista dos 3-5 erros mais comuns com ${d.keyword} e como evitá-los.\n\n## Perguntas Frequentes sobre ${d.keyword}\n\n### [Pergunta 1: dúvida mais comum sobre ${d.keyword}]?\nResposta direta em 2-3 frases. Responda de forma que possa aparecer em featured snippet.\n\n### [Pergunta 2: sobre implementação prática]?\nResposta direta em 2-3 frases com dado ou exemplo.\n\n### [Pergunta 3: sobre resultados ou ROI]?\nResposta direta em 2-3 frases com contexto temporal.\n\n### [Pergunta 4: sobre erros ou limitações]?\nResposta direta em 2-3 frases.\n\n## Conclusão\nResumo dos 3 pontos mais importantes.\nCTA explícito: qual é o próximo passo concreto que o leitor deve tomar agora?\nReforce a transformação que o leitor terá ao aplicar o conteúdo.`;\n\nreturn {\n  json: {\n    ...d,\n    openaiBody: {\n      model: 'gpt-4o',\n      temperature: 0.7,\n      max_tokens: 4096,\n      response_format: { type: 'json_object' },\n      messages: [\n        { role: 'system', content: systemPrompt },\n        { role: 'user', content: userPrompt }\n      ]\n    }\n  }\n};"
+      },
+      "id": "aa000006-0000-0000-0000-000000000006",
+      "name": "📝 Code — Build Prompt OpenAI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 360]
+    },
+
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "=Bearer {{ $env.OPENAI_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.openaiBody) }}",
+        "options": {
+          "timeout": 120000,
+          "response": { "response": { "responseFormat": "json" } }
+        }
+      },
+      "id": "aa000007-0000-0000-0000-000000000007",
+      "name": "🤖 HTTP — OpenAI Chat",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1560, 360]
+    },
+
+    {
+      "parameters": {
+        "jsCode": "// ================================================\n// ETAPA 3: PARSEAR RESPOSTA OPENAI E MONTAR MARKDOWN\n// ================================================\nconst openaiResp = $input.item.json;\n\n// Recupera dados preparados na etapa 1\nconst prepared = $('⚙️ Code — Preparar Dados').item.json;\n\n// Extrai conteúdo da resposta OpenAI\nconst rawContent = openaiResp?.choices?.[0]?.message?.content;\nif (!rawContent) {\n  throw new Error('OpenAI retornou resposta vazia ou inválida.');\n}\n\n// Parse JSON retornado pela OpenAI\nlet article;\ntry {\n  article = JSON.parse(rawContent);\n} catch (e) {\n  throw new Error(`OpenAI não retornou JSON válido. Preview: ${rawContent.substring(0, 300)}`);\n}\n\n// Validação dos campos obrigatórios da resposta\nif (!article.title) throw new Error('OpenAI: campo \"title\" ausente na resposta');\nif (!article.description) throw new Error('OpenAI: campo \"description\" ausente na resposta');\nif (!article.content) throw new Error('OpenAI: campo \"content\" ausente na resposta');\n\n// Sanitiza strings para uso seguro no YAML frontmatter\nfunction sanitizeYaml(str) {\n  return String(str).replace(/\"/g, \"'\").replace(/\\n/g, ' ').trim();\n}\n\n// Normaliza tags\nconst tags = Array.isArray(article.tags) && article.tags.length > 0\n  ? article.tags\n  : [prepared.keyword];\n\n// Monta o frontmatter YAML\nconst frontmatter = [\n  '---',\n  `title: \"${sanitizeYaml(article.title)}\"`,\n  `description: \"${sanitizeYaml(article.description)}\"`,\n  `pubDate: \"${prepared.pubDate}\"`,\n  `author: \"${sanitizeYaml(prepared.author)}\"`,\n  `tags: ${JSON.stringify(tags)}`,\n  `heroImage: \"${article.heroImage || ''}\"`,\n  '---',\n].join('\\n');\n\n// Conteúdo final do arquivo .md\nconst markdownContent = frontmatter + '\\n\\n' + article.content.trim();\n\n// Métricas de uso\nconst wordCount = article.content.split(/\\s+/).length;\nconst inputTokens = openaiResp?.usage?.prompt_tokens || 0;\nconst outputTokens = openaiResp?.usage?.completion_tokens || 0;\nconst totalTokens = openaiResp?.usage?.total_tokens || 0;\n\nreturn {\n  json: {\n    ...prepared,\n    markdownContent,\n    seoTitle: article.title,\n    seoDescription: article.description,\n    tags,\n    heroImage: article.heroImage || '',\n    wordCount,\n    inputTokens,\n    outputTokens,\n    totalTokens,\n  }\n};"
+      },
+      "id": "aa000008-0000-0000-0000-000000000008",
+      "name": "📄 Code — Parse + Build Markdown",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1780, 360]
+    },
+
+    {
+      "parameters": {
+        "jsCode": "// ================================================\n// ETAPA 4: CONVERTER MARKDOWN PARA BASE64\n// (exigido pela GitHub Contents API)\n// ================================================\nconst data = $input.item.json;\n\nif (!data.markdownContent) {\n  throw new Error('markdownContent ausente — etapa anterior falhou.');\n}\n\nconst base64Content = Buffer.from(data.markdownContent, 'utf-8').toString('base64');\n\nreturn {\n  json: {\n    ...data,\n    base64Content,\n    contentLength: data.markdownContent.length,\n  }\n};"
+      },
+      "id": "aa000009-0000-0000-0000-000000000009",
+      "name": "🔢 Code — Encode Base64",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2000, 360]
+    },
+
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_OWNER }}/{{ $env.GITHUB_REPO }}/contents/{{ $json.githubPath }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "=Bearer {{ $env.GITHUB_TOKEN }}" },
+            { "name": "Accept", "value": "application/vnd.github.v3+json" },
+            { "name": "User-Agent", "value": "SmartOps-SEO-Bot/1.0" }
+          ]
+        },
+        "options": {
+          "response": { "response": { "responseFormat": "json" } }
+        }
+      },
+      "id": "aa000010-0000-0000-0000-000000000010",
+      "name": "🔎 HTTP — GitHub: Checar Arquivo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2220, 360],
+      "onError": "continueErrorOutput"
+    },
+
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-file-exists",
+              "leftValue": "={{ $json.sha }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "aa000011-0000-0000-0000-000000000011",
+      "name": "⚖️ IF — Arquivo já existe?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2440, 360]
+    },
+
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_OWNER }}/{{ $env.GITHUB_REPO }}/contents/{{ $('🔢 Code — Encode Base64').item.json.githubPath }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "=Bearer {{ $env.GITHUB_TOKEN }}" },
+            { "name": "Accept", "value": "application/vnd.github.v3+json" },
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "User-Agent", "value": "SmartOps-SEO-Bot/1.0" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: 'feat(blog): novo artigo — ' + $('🔢 Code — Encode Base64').item.json.seoTitle, content: $('🔢 Code — Encode Base64').item.json.base64Content, branch: 'main' }) }}",
+        "options": {
+          "response": { "response": { "responseFormat": "json" } }
+        }
+      },
+      "id": "aa000012-0000-0000-0000-000000000012",
+      "name": "📤 HTTP — GitHub: Criar Arquivo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2660, 260],
+      "onError": "continueErrorOutput"
+    },
+
+    {
+      "parameters": { "amount": 3, "unit": "seconds" },
+      "id": "aa000013-0000-0000-0000-000000000013",
+      "name": "⏳ Wait — 3s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2880, 260],
+      "webhookId": "wait-webhook-001"
+    },
+
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.netlify.com/build_hooks/{{ $env.NETLIFY_BUILD_HOOK_ID }}",
+        "options": {}
+      },
+      "id": "aa000014-0000-0000-0000-000000000014",
+      "name": "🚀 HTTP — Netlify Build",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3100, 260]
+    },
+
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": { "__rl": true, "value": "SEU_SPREADSHEET_ID_AQUI", "mode": "id" },
+        "sheetName": { "__rl": true, "value": "Posts", "mode": "name" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('⚙️ Code — Preparar Dados').item.json.rowNumber }}",
+            "status": "publicado",
+            "url": "=https://smartops-seo.netlify.app/blog/{{ $('⚙️ Code — Preparar Dados').item.json.slug }}",
+            "published_at": "={{ $('⚙️ Code — Preparar Dados').item.json.timestamp }}",
+            "word_count": "={{ $('📄 Code — Parse + Build Markdown').item.json.wordCount }}",
+            "tokens_used": "={{ $('📄 Code — Parse + Build Markdown').item.json.totalTokens }}"
+          },
+          "matchingColumns": ["row_number"],
+          "schema": [
+            { "id": "row_number", "displayName": "row_number", "required": false, "defaultMatch": true, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "status", "displayName": "status", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false },
+            { "id": "url", "displayName": "url", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false },
+            { "id": "published_at", "displayName": "published_at", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false },
+            { "id": "word_count", "displayName": "word_count", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false },
+            { "id": "tokens_used", "displayName": "tokens_used", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aa000015-0000-0000-0000-000000000015",
+      "name": "✅ GSheets — Update: Publicado",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [3320, 260],
+      "credentials": {
+        "googleSheetsOAuth2Api": { "id": "CREDENTIAL_GSHEETS_ID", "name": "Google Sheets account" }
+      }
+    },
+
+    {
+      "parameters": {},
+      "id": "aa000016-0000-0000-0000-000000000016",
+      "name": "⏭️ Skip — Arquivo já existia",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [2660, 460]
+    },
+
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "err-001",
+              "name": "errorMessage",
+              "value": "={{ $json.message || $json.error || 'Erro desconhecido no GitHub API' }}",
+              "type": "string"
+            },
+            {
+              "id": "err-002",
+              "name": "errorTimestamp",
+              "value": "={{ new Date().toISOString() }}",
+              "type": "string"
+            },
+            {
+              "id": "err-003",
+              "name": "errorSlug",
+              "value": "={{ $('⚙️ Code — Preparar Dados').item.json.slug }}",
+              "type": "string"
+            },
+            {
+              "id": "err-004",
+              "name": "rowNumber",
+              "value": "={{ $('⚙️ Code — Preparar Dados').item.json.rowNumber }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aa000017-0000-0000-0000-000000000017",
+      "name": "❌ Set — Capturar Erro",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [2880, 480]
+    },
+
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": { "__rl": true, "value": "SEU_SPREADSHEET_ID_AQUI", "mode": "id" },
+        "sheetName": { "__rl": true, "value": "Posts", "mode": "name" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.rowNumber }}",
+            "status": "erro",
+            "error_message": "={{ $json.errorMessage }}",
+            "published_at": "={{ $json.errorTimestamp }}"
+          },
+          "matchingColumns": ["row_number"],
+          "schema": [
+            { "id": "row_number", "displayName": "row_number", "required": false, "defaultMatch": true, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "status", "displayName": "status", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false },
+            { "id": "error_message", "displayName": "error_message", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false },
+            { "id": "published_at", "displayName": "published_at", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aa000018-0000-0000-0000-000000000018",
+      "name": "🚨 GSheets — Update: Erro",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [3100, 480],
+      "credentials": {
+        "googleSheetsOAuth2Api": { "id": "CREDENTIAL_GSHEETS_ID", "name": "Google Sheets account" }
+      }
+    },
+
+    {
+      "parameters": {},
+      "id": "aa000019-0000-0000-0000-000000000019",
+      "name": "🔁 Continuar Loop",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [3540, 380]
+    }
+  ],
+
+  "connections": {
+    "⏰ Schedule — A cada hora": {
+      "main": [[{ "node": "📊 GSheets — Ler Pendentes", "type": "main", "index": 0 }]]
+    },
+    "📊 GSheets — Ler Pendentes": {
+      "main": [[{ "node": "🔍 IF — Tem pendentes?", "type": "main", "index": 0 }]]
+    },
+    "🔍 IF — Tem pendentes?": {
+      "main": [
+        [{ "node": "🔄 Loop — 1 por vez", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+    "🔄 Loop — 1 por vez": {
+      "main": [
+        [{ "node": "⚙️ Code — Preparar Dados", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+    "⚙️ Code — Preparar Dados": {
+      "main": [[{ "node": "📝 Code — Build Prompt OpenAI", "type": "main", "index": 0 }]]
+    },
+    "📝 Code — Build Prompt OpenAI": {
+      "main": [[{ "node": "🤖 HTTP — OpenAI Chat", "type": "main", "index": 0 }]]
+    },
+    "🤖 HTTP — OpenAI Chat": {
+      "main": [[{ "node": "📄 Code — Parse + Build Markdown", "type": "main", "index": 0 }]]
+    },
+    "📄 Code — Parse + Build Markdown": {
+      "main": [[{ "node": "🔢 Code — Encode Base64", "type": "main", "index": 0 }]]
+    },
+    "🔢 Code — Encode Base64": {
+      "main": [[{ "node": "🔎 HTTP — GitHub: Checar Arquivo", "type": "main", "index": 0 }]]
+    },
+    "🔎 HTTP — GitHub: Checar Arquivo": {
+      "main": [
+        [{ "node": "⚖️ IF — Arquivo já existe?", "type": "main", "index": 0 }],
+        [{ "node": "⚖️ IF — Arquivo já existe?", "type": "main", "index": 0 }]
+      ]
+    },
+    "⚖️ IF — Arquivo já existe?": {
+      "main": [
+        [{ "node": "⏭️ Skip — Arquivo já existia", "type": "main", "index": 0 }],
+        [{ "node": "📤 HTTP — GitHub: Criar Arquivo", "type": "main", "index": 0 }]
+      ]
+    },
+    "📤 HTTP — GitHub: Criar Arquivo": {
+      "main": [
+        [{ "node": "⏳ Wait — 3s", "type": "main", "index": 0 }],
+        [{ "node": "❌ Set — Capturar Erro", "type": "main", "index": 0 }]
+      ]
+    },
+    "⏳ Wait — 3s": {
+      "main": [[{ "node": "🚀 HTTP — Netlify Build", "type": "main", "index": 0 }]]
+    },
+    "🚀 HTTP — Netlify Build": {
+      "main": [[{ "node": "✅ GSheets — Update: Publicado", "type": "main", "index": 0 }]]
+    },
+    "✅ GSheets — Update: Publicado": {
+      "main": [[{ "node": "🔁 Continuar Loop", "type": "main", "index": 0 }]]
+    },
+    "⏭️ Skip — Arquivo já existia": {
+      "main": [[{ "node": "🔁 Continuar Loop", "type": "main", "index": 0 }]]
+    },
+    "❌ Set — Capturar Erro": {
+      "main": [[{ "node": "🚨 GSheets — Update: Erro", "type": "main", "index": 0 }]]
+    },
+    "🚨 GSheets — Update: Erro": {
+      "main": [[{ "node": "🔁 Continuar Loop", "type": "main", "index": 0 }]]
+    },
+    "🔁 Continuar Loop": {
+      "main": [[{ "node": "🔄 Loop — 1 por vez", "type": "main", "index": 0 }]]
+    }
+  },
+
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "smartops-seo-v1",
+  "meta": { "templateCredsSetupCompleted": false },
+  "id": "",
+  "tags": [{ "name": "SEO" }, { "name": "Automação" }]
+}

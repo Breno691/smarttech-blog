@@ -1,17 +1,240 @@
 ---
+import { getCollection } from 'astro:content';
 
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' });
+}
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>SmartOps SEO — Conteúdo Automatizado com IA</title>
+    <meta name="description" content="Plataforma de geração automática de conteúdo SEO com inteligência artificial. Artigos otimizados, publicados automaticamente." />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content="SmartOps SEO — Conteúdo Automatizado com IA" />
+    <meta property="og:description" content="Plataforma de geração automática de conteúdo SEO com inteligência artificial." />
+    <meta property="og:locale" content="pt_BR" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a href="/" class="site-name" aria-current="page">SmartOps SEO</a>
+        <a href="/blog">Blog</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-badge">Powered by AI</div>
+        <h1>Conteúdo SEO<br /><span class="accent">gerado automaticamente</span></h1>
+        <p>
+          Artigos otimizados para o Google, criados com IA e publicados automaticamente.
+          Zero esforço manual, máximo impacto orgânico.
+        </p>
+        <a href="/blog" class="cta">Ver todos os artigos &rarr;</a>
+      </section>
+
+      {recentPosts.length > 0 && (
+        <section class="posts-section">
+          <h2 class="section-title">Artigos recentes</h2>
+          <ul class="post-list">
+            {recentPosts.map(post => (
+              <li class="post-card">
+                <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}`} class="card-link">
+                  {post.data.heroImage && (
+                    <img
+                      src={post.data.heroImage}
+                      alt={post.data.title}
+                      width="800"
+                      height="420"
+                      loading="lazy"
+                      decoding="async"
+                      class="card-image"
+                    />
+                  )}
+                  <div class="card-body">
+                    {post.data.tags.length > 0 && (
+                      <div class="tags">
+                        {post.data.tags.slice(0, 2).map(tag => (
+                          <span class="tag">{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                    <h3 class="card-title">{post.data.title}</h3>
+                    <p class="card-desc">{post.data.description}</p>
+                    <time class="card-date" datetime={post.data.pubDate.toISOString()}>
+                      {formatDate(post.data.pubDate)}
+                    </time>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="view-all">
+            <a href="/blog" class="view-all-link">Ver todos os artigos &rarr;</a>
+          </div>
+        </section>
+      )}
+    </main>
+
+    <footer>
+      <p>&copy; {new Date().getFullYear()} SmartOps SEO. Todos os direitos reservados.</p>
+    </footer>
+  </body>
 </html>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff; --bg2: #f9fafb; --fg: #111827; --muted: #6b7280;
+    --accent: #7c3aed; --accent-h: #6d28d9; --accent-bg: #ede9fe;
+    --border: #e5e7eb; --max-w: 900px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f1a; --bg2: #161625; --fg: #e8e8f0; --muted: #9ca3af;
+      --accent: #a78bfa; --accent-h: #8b5cf6; --accent-bg: #1e1b4b;
+      --border: #1f2937;
+    }
+  }
+
+  body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.7; }
+
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+  }
+
+  nav {
+    max-width: calc(var(--max-w) + 4rem); margin: 0 auto;
+    padding: 1rem 2rem; display: flex; align-items: center; gap: 1.5rem;
+  }
+
+  nav a { color: var(--fg); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.15s; }
+  nav a:hover { color: var(--accent); }
+  .site-name { font-weight: 800; font-size: 1rem !important; margin-right: auto; }
+
+  main { max-width: calc(var(--max-w) + 4rem); margin: 0 auto; padding: 0 2rem 5rem; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 0 4rem;
+    max-width: 640px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.9rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.25rem;
+  }
+
+  .accent { color: var(--accent); }
+
+  .hero p {
+    font-size: 1.125rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 500px;
+  }
+
+  .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .cta:hover { background: var(--accent-h); transform: translateY(-1px); }
+
+  /* ── POSTS ── */
+  .posts-section { margin-top: 1rem; }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .post-list { list-style: none; display: grid; gap: 1.5rem; }
+
+  @media (min-width: 640px) { .post-list { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .post-list { grid-template-columns: repeat(3, 1fr); } }
+
+  .post-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .post-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card-link { display: block; text-decoration: none; color: inherit; }
+  .card-image { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .card-body { padding: 1.25rem; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.6rem; }
+  .tag {
+    background: var(--accent-bg); color: var(--accent);
+    font-size: 0.65rem; font-weight: 700;
+    padding: 0.15rem 0.55rem; border-radius: 9999px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  .card-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; }
+  .card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.55; margin-bottom: 1rem; }
+  .card-date { font-size: 0.78rem; color: var(--muted); }
+
+  .view-all { margin-top: 2.5rem; text-align: center; }
+  .view-all-link { color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+  .view-all-link:hover { color: var(--accent-h); }
+
+  footer { padding: 2rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.875rem; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    nav { padding: 0.875rem 1rem; }
+    main { padding: 0 1rem 3rem; }
+    .hero { padding: 3rem 0 2.5rem; }
+  }
+</style>
