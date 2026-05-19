@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://smartops-seo.netlify.app', // troque pelo seu domínio real
+  site: 'https://smartops-ia.com.br',
   integrations: [
     sitemap({
       changefreq: 'weekly',

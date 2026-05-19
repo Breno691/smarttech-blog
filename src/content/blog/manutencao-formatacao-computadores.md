@@ -2,7 +2,7 @@
 title: "Manual Completo de Manutenção e Formatação de Computadores"
 description: "Artigo otimizado para SEO local."
 pubDate: "2025-05-19"
-heroImage: "/blog-placeholder-1.jpg"
+heroImage: "/blog-placeholder-1.svg"
 tags:
   - SEO
   - IA
