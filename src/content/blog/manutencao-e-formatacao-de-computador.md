@@ -1,3 +1,10 @@
+---
+title: "Manutenção e Formatação de Computador: Tudo que Você Precisa Saber"
+description: "Guia completo sobre manutenção preventiva, corretiva e formatação de computadores para garantir desempenho e vida útil do equipamento."
+pubDate: "2025-05-19"
+tags: ["Manutenção", "Formatação", "Computador"]
+---
+
 # Manutenção e Formatação de Computador: Tudo que Você Precisa Saber
 
 Manter um computador em bom estado é essencial para garantir o seu desempenho e prolongar a sua vida útil. Neste artigo, vamos abordar os conceitos de manutenção e formatação de computadores, além de dicas para realizar esses processos de maneira eficiente.
