@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Bloqueia pastas internas do Astro
+Disallow: /_astro/
+
+Sitemap: https://smartops-seo.netlify.app/sitemap-index.xml
