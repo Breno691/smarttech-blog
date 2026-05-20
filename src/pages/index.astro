@@ -296,33 +296,39 @@ const cities = [
             <p class="section-sub">A maioria dos técnicos não usa ferramentas de diagnóstico SMART. Nós sim — e isso muda tudo.</p>
           </div>
           <ul class="diff-grid">
-            <li class="diff-card">
-              <span class="diff-num">// 01</span>
+            <li class="diff-card" data-accent="cyan">
+              <span class="diff-ghost" aria-hidden="true">01</span>
+              <span class="diff-tag">// 01</span>
               <h3>Diagnóstico por dados reais</h3>
               <p>Lemos os parâmetros SMART internos do seu disco. Identificamos problemas que olho nu não vê, com evidência técnica e relatório completo.</p>
             </li>
-            <li class="diff-card">
-              <span class="diff-num">// 02</span>
+            <li class="diff-card" data-accent="purple">
+              <span class="diff-ghost" aria-hidden="true">02</span>
+              <span class="diff-tag">// 02</span>
               <h3>Transparência total</h3>
               <p>Você vê os dados na tela, entende o que foi encontrado e decide com informação. Sem achismo, sem cobrança por serviço desnecessário.</p>
             </li>
-            <li class="diff-card">
-              <span class="diff-num">// 03</span>
+            <li class="diff-card" data-accent="green">
+              <span class="diff-ghost" aria-hidden="true">03</span>
+              <span class="diff-tag">// 03</span>
               <h3>Ferramentas profissionais</h3>
               <p>CrystalDiskInfo, smartctl, HD Tune Pro, Victoria, Macrium Reflect. As mesmas ferramentas usadas por laboratórios de recuperação de dados.</p>
             </li>
-            <li class="diff-card">
-              <span class="diff-num">// 04</span>
+            <li class="diff-card" data-accent="amber">
+              <span class="diff-ghost" aria-hidden="true">04</span>
+              <span class="diff-tag">// 04</span>
               <h3>Black Belt Lean Six Sigma</h3>
               <p>Metodologia de melhoria contínua aplicada ao atendimento técnico. Processos organizados, prazo cumprido, resultado garantido.</p>
             </li>
-            <li class="diff-card">
-              <span class="diff-num">// 05</span>
+            <li class="diff-card" data-accent="blue">
+              <span class="diff-ghost" aria-hidden="true">05</span>
+              <span class="diff-tag">// 05</span>
               <h3>Atendimento direto</h3>
               <p>Você fala diretamente com o técnico responsável. Sem intermediários, sem atendente sem conhecimento. Comunicação clara e acessível.</p>
             </li>
-            <li class="diff-card">
-              <span class="diff-num">// 06</span>
+            <li class="diff-card" data-accent="red">
+              <span class="diff-ghost" aria-hidden="true">06</span>
+              <span class="diff-tag">// 06</span>
               <h3>Backup antes de tudo</h3>
               <p>Nenhum dado é tocado sem antes garantir sua segurança. Backup documentado e verificado antes de qualquer procedimento invasivo.</p>
             </li>
@@ -340,10 +346,11 @@ const cities = [
           <ul class="testimonials-grid">
             {testimonials.map(t => (
               <li class="testimonial-card">
+                <span class="t-deco" aria-hidden="true">❝</span>
                 <div class="t-stars" aria-label={`${t.stars} estrelas`}>
                   {'★'.repeat(t.stars)}
                 </div>
-                <p class="t-text">"{t.text}"</p>
+                <p class="t-text">{t.text}</p>
                 <div class="t-author">
                   <div class="t-avatar" aria-hidden="true">
                     {t.name.charAt(0)}
@@ -836,19 +843,54 @@ const cities = [
 
   .diff-card {
     background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 14px; padding: 1.75rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .diff-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
-
-  .diff-num {
-    font-size: 0.65rem; font-weight: 800;
-    color: var(--accent-l); letter-spacing: 0.1em;
-    margin-bottom: 0.75rem; display: block;
+    border-radius: 16px; padding: 2rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s;
   }
 
-  .diff-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.55rem; }
-  .diff-card p { font-size: 0.855rem; color: var(--muted); line-height: 1.65; }
+  /* top glow bar – appears on hover */
+  .diff-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    opacity: 0; transition: opacity 0.35s;
+  }
+  .diff-card[data-accent="cyan"]::before   { background: linear-gradient(90deg, #00e5ff, #0066ff); }
+  .diff-card[data-accent="purple"]::before { background: linear-gradient(90deg, var(--accent-l), var(--accent)); }
+  .diff-card[data-accent="green"]::before  { background: linear-gradient(90deg, #00e676, #00b4ff); }
+  .diff-card[data-accent="amber"]::before  { background: linear-gradient(90deg, #ffb800, #ff6400); }
+  .diff-card[data-accent="blue"]::before   { background: linear-gradient(90deg, #0066ff, #00e5ff); }
+  .diff-card[data-accent="red"]::before    { background: linear-gradient(90deg, #ff2e2e, #ff6400); }
+
+  .diff-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.25); }
+  .diff-card:hover::before { opacity: 1; }
+  .diff-card[data-accent="cyan"]:hover   { border-color: rgba(0,229,255,0.3); }
+  .diff-card[data-accent="purple"]:hover { border-color: var(--accent-border); }
+  .diff-card[data-accent="green"]:hover  { border-color: rgba(0,230,118,0.3); }
+  .diff-card[data-accent="amber"]:hover  { border-color: rgba(255,184,0,0.3); }
+  .diff-card[data-accent="blue"]:hover   { border-color: rgba(0,102,255,0.3); }
+  .diff-card[data-accent="red"]:hover    { border-color: rgba(255,46,46,0.3); }
+
+  /* ghost number watermark */
+  .diff-ghost {
+    position: absolute; bottom: -12px; right: 12px;
+    font-size: 7rem; font-weight: 900; line-height: 1;
+    color: rgba(255,255,255,0.035);
+    pointer-events: none; user-select: none;
+  }
+
+  /* tag badge */
+  .diff-tag {
+    display: inline-block;
+    font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--accent-l);
+    background: rgba(124,58,237,0.1);
+    border: 1px solid var(--accent-border);
+    padding: 0.2rem 0.65rem; border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .diff-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.55rem; }
+  .diff-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.65; position: relative; }
 
   /* ── TESTIMONIALS ── */
   .testimonials-section { background: var(--bg2); }
@@ -860,22 +902,50 @@ const cities = [
 
   .testimonial-card {
     background: var(--bg); border: 1px solid var(--border);
-    border-radius: 16px; padding: 2rem;
-    transition: border-color 0.2s, transform 0.2s;
+    border-radius: 20px; padding: 2rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s;
   }
-  .testimonial-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
 
-  .t-stars { color: #fbbf24; font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
-  .t-text { font-size: 0.9rem; color: var(--muted); font-style: italic; line-height: 1.7; margin-bottom: 1.5rem; }
-  .t-author { display: flex; align-items: center; gap: 0.85rem; }
+  /* gradient shimmer on hover */
+  .testimonial-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-l), transparent);
+    opacity: 0; transition: opacity 0.35s;
+  }
+  .testimonial-card:hover { border-color: var(--accent-border); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(124,58,237,0.12); }
+  .testimonial-card:hover::before { opacity: 1; }
+
+  /* big decorative quote mark */
+  .t-deco {
+    display: block;
+    font-size: 5rem; line-height: 1; height: 3.5rem;
+    color: var(--accent-l); opacity: 0.18;
+    font-family: Georgia, 'Times New Roman', serif;
+    margin-bottom: 0.5rem;
+    transition: opacity 0.3s;
+  }
+  .testimonial-card:hover .t-deco { opacity: 0.3; }
+
+  .t-stars {
+    color: #fbbf24; font-size: 0.95rem; letter-spacing: 3px; margin-bottom: 1rem;
+    filter: drop-shadow(0 0 5px rgba(251,191,36,0.45));
+  }
+  .t-text {
+    font-size: 0.9rem; color: var(--muted); font-style: italic; line-height: 1.75;
+    margin-bottom: 1.5rem; position: relative;
+  }
+  .t-author {
+    display: flex; align-items: center; gap: 0.85rem;
+    border-top: 1px solid var(--border); padding-top: 1.25rem;
+  }
 
   .t-avatar {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(124,58,237,0.15);
-    border: 1px solid var(--accent-border);
+    width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--accent-l));
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 1rem; color: var(--accent-l);
-    flex-shrink: 0;
+    font-weight: 800; font-size: 1.1rem; color: #fff;
+    box-shadow: 0 4px 14px rgba(124,58,237,0.45);
   }
 
   .t-name { display: block; font-size: 0.9rem; font-weight: 700; }
