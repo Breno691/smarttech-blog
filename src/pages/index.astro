@@ -4,13 +4,80 @@ import { getCollection } from 'astro:content';
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 6);
+  .slice(0, 3);
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br';
+
+// ← Atualize para o seu número de WhatsApp (formato: 55 + DDD + número)
+const whatsappNumber = '5531999990000';
+const whatsappMsg = encodeURIComponent('Olá! Vim pelo site da SmartOps IA e quero saber mais sobre os serviços.');
+const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' });
 }
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'SmartOps IA',
+  description: 'Automação com IA, SEO local, geração de conteúdo e consultoria Lean Six Sigma em Nova Pampulha, Morro Alto e Vespasiano.',
+  url: siteURL,
+  areaServed: [
+    { '@type': 'City', name: 'Nova Pampulha', containedInPlace: { '@type': 'City', name: 'Belo Horizonte' } },
+    { '@type': 'City', name: 'Morro Alto' },
+    { '@type': 'City', name: 'Vespasiano' },
+  ],
+  sameAs: [`https://wa.me/${whatsappNumber}`],
+};
+
+const services = [
+  {
+    icon: `<path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM9 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>`,
+    title: 'Automação IA',
+    desc: 'Fluxos inteligentes com n8n, GPT e integrações que eliminam tarefas manuais e rodam 24/7.',
+  },
+  {
+    icon: `<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>`,
+    title: 'SEO Local',
+    desc: 'Apareça no Google quando sua cidade pesquisa. Estratégias focadas em posicionamento local.',
+  },
+  {
+    icon: `<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>`,
+    title: 'Geração de Conteúdo',
+    desc: 'Artigos, descrições e posts criados por IA, otimizados para ranquear e converter.',
+  },
+  {
+    icon: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
+    title: 'Consultoria Lean Six Sigma',
+    desc: 'Reduza desperdícios, melhore processos e aumente a eficiência com metodologia comprovada.',
+  },
+  {
+    icon: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>`,
+    title: 'Manutenção de Computadores',
+    desc: 'Diagnóstico, limpeza interna e reparos em hardware e software com agilidade e garantia.',
+  },
+  {
+    icon: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`,
+    title: 'Formatação e Otimização',
+    desc: 'Windows mais rápido, sem travamentos e com backup seguro. Seu PC como novo.',
+  },
+];
+
+const benefits = [
+  { stat: '+80%', label: 'Produtividade', desc: 'Ganhe horas por dia eliminando tarefas manuais repetitivas.' },
+  { stat: '-40%', label: 'Redução de Custos', desc: 'Menos erros, menos retrabalho, mais resultado com menos recurso.' },
+  { stat: '24/7', label: 'Automação Operacional', desc: 'Fluxos que trabalham enquanto você foca no que importa.' },
+  { stat: '↑SEO', label: 'Crescimento Orgânico', desc: 'Tráfego do Google constante, sem depender de anúncios.' },
+  { stat: '+Leads', label: 'Geração de Leads', desc: 'Conteúdo que atrai, engaja e converte visitantes em clientes.' },
+];
+
+const cities = [
+  { name: 'Nova Pampulha', sub: 'Belo Horizonte, MG', desc: 'Automação, SEO e suporte técnico para negócios da região.' },
+  { name: 'Morro Alto', sub: 'Região Metropolitana, MG', desc: 'Presença digital e manutenção de TI para pequenas empresas.' },
+  { name: 'Vespasiano', sub: 'Região Metropolitana de BH', desc: 'SEO local, formatação de computadores e consultoria em IA.' },
+];
 ---
 
 <!DOCTYPE html>
@@ -19,230 +86,889 @@ function formatDate(date: Date) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <title>SmartOps SEO — Conteúdo Automatizado com IA</title>
-    <meta name="description" content="Plataforma de geração automática de conteúdo SEO com inteligência artificial. Artigos otimizados, publicados automaticamente." />
+
+    <title>SmartOps IA — Automação, SEO e Crescimento Inteligente</title>
+    <meta name="description" content="Automatize processos, gere tráfego orgânico e escale sua operação com IA. SEO local em Nova Pampulha, Morro Alto e Vespasiano." />
+    <meta name="keywords" content="automação IA, SEO local, geração de conteúdo, Lean Six Sigma, manutenção computadores, Nova Pampulha, Vespasiano, Belo Horizonte" />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content="SmartOps SEO — Conteúdo Automatizado com IA" />
-    <meta property="og:description" content="Plataforma de geração automática de conteúdo SEO com inteligência artificial." />
+    <meta property="og:title" content="SmartOps IA — Automação, SEO e Crescimento Inteligente" />
+    <meta property="og:description" content="Automatize processos, gere tráfego orgânico e escale sua operação com IA." />
     <meta property="og:image" content={new URL('/og-default.svg', Astro.site).href} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content="SmartOps SEO" />
+    <meta property="og:site_name" content="SmartOps IA" />
+
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="SmartOps SEO — Conteúdo Automatizado com IA" />
-    <meta name="twitter:description" content="Plataforma de geração automática de conteúdo SEO com inteligência artificial." />
+    <meta name="twitter:title" content="SmartOps IA — Automação, SEO e Crescimento Inteligente" />
+    <meta name="twitter:description" content="Automatize processos, gere tráfego orgânico e escale sua operação com IA." />
     <meta name="twitter:image" content={new URL('/og-default.svg', Astro.site).href} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
 
   <body>
+    <!-- ── NAVBAR ── -->
     <header>
       <nav>
-        <a href="/" class="site-name" aria-current="page">SmartOps SEO</a>
-        <a href="/blog">Blog</a>
+        <a href="/" class="logo" aria-current="page">
+          Smart<span>Ops</span> <em>IA</em>
+        </a>
+        <div class="nav-links" id="nav-links">
+          <a href="/">Home</a>
+          <a href="/blog">Blog</a>
+          <a href="/#servicos">Serviços</a>
+          <a href="/#contato">Contato</a>
+        </div>
+        <a href={whatsappURL} class="nav-wa" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+          WhatsApp
+        </a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </nav>
     </header>
 
     <main>
+      <!-- ── HERO ── -->
       <section class="hero">
-        <div class="hero-badge">Powered by AI</div>
-        <h1>Conteúdo SEO<br /><span class="accent">gerado automaticamente</span></h1>
-        <p>
-          Artigos otimizados para o Google, criados com IA e publicados automaticamente.
-          Zero esforço manual, máximo impacto orgânico.
-        </p>
-        <a href="/blog" class="cta">Ver todos os artigos &rarr;</a>
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container hero-inner">
+          <div class="hero-badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            Powered by AI
+          </div>
+          <h1>
+            Automação IA, SEO e<br />
+            <span class="gradient-text">crescimento inteligente</span>
+          </h1>
+          <p class="hero-sub">
+            Automatize processos, gere tráfego orgânico e escale sua operação com IA.
+          </p>
+          <div class="hero-btns">
+            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+              Falar no WhatsApp
+            </a>
+            <a href="/blog" class="btn-outline">
+              Ver Blog
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>+50</strong><span>Processos automatizados</span></div>
+            <div class="hero-stat-sep" aria-hidden="true"></div>
+            <div class="hero-stat"><strong>3</strong><span>Cidades atendidas</span></div>
+            <div class="hero-stat-sep" aria-hidden="true"></div>
+            <div class="hero-stat"><strong>24/7</strong><span>Automação rodando</span></div>
+          </div>
+        </div>
       </section>
 
-      {recentPosts.length > 0 && (
-        <section class="posts-section">
-          <h2 class="section-title">Artigos recentes</h2>
-          <ul class="post-list">
-            {recentPosts.map(post => (
-              <li class="post-card">
-                <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}`} class="card-link">
-                  {post.data.heroImage && (
-                    <img
-                      src={post.data.heroImage}
-                      alt={post.data.title}
-                      width="800"
-                      height="420"
-                      loading="lazy"
-                      decoding="async"
-                      class="card-image"
-                    />
-                  )}
-                  <div class="card-body">
-                    {post.data.tags.length > 0 && (
-                      <div class="tags">
-                        {post.data.tags.slice(0, 2).map(tag => (
-                          <span class="tag">{tag}</span>
-                        ))}
-                      </div>
-                    )}
-                    <h3 class="card-title">{post.data.title}</h3>
-                    <p class="card-desc">{post.data.description}</p>
-                    <time class="card-date" datetime={post.data.pubDate.toISOString()}>
-                      {formatDate(post.data.pubDate)}
-                    </time>
-                  </div>
-                </a>
+      <!-- ── SERVIÇOS ── -->
+      <section class="section services-section" id="servicos">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">O que fazemos</p>
+            <h2 class="section-title">Serviços que <span class="gradient-text">transformam</span></h2>
+            <p class="section-sub">Da automação ao SEO, entregamos resultado com tecnologia e metodologia.</p>
+          </div>
+          <ul class="services-grid">
+            {services.map(s => (
+              <li class="service-card">
+                <div class="service-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+                </div>
+                <h3 class="service-title">{s.title}</h3>
+                <p class="service-desc">{s.desc}</p>
               </li>
             ))}
           </ul>
-          <div class="view-all">
-            <a href="/blog" class="view-all-link">Ver todos os artigos &rarr;</a>
+        </div>
+      </section>
+
+      <!-- ── BENEFÍCIOS ── -->
+      <section class="section benefits-section">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">Por que SmartOps</p>
+            <h2 class="section-title">Resultados <span class="gradient-text">mensuráveis</span></h2>
+          </div>
+          <ul class="benefits-grid">
+            {benefits.map(b => (
+              <li class="benefit-card">
+                <div class="benefit-stat">{b.stat}</div>
+                <h3 class="benefit-label">{b.label}</h3>
+                <p class="benefit-desc">{b.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- ── SEO LOCAL ── -->
+      <section class="section local-section">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">Atendimento local</p>
+            <h2 class="section-title">Sua cidade, <span class="gradient-text">nossa presença</span></h2>
+            <p class="section-sub">Atendemos empresas e pessoas físicas em Nova Pampulha, Morro Alto e Vespasiano.</p>
+          </div>
+          <ul class="cities-grid">
+            {cities.map(c => (
+              <li class="city-card">
+                <div class="city-pin" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <h3 class="city-name">{c.name}</h3>
+                <p class="city-sub">{c.sub}</p>
+                <p class="city-desc">{c.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- ── BLOG PREVIEW ── -->
+      {recentPosts.length > 0 && (
+        <section class="section blog-section">
+          <div class="container">
+            <div class="section-header">
+              <p class="section-label">Conteúdo</p>
+              <h2 class="section-title">Blog <span class="gradient-text">SmartOps</span></h2>
+              <p class="section-sub">Artigos sobre IA, SEO e automação gerados automaticamente.</p>
+            </div>
+            <ul class="posts-grid">
+              {recentPosts.map(post => (
+                <li class="post-card">
+                  <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}`} class="post-link">
+                    {post.data.heroImage && (
+                      <img
+                        src={post.data.heroImage}
+                        alt={post.data.title}
+                        width="800"
+                        height="420"
+                        loading="lazy"
+                        decoding="async"
+                        class="post-img"
+                      />
+                    )}
+                    <div class="post-body">
+                      {post.data.tags.length > 0 && (
+                        <div class="post-tags">
+                          {post.data.tags.slice(0, 2).map(tag => (
+                            <span class="post-tag">{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                      <h3 class="post-title">{post.data.title}</h3>
+                      <p class="post-desc">{post.data.description}</p>
+                      <time class="post-date" datetime={post.data.pubDate.toISOString()}>
+                        {formatDate(post.data.pubDate)}
+                      </time>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div class="blog-cta">
+              <a href="/blog" class="btn-outline">
+                Ver todos os artigos
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
           </div>
         </section>
       )}
+
+      <!-- ── CTA FINAL ── -->
+      <section class="section cta-section" id="contato">
+        <div class="container">
+          <div class="cta-inner">
+            <div class="cta-glow" aria-hidden="true"></div>
+            <p class="section-label">Pronto para começar?</p>
+            <h2 class="cta-title">Escale seu negócio com <span class="gradient-text">IA agora</span></h2>
+            <p class="cta-sub">
+              Fale direto com a gente pelo WhatsApp. Sem burocracia, sem enrolação.
+            </p>
+            <a href={whatsappURL} class="btn-wa btn-wa-lg" target="_blank" rel="noopener noreferrer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+              Falar no WhatsApp agora
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
 
+    <!-- ── FOOTER ── -->
     <footer>
-      <p>&copy; {new Date().getFullYear()} SmartOps SEO. Todos os direitos reservados.</p>
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo">Smart<span>Ops</span> <em>IA</em></a>
+          <p>Automação inteligente, SEO e tecnologia para o seu negócio crescer.</p>
+          <a href={whatsappURL} class="footer-wa" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+            Enviar mensagem
+          </a>
+        </div>
+        <nav class="footer-nav" aria-label="Navegação do rodapé">
+          <div class="footer-col">
+            <h4>Navegação</h4>
+            <a href="/">Home</a>
+            <a href="/blog">Blog</a>
+            <a href="/#servicos">Serviços</a>
+            <a href="/#contato">Contato</a>
+          </div>
+          <div class="footer-col">
+            <h4>Serviços</h4>
+            <a href="/#servicos">Automação IA</a>
+            <a href="/#servicos">SEO Local</a>
+            <a href="/#servicos">Geração de Conteúdo</a>
+            <a href="/#servicos">Lean Six Sigma</a>
+          </div>
+          <div class="footer-col">
+            <h4>Regiões</h4>
+            <a href="/#local">Nova Pampulha</a>
+            <a href="/#local">Morro Alto</a>
+            <a href="/#local">Vespasiano</a>
+            <a href="/#local">Belo Horizonte</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; {new Date().getFullYear()} SmartOps IA. Todos os direitos reservados.</p>
+        <p>Feito com Astro + IA &mdash; <a href="/blog">Blog SEO</a></p>
+      </div>
     </footer>
   </body>
 </html>
+
+<script is:inline>
+  const toggle = document.getElementById('mobile-toggle');
+  const links = document.getElementById('nav-links');
+  toggle?.addEventListener('click', () => {
+    const open = links?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #ffffff; --bg2: #f9fafb; --fg: #111827; --muted: #6b7280;
-    --accent: #7c3aed; --accent-h: #6d28d9; --accent-bg: #ede9fe;
-    --border: #e5e7eb; --max-w: 900px;
+    --bg: #06060e;
+    --bg2: #0d0d1c;
+    --bg3: #13132a;
+    --fg: #e8e8f0;
+    --muted: #8b8baa;
+    --accent: #7c3aed;
+    --accent-l: #a78bfa;
+    --accent-glow: rgba(124, 58, 237, 0.25);
+    --accent-border: rgba(167, 139, 250, 0.2);
+    --green: #25d366;
+    --green-h: #1db954;
+    --border: rgba(255, 255, 255, 0.07);
+    --max-w: 1180px;
     --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f0f1a; --bg2: #161625; --fg: #e8e8f0; --muted: #9ca3af;
-      --accent: #a78bfa; --accent-h: #8b5cf6; --accent-bg: #1e1b4b;
-      --border: #1f2937;
-    }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    overflow-x: hidden;
   }
 
-  body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.7; }
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
 
+  /* ── GRADIENT TEXT ── */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent-l) 0%, var(--accent) 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--green);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(37, 211, 102, 0.25);
+  }
+  .btn-wa:hover { background: var(--green-h); transform: translateY(-2px); box-shadow: 0 6px 32px rgba(37, 211, 102, 0.35); }
+  .btn-wa-lg { font-size: 1.1rem; padding: 1rem 2.25rem; }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--accent-border);
+    color: var(--accent-l);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    background: rgba(124, 58, 237, 0.05);
+  }
+  .btn-outline:hover { border-color: var(--accent-l); background: rgba(124, 58, 237, 0.1); transform: translateY(-2px); }
+
+  /* ── SECTION LAYOUT ── */
+  .section { padding: 6rem 0; }
+
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-l);
+    border: 1px solid var(--accent-border);
+    background: rgba(124, 58, 237, 0.08);
+    padding: 0.3rem 0.9rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── NAVBAR ── */
   header {
-    position: sticky; top: 0; z-index: 100;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    position: sticky;
+    top: 0;
+    z-index: 200;
     border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
+    background: rgba(6, 6, 14, 0.82);
   }
 
   nav {
-    max-width: calc(var(--max-w) + 4rem); margin: 0 auto;
-    padding: 1rem 2rem; display: flex; align-items: center; gap: 1.5rem;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
-  nav a { color: var(--fg); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.15s; }
-  nav a:hover { color: var(--accent); }
-  .site-name { font-weight: 800; font-size: 1rem !important; margin-right: auto; }
+  .logo {
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--fg);
+    margin-right: auto;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+  .logo span { color: var(--accent-l); }
+  .logo em { font-style: normal; color: var(--muted); font-size: 0.85em; }
 
-  main { max-width: calc(var(--max-w) + 4rem); margin: 0 auto; padding: 0 2rem 5rem; }
+  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav-links a:hover { color: var(--fg); background: rgba(255,255,255,0.05); }
+
+  .nav-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(37, 211, 102, 0.12);
+    border: 1px solid rgba(37, 211, 102, 0.3);
+    color: var(--green);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.45rem 1rem;
+    border-radius: 9px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-wa:hover { background: rgba(37, 211, 102, 0.2); border-color: rgba(37, 211, 102, 0.5); }
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+  .mobile-toggle:hover { background: rgba(255,255,255,0.05); }
+  .mobile-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--fg);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
 
   /* ── HERO ── */
   .hero {
-    padding: 5rem 0 4rem;
-    max-width: 640px;
+    position: relative;
+    padding: 7rem 0 6rem;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    text-align: center;
   }
 
   .hero-badge {
-    display: inline-block;
-    background: var(--accent-bg);
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.75rem;
     font-weight: 700;
-    padding: 0.3rem 0.9rem;
-    border-radius: 9999px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--accent-l);
+    border: 1px solid var(--accent-border);
+    background: rgba(124, 58, 237, 0.08);
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: 1.75rem;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
   }
 
   .hero h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(2.4rem, 5.5vw, 4.25rem);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-sub {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+  }
+
+  .hero-stat { text-align: center; }
+  .hero-stat strong { display: block; font-size: 1.6rem; font-weight: 800; color: var(--accent-l); }
+  .hero-stat span { font-size: 0.8rem; color: var(--muted); }
+
+  .hero-stat-sep {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+  }
+
+  /* ── SERVICES ── */
+  .services-section { background: rgba(13, 13, 28, 0.5); }
+
+  .services-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 0.25s, transform 0.2s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top left, rgba(124, 58, 237, 0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-card:hover { border-color: var(--accent-border); transform: translateY(-3px); background: var(--bg3); }
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid var(--accent-border);
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    color: var(--accent-l);
+  }
+
+  .service-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── BENEFITS ── */
+  .benefits-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+  }
+
+  .benefit-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .benefit-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
+
+  .benefit-stat {
+    font-size: 1.9rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-l), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .benefit-label { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .benefit-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── SEO LOCAL ── */
+  .local-section { background: rgba(13, 13, 28, 0.5); }
+
+  .cities-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .city-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .city-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
+
+  .city-pin {
+    color: var(--accent-l);
+    margin-bottom: 1rem;
+  }
+
+  .city-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.3rem; }
+  .city-sub { font-size: 0.78rem; color: var(--accent-l); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 0.85rem; }
+  .city-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── BLOG PREVIEW ── */
+  .posts-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .post-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .post-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
+
+  .post-link { display: block; text-decoration: none; color: inherit; height: 100%; }
+  .post-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .post-body { padding: 1.5rem; }
+
+  .post-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
+  .post-tag {
+    background: rgba(124, 58, 237, 0.12);
+    color: var(--accent-l);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .post-title { font-size: 1.0rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; }
+  .post-desc { font-size: 0.845rem; color: var(--muted); line-height: 1.55; margin-bottom: 1rem; }
+  .post-date { font-size: 0.76rem; color: var(--muted); }
+
+  .blog-cta { text-align: center; }
+
+  /* ── CTA FINAL ── */
+  .cta-section { padding: 8rem 0; }
+
+  .cta-inner {
+    position: relative;
+    text-align: center;
+    background: var(--bg2);
+    border: 1px solid var(--accent-border);
+    border-radius: 24px;
+    padding: 5rem 2rem;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    position: relative;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
     margin-bottom: 1.25rem;
   }
 
-  .accent { color: var(--accent); }
-
-  .hero p {
-    font-size: 1.125rem;
+  .cta-sub {
+    position: relative;
+    font-size: 1.1rem;
     color: var(--muted);
+    max-width: 460px;
+    margin: 0 auto 2.5rem;
     line-height: 1.7;
-    margin-bottom: 2rem;
-    max-width: 500px;
   }
 
-  .cta {
-    display: inline-block;
-    background: var(--accent);
-    color: #fff;
-    font-size: 0.95rem;
+  .cta-inner .btn-wa { position: relative; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    background: rgba(6, 6, 14, 0.95);
+  }
+
+  .footer-inner {
+    display: flex;
+    gap: 4rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .footer-brand .logo { display: inline-block; margin-bottom: 0.85rem; }
+  .footer-brand p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; max-width: 260px; }
+
+  .footer-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--green);
+    font-size: 0.875rem;
     font-weight: 600;
-    padding: 0.75rem 1.75rem;
-    border-radius: 10px;
     text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
+    transition: color 0.15s;
+  }
+  .footer-wa:hover { color: var(--green-h); }
+
+  .footer-nav {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
   }
 
-  .cta:hover { background: var(--accent-h); transform: translateY(-1px); }
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 130px;
+  }
 
-  /* ── POSTS ── */
-  .posts-section { margin-top: 1rem; }
-
-  .section-title {
-    font-size: 1.5rem;
+  .footer-col h4 {
+    font-size: 0.75rem;
     font-weight: 700;
-    margin-bottom: 1.75rem;
-    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg);
+    margin-bottom: 0.35rem;
   }
 
-  .post-list { list-style: none; display: grid; gap: 1.5rem; }
+  .footer-col a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.15s;
+  }
+  .footer-col a:hover { color: var(--accent-l); }
 
-  @media (min-width: 640px) { .post-list { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 900px) { .post-list { grid-template-columns: repeat(3, 1fr); } }
-
-  .post-card {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 14px; overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
   }
 
-  .post-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .card-link { display: block; text-decoration: none; color: inherit; }
-  .card-image { width: 100%; height: 180px; object-fit: cover; display: block; }
-  .card-body { padding: 1.25rem; }
+  .footer-bottom a { color: var(--accent-l); text-decoration: none; }
+  .footer-bottom a:hover { text-decoration: underline; }
 
-  .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.6rem; }
-  .tag {
-    background: var(--accent-bg); color: var(--accent);
-    font-size: 0.65rem; font-weight: 700;
-    padding: 0.15rem 0.55rem; border-radius: 9999px;
-    text-transform: uppercase; letter-spacing: 0.06em;
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .benefits-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
-  .card-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; }
-  .card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.55; margin-bottom: 1rem; }
-  .card-date { font-size: 0.78rem; color: var(--muted); }
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .cities-grid { grid-template-columns: repeat(2, 1fr); }
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+    .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  }
 
-  .view-all { margin-top: 2.5rem; text-align: center; }
-  .view-all-link { color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.95rem; }
-  .view-all-link:hover { color: var(--accent-h); }
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(6, 6, 14, 0.98);
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem;
+      gap: 0.25rem;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { width: 100%; padding: 0.65rem 1rem; border-radius: 10px; }
+    .mobile-toggle { display: flex; }
+    header { position: relative; }
 
-  footer { padding: 2rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.875rem; color: var(--muted); }
+    .hero { padding: 5rem 0 4rem; }
+    .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
+    .hero-stat-sep { display: none; }
 
-  @media (max-width: 640px) {
-    nav { padding: 0.875rem 1rem; }
-    main { padding: 0 1rem 3rem; }
-    .hero { padding: 3rem 0 2.5rem; }
+    .footer-inner { flex-direction: column; gap: 2rem; }
+    .footer-nav { gap: 2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .cities-grid { grid-template-columns: 1fr; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr 1fr; }
+    .section { padding: 4rem 0; }
+    .container { padding: 0 1.25rem; }
+    nav { padding: 0.875rem 1.25rem; }
+    .nav-wa span { display: none; }
   }
 </style>

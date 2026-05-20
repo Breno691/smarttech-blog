@@ -77,14 +77,19 @@ function formatDate(date: Date) {
     <link rel="icon" href="/favicon.ico" />
 
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
 
   <body>
     <header>
       <nav>
-        <a href="/" class="site-name">SmartOps SEO</a>
-        <a href="/blog">Blog</a>
+        <a href="/" class="site-name">SmartOps <span>IA</span></a>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/blog" aria-current="page">Blog</a>
+          <a href="/#servicos">Serviços</a>
+          <a href="/#contato">Contato</a>
+        </div>
       </nav>
     </header>
 
@@ -205,6 +210,9 @@ function formatDate(date: Date) {
 
   nav a:hover { color: var(--accent); }
   .site-name { font-weight: 800; font-size: 1rem !important; margin-right: auto; }
+  .site-name span { color: var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+  .nav-links a { font-size: 0.875rem; font-weight: 500; padding: 0.35rem 0.7rem; border-radius: 8px; }
 
   /* ── MAIN ── */
   main {
