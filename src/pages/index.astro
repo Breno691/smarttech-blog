@@ -9,8 +9,7 @@ const recentPosts = allPosts
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br';
 
-// ← Atualize para o seu número de WhatsApp (formato: 55 + DDD + número)
-const whatsappNumber = '5531999990000';
+const whatsappNumber = '5531987223507';
 const whatsappMsg = encodeURIComponent('Olá! Vim pelo site da SmartOps IA e quero saber mais sobre os serviços.');
 const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
 
@@ -22,8 +21,9 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'SmartOps IA',
-  description: 'Automação com IA, SEO local, geração de conteúdo e consultoria Lean Six Sigma em Nova Pampulha, Morro Alto e Vespasiano.',
+  description: 'Manutenção de computadores, diagnóstico SMART avançado, upgrade SSD, automação IA e SEO local em Nova Pampulha, Morro Alto e Vespasiano.',
   url: siteURL,
+  telephone: `+55-31-98722-3507`,
   areaServed: [
     { '@type': 'City', name: 'Nova Pampulha', containedInPlace: { '@type': 'City', name: 'Belo Horizonte' } },
     { '@type': 'City', name: 'Morro Alto' },
@@ -34,49 +34,104 @@ const schema = {
 
 const services = [
   {
-    icon: `<path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2zM9 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>`,
-    title: 'Automação IA',
-    desc: 'Fluxos inteligentes com n8n, GPT e integrações que eliminam tarefas manuais e rodam 24/7.',
+    icon: `<circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/>`,
+    title: 'Diagnóstico SMART Avançado',
+    desc: 'Análise completa dos parâmetros SMART de HDs e SSDs com CrystalDiskInfo, smartctl, HD Tune e Victoria. Identificamos bad blocks e risco de falha antes que você perca seus dados.',
   },
   {
-    icon: `<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>`,
-    title: 'SEO Local',
-    desc: 'Apareça no Google quando sua cidade pesquisa. Estratégias focadas em posicionamento local.',
+    icon: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`,
+    title: 'Upgrade SSD M.2 / SATA',
+    desc: 'Instalação e clonagem do sistema operacional para SSD NVMe ou SATA. Boot de 4 minutos vai para 12 segundos. 3.500 MB/s de velocidade. Garantia de funcionamento.',
   },
   {
-    icon: `<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>`,
-    title: 'Geração de Conteúdo',
-    desc: 'Artigos, descrições e posts criados por IA, otimizados para ranquear e converter.',
+    icon: `<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>`,
+    title: 'Formatação Completa',
+    desc: 'Formatação e reinstalação do Windows com drivers, programas essenciais e configurações otimizadas. Backup completo e verificado antes de qualquer procedimento.',
+  },
+  {
+    icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+    title: 'Remoção de Vírus',
+    desc: 'Eliminação completa de malware, ransomware, adware e spyware. Verificação em múltiplas camadas. Sistema limpo e protegido garantido.',
   },
   {
     icon: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
     title: 'Consultoria Lean Six Sigma',
-    desc: 'Reduza desperdícios, melhore processos e aumente a eficiência com metodologia comprovada.',
+    desc: 'Black Belt em Lean Six Sigma aplicado à melhoria de processos em TI e negócios. Reduza desperdícios, automatize com IA e aumente a eficiência da sua operação.',
   },
   {
     icon: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>`,
-    title: 'Manutenção de Computadores',
-    desc: 'Diagnóstico, limpeza interna e reparos em hardware e software com agilidade e garantia.',
-  },
-  {
-    icon: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`,
-    title: 'Formatação e Otimização',
-    desc: 'Windows mais rápido, sem travamentos e com backup seguro. Seu PC como novo.',
+    title: 'Limpeza & Manutenção',
+    desc: 'Limpeza interna com ar comprimido, troca de pasta térmica e verificação de dissipadores. Temperatura reduzida, vida útil ampliada, performance restaurada.',
   },
 ];
 
-const benefits = [
-  { stat: '+80%', label: 'Produtividade', desc: 'Ganhe horas por dia eliminando tarefas manuais repetitivas.' },
-  { stat: '-40%', label: 'Redução de Custos', desc: 'Menos erros, menos retrabalho, mais resultado com menos recurso.' },
-  { stat: '24/7', label: 'Automação Operacional', desc: 'Fluxos que trabalham enquanto você foca no que importa.' },
-  { stat: '↑SEO', label: 'Crescimento Orgânico', desc: 'Tráfego do Google constante, sem depender de anúncios.' },
-  { stat: '+Leads', label: 'Geração de Leads', desc: 'Conteúdo que atrai, engaja e converte visitantes em clientes.' },
+const problems = [
+  { icon: '🐌', label: 'PC Lento' },
+  { icon: '💙', label: 'Tela Azul (BSOD)' },
+  { icon: '🦠', label: 'Vírus / Malware' },
+  { icon: '🔥', label: 'Superaquecimento' },
+  { icon: '💾', label: 'HD com Barulho' },
+  { icon: '🔒', label: 'PC Travando' },
+  { icon: '🚫', label: 'Não Liga' },
+  { icon: '📉', label: 'FPS Baixo' },
+  { icon: '⏰', label: 'Boot Lento' },
+  { icon: '⚠️', label: 'Erros SMART' },
+  { icon: '📁', label: 'Arquivos Sumindo' },
+  { icon: '🔇', label: 'Sem Áudio' },
+];
+
+const testimonials = [
+  {
+    stars: 5,
+    text: 'Meu notebook demorava 6 minutos para ligar. Depois do upgrade de SSD, está iniciando em menos de 15 segundos. Parece um computador novo! Diagnóstico foi feito na hora, mostrou tudo certinho.',
+    name: 'Ana Carolina M.',
+    role: 'Arquiteta · Upgrade SSD',
+  },
+  {
+    stars: 5,
+    text: 'O técnico mostrou na tela os erros SMART do meu HD. Nunca tinha visto isso antes. O HD estava praticamente morto e eu não sabia. Conseguiu recuperar todos meus arquivos antes de trocar.',
+    name: 'Roberto F.',
+    role: 'Contador · Recuperação de HD',
+  },
+  {
+    stars: 5,
+    text: 'PC gamer travando nos jogos. Descobriu que era superaquecimento da GPU e HD com bad blocks. Resolveu os dois, agora roda tudo no máximo sem travar. Serviço sério e técnico muito honesto.',
+    name: 'Lucas S.',
+    role: 'Gamer · Diagnóstico + Setup',
+  },
+];
+
+const faqs = [
+  {
+    q: 'O que é análise SMART e por que é importante?',
+    a: 'SMART é um sistema interno de monitoramento que todos os HDs e SSDs modernos possuem. Ele registra parâmetros como setores defeituosos, erros de leitura, temperatura e horas de uso. Analisando esses dados, identificamos falhas iminentes antes que você perca seus dados — algo que não é possível apenas "olhando" o computador.',
+  },
+  {
+    q: 'Vale a pena colocar SSD? Qual a diferença real?',
+    a: 'Sim, é o melhor upgrade que você pode fazer. Um HD mecânico lê dados a cerca de 80–120 MB/s. Um SSD NVMe atinge 3.500 MB/s — 40 vezes mais rápido. Na prática: boot que demorava 4 minutos passa para 12 segundos. Chrome que demorava 18 segundos abre em menos de 2.',
+  },
+  {
+    q: 'Quanto tempo demora uma formatação?',
+    a: 'Uma formatação completa, incluindo backup, instalação do Windows, drivers e programas essenciais, normalmente leva entre 3 a 6 horas dependendo da configuração. Trabalhamos para não deixar você sem o computador por mais de 1 dia útil na maioria dos casos.',
+  },
+  {
+    q: 'Meus arquivos ficam seguros na formatação?',
+    a: 'Sempre. Antes de qualquer procedimento, realizamos backup completo e verificado dos seus arquivos. Você recebe confirmação do que foi salvo antes de prosseguirmos. Não formatamos nada sem a sua aprovação explícita.',
+  },
+  {
+    q: 'Vocês fazem atendimento remoto?',
+    a: 'Sim, para problemas de software, lentidão, vírus, configurações e otimizações. O atendimento remoto é feito com acesso via ferramentas seguras, com sua autorização em tempo real. Você vê tudo o que está sendo feito na tela.',
+  },
+  {
+    q: 'O diagnóstico é gratuito?',
+    a: 'O diagnóstico inicial via WhatsApp é feito gratuitamente — você descreve os sintomas e já recebe uma análise preliminar. O diagnóstico técnico completo com leitura SMART pode ser incluído no valor do serviço quando você opta pelo reparo.',
+  },
 ];
 
 const cities = [
-  { name: 'Nova Pampulha', sub: 'Belo Horizonte, MG', desc: 'Automação, SEO e suporte técnico para negócios da região.' },
-  { name: 'Morro Alto', sub: 'Região Metropolitana, MG', desc: 'Presença digital e manutenção de TI para pequenas empresas.' },
-  { name: 'Vespasiano', sub: 'Região Metropolitana de BH', desc: 'SEO local, formatação de computadores e consultoria em IA.' },
+  { name: 'Nova Pampulha', sub: 'Belo Horizonte, MG', desc: 'Manutenção, upgrade de SSD, automação e SEO para negócios da região.' },
+  { name: 'Morro Alto', sub: 'Região Metropolitana, MG', desc: 'Diagnóstico avançado, formatação e suporte técnico para pessoas e empresas.' },
+  { name: 'Vespasiano', sub: 'Região Metropolitana de BH', desc: 'SEO local, manutenção de computadores e consultoria em IA e processos.' },
 ];
 ---
 
@@ -87,16 +142,16 @@ const cities = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>SmartOps IA — Automação, SEO e Crescimento Inteligente</title>
-    <meta name="description" content="Automatize processos, gere tráfego orgânico e escale sua operação com IA. SEO local em Nova Pampulha, Morro Alto e Vespasiano." />
-    <meta name="keywords" content="automação IA, SEO local, geração de conteúdo, Lean Six Sigma, manutenção computadores, Nova Pampulha, Vespasiano, Belo Horizonte" />
+    <title>SmartOps IA — Diagnóstico, Manutenção, SSD e Automação em BH</title>
+    <meta name="description" content="Diagnóstico SMART avançado, upgrade SSD, formatação, remoção de vírus, automação com IA e SEO local. Atendimento em Nova Pampulha, Morro Alto e Vespasiano." />
+    <meta name="keywords" content="manutenção computadores, diagnóstico SMART, upgrade SSD, formatação, vírus, automação IA, SEO local, Nova Pampulha, Vespasiano, Belo Horizonte, Lean Six Sigma" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content="SmartOps IA — Automação, SEO e Crescimento Inteligente" />
-    <meta property="og:description" content="Automatize processos, gere tráfego orgânico e escale sua operação com IA." />
+    <meta property="og:title" content="SmartOps IA — Diagnóstico, Manutenção, SSD e Automação" />
+    <meta property="og:description" content="Diagnóstico SMART avançado, upgrade SSD, formatação e automação com IA. Atendimento em Nova Pampulha, Morro Alto e Vespasiano." />
     <meta property="og:image" content={new URL('/og-default.svg', Astro.site).href} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -104,17 +159,23 @@ const cities = [
     <meta property="og:site_name" content="SmartOps IA" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="SmartOps IA — Automação, SEO e Crescimento Inteligente" />
-    <meta name="twitter:description" content="Automatize processos, gere tráfego orgânico e escale sua operação com IA." />
+    <meta name="twitter:title" content="SmartOps IA — Diagnóstico, Manutenção, SSD e Automação" />
+    <meta name="twitter:description" content="Diagnóstico SMART avançado, upgrade SSD, formatação e automação com IA." />
     <meta name="twitter:image" content={new URL('/og-default.svg', Astro.site).href} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
 
   <body>
+
+    <!-- ── FLOAT WHATSAPP ── -->
+    <a href={whatsappURL} class="wpp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+    </a>
+
     <!-- ── NAVBAR ── -->
     <header>
       <nav>
@@ -128,8 +189,8 @@ const cities = [
           <a href="/#contato">Contato</a>
         </div>
         <a href={whatsappURL} class="nav-wa" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
-          WhatsApp
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+          Falar agora
         </a>
         <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -138,37 +199,40 @@ const cities = [
     </header>
 
     <main>
+
       <!-- ── HERO ── -->
       <section class="hero">
         <div class="hero-glow" aria-hidden="true"></div>
         <div class="container hero-inner">
           <div class="hero-badge">
             <span class="badge-dot" aria-hidden="true"></span>
-            Powered by AI
+            Sistema Online · Diagnóstico em Tempo Real
           </div>
           <h1>
-            Automação IA, SEO e<br />
-            <span class="gradient-text">crescimento inteligente</span>
+            Manutenção Premium,<br />
+            Automação e <span class="gradient-text">SEO Inteligente</span>
           </h1>
           <p class="hero-sub">
-            Automatize processos, gere tráfego orgânico e escale sua operação com IA.
+            Diagnóstico SMART avançado, upgrade de SSD, formatação, remoção de vírus, automação com IA e SEO local. Seu computador e seu negócio em mãos especializadas.
           </p>
           <div class="hero-btns">
             <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
-              Falar no WhatsApp
+              Diagnóstico Grátis
             </a>
-            <a href="/blog" class="btn-outline">
-              Ver Blog
+            <a href="/#servicos" class="btn-outline">
+              Ver Serviços
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
           <div class="hero-stats">
-            <div class="hero-stat"><strong>+50</strong><span>Processos automatizados</span></div>
+            <div class="hero-stat"><strong>98%</strong><span>Clientes satisfeitos</span></div>
             <div class="hero-stat-sep" aria-hidden="true"></div>
-            <div class="hero-stat"><strong>3</strong><span>Cidades atendidas</span></div>
+            <div class="hero-stat"><strong>12s</strong><span>Boot com SSD NVMe</span></div>
             <div class="hero-stat-sep" aria-hidden="true"></div>
-            <div class="hero-stat"><strong>24/7</strong><span>Automação rodando</span></div>
+            <div class="hero-stat"><strong>3.500</strong><span>MB/s de leitura SSD</span></div>
+            <div class="hero-stat-sep" aria-hidden="true"></div>
+            <div class="hero-stat"><strong>Black Belt</strong><span>Lean Six Sigma</span></div>
           </div>
         </div>
       </section>
@@ -178,14 +242,14 @@ const cities = [
         <div class="container">
           <div class="section-header">
             <p class="section-label">O que fazemos</p>
-            <h2 class="section-title">Serviços que <span class="gradient-text">transformam</span></h2>
-            <p class="section-sub">Da automação ao SEO, entregamos resultado com tecnologia e metodologia.</p>
+            <h2 class="section-title">Serviços que <span class="gradient-text">resolvem de verdade</span></h2>
+            <p class="section-sub">Do diagnóstico ao upgrade, cada serviço executado com precisão, transparência e dados reais na tela.</p>
           </div>
           <ul class="services-grid">
             {services.map(s => (
               <li class="service-card">
                 <div class="service-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
                 </div>
                 <h3 class="service-title">{s.title}</h3>
                 <p class="service-desc">{s.desc}</p>
@@ -195,19 +259,100 @@ const cities = [
         </div>
       </section>
 
-      <!-- ── BENEFÍCIOS ── -->
-      <section class="section benefits-section">
+      <!-- ── PROBLEMAS ── -->
+      <section class="section problems-section">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">Reconhece algum desses?</p>
+            <h2 class="section-title">Problemas que <span class="gradient-text">resolvemos agora</span></h2>
+          </div>
+          <ul class="problems-grid">
+            {problems.map(p => (
+              <li class="problem-tile">
+                <span class="problem-icon" aria-hidden="true">{p.icon}</span>
+                <span class="problem-label">{p.label}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="problems-cta">
+            <div>
+              <strong>Se seu PC apresenta qualquer um desses sinais, não ignore.</strong>
+              <p>Alguns problemas evoluem rápido e podem resultar em perda total de dados. Diagnóstico identifica a causa real.</p>
+            </div>
+            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+              Diagnosticar agora
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── DIFERENCIAIS ── -->
+      <section class="section diff-section">
         <div class="container">
           <div class="section-header">
             <p class="section-label">Por que SmartOps</p>
-            <h2 class="section-title">Resultados <span class="gradient-text">mensuráveis</span></h2>
+            <h2 class="section-title">Não somos uma assistência <span class="gradient-text">qualquer</span></h2>
+            <p class="section-sub">A maioria dos técnicos não usa ferramentas de diagnóstico SMART. Nós sim — e isso muda tudo.</p>
           </div>
-          <ul class="benefits-grid">
-            {benefits.map(b => (
-              <li class="benefit-card">
-                <div class="benefit-stat">{b.stat}</div>
-                <h3 class="benefit-label">{b.label}</h3>
-                <p class="benefit-desc">{b.desc}</p>
+          <ul class="diff-grid">
+            <li class="diff-card">
+              <span class="diff-num">// 01</span>
+              <h3>Diagnóstico por dados reais</h3>
+              <p>Lemos os parâmetros SMART internos do seu disco. Identificamos problemas que olho nu não vê, com evidência técnica e relatório completo.</p>
+            </li>
+            <li class="diff-card">
+              <span class="diff-num">// 02</span>
+              <h3>Transparência total</h3>
+              <p>Você vê os dados na tela, entende o que foi encontrado e decide com informação. Sem achismo, sem cobrança por serviço desnecessário.</p>
+            </li>
+            <li class="diff-card">
+              <span class="diff-num">// 03</span>
+              <h3>Ferramentas profissionais</h3>
+              <p>CrystalDiskInfo, smartctl, HD Tune Pro, Victoria, Macrium Reflect. As mesmas ferramentas usadas por laboratórios de recuperação de dados.</p>
+            </li>
+            <li class="diff-card">
+              <span class="diff-num">// 04</span>
+              <h3>Black Belt Lean Six Sigma</h3>
+              <p>Metodologia de melhoria contínua aplicada ao atendimento técnico. Processos organizados, prazo cumprido, resultado garantido.</p>
+            </li>
+            <li class="diff-card">
+              <span class="diff-num">// 05</span>
+              <h3>Atendimento direto</h3>
+              <p>Você fala diretamente com o técnico responsável. Sem intermediários, sem atendente sem conhecimento. Comunicação clara e acessível.</p>
+            </li>
+            <li class="diff-card">
+              <span class="diff-num">// 06</span>
+              <h3>Backup antes de tudo</h3>
+              <p>Nenhum dado é tocado sem antes garantir sua segurança. Backup documentado e verificado antes de qualquer procedimento invasivo.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ── DEPOIMENTOS ── -->
+      <section class="section testimonials-section">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">Clientes reais</p>
+            <h2 class="section-title">O que nossos clientes <span class="gradient-text">dizem</span></h2>
+          </div>
+          <ul class="testimonials-grid">
+            {testimonials.map(t => (
+              <li class="testimonial-card">
+                <div class="t-stars" aria-label={`${t.stars} estrelas`}>
+                  {'★'.repeat(t.stars)}
+                </div>
+                <p class="t-text">"{t.text}"</p>
+                <div class="t-author">
+                  <div class="t-avatar" aria-hidden="true">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <strong class="t-name">{t.name}</strong>
+                    <span class="t-role">{t.role}</span>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
@@ -215,12 +360,12 @@ const cities = [
       </section>
 
       <!-- ── SEO LOCAL ── -->
-      <section class="section local-section">
+      <section class="section local-section" id="local">
         <div class="container">
           <div class="section-header">
             <p class="section-label">Atendimento local</p>
             <h2 class="section-title">Sua cidade, <span class="gradient-text">nossa presença</span></h2>
-            <p class="section-sub">Atendemos empresas e pessoas físicas em Nova Pampulha, Morro Alto e Vespasiano.</p>
+            <p class="section-sub">Atendemos presencialmente e remotamente em Nova Pampulha, Morro Alto, Vespasiano e região de BH.</p>
           </div>
           <ul class="cities-grid">
             {cities.map(c => (
@@ -237,6 +382,30 @@ const cities = [
         </div>
       </section>
 
+      <!-- ── FAQ ── -->
+      <section class="section faq-section" id="faq">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">FAQ</p>
+            <h2 class="section-title">Perguntas <span class="gradient-text">frequentes</span></h2>
+            <p class="section-sub">Tire suas dúvidas antes de entrar em contato.</p>
+          </div>
+          <dl class="faq-list">
+            {faqs.map(f => (
+              <div class="faq-item">
+                <details>
+                  <summary class="faq-q">
+                    <span>{f.q}</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="faq-a">{f.a}</p>
+                </details>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
       <!-- ── BLOG PREVIEW ── -->
       {recentPosts.length > 0 && (
         <section class="section blog-section">
@@ -244,7 +413,7 @@ const cities = [
             <div class="section-header">
               <p class="section-label">Conteúdo</p>
               <h2 class="section-title">Blog <span class="gradient-text">SmartOps</span></h2>
-              <p class="section-sub">Artigos sobre IA, SEO e automação gerados automaticamente.</p>
+              <p class="section-sub">Artigos sobre IA, SEO e manutenção de computadores.</p>
             </div>
             <ul class="posts-grid">
               {recentPosts.map(post => (
@@ -294,18 +463,20 @@ const cities = [
         <div class="container">
           <div class="cta-inner">
             <div class="cta-glow" aria-hidden="true"></div>
-            <p class="section-label">Pronto para começar?</p>
-            <h2 class="cta-title">Escale seu negócio com <span class="gradient-text">IA agora</span></h2>
+            <p class="section-label">Fale conosco agora</p>
+            <h2 class="cta-title">Seu computador está lento,<br />travando ou com erros?</h2>
             <p class="cta-sub">
-              Fale direto com a gente pelo WhatsApp. Sem burocracia, sem enrolação.
+              Me envie uma mensagem, descreva o que está acontecendo e receba um diagnóstico inicial gratuito pelo WhatsApp. Resposta rápida, sem compromisso.
             </p>
             <a href={whatsappURL} class="btn-wa btn-wa-lg" target="_blank" rel="noopener noreferrer">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
-              Falar no WhatsApp agora
+              Chamar no WhatsApp
             </a>
+            <p class="cta-hint">Diagnóstico inicial gratuito · Resposta rápida · Sem compromisso</p>
           </div>
         </div>
       </section>
+
     </main>
 
     <!-- ── FOOTER ── -->
@@ -313,26 +484,28 @@ const cities = [
       <div class="container footer-inner">
         <div class="footer-brand">
           <a href="/" class="logo">Smart<span>Ops</span> <em>IA</em></a>
-          <p>Automação inteligente, SEO e tecnologia para o seu negócio crescer.</p>
+          <p>Manutenção de computadores, diagnóstico SMART avançado, upgrade SSD, automação com IA e SEO local para pessoas e pequenas empresas.</p>
           <a href={whatsappURL} class="footer-wa" target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
-            Enviar mensagem
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+            (31) 98722-3507
           </a>
+          <p class="footer-tagline">// tecnologia organizada funciona melhor</p>
         </div>
         <nav class="footer-nav" aria-label="Navegação do rodapé">
+          <div class="footer-col">
+            <h4>Serviços</h4>
+            <a href="/#servicos">Diagnóstico SMART</a>
+            <a href="/#servicos">Upgrade SSD</a>
+            <a href="/#servicos">Formatação</a>
+            <a href="/#servicos">Remoção de Vírus</a>
+            <a href="/#servicos">Lean Six Sigma</a>
+          </div>
           <div class="footer-col">
             <h4>Navegação</h4>
             <a href="/">Home</a>
             <a href="/blog">Blog</a>
-            <a href="/#servicos">Serviços</a>
+            <a href="/#faq">FAQ</a>
             <a href="/#contato">Contato</a>
-          </div>
-          <div class="footer-col">
-            <h4>Serviços</h4>
-            <a href="/#servicos">Automação IA</a>
-            <a href="/#servicos">SEO Local</a>
-            <a href="/#servicos">Geração de Conteúdo</a>
-            <a href="/#servicos">Lean Six Sigma</a>
           </div>
           <div class="footer-col">
             <h4>Regiões</h4>
@@ -344,19 +517,31 @@ const cities = [
         </nav>
       </div>
       <div class="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} SmartOps IA. Todos os direitos reservados.</p>
-        <p>Feito com Astro + IA &mdash; <a href="/blog">Blog SEO</a></p>
+        <p>&copy; {new Date().getFullYear()} SmartOps IA · Todos os direitos reservados.</p>
+        <p>Feito com Astro + IA · <a href="/blog">Blog SEO</a></p>
       </div>
     </footer>
+
   </body>
 </html>
 
 <script is:inline>
+  // Mobile menu
   const toggle = document.getElementById('mobile-toggle');
   const links = document.getElementById('nav-links');
-  toggle?.addEventListener('click', () => {
-    const open = links?.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  // FAQ icon toggle
+  document.querySelectorAll('.faq-item details').forEach(det => {
+    det.addEventListener('toggle', () => {
+      const icon = det.querySelector('.faq-icon');
+      if (icon) icon.textContent = det.open ? '−' : '+';
+    });
   });
 </script>
 
@@ -372,7 +557,7 @@ const cities = [
     --accent: #7c3aed;
     --accent-l: #a78bfa;
     --accent-glow: rgba(124, 58, 237, 0.25);
-    --accent-border: rgba(167, 139, 250, 0.2);
+    --accent-border: rgba(167, 139, 250, 0.18);
     --green: #25d366;
     --green-h: #1db954;
     --border: rgba(255, 255, 255, 0.07);
@@ -390,13 +575,8 @@ const cities = [
     overflow-x: hidden;
   }
 
-  .container {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
 
-  /* ── GRADIENT TEXT ── */
   .gradient-text {
     background: linear-gradient(135deg, var(--accent-l) 0%, var(--accent) 60%);
     -webkit-background-clip: text;
@@ -404,395 +584,391 @@ const cities = [
     background-clip: text;
   }
 
+  /* ── FLOAT WPP ── */
+  .wpp-float {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 500;
+    width: 58px; height: 58px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 28px rgba(37,211,102,0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+  }
+  .wpp-float:hover { transform: scale(1.1); box-shadow: 0 6px 40px rgba(37,211,102,0.7); }
+
   /* ── BUTTONS ── */
   .btn-wa {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--green);
-    color: #fff;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 0.85rem 1.75rem;
-    border-radius: 12px;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--green); color: #fff;
+    font-weight: 700; font-size: 1rem;
+    padding: 0.85rem 1.75rem; border-radius: 12px;
     text-decoration: none;
     transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 24px rgba(37, 211, 102, 0.25);
+    box-shadow: 0 4px 24px rgba(37,211,102,0.25);
   }
-  .btn-wa:hover { background: var(--green-h); transform: translateY(-2px); box-shadow: 0 6px 32px rgba(37, 211, 102, 0.35); }
+  .btn-wa:hover { background: var(--green-h); transform: translateY(-2px); box-shadow: 0 6px 32px rgba(37,211,102,0.4); }
   .btn-wa-lg { font-size: 1.1rem; padding: 1rem 2.25rem; }
 
   .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid var(--accent-border);
-    color: var(--accent-l);
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.85rem 1.75rem;
-    border-radius: 12px;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--accent-border); color: var(--accent-l);
+    font-weight: 600; font-size: 1rem;
+    padding: 0.85rem 1.75rem; border-radius: 12px;
     text-decoration: none;
+    background: rgba(124,58,237,0.05);
     transition: border-color 0.2s, background 0.2s, transform 0.15s;
-    background: rgba(124, 58, 237, 0.05);
   }
-  .btn-outline:hover { border-color: var(--accent-l); background: rgba(124, 58, 237, 0.1); transform: translateY(-2px); }
+  .btn-outline:hover { border-color: var(--accent-l); background: rgba(124,58,237,0.1); transform: translateY(-2px); }
 
-  /* ── SECTION LAYOUT ── */
+  /* ── SECTIONS ── */
   .section { padding: 6rem 0; }
 
   .section-header { text-align: center; margin-bottom: 3.5rem; }
 
   .section-label {
     display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
+    font-size: 0.7rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.14em;
     color: var(--accent-l);
     border: 1px solid var(--accent-border);
-    background: rgba(124, 58, 237, 0.08);
-    padding: 0.3rem 0.9rem;
-    border-radius: 9999px;
+    background: rgba(124,58,237,0.08);
+    padding: 0.3rem 0.9rem; border-radius: 9999px;
     margin-bottom: 1rem;
   }
 
   .section-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
     margin-bottom: 1rem;
   }
 
   .section-sub {
-    font-size: 1.05rem;
-    color: var(--muted);
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.7;
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 520px; margin: 0 auto; line-height: 1.7;
   }
 
   /* ── NAVBAR ── */
   header {
-    position: sticky;
-    top: 0;
-    z-index: 200;
+    position: sticky; top: 0; z-index: 200;
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(16px);
-    background: rgba(6, 6, 14, 0.82);
+    background: rgba(6,6,14,0.85);
   }
 
   nav {
-    max-width: var(--max-w);
-    margin: 0 auto;
+    max-width: var(--max-w); margin: 0 auto;
     padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    display: flex; align-items: center; gap: 1rem;
   }
 
   .logo {
-    font-size: 1.1rem;
-    font-weight: 800;
-    text-decoration: none;
-    color: var(--fg);
-    margin-right: auto;
-    letter-spacing: -0.02em;
-    flex-shrink: 0;
+    font-size: 1.1rem; font-weight: 800;
+    text-decoration: none; color: var(--fg);
+    margin-right: auto; letter-spacing: -0.02em; flex-shrink: 0;
   }
   .logo span { color: var(--accent-l); }
   .logo em { font-style: normal; color: var(--muted); font-size: 0.85em; }
 
-  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
-
+  .nav-links { display: flex; align-items: center; gap: 0.15rem; }
   .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    padding: 0.4rem 0.75rem;
-    border-radius: 8px;
+    color: var(--muted); text-decoration: none;
+    font-size: 0.875rem; font-weight: 500;
+    padding: 0.4rem 0.75rem; border-radius: 8px;
     transition: color 0.15s, background 0.15s;
   }
   .nav-links a:hover { color: var(--fg); background: rgba(255,255,255,0.05); }
 
   .nav-wa {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    background: rgba(37, 211, 102, 0.12);
-    border: 1px solid rgba(37, 211, 102, 0.3);
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(37,211,102,0.1);
+    border: 1px solid rgba(37,211,102,0.3);
     color: var(--green);
-    font-size: 0.82rem;
-    font-weight: 700;
-    padding: 0.45rem 1rem;
-    border-radius: 9px;
-    text-decoration: none;
-    transition: background 0.2s, border-color 0.2s;
-    flex-shrink: 0;
+    font-size: 0.82rem; font-weight: 700;
+    padding: 0.45rem 1rem; border-radius: 9px;
+    text-decoration: none; flex-shrink: 0;
+    transition: background 0.2s;
   }
-  .nav-wa:hover { background: rgba(37, 211, 102, 0.2); border-color: rgba(37, 211, 102, 0.5); }
+  .nav-wa:hover { background: rgba(37,211,102,0.18); }
 
   .mobile-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0.5rem;
-    border-radius: 8px;
-    transition: background 0.15s;
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; background: none; border: none;
+    padding: 0.5rem; border-radius: 8px;
   }
-  .mobile-toggle:hover { background: rgba(255,255,255,0.05); }
-  .mobile-toggle span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--fg);
-    border-radius: 2px;
-    transition: transform 0.2s, opacity 0.2s;
-  }
+  .mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; }
 
   /* ── HERO ── */
-  .hero {
-    position: relative;
-    padding: 7rem 0 6rem;
-    overflow: hidden;
-  }
+  .hero { position: relative; padding: 7rem 0 6rem; overflow: hidden; }
 
   .hero-glow {
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 900px;
-    height: 600px;
-    background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.18) 0%, transparent 65%);
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 900px; height: 600px;
+    background: radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 65%);
     pointer-events: none;
   }
 
-  .hero-inner {
-    position: relative;
-    text-align: center;
-  }
+  .hero-inner { position: relative; text-align: center; }
 
   .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
     color: var(--accent-l);
     border: 1px solid var(--accent-border);
-    background: rgba(124, 58, 237, 0.08);
-    padding: 0.4rem 1rem;
-    border-radius: 9999px;
+    background: rgba(124,58,237,0.08);
+    padding: 0.4rem 1rem; border-radius: 9999px;
     margin-bottom: 1.75rem;
   }
 
   .badge-dot {
-    width: 7px;
-    height: 7px;
-    background: var(--green);
-    border-radius: 50%;
+    width: 7px; height: 7px;
+    background: var(--green); border-radius: 50%;
     box-shadow: 0 0 8px var(--green);
     animation: pulse 2s infinite;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
   .hero h1 {
-    font-size: clamp(2.4rem, 5.5vw, 4.25rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.04em;
-    margin-bottom: 1.5rem;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.04em; margin-bottom: 1.5rem;
   }
 
   .hero-sub {
-    font-size: 1.2rem;
-    color: var(--muted);
-    max-width: 540px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7;
   }
 
   .hero-btns {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 3.5rem;
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1rem; margin-bottom: 3.5rem;
   }
 
   .hero-stats {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    border-top: 1px solid var(--border);
-    padding-top: 2.5rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 2rem; flex-wrap: wrap;
+    border-top: 1px solid var(--border); padding-top: 2.5rem;
   }
 
   .hero-stat { text-align: center; }
-  .hero-stat strong { display: block; font-size: 1.6rem; font-weight: 800; color: var(--accent-l); }
-  .hero-stat span { font-size: 0.8rem; color: var(--muted); }
-
-  .hero-stat-sep {
-    width: 1px;
-    height: 36px;
-    background: var(--border);
-  }
+  .hero-stat strong { display: block; font-size: 1.5rem; font-weight: 800; color: var(--accent-l); }
+  .hero-stat span { font-size: 0.78rem; color: var(--muted); }
+  .hero-stat-sep { width: 1px; height: 36px; background: var(--border); }
 
   /* ── SERVICES ── */
-  .services-section { background: rgba(13, 13, 28, 0.5); }
+  .services-section { background: rgba(13,13,28,0.6); }
 
   .services-grid {
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
   }
 
   .service-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 2rem;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem;
     transition: border-color 0.25s, transform 0.2s, background 0.25s;
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
   }
   .service-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at top left, rgba(124, 58, 237, 0.08) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s;
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at top left, rgba(124,58,237,0.07) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
   }
-  .service-card:hover { border-color: var(--accent-border); transform: translateY(-3px); background: var(--bg3); }
+  .service-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
   .service-card:hover::before { opacity: 1; }
 
   .service-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(124, 58, 237, 0.12);
+    width: 46px; height: 46px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(124,58,237,0.1);
     border: 1px solid var(--accent-border);
-    border-radius: 12px;
-    margin-bottom: 1.25rem;
+    border-radius: 12px; margin-bottom: 1.1rem;
     color: var(--accent-l);
   }
 
-  .service-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
-  .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+  .service-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.55rem; }
+  .service-desc { font-size: 0.855rem; color: var(--muted); line-height: 1.65; }
 
-  /* ── BENEFITS ── */
-  .benefits-grid {
+  /* ── PROBLEMS ── */
+  .problems-section { background: var(--bg2); }
+
+  .problems-grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: repeat(6, 1fr); gap: 1rem;
+    margin-bottom: 2.5rem;
   }
 
-  .benefit-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.75rem 1.25rem;
-    text-align: center;
+  .problem-tile {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.4rem 0.75rem;
+    text-align: center; cursor: default;
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  }
+  .problem-tile:hover { border-color: rgba(255,46,46,0.3); transform: translateY(-3px); background: rgba(255,46,46,0.03); }
+
+  .problem-icon { font-size: 1.75rem; display: block; }
+  .problem-label { font-size: 0.8rem; font-weight: 600; color: var(--fg); }
+
+  .problems-cta {
+    background: rgba(124,58,237,0.06);
+    border: 1px solid var(--accent-border);
+    border-radius: 16px; padding: 2rem;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  }
+
+  .problems-cta strong { display: block; font-size: 1rem; margin-bottom: 0.4rem; }
+  .problems-cta p { font-size: 0.875rem; color: var(--muted); }
+
+  /* ── DIFERENCIAIS ── */
+  .diff-section { background: rgba(13,13,28,0.6); }
+
+  .diff-grid {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  }
+
+  .diff-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.75rem;
     transition: border-color 0.2s, transform 0.2s;
   }
-  .benefit-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
+  .diff-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
 
-  .benefit-stat {
-    font-size: 1.9rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent-l), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.5rem;
+  .diff-num {
+    font-size: 0.65rem; font-weight: 800;
+    color: var(--accent-l); letter-spacing: 0.1em;
+    margin-bottom: 0.75rem; display: block;
   }
 
-  .benefit-label { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .benefit-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+  .diff-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.55rem; }
+  .diff-card p { font-size: 0.855rem; color: var(--muted); line-height: 1.65; }
 
-  /* ── SEO LOCAL ── */
-  .local-section { background: rgba(13, 13, 28, 0.5); }
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--bg2); }
+
+  .testimonials-grid {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  }
+
+  .testimonial-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .testimonial-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
+
+  .t-stars { color: #fbbf24; font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
+  .t-text { font-size: 0.9rem; color: var(--muted); font-style: italic; line-height: 1.7; margin-bottom: 1.5rem; }
+  .t-author { display: flex; align-items: center; gap: 0.85rem; }
+
+  .t-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(124,58,237,0.15);
+    border: 1px solid var(--accent-border);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1rem; color: var(--accent-l);
+    flex-shrink: 0;
+  }
+
+  .t-name { display: block; font-size: 0.9rem; font-weight: 700; }
+  .t-role { display: block; font-size: 0.78rem; color: var(--muted); }
+
+  /* ── LOCAL ── */
+  .local-section { background: rgba(13,13,28,0.6); }
 
   .cities-grid {
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
   }
 
   .city-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 2rem;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
     transition: border-color 0.2s, transform 0.2s;
   }
   .city-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
 
-  .city-pin {
-    color: var(--accent-l);
-    margin-bottom: 1rem;
-  }
-
+  .city-pin { color: var(--accent-l); margin-bottom: 1rem; }
   .city-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.3rem; }
-  .city-sub { font-size: 0.78rem; color: var(--accent-l); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 0.85rem; }
+  .city-sub { font-size: 0.72rem; color: var(--accent-l); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 0.85rem; }
   .city-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
 
-  /* ── BLOG PREVIEW ── */
+  /* ── FAQ ── */
+  .faq-section { background: var(--bg2); }
+
+  .faq-list {
+    max-width: 800px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+
+  .faq-item {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--accent-border); }
+
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 1.5rem; cursor: pointer; gap: 1rem;
+    list-style: none; font-size: 0.95rem; font-weight: 600;
+    user-select: none;
+  }
+  .faq-q::-webkit-details-marker { display: none; }
+
+  .faq-icon {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: rgba(124,58,237,0.1);
+    border: 1px solid var(--accent-border);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--accent-l);
+    transition: background 0.2s;
+  }
+
+  details[open] .faq-icon { background: rgba(124,58,237,0.2); }
+
+  .faq-a {
+    padding: 0 1.5rem 1.25rem;
+    font-size: 0.9rem; color: var(--muted); line-height: 1.75;
+  }
+
+  /* ── BLOG ── */
   .posts-grid {
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
     margin-bottom: 2.5rem;
   }
 
   .post-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
     transition: border-color 0.2s, transform 0.2s;
   }
   .post-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
 
-  .post-link { display: block; text-decoration: none; color: inherit; height: 100%; }
-  .post-img { width: 100%; height: 180px; object-fit: cover; display: block; }
-  .post-body { padding: 1.5rem; }
+  .post-link { display: block; text-decoration: none; color: inherit; }
+  .post-img { width: 100%; height: 175px; object-fit: cover; display: block; }
+  .post-body { padding: 1.4rem; }
 
-  .post-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
+  .post-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.7rem; }
   .post-tag {
-    background: rgba(124, 58, 237, 0.12);
-    color: var(--accent-l);
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 0.2rem 0.6rem;
-    border-radius: 9999px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    background: rgba(124,58,237,0.1); color: var(--accent-l);
+    font-size: 0.62rem; font-weight: 700;
+    padding: 0.2rem 0.6rem; border-radius: 9999px;
+    text-transform: uppercase; letter-spacing: 0.06em;
   }
 
-  .post-title { font-size: 1.0rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; }
-  .post-desc { font-size: 0.845rem; color: var(--muted); line-height: 1.55; margin-bottom: 1rem; }
+  .post-title { font-size: 0.98rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; }
+  .post-desc { font-size: 0.845rem; color: var(--muted); line-height: 1.55; margin-bottom: 0.9rem; }
   .post-date { font-size: 0.76rem; color: var(--muted); }
 
   .blog-cta { text-align: center; }
@@ -801,106 +977,72 @@ const cities = [
   .cta-section { padding: 8rem 0; }
 
   .cta-inner {
-    position: relative;
-    text-align: center;
+    position: relative; text-align: center;
     background: var(--bg2);
     border: 1px solid var(--accent-border);
-    border-radius: 24px;
-    padding: 5rem 2rem;
-    overflow: hidden;
+    border-radius: 24px; padding: 5rem 2rem; overflow: hidden;
   }
 
   .cta-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 70%);
     pointer-events: none;
   }
 
   .cta-title {
     position: relative;
-    font-size: clamp(2rem, 4vw, 3.25rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1.15;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 1.15;
     margin-bottom: 1.25rem;
   }
 
   .cta-sub {
     position: relative;
-    font-size: 1.1rem;
-    color: var(--muted);
-    max-width: 460px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7;
   }
 
   .cta-inner .btn-wa { position: relative; }
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    background: rgba(6, 6, 14, 0.95);
+  .cta-hint {
+    position: relative;
+    font-size: 0.78rem; color: var(--muted); margin-top: 1.1rem;
   }
+
+  /* ── FOOTER ── */
+  footer { border-top: 1px solid var(--border); }
 
   .footer-inner {
-    display: flex;
-    gap: 4rem;
-    padding-top: 4rem;
-    padding-bottom: 3rem;
-    flex-wrap: wrap;
+    display: flex; gap: 4rem; padding-top: 4rem; padding-bottom: 3rem; flex-wrap: wrap;
   }
 
-  .footer-brand {
-    flex: 1;
-    min-width: 200px;
-  }
-
+  .footer-brand { flex: 1; min-width: 200px; }
   .footer-brand .logo { display: inline-block; margin-bottom: 0.85rem; }
-  .footer-brand p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; max-width: 260px; }
+  .footer-brand > p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.1rem; max-width: 280px; }
 
   .footer-wa {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--green);
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.15s;
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    color: var(--green); font-size: 0.9rem; font-weight: 700;
+    text-decoration: none; transition: color 0.15s;
   }
   .footer-wa:hover { color: var(--green-h); }
 
-  .footer-nav {
-    display: flex;
-    gap: 3rem;
-    flex-wrap: wrap;
-  }
+  .footer-tagline { font-size: 0.75rem; color: var(--accent-l); margin-top: 0.75rem; font-style: italic; }
 
-  .footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    min-width: 130px;
-  }
+  .footer-nav { display: flex; gap: 3rem; flex-wrap: wrap; }
+
+  .footer-col { display: flex; flex-direction: column; gap: 0.6rem; min-width: 130px; }
 
   .footer-col h4 {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--fg);
-    margin-bottom: 0.35rem;
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--fg); margin-bottom: 0.35rem;
   }
 
   .footer-col a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.875rem;
+    color: var(--muted); text-decoration: none; font-size: 0.875rem;
     transition: color 0.15s;
   }
   .footer-col a:hover { color: var(--accent-l); }
@@ -908,67 +1050,51 @@ const cities = [
   .footer-bottom {
     border-top: 1px solid var(--border);
     padding: 1.5rem 2rem;
-    max-width: var(--max-w);
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--muted);
+    max-width: var(--max-w); margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 0.5rem;
+    font-size: 0.8rem; color: var(--muted);
   }
-
   .footer-bottom a { color: var(--accent-l); text-decoration: none; }
-  .footer-bottom a:hover { text-decoration: underline; }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 1024px) {
-    .benefits-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-
   @media (max-width: 900px) {
     .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .diff-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: 1fr; }
     .cities-grid { grid-template-columns: repeat(2, 1fr); }
     .posts-grid { grid-template-columns: repeat(2, 1fr); }
-    .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+    .problems-grid { grid-template-columns: repeat(4, 1fr); }
   }
 
   @media (max-width: 768px) {
     .nav-links {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: rgba(6, 6, 14, 0.98);
-      border-bottom: 1px solid var(--border);
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 1rem;
-      gap: 0.25rem;
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(6,6,14,0.98); border-bottom: 1px solid var(--border);
+      flex-direction: column; align-items: flex-start;
+      padding: 1rem; gap: 0.25rem;
     }
     .nav-links.open { display: flex; }
-    .nav-links a { width: 100%; padding: 0.65rem 1rem; border-radius: 10px; }
+    .nav-links a { width: 100%; padding: 0.65rem 1rem; }
     .mobile-toggle { display: flex; }
     header { position: relative; }
-
     .hero { padding: 5rem 0 4rem; }
-    .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
     .hero-stat-sep { display: none; }
-
     .footer-inner { flex-direction: column; gap: 2rem; }
     .footer-nav { gap: 2rem; }
   }
 
   @media (max-width: 600px) {
     .services-grid { grid-template-columns: 1fr; }
+    .diff-grid { grid-template-columns: 1fr; }
     .cities-grid { grid-template-columns: 1fr; }
     .posts-grid { grid-template-columns: 1fr; }
-    .benefits-grid { grid-template-columns: 1fr 1fr; }
+    .problems-grid { grid-template-columns: repeat(3, 1fr); }
     .section { padding: 4rem 0; }
     .container { padding: 0 1.25rem; }
     nav { padding: 0.875rem 1.25rem; }
-    .nav-wa span { display: none; }
+    .cta-section { padding: 4rem 0; }
+    .cta-inner { padding: 3rem 1.5rem; }
+    .wpp-float { bottom: 16px; right: 16px; width: 50px; height: 50px; }
   }
 </style>
