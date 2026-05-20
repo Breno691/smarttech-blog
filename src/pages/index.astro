@@ -34,31 +34,37 @@ const schema = {
 
 const services = [
   {
+    id: 'diagnostico-smart',
     icon: `<circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/>`,
     title: 'Diagnóstico SMART Avançado',
     desc: 'Análise completa dos parâmetros SMART de HDs e SSDs com CrystalDiskInfo, smartctl, HD Tune e Victoria. Identificamos bad blocks e risco de falha antes que você perca seus dados.',
   },
   {
+    id: 'upgrade-ssd',
     icon: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`,
     title: 'Upgrade SSD M.2 / SATA',
     desc: 'Instalação e clonagem do sistema operacional para SSD NVMe ou SATA. Boot de 4 minutos vai para 12 segundos. 3.500 MB/s de velocidade. Garantia de funcionamento.',
   },
   {
+    id: 'formatacao',
     icon: `<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>`,
     title: 'Formatação Completa',
     desc: 'Formatação e reinstalação do Windows com drivers, programas essenciais e configurações otimizadas. Backup completo e verificado antes de qualquer procedimento.',
   },
   {
+    id: 'remocao-virus',
     icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
     title: 'Remoção de Vírus',
     desc: 'Eliminação completa de malware, ransomware, adware e spyware. Verificação em múltiplas camadas. Sistema limpo e protegido garantido.',
   },
   {
+    id: 'lean-six-sigma',
     icon: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
     title: 'Consultoria Lean Six Sigma',
     desc: 'Black Belt em Lean Six Sigma aplicado à melhoria de processos em TI e negócios. Reduza desperdícios, automatize com IA e aumente a eficiência da sua operação.',
   },
   {
+    id: 'limpeza-manutencao',
     icon: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>`,
     title: 'Limpeza & Manutenção',
     desc: 'Limpeza interna com ar comprimido, troca de pasta térmica e verificação de dissipadores. Temperatura reduzida, vida útil ampliada, performance restaurada.',
@@ -66,18 +72,18 @@ const services = [
 ];
 
 const problems = [
-  { icon: '🐌', label: 'PC Lento' },
-  { icon: '💙', label: 'Tela Azul (BSOD)' },
-  { icon: '🦠', label: 'Vírus / Malware' },
-  { icon: '🔥', label: 'Superaquecimento' },
-  { icon: '💾', label: 'HD com Barulho' },
-  { icon: '🔒', label: 'PC Travando' },
-  { icon: '🚫', label: 'Não Liga' },
-  { icon: '📉', label: 'FPS Baixo' },
-  { icon: '⏰', label: 'Boot Lento' },
-  { icon: '⚠️', label: 'Erros SMART' },
-  { icon: '📁', label: 'Arquivos Sumindo' },
-  { icon: '🔇', label: 'Sem Áudio' },
+  { icon: '🐌', label: 'PC Lento',          id: 'pc-lento' },
+  { icon: '💙', label: 'Tela Azul (BSOD)',  id: 'tela-azul' },
+  { icon: '🦠', label: 'Vírus / Malware',   id: 'virus' },
+  { icon: '🔥', label: 'Superaquecimento',  id: 'superaquecimento' },
+  { icon: '💾', label: 'HD com Barulho',    id: 'hd-barulho' },
+  { icon: '🔒', label: 'PC Travando',       id: 'pc-travando' },
+  { icon: '🚫', label: 'Não Liga',          id: 'nao-liga' },
+  { icon: '📉', label: 'FPS Baixo',         id: 'fps-baixo' },
+  { icon: '⏰', label: 'Boot Lento',        id: 'boot-lento' },
+  { icon: '⚠️', label: 'Erros SMART',      id: 'erros-smart' },
+  { icon: '📁', label: 'Arquivos Sumindo',  id: 'arquivos-sumindo' },
+  { icon: '🔇', label: 'Sem Áudio',         id: 'sem-audio' },
 ];
 
 const testimonials = [
@@ -247,12 +253,13 @@ const cities = [
           </div>
           <ul class="services-grid">
             {services.map(s => (
-              <li class="service-card">
+              <li class="service-card" data-modal={s.id} role="button" tabindex="0">
                 <div class="service-icon" aria-hidden="true">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
                 </div>
                 <h3 class="service-title">{s.title}</h3>
                 <p class="service-desc">{s.desc}</p>
+                <span class="service-see-more" aria-hidden="true">Ver como fazemos →</span>
               </li>
             ))}
           </ul>
@@ -268,9 +275,10 @@ const cities = [
           </div>
           <ul class="problems-grid">
             {problems.map(p => (
-              <li class="problem-tile">
+              <li class="problem-tile" data-modal={`prob-${p.id}`} role="button" tabindex="0">
                 <span class="problem-icon" aria-hidden="true">{p.icon}</span>
                 <span class="problem-label">{p.label}</span>
+                <span class="problem-hint" aria-hidden="true">→</span>
               </li>
             ))}
           </ul>
@@ -486,6 +494,399 @@ const cities = [
 
     </main>
 
+    <!-- ── MODAL BACKDROP ── -->
+    <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+      <div class="modal-box" role="dialog" aria-modal="true">
+        <button class="modal-close" id="modal-close" aria-label="Fechar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="modal-scroll">
+          <div id="modal-content"></div>
+          <div class="modal-wpp">
+            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+              Agendar pelo WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MODAL TEMPLATES (hidden) ── -->
+
+    <div id="modal-tpl-diagnostico-smart" class="modal-tpl">
+      <div class="modal-body">
+        <svg class="modal-svg" viewBox="0 0 560 230" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="230" rx="10" fill="#0d0d1a"/>
+          <rect width="560" height="28" rx="10" fill="#111127"/>
+          <rect y="18" width="560" height="10" fill="#111127"/>
+          <text x="16" y="18" fill="#6b7280" font-size="10" font-family="monospace">CrystalDiskInfo 9.4 — Análise SMART</text>
+          <circle cx="540" cy="14" r="5" fill="#ff5f56"/><circle cx="526" cy="14" r="5" fill="#ffbd2e"/><circle cx="512" cy="14" r="5" fill="#27c93f"/>
+          <rect x="10" y="34" width="130" height="188" rx="6" fill="#13132a"/>
+          <circle cx="75" cy="95" r="35" fill="none" stroke="#25d366" stroke-width="3"/>
+          <circle cx="75" cy="95" r="14" fill="none" stroke="#25d366" stroke-width="2"/>
+          <circle cx="75" cy="95" r="4" fill="#25d366"/>
+          <text x="75" y="148" fill="#25d366" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold">● BOM</text>
+          <text x="75" y="163" fill="#6b7280" font-size="9" font-family="monospace" text-anchor="middle">WD Blue 1TB</text>
+          <text x="75" y="178" fill="#a78bfa" font-size="9" font-family="monospace" text-anchor="middle">35°C · 4.380h</text>
+          <rect x="148" y="34" width="404" height="188" rx="6" fill="#13132a"/>
+          <rect x="148" y="34" width="404" height="20" rx="6" fill="#1a1a38"/>
+          <rect x="148" y="44" width="404" height="10" fill="#1a1a38"/>
+          <text x="160" y="47" fill="#a78bfa" font-size="9" font-family="monospace">ID    Atributo                       Val   Worst  Thr   Raw            Status</text>
+          <text x="160" y="66" fill="#c8c8d8" font-size="9" font-family="monospace">05    Reallocated Sectors Count      200   200    140   000000000000</text><text x="530" y="66" fill="#25d366" font-size="9" font-family="monospace">✓ OK</text>
+          <text x="160" y="81" fill="#c8c8d8" font-size="9" font-family="monospace">C5    Current Pending Sector          200   200    0     000000000000</text><text x="530" y="81" fill="#25d366" font-size="9" font-family="monospace">✓ OK</text>
+          <text x="160" y="96" fill="#c8c8d8" font-size="9" font-family="monospace">C6    Uncorrectable Sector Count      100   100    0     000000000000</text><text x="530" y="96" fill="#25d366" font-size="9" font-family="monospace">✓ OK</text>
+          <text x="160" y="111" fill="#c8c8d8" font-size="9" font-family="monospace">01    Raw Read Error Rate             118   99     6     000000ABC1F2</text><text x="530" y="111" fill="#fbbf24" font-size="9" font-family="monospace">⚠ ATT</text>
+          <text x="160" y="126" fill="#c8c8d8" font-size="9" font-family="monospace">09    Power-On Hours Count            100   100    0     000000001124</text><text x="530" y="126" fill="#25d366" font-size="9" font-family="monospace">✓ OK</text>
+          <text x="160" y="141" fill="#c8c8d8" font-size="9" font-family="monospace">BE    Airflow Temperature             44    36     45    00002C000023</text><text x="530" y="141" fill="#25d366" font-size="9" font-family="monospace">✓ OK</text>
+          <text x="160" y="156" fill="#c8c8d8" font-size="9" font-family="monospace">B8    End-to-End Error                100   100    97    000000000000</text><text x="530" y="156" fill="#25d366" font-size="9" font-family="monospace">✓ OK</text>
+          <text x="160" y="171" fill="#c8c8d8" font-size="9" font-family="monospace">BB    Reported Uncorrectable Errors   100   100    0     000000000000</text><text x="530" y="171" fill="#25d366" font-size="9" font-family="monospace">✓ OK</text>
+          <rect x="148" y="204" width="404" height="18" rx="0" fill="#0a0a18"/>
+          <rect x="148" y="212" width="404" height="10" rx="4" fill="#0a0a18"/>
+          <text x="160" y="217" fill="#25d366" font-size="9" font-family="monospace">Status: Bom  |  Ferramentas: CrystalDiskInfo + smartctl + HD Tune Pro + Victoria</text>
+        </svg>
+        <h3 class="modal-title">Diagnóstico SMART Avançado</h3>
+        <p class="modal-lead">Lemos os parâmetros internos do seu disco — os mesmos dados que os fabricantes usam para prever falhas antes que você perca qualquer coisa.</p>
+        <ol class="modal-steps">
+          <li class="modal-step"><span class="modal-step-num">1</span><span class="modal-step-text"><strong>Identificação do dispositivo</strong> — modelo, firmware, interface (SATA/NVMe) e tempo de uso real em horas, sem abrir o gabinete.</span></li>
+          <li class="modal-step"><span class="modal-step-num">2</span><span class="modal-step-text"><strong>Leitura SMART com CrystalDiskInfo + smartctl</strong> — todos os atributos internos: setores realocados (05), setores pendentes (C5), erros não corrigíveis (C6) e temperatura.</span></li>
+          <li class="modal-step"><span class="modal-step-num">3</span><span class="modal-step-text"><strong>Varredura de superfície com HD Tune e Victoria</strong> — mapeamos setor a setor, identificando bad blocks, blocos lentos e áreas instáveis que causam travamentos.</span></li>
+          <li class="modal-step"><span class="modal-step-num">4</span><span class="modal-step-text"><strong>Relatório visual na tela</strong> — você acompanha os dados em tempo real e recebe laudo: disco saudável, atenção necessária ou risco iminente de falha.</span></li>
+          <li class="modal-step"><span class="modal-step-num">5</span><span class="modal-step-text"><strong>Recomendação com base em dados reais</strong> — se o disco apresentar risco, iniciamos backup imediato antes de qualquer outro procedimento.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="modal-tpl-upgrade-ssd" class="modal-tpl">
+      <div class="modal-body">
+        <svg class="modal-svg" viewBox="0 0 560 195" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="195" rx="10" fill="#0d0d1a"/>
+          <rect width="560" height="28" rx="10" fill="#111127"/>
+          <rect y="18" width="560" height="10" fill="#111127"/>
+          <text x="16" y="18" fill="#6b7280" font-size="10" font-family="monospace">HD Tune Pro — Benchmark de Velocidade Comparativo</text>
+          <circle cx="540" cy="14" r="5" fill="#ff5f56"/><circle cx="526" cy="14" r="5" fill="#ffbd2e"/><circle cx="512" cy="14" r="5" fill="#27c93f"/>
+          <rect x="10" y="34" width="265" height="152" rx="6" fill="#13132a"/>
+          <text x="142" y="54" fill="#6b7280" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold">ANTES — HD Mecânico</text>
+          <rect x="20" y="63" width="245" height="16" rx="3" fill="#1a1a38"/>
+          <rect x="20" y="63" width="12" height="16" rx="3" fill="#ef4444"/>
+          <text x="140" y="75" fill="#ef4444" font-size="9" font-family="monospace" text-anchor="middle">110 MB/s leitura seq.</text>
+          <rect x="20" y="86" width="245" height="16" rx="3" fill="#1a1a38"/>
+          <rect x="20" y="86" width="10" height="16" rx="3" fill="#ef4444"/>
+          <text x="140" y="98" fill="#ef4444" font-size="9" font-family="monospace" text-anchor="middle">95 MB/s escrita seq.</text>
+          <text x="20" y="120" fill="#6b7280" font-size="9" font-family="monospace">Boot:       4 min 20s</text>
+          <text x="20" y="134" fill="#6b7280" font-size="9" font-family="monospace">Chrome:     18 segundos</text>
+          <text x="20" y="148" fill="#6b7280" font-size="9" font-family="monospace">Cópia 10GB: 2 min 30s</text>
+          <text x="20" y="170" fill="#ef4444" font-size="10" font-family="monospace">⬤ Tecnologia de 1956</text>
+          <rect x="285" y="34" width="265" height="152" rx="6" fill="#13132a"/>
+          <text x="417" y="54" fill="#25d366" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold">DEPOIS — SSD NVMe</text>
+          <rect x="295" y="63" width="245" height="16" rx="3" fill="#1a1a38"/>
+          <rect x="295" y="63" width="245" height="16" rx="3" fill="#25d366"/>
+          <text x="417" y="75" fill="#0d0d1a" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">3.500 MB/s leitura seq.</text>
+          <rect x="295" y="86" width="245" height="16" rx="3" fill="#1a1a38"/>
+          <rect x="295" y="86" width="235" height="16" rx="3" fill="#25d366"/>
+          <text x="417" y="98" fill="#0d0d1a" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">3.200 MB/s escrita seq.</text>
+          <text x="295" y="120" fill="#e8e8f0" font-size="9" font-family="monospace">Boot:       12 segundos</text>
+          <text x="295" y="134" fill="#e8e8f0" font-size="9" font-family="monospace">Chrome:     &lt;2 segundos</text>
+          <text x="295" y="148" fill="#e8e8f0" font-size="9" font-family="monospace">Cópia 10GB: 8 segundos</text>
+          <text x="295" y="170" fill="#25d366" font-size="10" font-family="monospace">⬤ 32× mais rápido</text>
+        </svg>
+        <h3 class="modal-title">Upgrade SSD M.2 / SATA</h3>
+        <p class="modal-lead">Substituição do HD por SSD com clonagem completa — sistema, programas e arquivos migrados sem reinstalação e sem perda de dados.</p>
+        <ol class="modal-steps">
+          <li class="modal-step"><span class="modal-step-num">1</span><span class="modal-step-text"><strong>Diagnóstico SMART do HD atual</strong> — verificamos se o disco tem condição de ser clonado ou se backup manual é necessário primeiro.</span></li>
+          <li class="modal-step"><span class="modal-step-num">2</span><span class="modal-step-text"><strong>Seleção do SSD ideal</strong> — identificamos o slot disponível (M.2 NVMe, M.2 SATA ou 2.5" SATA) e recomendamos capacidade adequada ao seu uso.</span></li>
+          <li class="modal-step"><span class="modal-step-num">3</span><span class="modal-step-text"><strong>Clonagem com Macrium Reflect</strong> — cópia setor a setor do Windows completo para o SSD, incluindo partição de recuperação e EFI.</span></li>
+          <li class="modal-step"><span class="modal-step-num">4</span><span class="modal-step-text"><strong>Ajuste BIOS/UEFI e verificação</strong> — configuramos boot order, ativamos AHCI e testamos o sistema completo no SSD novo antes de entregar.</span></li>
+          <li class="modal-step"><span class="modal-step-num">5</span><span class="modal-step-text"><strong>Benchmark final com HD Tune</strong> — confirmamos velocidade real do SSD e emitimos garantia de funcionamento por escrito.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="modal-tpl-formatacao" class="modal-tpl">
+      <div class="modal-body">
+        <svg class="modal-svg" viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="200" rx="10" fill="#0d0d1a"/>
+          <rect width="560" height="28" rx="10" fill="#111127"/>
+          <rect y="18" width="560" height="10" fill="#111127"/>
+          <text x="16" y="18" fill="#6b7280" font-size="10" font-family="monospace">Processo de Formatação Profissional — Etapas</text>
+          <circle cx="540" cy="14" r="5" fill="#ff5f56"/><circle cx="526" cy="14" r="5" fill="#ffbd2e"/><circle cx="512" cy="14" r="5" fill="#27c93f"/>
+          <rect x="10" y="34" width="255" height="158" rx="6" fill="#13132a"/>
+          <text x="137" y="54" fill="#a78bfa" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">Checklist de Backup</text>
+          <text x="26" y="73" fill="#25d366" font-size="11" font-family="monospace">✓</text><text x="42" y="73" fill="#e8e8f0" font-size="9" font-family="monospace">Documentos e Downloads</text>
+          <text x="26" y="89" fill="#25d366" font-size="11" font-family="monospace">✓</text><text x="42" y="89" fill="#e8e8f0" font-size="9" font-family="monospace">Fotos e Vídeos (verificados)</text>
+          <text x="26" y="105" fill="#25d366" font-size="11" font-family="monospace">✓</text><text x="42" y="105" fill="#e8e8f0" font-size="9" font-family="monospace">Lista de programas instalados</text>
+          <text x="26" y="121" fill="#25d366" font-size="11" font-family="monospace">✓</text><text x="42" y="121" fill="#e8e8f0" font-size="9" font-family="monospace">Favoritos e senhas do browser</text>
+          <text x="26" y="137" fill="#25d366" font-size="11" font-family="monospace">✓</text><text x="42" y="137" fill="#e8e8f0" font-size="9" font-family="monospace">Área de trabalho e AppData</text>
+          <text x="26" y="153" fill="#25d366" font-size="11" font-family="monospace">✓</text><text x="42" y="153" fill="#e8e8f0" font-size="9" font-family="monospace">Drivers atuais (referência)</text>
+          <text x="137" y="180" fill="#25d366" font-size="9" font-family="monospace" text-anchor="middle">Backup verificado antes de iniciar</text>
+          <rect x="275" y="34" width="275" height="158" rx="6" fill="#13132a"/>
+          <text x="412" y="54" fill="#a78bfa" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">Pós-Formatação</text>
+          <rect x="287" y="62" width="251" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="287" y="62" width="251" height="14" rx="3" fill="#25d366"/>
+          <text x="412" y="73" fill="#0d0d1a" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">Windows instalado ✓</text>
+          <rect x="287" y="83" width="251" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="287" y="83" width="230" height="14" rx="3" fill="#25d366"/>
+          <text x="412" y="94" fill="#0d0d1a" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">Drivers instalados ✓</text>
+          <rect x="287" y="104" width="251" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="287" y="104" width="200" height="14" rx="3" fill="#25d366"/>
+          <text x="412" y="115" fill="#0d0d1a" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">Programas essenciais ✓</text>
+          <rect x="287" y="125" width="251" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="287" y="125" width="245" height="14" rx="3" fill="#25d366"/>
+          <text x="412" y="136" fill="#0d0d1a" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">Windows atualizado ✓</text>
+          <rect x="287" y="146" width="251" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="287" y="146" width="220" height="14" rx="3" fill="#25d366"/>
+          <text x="412" y="157" fill="#0d0d1a" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">Arquivos restaurados ✓</text>
+          <text x="412" y="180" fill="#25d366" font-size="9" font-family="monospace" text-anchor="middle">Entregue limpo, rápido e organizado</text>
+        </svg>
+        <h3 class="modal-title">Formatação Completa</h3>
+        <p class="modal-lead">Reinstalação completa do Windows com backup verificado, drivers, programas e configuração otimizada — entregue pronto para usar.</p>
+        <ol class="modal-steps">
+          <li class="modal-step"><span class="modal-step-num">1</span><span class="modal-step-text"><strong>Inventário e backup completo</strong> — listamos e copiamos todos os arquivos importantes com verificação de integridade antes de começar.</span></li>
+          <li class="modal-step"><span class="modal-step-num">2</span><span class="modal-step-text"><strong>Diagnóstico SMART pré-formatação</strong> — confirmamos que o disco suporta nova instalação. Se houver risco, recomendamos troca preventiva.</span></li>
+          <li class="modal-step"><span class="modal-step-num">3</span><span class="modal-step-text"><strong>Instalação limpa do Windows</strong> — ISO original Microsoft, particionamento correto (GPT/MBR), sem trial software ou crapware.</span></li>
+          <li class="modal-step"><span class="modal-step-num">4</span><span class="modal-step-text"><strong>Drivers e programas essenciais</strong> — instalamos todos os drivers do fabricante, Chrome, Office, antivírus e os softwares que você usa.</span></li>
+          <li class="modal-step"><span class="modal-step-num">5</span><span class="modal-step-text"><strong>Restauração e entrega</strong> — seus arquivos de volta no lugar certo, Windows atualizado, sistema limpo e otimizado para velocidade máxima.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="modal-tpl-remocao-virus" class="modal-tpl">
+      <div class="modal-body">
+        <svg class="modal-svg" viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="200" rx="10" fill="#0d0d1a"/>
+          <rect width="560" height="28" rx="10" fill="#111127"/>
+          <rect y="18" width="560" height="10" fill="#111127"/>
+          <text x="16" y="18" fill="#6b7280" font-size="10" font-family="monospace">Malwarebytes Premium — Varredura Completa — Concluída</text>
+          <circle cx="540" cy="14" r="5" fill="#ff5f56"/><circle cx="526" cy="14" r="5" fill="#ffbd2e"/><circle cx="512" cy="14" r="5" fill="#27c93f"/>
+          <rect x="10" y="34" width="540" height="35" rx="6" fill="#13132a"/>
+          <text x="30" y="52" fill="#e8e8f0" font-size="10" font-family="monospace">Varredura concluída em 00:04:38  |  Arquivos analisados: 487.291  |  Ameaças encontradas: 14</text>
+          <text x="30" y="67" fill="#fbbf24" font-size="9" font-family="monospace">14 ameaças quarentenadas com sucesso</text>
+          <rect x="10" y="76" width="540" height="18" rx="4" fill="#1a1a38"/>
+          <text x="20" y="88" fill="#a78bfa" font-size="9" font-family="monospace">Tipo              Nome                               Caminho                              Ação</text>
+          <text x="20" y="105" fill="#c8c8d8" font-size="9" font-family="monospace">Trojan            Trojan.CoinMiner.Generic            C:\Users\...\AppData\...             Removido</text>
+          <text x="20" y="119" fill="#c8c8d8" font-size="9" font-family="monospace">Adware            Adware.SearchAssist                C:\Program Files\...                 Removido</text>
+          <text x="20" y="133" fill="#c8c8d8" font-size="9" font-family="monospace">Spyware           Spyware.AgentTesla                 HKLM\Software\...                    Removido</text>
+          <text x="20" y="147" fill="#c8c8d8" font-size="9" font-family="monospace">PUP               PUP.Optional.Bundler               C:\Program Files\...                 Removido</text>
+          <text x="20" y="161" fill="#6b7280" font-size="9" font-family="monospace">... +10 ameaças adicionais removidas</text>
+          <rect x="10" y="174" width="540" height="18" rx="4" fill="#0f2820"/>
+          <text x="30" y="186" fill="#25d366" font-size="10" font-family="monospace" font-weight="bold">✓ Sistema limpo e protegido  |  Próxima varredura agendada: amanhã 03:00</text>
+        </svg>
+        <h3 class="modal-title">Remoção de Vírus e Malware</h3>
+        <p class="modal-lead">Eliminação completa com múltiplas ferramentas em camadas — vírus, trojans, spyware, adware e ransomware, sem deixar rastros.</p>
+        <ol class="modal-steps">
+          <li class="modal-step"><span class="modal-step-num">1</span><span class="modal-step-text"><strong>Análise de sintomas e modo seguro</strong> — identificamos o tipo de infecção e iniciamos limpeza em modo seguro quando necessário para contornar proteção do malware.</span></li>
+          <li class="modal-step"><span class="modal-step-num">2</span><span class="modal-step-text"><strong>Varredura em múltiplas camadas</strong> — Malwarebytes, Windows Defender Offline, AdwCleaner e ESET Online Scanner em sequência para garantia total.</span></li>
+          <li class="modal-step"><span class="modal-step-num">3</span><span class="modal-step-text"><strong>Limpeza de registro e startup</strong> — removemos chaves de registro maliciosas, entradas de inicialização suspeitas e serviços não autorizados.</span></li>
+          <li class="modal-step"><span class="modal-step-num">4</span><span class="modal-step-text"><strong>Verificação de rootkits</strong> — Malwarebytes Anti-Rootkit para detectar ameaças que se escondem abaixo do sistema operacional.</span></li>
+          <li class="modal-step"><span class="modal-step-num">5</span><span class="modal-step-text"><strong>Configuração de proteção contínua</strong> — antivírus configurado, Windows atualizado e boas práticas recomendadas para não ter recorrência.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="modal-tpl-lean-six-sigma" class="modal-tpl">
+      <div class="modal-body">
+        <svg class="modal-svg" viewBox="0 0 560 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="180" rx="10" fill="#0d0d1a"/>
+          <rect width="560" height="28" rx="10" fill="#111127"/>
+          <rect y="18" width="560" height="10" fill="#111127"/>
+          <text x="16" y="18" fill="#6b7280" font-size="10" font-family="monospace">SmartOps IA — Metodologia DMAIC — Black Belt Lean Six Sigma</text>
+          <circle cx="540" cy="14" r="5" fill="#ff5f56"/><circle cx="526" cy="14" r="5" fill="#ffbd2e"/><circle cx="512" cy="14" r="5" fill="#27c93f"/>
+          <rect x="10" y="38" width="96" height="80" rx="8" fill="#1a0a2e"/>
+          <rect x="10" y="38" width="96" height="6" rx="4" fill="#7c3aed"/>
+          <text x="58" y="72" fill="#a78bfa" font-size="16" font-family="monospace" text-anchor="middle" font-weight="bold">D</text>
+          <text x="58" y="90" fill="#e8e8f0" font-size="9" font-family="monospace" text-anchor="middle">Define</text>
+          <text x="58" y="105" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">Mapeamos</text>
+          <text x="58" y="116" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">o problema</text>
+          <line x1="106" y1="78" x2="120" y2="78" stroke="#4b4b6b" stroke-width="2" marker-end="url(#arrow)"/>
+          <rect x="120" y="38" width="96" height="80" rx="8" fill="#0a1a2e"/>
+          <rect x="120" y="38" width="96" height="6" rx="4" fill="#0066ff"/>
+          <text x="168" y="72" fill="#60a5fa" font-size="16" font-family="monospace" text-anchor="middle" font-weight="bold">M</text>
+          <text x="168" y="90" fill="#e8e8f0" font-size="9" font-family="monospace" text-anchor="middle">Measure</text>
+          <text x="168" y="105" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">Métricas</text>
+          <text x="168" y="116" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">e dados reais</text>
+          <line x1="216" y1="78" x2="230" y2="78" stroke="#4b4b6b" stroke-width="2"/>
+          <rect x="230" y="38" width="96" height="80" rx="8" fill="#0a2010"/>
+          <rect x="230" y="38" width="96" height="6" rx="4" fill="#25d366"/>
+          <text x="278" y="72" fill="#25d366" font-size="16" font-family="monospace" text-anchor="middle" font-weight="bold">A</text>
+          <text x="278" y="90" fill="#e8e8f0" font-size="9" font-family="monospace" text-anchor="middle">Analyze</text>
+          <text x="278" y="105" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">Causa raiz</text>
+          <text x="278" y="116" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">identificada</text>
+          <line x1="326" y1="78" x2="340" y2="78" stroke="#4b4b6b" stroke-width="2"/>
+          <rect x="340" y="38" width="96" height="80" rx="8" fill="#2a1000"/>
+          <rect x="340" y="38" width="96" height="6" rx="4" fill="#f59e0b"/>
+          <text x="388" y="72" fill="#fbbf24" font-size="16" font-family="monospace" text-anchor="middle" font-weight="bold">I</text>
+          <text x="388" y="90" fill="#e8e8f0" font-size="9" font-family="monospace" text-anchor="middle">Improve</text>
+          <text x="388" y="105" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">Solução</text>
+          <text x="388" y="116" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">implementada</text>
+          <line x1="436" y1="78" x2="450" y2="78" stroke="#4b4b6b" stroke-width="2"/>
+          <rect x="450" y="38" width="100" height="80" rx="8" fill="#001020"/>
+          <rect x="450" y="38" width="100" height="6" rx="4" fill="#00e5ff"/>
+          <text x="500" y="72" fill="#00e5ff" font-size="16" font-family="monospace" text-anchor="middle" font-weight="bold">C</text>
+          <text x="500" y="90" fill="#e8e8f0" font-size="9" font-family="monospace" text-anchor="middle">Control</text>
+          <text x="500" y="105" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">Resultados</text>
+          <text x="500" y="116" fill="#6b7280" font-size="8" font-family="monospace" text-anchor="middle">sustentados</text>
+          <text x="280" y="158" fill="#6b7280" font-size="9" font-family="monospace" text-anchor="middle">Certificação Internacional Black Belt · Aplicado a TI, Processos e Negócios</text>
+        </svg>
+        <h3 class="modal-title">Consultoria Lean Six Sigma</h3>
+        <p class="modal-lead">Metodologia Black Belt aplicada à melhoria de processos em TI e negócios — reduza desperdícios, aumente eficiência e automatize com IA.</p>
+        <ol class="modal-steps">
+          <li class="modal-step"><span class="modal-step-num">D</span><span class="modal-step-text"><strong>Define — Mapeamento do problema</strong> — identificamos os gargalos, desperdícios e ineficiências no seu processo atual com análise de fluxo de valor (VSM).</span></li>
+          <li class="modal-step"><span class="modal-step-num">M</span><span class="modal-step-text"><strong>Measure — Coleta de dados reais</strong> — estabelecemos métricas claras: tempo de ciclo, taxa de retrabalho, custo por processo. Sem achismo, só dados.</span></li>
+          <li class="modal-step"><span class="modal-step-num">A</span><span class="modal-step-text"><strong>Analyze — Causa raiz</strong> — Diagrama de Ishikawa, 5 Porquês e análise de Pareto para identificar as causas reais dos problemas, não sintomas.</span></li>
+          <li class="modal-step"><span class="modal-step-num">I</span><span class="modal-step-text"><strong>Improve — Automação com IA</strong> — implementamos melhorias com automação, IA e ferramentas digitais. Eliminamos etapas desnecessárias do fluxo.</span></li>
+          <li class="modal-step"><span class="modal-step-num">C</span><span class="modal-step-text"><strong>Control — Sustentação dos ganhos</strong> — dashboards de monitoramento, procedimentos documentados e treinamento para manter os resultados no longo prazo.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="modal-tpl-limpeza-manutencao" class="modal-tpl">
+      <div class="modal-body">
+        <svg class="modal-svg" viewBox="0 0 560 195" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="195" rx="10" fill="#0d0d1a"/>
+          <rect width="560" height="28" rx="10" fill="#111127"/>
+          <rect y="18" width="560" height="10" fill="#111127"/>
+          <text x="16" y="18" fill="#6b7280" font-size="10" font-family="monospace">HWiNFO64 — Monitor de Temperatura — Antes e Depois da Limpeza</text>
+          <circle cx="540" cy="14" r="5" fill="#ff5f56"/><circle cx="526" cy="14" r="5" fill="#ffbd2e"/><circle cx="512" cy="14" r="5" fill="#27c93f"/>
+          <rect x="10" y="34" width="255" height="152" rx="6" fill="#13132a"/>
+          <text x="137" y="54" fill="#ef4444" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold">ANTES — Com Poeira</text>
+          <text x="22" y="74" fill="#6b7280" font-size="9" font-family="monospace">CPU Package</text>
+          <rect x="22" y="79" width="231" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="22" y="79" width="185" height="14" rx="3" fill="#ef4444"/>
+          <text x="135" y="90" fill="#fff" font-size="8" font-family="monospace" text-anchor="middle">94°C  (CRÍTICO)</text>
+          <text x="22" y="106" fill="#6b7280" font-size="9" font-family="monospace">GPU Temperature</text>
+          <rect x="22" y="111" width="231" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="22" y="111" width="166" height="14" rx="3" fill="#ef4444"/>
+          <text x="135" y="122" fill="#fff" font-size="8" font-family="monospace" text-anchor="middle">88°C  (ALTO)</text>
+          <text x="22" y="138" fill="#6b7280" font-size="9" font-family="monospace">HDD Temperature</text>
+          <rect x="22" y="143" width="231" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="22" y="143" width="120" height="14" rx="3" fill="#fbbf24"/>
+          <text x="135" y="154" fill="#0d0d1a" font-size="8" font-family="monospace" text-anchor="middle">52°C  (ATENÇÃO)</text>
+          <text x="22" y="174" fill="#6b7280" font-size="9" font-family="monospace">Fan Speed: 4.800 RPM (máximo)</text>
+          <rect x="285" y="34" width="265" height="152" rx="6" fill="#13132a"/>
+          <text x="417" y="54" fill="#25d366" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold">DEPOIS — Limpo</text>
+          <text x="297" y="74" fill="#6b7280" font-size="9" font-family="monospace">CPU Package</text>
+          <rect x="297" y="79" width="241" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="297" y="79" width="88" height="14" rx="3" fill="#25d366"/>
+          <text x="417" y="90" fill="#e8e8f0" font-size="8" font-family="monospace" text-anchor="middle">58°C  (NORMAL) ↓36°C</text>
+          <text x="297" y="106" fill="#6b7280" font-size="9" font-family="monospace">GPU Temperature</text>
+          <rect x="297" y="111" width="241" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="297" y="111" width="80" height="14" rx="3" fill="#25d366"/>
+          <text x="417" y="122" fill="#e8e8f0" font-size="8" font-family="monospace" text-anchor="middle">55°C  (NORMAL) ↓33°C</text>
+          <text x="297" y="138" fill="#6b7280" font-size="9" font-family="monospace">HDD Temperature</text>
+          <rect x="297" y="143" width="241" height="14" rx="3" fill="#1a1a38"/>
+          <rect x="297" y="143" width="70" height="14" rx="3" fill="#25d366"/>
+          <text x="417" y="154" fill="#e8e8f0" font-size="8" font-family="monospace" text-anchor="middle">38°C  (BOM) ↓14°C</text>
+          <text x="297" y="174" fill="#25d366" font-size="9" font-family="monospace">Fan Speed: 2.100 RPM (silencioso)</text>
+        </svg>
+        <h3 class="modal-title">Limpeza Interna e Manutenção</h3>
+        <p class="modal-lead">Limpeza profunda com ar comprimido, troca de pasta térmica e verificação de conectores — temperatura reduzida em até 40°C, silêncio e performance de volta.</p>
+        <ol class="modal-steps">
+          <li class="modal-step"><span class="modal-step-num">1</span><span class="modal-step-text"><strong>Monitoramento pré-limpeza</strong> — registramos temperaturas de CPU, GPU e HD com HWiNFO para quantificar o problema e ter comparativo final.</span></li>
+          <li class="modal-step"><span class="modal-step-num">2</span><span class="modal-step-text"><strong>Abertura e inspeção interna</strong> — verificamos acúmulo de poeira, estado dos capacitores, conectores frouxos e sinais de queima ou oxidação.</span></li>
+          <li class="modal-step"><span class="modal-step-num">3</span><span class="modal-step-text"><strong>Limpeza com ar comprimido</strong> — remoção de poeira dos dissipadores, coolers, slots de memória e fonte de alimentação com técnica adequada.</span></li>
+          <li class="modal-step"><span class="modal-step-num">4</span><span class="modal-step-text"><strong>Troca de pasta térmica</strong> — remoção da pasta antiga ressecada e aplicação de pasta térmica de alta performance (Thermal Grizzly ou similar).</span></li>
+          <li class="modal-step"><span class="modal-step-num">5</span><span class="modal-step-text"><strong>Verificação pós-manutenção</strong> — novo monitoramento de temperatura confirma a redução. Resultados antes/depois entregues por escrito.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Problem Modals -->
+    <div id="modal-tpl-prob-pc-lento" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">🐌</span><div><h3 class="modal-title">PC Lento</h3><p class="prob-urgency urgency-medium">Urgência: Média — Pode piorar progressivamente</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>HD mecânico com velocidade de leitura degradada ou fragmentado</li><li class="cause-item"><span class="cause-dot">▸</span>RAM insuficiente ou com módulo com defeito</li><li class="cause-item"><span class="cause-dot">▸</span>Programas excessivos no startup</li><li class="cause-item"><span class="cause-dot">▸</span>Vírus ou minerador de criptomoeda consumindo CPU</li><li class="cause-item"><span class="cause-dot">▸</span>Sistema operacional corrompido ou fragmentado</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico SMART do HD para avaliar estado real do disco</li><li class="solution-item"><span class="solution-dot">✓</span>Análise de startup e serviços em execução desnecessários</li><li class="solution-item"><span class="solution-dot">✓</span>Varredura de malware para descartar infecção</li><li class="solution-item"><span class="solution-dot">✓</span>Recomendação de upgrade para SSD se o HD for o gargalo</li><li class="solution-item"><span class="solution-dot">✓</span>Otimização de Windows sem formatação sempre que possível</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-tela-azul" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">💙</span><div><h3 class="modal-title">Tela Azul (BSOD)</h3><p class="prob-urgency urgency-high">Urgência: Alta — Indica falha de hardware ou driver</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>Driver desatualizado ou incompatível (GPU, rede, chipset)</li><li class="cause-item"><span class="cause-dot">▸</span>Memória RAM com defeito (bad modules)</li><li class="cause-item"><span class="cause-dot">▸</span>HD com bad sectors causando falha de leitura do sistema</li><li class="cause-item"><span class="cause-dot">▸</span>Superaquecimento de CPU ou GPU</li><li class="cause-item"><span class="cause-dot">▸</span>Arquivos de sistema corrompidos (NTFS, MFT)</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Análise do arquivo de dump (minidump) para identificar o driver causador</li><li class="solution-item"><span class="solution-dot">✓</span>Teste de RAM com MemTest86 por ciclos completos</li><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico SMART e varredura de superfície do HD</li><li class="solution-item"><span class="solution-dot">✓</span>Monitoramento de temperatura sob carga (stress test)</li><li class="solution-item"><span class="solution-dot">✓</span>Atualização ou reversão de drivers problemáticos</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-virus" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">🦠</span><div><h3 class="modal-title">Vírus / Malware</h3><p class="prob-urgency urgency-high">Urgência: Alta — Dados e privacidade em risco</p></div></div>
+        <div class="prob-causes"><h4>Sinais de infecção:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>PC lento sem motivo aparente (minerador de criptomoedas)</li><li class="cause-item"><span class="cause-dot">▸</span>Pop-ups e propagandas mesmo fora do navegador</li><li class="cause-item"><span class="cause-dot">▸</span>Antivírus desativado sem você ter feito isso</li><li class="cause-item"><span class="cause-dot">▸</span>Arquivos criptografados (ransomware)</li><li class="cause-item"><span class="cause-dot">▸</span>Tráfego de rede suspeito no roteador</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Varredura em modo seguro com Malwarebytes + ESET</li><li class="solution-item"><span class="solution-dot">✓</span>Limpeza de registro e entradas de startup maliciosas</li><li class="solution-item"><span class="solution-dot">✓</span>Verificação de rootkits com ferramentas especializadas</li><li class="solution-item"><span class="solution-dot">✓</span>Análise de processos em execução e tráfego de rede</li><li class="solution-item"><span class="solution-dot">✓</span>Configuração de proteção contínua pós-limpeza</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-superaquecimento" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">🔥</span><div><h3 class="modal-title">Superaquecimento</h3><p class="prob-urgency urgency-high">Urgência: Alta — Pode causar dano permanente ao hardware</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>Pasta térmica ressecada entre CPU/GPU e o dissipador</li><li class="cause-item"><span class="cause-dot">▸</span>Acúmulo de poeira bloqueando fluxo de ar</li><li class="cause-item"><span class="cause-dot">▸</span>Cooler com defeito ou parado</li><li class="cause-item"><span class="cause-dot">▸</span>Dissipador mal encaixado ou com mau contato</li><li class="cause-item"><span class="cause-dot">▸</span>Caixa com ventilação inadequada</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Monitoramento de temperatura com HWiNFO antes e depois</li><li class="solution-item"><span class="solution-dot">✓</span>Limpeza completa interna com ar comprimido</li><li class="solution-item"><span class="solution-dot">✓</span>Troca de pasta térmica de alta performance</li><li class="solution-item"><span class="solution-dot">✓</span>Verificação e reencaixe do dissipador</li><li class="solution-item"><span class="solution-dot">✓</span>Teste de stress pós-manutenção para confirmar temperaturas normais</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-hd-barulho" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">💾</span><div><h3 class="modal-title">HD com Barulho</h3><p class="prob-urgency urgency-critical">Urgência: CRÍTICA — Faça backup imediato</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>Clique repetitivo (click of death) — cabeçote danificado</li><li class="cause-item"><span class="cause-dot">▸</span>Barulho de arranhado — prato ou cabeçote raspando</li><li class="cause-item"><span class="cause-dot">▸</span>Zumbido alto — motor do prato com problema</li><li class="cause-item"><span class="cause-dot">▸</span>Bad sectors causando realocação constante com ruído</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico SMART urgente para quantificar dano</li><li class="solution-item"><span class="solution-dot">✓</span>Backup imediato de todos os dados antes de qualquer outro passo</li><li class="solution-item"><span class="solution-dot">✓</span>Avaliação se recuperação de dados é viável</li><li class="solution-item"><span class="solution-dot">✓</span>Substituição por SSD com clonagem ou restauração do backup</li><li class="solution-item"><span class="solution-dot">✓</span>Barulho mecânico é sinal vermelho — não ignore</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-pc-travando" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">🔒</span><div><h3 class="modal-title">PC Travando</h3><p class="prob-urgency urgency-medium">Urgência: Média a Alta — Depende da causa</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>HD com bad sectors travando leitura/escrita</li><li class="cause-item"><span class="cause-dot">▸</span>RAM com defeito causando instabilidade</li><li class="cause-item"><span class="cause-dot">▸</span>Superaquecimento causando thermal throttling severo</li><li class="cause-item"><span class="cause-dot">▸</span>Fonte de alimentação com voltagem instável</li><li class="cause-item"><span class="cause-dot">▸</span>Driver de GPU ou chipset causando deadlock</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Análise de Event Viewer para identificar erros do sistema</li><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico SMART + teste de superfície do HD</li><li class="solution-item"><span class="solution-dot">✓</span>Teste de RAM com MemTest86</li><li class="solution-item"><span class="solution-dot">✓</span>Monitoramento de temperaturas e voltagens sob carga</li><li class="solution-item"><span class="solution-dot">✓</span>Teste de estabilidade (stress test CPU/GPU/RAM)</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-nao-liga" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">🚫</span><div><h3 class="modal-title">PC Não Liga</h3><p class="prob-urgency urgency-high">Urgência: Alta — Requer diagnóstico presencial</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>Fonte de alimentação queimada ou com defeito</li><li class="cause-item"><span class="cause-dot">▸</span>Memória RAM mal encaixada ou com defeito</li><li class="cause-item"><span class="cause-dot">▸</span>Placa-mãe com capacitores estufados</li><li class="cause-item"><span class="cause-dot">▸</span>Falha no botão de power ou cabo interno</li><li class="cause-item"><span class="cause-dot">▸</span>BIOS corrompida ou bateria CMOS descarregada</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico por eliminação: testamos componente por componente</li><li class="solution-item"><span class="solution-dot">✓</span>Verificação da fonte com multímetro e tester de fonte</li><li class="solution-item"><span class="solution-dot">✓</span>Inspeção visual de capacitores, trilhas e conectores</li><li class="solution-item"><span class="solution-dot">✓</span>Reencaixe e troca de RAM para teste</li><li class="solution-item"><span class="solution-dot">✓</span>Reset de BIOS e troca de bateria CMOS se necessário</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-fps-baixo" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">📉</span><div><h3 class="modal-title">FPS Baixo nos Jogos</h3><p class="prob-urgency urgency-medium">Urgência: Média — Pode ter solução sem hardware novo</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>GPU com superaquecimento causando thermal throttling</li><li class="cause-item"><span class="cause-dot">▸</span>HD como gargalo de carregamento (SSD resolve)</li><li class="cause-item"><span class="cause-dot">▸</span>Driver de GPU desatualizado ou corrompido</li><li class="cause-item"><span class="cause-dot">▸</span>Windows com configurações de energia erradas</li><li class="cause-item"><span class="cause-dot">▸</span>Vírus consumindo CPU/GPU em background</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Monitoramento de GPU/CPU durante jogo com MSI Afterburner</li><li class="solution-item"><span class="solution-dot">✓</span>Limpeza interna e troca de pasta térmica da GPU</li><li class="solution-item"><span class="solution-dot">✓</span>Reinstalação limpa de drivers via DDU + Nvidia/AMD</li><li class="solution-item"><span class="solution-dot">✓</span>Configuração de plano de energia e modo de jogo do Windows</li><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico completo para identificar o gargalo real</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-boot-lento" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">⏰</span><div><h3 class="modal-title">Boot Lento</h3><p class="prob-urgency urgency-low">Urgência: Baixa — Mas impacta produtividade diária</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>HD mecânico antigo (principal causa)</li><li class="cause-item"><span class="cause-dot">▸</span>Dezenas de programas no startup</li><li class="cause-item"><span class="cause-dot">▸</span>Windows Update pendente ou preso</li><li class="cause-item"><span class="cause-dot">▸</span>Antivírus fazendo scan na inicialização</li><li class="cause-item"><span class="cause-dot">▸</span>SSD mal configurado (não está em modo AHCI)</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Análise de startup com autoruns e limpeza de programas desnecessários</li><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico SMART do HD para avaliar degradação</li><li class="solution-item"><span class="solution-dot">✓</span>Verificação de configuração BIOS/UEFI (boot order, AHCI)</li><li class="solution-item"><span class="solution-dot">✓</span>Recomendação de upgrade para SSD (boot de 4 min → 12 segundos)</li><li class="solution-item"><span class="solution-dot">✓</span>Otimização de serviços do Windows para inicialização rápida</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-erros-smart" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">⚠️</span><div><h3 class="modal-title">Erros SMART</h3><p class="prob-urgency urgency-critical">Urgência: CRÍTICA — Backup imediato necessário</p></div></div>
+        <div class="prob-causes"><h4>O que os erros indicam:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>Setores realocados (ID 05) — partes do disco fisicamente danificadas</li><li class="cause-item"><span class="cause-dot">▸</span>Setores pendentes (ID C5) — áreas instáveis aguardando realocação</li><li class="cause-item"><span class="cause-dot">▸</span>Erros não corrigíveis (ID C6) — falha de leitura permanente</li><li class="cause-item"><span class="cause-dot">▸</span>Temperatura muito alta por períodos prolongados</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Leitura completa dos atributos SMART com CrystalDiskInfo + smartctl</li><li class="solution-item"><span class="solution-dot">✓</span>Varredura de superfície com Victoria para mapear todos os bad blocks</li><li class="solution-item"><span class="solution-dot">✓</span>Backup imediato e verificado de todos os dados</li><li class="solution-item"><span class="solution-dot">✓</span>Laudo técnico com recomendação clara: trocar ou não o disco</li><li class="solution-item"><span class="solution-dot">✓</span>Substituição por SSD com clonagem quando viável</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-arquivos-sumindo" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">📁</span><div><h3 class="modal-title">Arquivos Sumindo</h3><p class="prob-urgency urgency-high">Urgência: Alta — Pode ser sinal de falha de disco</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>HD com bad sectors corrompendo arquivos silenciosamente</li><li class="cause-item"><span class="cause-dot">▸</span>Vírus ou ransomware deletando ou ocultando arquivos</li><li class="cause-item"><span class="cause-dot">▸</span>Tabela de alocação de arquivos (MFT/FAT) corrompida</li><li class="cause-item"><span class="cause-dot">▸</span>Pasta de usuário corrompida por update com erro</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico SMART urgente para avaliar integridade do disco</li><li class="solution-item"><span class="solution-dot">✓</span>Varredura de vírus para descartar infecção ativa</li><li class="solution-item"><span class="solution-dot">✓</span>Recuperação de arquivos com Recuva ou TestDisk se apagados</li><li class="solution-item"><span class="solution-dot">✓</span>Verificação e reparo de sistema de arquivos (chkdsk /f)</li><li class="solution-item"><span class="solution-dot">✓</span>Backup imediato de tudo o que ainda está acessível</li></ul></div>
+      </div>
+    </div>
+
+    <div id="modal-tpl-prob-sem-audio" class="modal-tpl">
+      <div class="modal-body prob-modal">
+        <div class="prob-header"><span class="prob-icon-lg">🔇</span><div><h3 class="modal-title">Sem Áudio</h3><p class="prob-urgency urgency-low">Urgência: Baixa — Geralmente solução rápida</p></div></div>
+        <div class="prob-causes"><h4>O que pode estar causando:</h4><ul class="cause-list"><li class="cause-item"><span class="cause-dot">▸</span>Driver de áudio desatualizado, corrompido ou com conflito</li><li class="cause-item"><span class="cause-dot">▸</span>Serviço de áudio do Windows parado ou desabilitado</li><li class="cause-item"><span class="cause-dot">▸</span>Dispositivo de saída errado selecionado</li><li class="cause-item"><span class="cause-dot">▸</span>Conector de áudio físico com defeito ou solto</li><li class="cause-item"><span class="cause-dot">▸</span>Conflito após atualização do Windows</li></ul></div>
+        <div class="prob-solution"><h4>Como resolvemos:</h4><ul class="solution-list"><li class="solution-item"><span class="solution-dot">✓</span>Verificação de dispositivo de saída e configurações de volume</li><li class="solution-item"><span class="solution-dot">✓</span>Reinstalação de driver de áudio (Realtek/Intel HD Audio)</li><li class="solution-item"><span class="solution-dot">✓</span>Verificação do serviço Windows Audio no gerenciador</li><li class="solution-item"><span class="solution-dot">✓</span>Teste físico de conector e troca de saída (frontal vs traseira)</li><li class="solution-item"><span class="solution-dot">✓</span>Diagnóstico pode ser feito remotamente na maioria dos casos</li></ul></div>
+      </div>
+    </div>
+
     <!-- ── FOOTER ── -->
     <footer>
       <div class="container footer-inner">
@@ -550,6 +951,45 @@ const cities = [
       if (icon) icon.textContent = det.open ? '−' : '+';
     });
   });
+
+  // Modal system
+  (function () {
+    const backdrop = document.getElementById('modal-backdrop');
+    const content = document.getElementById('modal-content');
+    const closeBtn = document.getElementById('modal-close');
+    if (!backdrop || !content || !closeBtn) return;
+
+    let lastFocused = null;
+
+    function openModal(id) {
+      const tpl = document.getElementById('modal-tpl-' + id);
+      if (!tpl) return;
+      content.innerHTML = tpl.innerHTML;
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lastFocused = document.activeElement;
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    document.querySelectorAll('[data-modal]').forEach(function (el) {
+      el.addEventListener('click', function () { openModal(el.dataset.modal); });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(el.dataset.modal); }
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', function (e) { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  })();
 </script>
 
 <style>
@@ -797,8 +1237,16 @@ const cities = [
     color: var(--accent-l);
   }
 
+  .service-card { cursor: pointer; }
+  .service-card:focus-visible { outline: 2px solid var(--accent-l); outline-offset: 2px; }
   .service-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.55rem; }
   .service-desc { font-size: 0.855rem; color: var(--muted); line-height: 1.65; }
+  .service-see-more {
+    display: inline-block; margin-top: 0.85rem;
+    font-size: 0.78rem; font-weight: 600; color: var(--accent-l);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .service-card:hover .service-see-more { opacity: 1; }
 
   /* ── PROBLEMS ── */
   .problems-section { background: var(--bg2); }
@@ -813,14 +1261,17 @@ const cities = [
   .problem-tile {
     background: var(--bg2); border: 1px solid var(--border);
     border-radius: 14px; padding: 1.4rem 0.75rem;
-    text-align: center; cursor: default;
+    text-align: center; cursor: pointer;
     transition: border-color 0.2s, transform 0.2s, background 0.2s;
     display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
   }
   .problem-tile:hover { border-color: rgba(255,46,46,0.3); transform: translateY(-3px); background: rgba(255,46,46,0.03); }
+  .problem-tile:focus-visible { outline: 2px solid var(--accent-l); outline-offset: 2px; }
 
   .problem-icon { font-size: 1.75rem; display: block; }
   .problem-label { font-size: 0.8rem; font-weight: 600; color: var(--fg); }
+  .problem-hint { font-size: 0.65rem; color: var(--accent-l); opacity: 0; transition: opacity 0.2s; }
+  .problem-tile:hover .problem-hint { opacity: 1; }
 
   .problems-cta {
     background: rgba(124,58,237,0.06);
@@ -1166,5 +1617,115 @@ const cities = [
     .cta-section { padding: 4rem 0; }
     .cta-inner { padding: 3rem 1.5rem; }
     .wpp-float { bottom: 16px; right: 16px; width: 50px; height: 50px; }
+  }
+
+  /* ── MODAL ── */
+  .modal-tpl { display: none; }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 900;
+    background: rgba(6,6,14,0.88);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  .modal-box {
+    background: var(--bg2); border: 1px solid var(--accent-border);
+    border-radius: 20px; width: 100%; max-width: 700px; max-height: 88vh;
+    display: flex; flex-direction: column;
+    transform: translateY(24px); transition: transform 0.28s cubic-bezier(.22,.68,0,1.2);
+    position: relative; overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+  }
+  .modal-backdrop.open .modal-box { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem; z-index: 10;
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s, color 0.2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.12); color: var(--fg); }
+
+  .modal-scroll { overflow-y: auto; flex: 1; }
+
+  .modal-body { padding: 2rem 2rem 0; }
+
+  .modal-svg {
+    width: 100%; height: auto; border-radius: 10px;
+    margin-bottom: 1.5rem; display: block;
+    border: 1px solid var(--border);
+  }
+
+  .modal-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.45rem; letter-spacing: -0.02em; }
+  .modal-lead { font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.5rem; }
+
+  .modal-steps { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; padding-bottom: 0.5rem; }
+  .modal-step { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .modal-step-num {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 7px;
+    background: rgba(124,58,237,0.15); border: 1px solid var(--accent-border);
+    color: var(--accent-l); font-size: 0.68rem; font-weight: 800; font-family: monospace;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .modal-step-text { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+  .modal-step-text strong { color: var(--fg); }
+
+  .modal-wpp {
+    padding: 1.5rem 2rem 2rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1.5rem;
+    background: rgba(0,0,0,0.18);
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  }
+  .modal-wpp .btn-wa { flex-shrink: 0; }
+
+  /* ── PROBLEM MODALS ── */
+  .prob-modal { padding-bottom: 0.25rem; }
+
+  .prob-header {
+    display: flex; align-items: flex-start; gap: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  .prob-icon-lg { font-size: 2.75rem; line-height: 1; flex-shrink: 0; }
+
+  .prob-urgency {
+    display: inline-block; margin-top: 0.35rem;
+    font-size: 0.72rem; font-weight: 700;
+    padding: 0.2rem 0.75rem; border-radius: 9999px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .urgency-low { background: rgba(37,211,102,0.1); color: #25d366; border: 1px solid rgba(37,211,102,0.25); }
+  .urgency-medium { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.25); }
+  .urgency-high { background: rgba(249,115,22,0.1); color: #fb923c; border: 1px solid rgba(249,115,22,0.25); }
+  .urgency-critical { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+
+  .prob-causes, .prob-solution { margin-bottom: 1.25rem; }
+  .prob-causes h4, .prob-solution h4 {
+    font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent-l); margin-bottom: 0.7rem;
+  }
+
+  .cause-list, .solution-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .cause-item, .solution-item {
+    display: flex; gap: 0.6rem; align-items: flex-start;
+    font-size: 0.875rem; color: var(--muted); line-height: 1.5;
+  }
+  .cause-dot { color: #fb923c; flex-shrink: 0; margin-top: 1px; font-size: 0.75rem; }
+  .solution-dot { color: #25d366; flex-shrink: 0; margin-top: 1px; font-size: 0.75rem; }
+
+  @media (max-width: 600px) {
+    .modal-backdrop { padding: 0.5rem; align-items: flex-end; }
+    .modal-box { border-radius: 20px 20px 0 0; max-height: 92vh; }
+    .modal-body { padding: 1.5rem 1.25rem 0; }
+    .modal-wpp { padding: 1.25rem; }
+    .modal-title { font-size: 1.15rem; }
+    .prob-icon-lg { font-size: 2.25rem; }
   }
 </style>
