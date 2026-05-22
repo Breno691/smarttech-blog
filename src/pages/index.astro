@@ -1,5 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
+import GTMHead from '../components/GTMHead.astro';
+import GTMBody from '../components/GTMBody.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+import EventTracking from '../components/EventTracking.astro';
 
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts
@@ -17,20 +22,7 @@ function formatDate(date: Date) {
   return date.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'SmartOps IA',
-  description: 'Manutenção de computadores, diagnóstico SMART avançado, upgrade SSD, automação IA e SEO local em Nova Pampulha, Morro Alto e Vespasiano.',
-  url: siteURL,
-  telephone: `+55-31-98722-3507`,
-  areaServed: [
-    { '@type': 'City', name: 'Nova Pampulha', containedInPlace: { '@type': 'City', name: 'Belo Horizonte' } },
-    { '@type': 'City', name: 'Morro Alto' },
-    { '@type': 'City', name: 'Vespasiano' },
-  ],
-  sameAs: [`https://wa.me/${whatsappNumber}`],
-};
+// schema definido após os arrays de dados (serviços, FAQ)
 
 const services = [
   {
@@ -139,6 +131,125 @@ const cities = [
   { name: 'Morro Alto', sub: 'Região Metropolitana, MG', desc: 'Diagnóstico avançado, formatação e suporte técnico para pessoas e empresas.' },
   { name: 'Vespasiano', sub: 'Região Metropolitana de BH', desc: 'SEO local, manutenção de computadores e consultoria em IA e processos.' },
 ];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    // ── LocalBusiness + ProfessionalService ──────────────────────────────
+    {
+      '@type': ['LocalBusiness', 'ProfessionalService'],
+      '@id': `${siteURL}#business`,
+      name: 'SmartOps IA',
+      alternateName: 'SmartOps SEO',
+      description: 'Manutenção de computadores, diagnóstico SMART avançado, upgrade SSD, formatação, remoção de vírus, automação com IA e SEO local em Belo Horizonte e região.',
+      url: siteURL,
+      telephone: '+55-31-98722-3507',
+      priceRange: '$$',
+      image: new URL('/og-default.svg', siteURL).href,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Belo Horizonte',
+        addressRegion: 'MG',
+        addressCountry: 'BR',
+      },
+      areaServed: [
+        { '@type': 'City', name: 'Nova Pampulha', containedInPlace: { '@type': 'City', name: 'Belo Horizonte' } },
+        { '@type': 'City', name: 'Morro Alto' },
+        { '@type': 'City', name: 'Vespasiano' },
+        { '@type': 'AdministrativeArea', name: 'Região Metropolitana de Belo Horizonte' },
+      ],
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          opens: '08:00',
+          closes: '18:00',
+        },
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: 'Saturday',
+          opens: '08:00',
+          closes: '13:00',
+        },
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Serviços SmartOps IA',
+        itemListElement: services.map((s, i) => ({
+          '@type': 'Offer',
+          position: i + 1,
+          itemOffered: {
+            '@type': 'Service',
+            name: s.title,
+            description: s.desc,
+            provider: { '@id': `${siteURL}#business` },
+          },
+        })),
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+55-31-98722-3507',
+        contactType: 'customer service',
+        availableLanguage: { '@type': 'Language', name: 'Portuguese' },
+      },
+      sameAs: [`https://wa.me/${whatsappNumber}`],
+    },
+    // ── Organization ─────────────────────────────────────────────────────
+    {
+      '@type': 'Organization',
+      '@id': `${siteURL}#organization`,
+      name: 'SmartOps IA',
+      url: siteURL,
+      logo: {
+        '@type': 'ImageObject',
+        url: new URL('/favicon.svg', siteURL).href,
+        width: 512,
+        height: 512,
+      },
+      sameAs: [`https://wa.me/${whatsappNumber}`],
+    },
+    // ── WebSite ───────────────────────────────────────────────────────────
+    {
+      '@type': 'WebSite',
+      '@id': `${siteURL}#website`,
+      url: siteURL,
+      name: 'SmartOps IA',
+      description: 'Manutenção de computadores, diagnóstico SMART, upgrade SSD, automação com IA e SEO local em Belo Horizonte e região.',
+      inLanguage: 'pt-BR',
+      publisher: { '@id': `${siteURL}#organization` },
+    },
+    // ── WebPage ───────────────────────────────────────────────────────────
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'SmartOps IA — Diagnóstico, Manutenção, SSD e Automação em BH',
+      description: 'Diagnóstico SMART avançado, upgrade SSD, formatação, remoção de vírus, automação com IA e SEO local. Atendimento em Nova Pampulha, Morro Alto e Vespasiano.',
+      inLanguage: 'pt-BR',
+      isPartOf: { '@id': `${siteURL}#website` },
+      about: { '@id': `${siteURL}#business` },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+        ],
+      },
+    },
+    // ── FAQPage — rich snippets Q&A no Google ────────────────────────────
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonicalURL}#faq`,
+      mainEntity: faqs.map(faq => ({
+        '@type': 'Question',
+        name: faq.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.a,
+        },
+      })),
+    },
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -147,6 +258,14 @@ const cities = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Preconnect para domínios críticos de terceiros -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+
+    <GTMHead />
+    <MetaPixel />
 
     <title>SmartOps IA — Diagnóstico, Manutenção, SSD e Automação em BH</title>
     <meta name="description" content="Diagnóstico SMART avançado, upgrade SSD, formatação, remoção de vírus, automação com IA e SEO local. Atendimento em Nova Pampulha, Morro Alto e Vespasiano." />
@@ -173,12 +292,15 @@ const cities = [
     <link rel="icon" href="/favicon.ico" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <GoogleAnalytics />
   </head>
 
   <body>
+    <GTMBody />
 
     <!-- ── FLOAT WHATSAPP ── -->
-    <a href={whatsappURL} class="wpp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <a href={whatsappURL} class="wpp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" data-event="clique_whatsapp" data-location="float" data-label="Botão Flutuante">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
     </a>
 
@@ -194,7 +316,7 @@ const cities = [
           <a href="/#servicos">Serviços</a>
           <a href="/#contato">Contato</a>
         </div>
-        <a href={whatsappURL} class="nav-wa" target="_blank" rel="noopener noreferrer">
+        <a href={whatsappURL} class="nav-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="navbar" data-label="Falar agora">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
           Falar agora
         </a>
@@ -222,7 +344,7 @@ const cities = [
             Diagnóstico SMART avançado, upgrade de SSD, formatação, remoção de vírus, automação com IA e SEO local. Seu computador e seu negócio em mãos especializadas.
           </p>
           <div class="hero-btns">
-            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer">
+            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="hero" data-label="Diagnóstico Grátis">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
               Diagnóstico Grátis
             </a>
@@ -240,29 +362,6 @@ const cities = [
             <div class="hero-stat-sep" aria-hidden="true"></div>
             <div class="hero-stat"><strong>Black Belt</strong><span>Lean Six Sigma</span></div>
           </div>
-        </div>
-      </section>
-
-      <!-- ── SERVIÇOS ── -->
-      <section class="section services-section" id="servicos">
-        <div class="container">
-          <div class="section-header">
-            <p class="section-label">O que fazemos</p>
-            <h2 class="section-title">Serviços que <span class="gradient-text">resolvem de verdade</span></h2>
-            <p class="section-sub">Do diagnóstico ao upgrade, cada serviço executado com precisão, transparência e dados reais na tela.</p>
-          </div>
-          <ul class="services-grid">
-            {services.map(s => (
-              <li class="service-card" data-modal={s.id} role="button" tabindex="0">
-                <div class="service-icon" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
-                </div>
-                <h3 class="service-title">{s.title}</h3>
-                <p class="service-desc">{s.desc}</p>
-                <span class="service-see-more" aria-hidden="true">Ver como fazemos →</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
@@ -287,11 +386,146 @@ const cities = [
               <strong>Se seu PC apresenta qualquer um desses sinais, não ignore.</strong>
               <p>Alguns problemas evoluem rápido e podem resultar em perda total de dados. Diagnóstico identifica a causa real.</p>
             </div>
-            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer">
+            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="problemas" data-label="Diagnosticar agora">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
               Diagnosticar agora
             </a>
           </div>
+        </div>
+      </section>
+
+      <!-- ── LEAD CAPTURE ── -->
+      <section class="section lead-section" id="contato" aria-labelledby="lead-heading">
+        <div class="container">
+          <div class="lead-grid">
+
+            <div class="lead-col-form">
+              <p class="section-label">Fale conosco</p>
+              <h2 id="lead-heading" class="section-title">Diagnóstico gratuito <span class="gradient-text">começa aqui</span></h2>
+              <p class="lead-intro">Preencha o formulário e receba uma análise do seu problema em minutos — sem compromisso, sem custo.</p>
+
+              <form id="lead-form" class="lead-form" novalidate autocomplete="on">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="lead-nome">Nome <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="lead-nome" name="nome" required placeholder="Seu nome" autocomplete="name" maxlength="100" />
+                  </div>
+                  <div class="form-group">
+                    <label for="lead-tel">WhatsApp <span class="req" aria-hidden="true">*</span></label>
+                    <input type="tel" id="lead-tel" name="telefone" required placeholder="(31) 99999-9999" autocomplete="tel" maxlength="20" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="lead-empresa">Empresa</label>
+                    <input type="text" id="lead-empresa" name="empresa" placeholder="Opcional" autocomplete="organization" maxlength="100" />
+                  </div>
+                  <div class="form-group">
+                    <label for="lead-servico">Serviço <span class="req" aria-hidden="true">*</span></label>
+                    <select id="lead-servico" name="servico" required>
+                      <option value="">Selecione...</option>
+                      <option value="diagnostico-smart">Diagnóstico SMART</option>
+                      <option value="upgrade-ssd">Upgrade SSD</option>
+                      <option value="formatacao">Formatação Completa</option>
+                      <option value="remocao-virus">Remoção de Vírus</option>
+                      <option value="automacao-ia">Automação com IA</option>
+                      <option value="seo-local">SEO Local</option>
+                      <option value="outro">Outro / Não sei</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group form-full">
+                  <label for="lead-msg">Descreva o problema</label>
+                  <textarea id="lead-msg" name="mensagem" rows="4" placeholder="Ex: PC lento, trava ao abrir programas, não liga..." maxlength="1000"></textarea>
+                </div>
+                <button type="submit" class="btn-lead" data-event="clique_cta" data-location="lead-form" data-label="Enviar Lead">
+                  <span class="btn-lead-text">Solicitar diagnóstico gratuito <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                  <span class="btn-lead-spin" aria-hidden="true">Enviando…</span>
+                </button>
+                <p class="form-privacy">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Dados protegidos · Nunca enviamos spam
+                </p>
+              </form>
+
+              <div id="lead-success" class="lead-success" hidden tabindex="-1" aria-live="polite">
+                <div class="success-check" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <h3>Solicitação enviada!</h3>
+                <p>Entraremos em contato pelo WhatsApp em breve. Tempo de resposta: até 30 minutos.</p>
+                <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="lead-success" data-label="Confirmar via WhatsApp">
+                  Confirmar pelo WhatsApp
+                </a>
+              </div>
+
+              <div id="lead-error" class="lead-error" hidden tabindex="-1" aria-live="assertive">
+                <div class="error-icon" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>
+                </div>
+                <h3>Falha no envio</h3>
+                <p>Não conseguimos processar sua solicitação agora. Tente novamente ou fale diretamente pelo WhatsApp.</p>
+                <div class="error-actions">
+                  <button type="button" id="lead-retry" class="btn-retry">Tentar novamente</button>
+                  <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="lead-error" data-label="WhatsApp Fallback Erro">
+                    Falar pelo WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <aside class="lead-col-info">
+              <div class="lead-trust-card">
+                <p class="trust-title">O que acontece depois?</p>
+                <ol class="trust-steps">
+                  <li>
+                    <span class="step-num" aria-hidden="true">01</span>
+                    <div><strong>Recebemos sua solicitação</strong><p>Analisamos o problema descrito imediatamente.</p></div>
+                  </li>
+                  <li>
+                    <span class="step-num" aria-hidden="true">02</span>
+                    <div><strong>Diagnóstico inicial</strong><p>Você recebe análise no WhatsApp em até 30 minutos.</p></div>
+                  </li>
+                  <li>
+                    <span class="step-num" aria-hidden="true">03</span>
+                    <div><strong>Agendamento</strong><p>Se necessário, agendamos atendimento presencial sem compromisso.</p></div>
+                  </li>
+                </ol>
+              </div>
+              <div class="lead-wa-direct">
+                <p class="wa-direct-label">Prefere falar agora?</p>
+                <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="contato-direto" data-label="WhatsApp Direto Contato">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+                  Chamar no WhatsApp agora
+                </a>
+                <p class="wa-direct-hint">Diagnóstico inicial gratuito · Resposta rápida</p>
+              </div>
+            </aside>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SERVIÇOS ── -->
+      <section class="section services-section" id="servicos">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">O que fazemos</p>
+            <h2 class="section-title">Serviços que <span class="gradient-text">resolvem de verdade</span></h2>
+            <p class="section-sub">Do diagnóstico ao upgrade, cada serviço executado com precisão, transparência e dados reais na tela.</p>
+          </div>
+          <ul class="services-grid">
+            {services.map(s => (
+              <li class="service-card" data-modal={s.id} role="button" tabindex="0">
+                <div class="service-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+                </div>
+                <h3 class="service-title">{s.title}</h3>
+                <p class="service-desc">{s.desc}</p>
+                <span class="service-see-more" aria-hidden="true">Ver como fazemos →</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -474,7 +708,7 @@ const cities = [
       )}
 
       <!-- ── CTA FINAL ── -->
-      <section class="section cta-section" id="contato">
+      <section class="section cta-section">
         <div class="container">
           <div class="cta-inner">
             <div class="cta-glow" aria-hidden="true"></div>
@@ -483,7 +717,7 @@ const cities = [
             <p class="cta-sub">
               Me envie uma mensagem, descreva o que está acontecendo e receba um diagnóstico inicial gratuito pelo WhatsApp. Resposta rápida, sem compromisso.
             </p>
-            <a href={whatsappURL} class="btn-wa btn-wa-lg" target="_blank" rel="noopener noreferrer">
+            <a href={whatsappURL} class="btn-wa btn-wa-lg" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="cta" data-label="Chamar no WhatsApp">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
               Chamar no WhatsApp
             </a>
@@ -503,7 +737,7 @@ const cities = [
         <div class="modal-scroll">
           <div id="modal-content"></div>
           <div class="modal-wpp">
-            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer">
+            <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="modal" data-label="Agendar pelo WhatsApp">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
               Agendar pelo WhatsApp
             </a>
@@ -893,7 +1127,7 @@ const cities = [
         <div class="footer-brand">
           <a href="/" class="logo">Smart<span>Ops</span> <em>IA</em></a>
           <p>Manutenção de computadores, diagnóstico SMART avançado, upgrade SSD, automação com IA e SEO local para pessoas e pequenas empresas.</p>
-          <a href={whatsappURL} class="footer-wa" target="_blank" rel="noopener noreferrer">
+          <a href={whatsappURL} class="footer-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="footer" data-label="WhatsApp Footer">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
             (31) 98722-3507
           </a>
@@ -930,6 +1164,104 @@ const cities = [
       </div>
     </footer>
 
+    <script is:inline>
+    (function () {
+      'use strict';
+      var WEBHOOK_URL = 'https://n8n-n8nn.sumjyb.easypanel.host/webhook/captura-leads';
+      var WA = '5531987223507';
+
+      var form = document.getElementById('lead-form');
+      var successEl = document.getElementById('lead-success');
+      var errorEl = document.getElementById('lead-error');
+      if (!form || !successEl || !errorEl) return;
+
+      var retryBtn = document.getElementById('lead-retry');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', function () {
+          errorEl.hidden = true;
+          form.hidden = false;
+          form.querySelector('[name="nome"]').focus();
+        });
+      }
+
+      var started = false;
+      form.addEventListener('focusin', function () {
+        if (started) return;
+        started = true;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'lead_formulario', event_location: 'lead-form' });
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var nome = form.nome.value.trim();
+        var telefone = form.telefone.value.trim();
+        var servico = form.servico.value;
+
+        ['nome', 'telefone', 'servico'].forEach(function (f) {
+          form[f].removeAttribute('aria-invalid');
+        });
+
+        var valid = true;
+        if (!nome) { form.nome.setAttribute('aria-invalid', 'true'); valid = false; }
+        if (!telefone) { form.telefone.setAttribute('aria-invalid', 'true'); valid = false; }
+        if (!servico) { form.servico.setAttribute('aria-invalid', 'true'); valid = false; }
+        if (!valid) { form.querySelector('[aria-invalid="true"]').focus(); return; }
+
+        var payload = {
+          nome: nome,
+          telefone: telefone,
+          empresa: form.empresa.value.trim(),
+          servico: servico,
+          mensagem: form.mensagem.value.trim(),
+          origem: window.location.href,
+          timestamp: new Date().toISOString(),
+        };
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'envio_formulario', event_location: 'lead-form', event_label: payload.servico });
+        if (typeof fbq === 'function') fbq('track', 'SubmitApplication');
+
+        var btn = form.querySelector('.btn-lead');
+        btn.disabled = true;
+        btn.classList.add('is-loading');
+
+        function onSuccess() {
+          window.dataLayer.push({ event: 'lead_gerado', event_location: 'lead-form', event_label: payload.servico });
+          if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: payload.servico });
+          form.hidden = true;
+          successEl.hidden = false;
+          successEl.focus();
+        }
+
+        function fallbackWA() {
+          var lines = ['Olá! Quero um diagnóstico gratuito.', '', 'Nome: ' + payload.nome, 'Telefone: ' + payload.telefone];
+          if (payload.empresa) lines.push('Empresa: ' + payload.empresa);
+          lines.push('Serviço: ' + payload.servico);
+          if (payload.mensagem) lines.push('', payload.mensagem);
+          window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+          onSuccess();
+        }
+
+        fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+          .then(function (r) { if (!r.ok) throw new Error(r.status); })
+          .then(onSuccess)
+          .catch(function () {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'erro_formulario', event_location: 'lead-form', event_label: payload.servico });
+            form.hidden = true;
+            errorEl.hidden = false;
+            errorEl.focus();
+          });
+      });
+    })();
+    </script>
+
+    <EventTracking />
   </body>
 </html>
 
@@ -1727,5 +2059,200 @@ const cities = [
     .modal-wpp { padding: 1.25rem; }
     .modal-title { font-size: 1.15rem; }
     .prob-icon-lg { font-size: 2.25rem; }
+  }
+
+  /* ── LEAD SECTION ── */
+  .lead-section { background: var(--bg2); }
+
+  .lead-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .lead-intro { color: var(--muted); font-size: 1.025rem; line-height: 1.7; margin-bottom: 1.75rem; }
+
+  .lead-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.375rem; }
+
+  .form-full { grid-column: 1 / -1; }
+
+  .form-group label { font-size: 0.875rem; font-weight: 600; color: var(--fg); }
+
+  .req { color: var(--accent); margin-left: 1px; }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: 0.9375rem;
+    transition: border-color 0.18s, box-shadow 0.18s;
+    outline: none;
+    width: 100%;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  }
+
+  .form-group input[aria-invalid="true"],
+  .form-group select[aria-invalid="true"] {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 108px; }
+
+  .form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .btn-lead {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-h) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.32);
+  }
+
+  .btn-lead:hover:not(:disabled) { opacity: 0.91; transform: translateY(-1px); box-shadow: 0 6px 28px rgba(124, 58, 237, 0.44); }
+  .btn-lead:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .btn-lead-text { display: flex; align-items: center; gap: 0.5rem; }
+  .btn-lead-spin { display: none; }
+  .btn-lead.is-loading .btn-lead-text { display: none; }
+  .btn-lead.is-loading .btn-lead-spin { display: block; }
+
+  .form-privacy { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+
+  .lead-success {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: var(--bg);
+    border: 1.5px solid var(--accent-bg);
+    border-radius: 16px;
+  }
+
+  .success-check {
+    width: 56px; height: 56px;
+    background: var(--accent-bg);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+    color: var(--accent);
+  }
+
+  .lead-success h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .lead-success p { color: var(--muted); margin-bottom: 1.5rem; line-height: 1.65; }
+
+  .lead-error {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: var(--bg);
+    border: 1px solid #f87171;
+    border-radius: 14px;
+  }
+
+  .error-icon {
+    width: 56px; height: 56px;
+    background: #fef2f2;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+    color: #ef4444;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .error-icon { background: #2d1515; }
+    .lead-error { border-color: #7f1d1d; }
+  }
+
+  .lead-error h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #ef4444; }
+  .lead-error p { color: var(--muted); margin-bottom: 1.5rem; line-height: 1.65; }
+
+  .error-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+
+  .btn-retry {
+    padding: 0.7rem 1.5rem;
+    background: transparent;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-retry:hover { background: var(--accent); color: #fff; }
+
+  .lead-trust-card {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 1.625rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .trust-title { font-size: 0.9375rem; font-weight: 700; color: var(--fg); margin-bottom: 1.25rem; }
+
+  .trust-steps { list-style: none; display: flex; flex-direction: column; gap: 1.125rem; }
+
+  .trust-steps li { display: flex; gap: 0.875rem; align-items: flex-start; }
+
+  .step-num {
+    font-size: 0.7rem; font-weight: 800;
+    color: var(--accent); background: var(--accent-bg);
+    border-radius: 6px; padding: 0.2rem 0.45rem;
+    flex-shrink: 0; margin-top: 2px; letter-spacing: 0.04em;
+  }
+
+  .trust-steps li strong { display: block; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .trust-steps li p { font-size: 0.8125rem; color: var(--muted); line-height: 1.55; margin: 0; }
+
+  .lead-wa-direct {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+  }
+
+  .wa-direct-label { font-size: 0.875rem; color: var(--muted); margin-bottom: 0.75rem; }
+  .wa-direct-hint { font-size: 0.78rem; color: var(--muted); margin-top: 0.625rem; }
+
+  @media (max-width: 960px) {
+    .lead-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .lead-section { padding: 4rem 0; }
   }
 </style>
