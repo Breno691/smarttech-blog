@@ -1,5 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import GTMHead from '../components/GTMHead.astro';
+import GTMBody from '../components/GTMBody.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+import EventTracking from '../components/EventTracking.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -19,19 +24,56 @@ const dateModified = (updatedDate ?? pubDate).toISOString();
 
 const schema = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: title,
-  description,
-  image: ogImage,
-  author: { '@type': 'Person', name: author },
-  publisher: {
-    '@type': 'Organization',
-    name: 'SmartOps SEO',
-    url: siteURL.href,
-  },
-  datePublished,
-  dateModified,
-  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
+  '@graph': [
+    // ── Article ───────────────────────────────────────────────────────────
+    {
+      '@type': 'Article',
+      '@id': `${canonicalURL}#article`,
+      headline: title,
+      description,
+      image: {
+        '@type': 'ImageObject',
+        url: ogImage,
+        width: 1200,
+        height: 630,
+      },
+      author: {
+        '@type': 'Person',
+        name: author,
+      },
+      publisher: { '@id': `${siteURL.href}#organization` },
+      datePublished,
+      dateModified,
+      mainEntityOfPage: { '@id': `${canonicalURL}#webpage` },
+      inLanguage: 'pt-BR',
+      keywords: tags.join(', '),
+      articleSection: 'Tecnologia',
+      isPartOf: { '@id': `${canonicalURL}#webpage` },
+    },
+    // ── WebPage ───────────────────────────────────────────────────────────
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: `${title} | SmartOps SEO`,
+      description,
+      inLanguage: 'pt-BR',
+      isPartOf: { '@id': `${siteURL.href}#website` },
+      breadcrumb: { '@id': `${canonicalURL}#breadcrumb` },
+      datePublished,
+      dateModified,
+    },
+    // ── BreadcrumbList ────────────────────────────────────────────────────
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalURL}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL.href },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: new URL('/blog/', siteURL).href },
+        { '@type': 'ListItem', position: 3, name: title, item: canonicalURL },
+      ],
+    },
+  ],
 };
 
 function formatDate(date: Date) {
@@ -45,6 +87,14 @@ function formatDate(date: Date) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Preconnect para domínios críticos de terceiros -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+
+    <GTMHead />
+    <MetaPixel />
 
     <!-- SEO primário -->
     <title>{title} | SmartOps SEO</title>
@@ -78,9 +128,12 @@ function formatDate(date: Date) {
 
     <!-- Schema.org JSON-LD -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <GoogleAnalytics />
   </head>
 
   <body>
+    <GTMBody />
     <header>
       <nav>
         <a href="/" class="site-name">SmartOps <span>IA</span></a>
@@ -136,6 +189,7 @@ function formatDate(date: Date) {
     <footer>
       <p>&copy; {new Date().getFullYear()} SmartOps SEO. Todos os direitos reservados.</p>
     </footer>
+    <EventTracking />
   </body>
 </html>
 

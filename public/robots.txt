@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
-
-# Bloqueia pastas internas do Astro
 Disallow: /_astro/
 
+Host: https://smartops-ia.com.br
 Sitemap: https://smartops-ia.com.br/sitemap-index.xml

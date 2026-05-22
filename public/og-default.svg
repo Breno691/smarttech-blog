@@ -12,8 +12,8 @@
   <rect width="1200" height="630" fill="url(#bg)"/>
   <circle cx="1050" cy="150" r="250" fill="#7c3aed" opacity="0.07"/>
   <circle cx="150" cy="480" r="200" fill="#a78bfa" opacity="0.05"/>
-  <text x="600" y="265" font-family="system-ui,-apple-system,sans-serif" font-size="80" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-0.04em">SmartOps SEO</text>
+  <text x="600" y="265" font-family="system-ui,-apple-system,sans-serif" font-size="80" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-0.04em">SmartOps IA</text>
   <rect x="450" y="295" width="300" height="3" rx="1.5" fill="url(#acc)"/>
-  <text x="600" y="355" font-family="system-ui,-apple-system,sans-serif" font-size="26" fill="#9ca3af" text-anchor="middle">Conteúdo SEO automatizado com IA</text>
-  <text x="600" y="400" font-family="system-ui,-apple-system,sans-serif" font-size="18" fill="#6b7280" text-anchor="middle">smartops-seo.netlify.app</text>
+  <text x="600" y="355" font-family="system-ui,-apple-system,sans-serif" font-size="26" fill="#9ca3af" text-anchor="middle">Automação com IA e SEO para seu negócio</text>
+  <text x="600" y="400" font-family="system-ui,-apple-system,sans-serif" font-size="18" fill="#6b7280" text-anchor="middle">smartops-ia.com.br</text>
 </svg>

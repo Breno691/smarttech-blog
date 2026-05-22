@@ -1,10 +1,42 @@
 ---
 import { getCollection } from 'astro:content';
+import GTMHead from '../../components/GTMHead.astro';
+import GTMBody from '../../components/GTMBody.astro';
+import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
+import MetaPixel from '../../components/MetaPixel.astro';
+import EventTracking from '../../components/EventTracking.astro';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    // ── CollectionPage ────────────────────────────────────────────────────
+    {
+      '@type': 'CollectionPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'Blog | SmartOps SEO',
+      description: 'Artigos sobre SEO, marketing digital, automação com IA e manutenção de computadores.',
+      inLanguage: 'pt-BR',
+      isPartOf: { '@id': `${siteURL}#website` },
+      breadcrumb: { '@id': `${canonicalURL}#breadcrumb` },
+    },
+    // ── BreadcrumbList ────────────────────────────────────────────────────
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalURL}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: canonicalURL },
+      ],
+    },
+  ],
+};
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -17,6 +49,15 @@ function formatDate(date: Date) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Preconnect para domínios críticos de terceiros -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+
+    <GTMHead />
+    <MetaPixel />
+
     <title>Blog | SmartOps SEO</title>
     <meta name="description" content="Artigos sobre SEO, marketing digital e automação com IA para alavancar seu negócio." />
     <link rel="canonical" href={canonicalURL} />
@@ -35,9 +76,14 @@ function formatDate(date: Date) {
     <meta name="twitter:image" content={new URL('/og-default.svg', Astro.site).href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <GoogleAnalytics />
   </head>
 
   <body>
+    <GTMBody />
     <header>
       <nav>
         <a href="/" class="site-name">SmartOps <span>IA</span></a>
@@ -101,6 +147,7 @@ function formatDate(date: Date) {
     <footer>
       <p>&copy; {new Date().getFullYear()} SmartOps SEO. Todos os direitos reservados.</p>
     </footer>
+    <EventTracking />
   </body>
 </html>
 
