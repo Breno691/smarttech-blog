@@ -1243,19 +1243,23 @@ const schema = {
           onSuccess();
         }
 
-        fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        })
-          .then(function (r) { if (!r.ok) throw new Error(r.status); })
+        var timeout = new Promise(function (_, reject) {
+          setTimeout(function () { reject(new Error('timeout')); }, 8000);
+        });
+
+        Promise.race([
+          fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          }).then(function (r) { if (!r.ok) throw new Error(r.status); }),
+          timeout,
+        ])
           .then(onSuccess)
           .catch(function () {
             window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({ event: 'erro_formulario', event_location: 'lead-form', event_label: payload.servico });
-            form.hidden = true;
-            errorEl.hidden = false;
-            errorEl.focus();
+            window.dataLayer.push({ event: 'erro_formulario_fallback', event_location: 'lead-form', event_label: payload.servico });
+            fallbackWA();
           });
       });
     })();
