@@ -117,22 +117,27 @@ const schema = {
   <!-- HERO -->
   <section class="hero">
     <div class="hero-glow"></div>
-    <div class="container">
-      <div class="badge">
-        <span class="dot"></span>
-        IA · n8n · WhatsApp Business · GPT-4
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="badge">
+          <span class="dot"></span>
+          IA · n8n · WhatsApp Business · GPT-4
+        </div>
+        <h1>Automatize o que é repetitivo.<br /><span class="grad">Libere sua equipe</span><br />para o que importa.</h1>
+        <p class="sub">Atendimento no WhatsApp, captura de leads, notificações e fluxos operacionais rodando sozinhos — sem custo fixo extra, sem depender de mais contratação.</p>
+        <div class="hero-btns">
+          <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">Ver como funciona</a>
+          <a href="#o-que-automatizamos" class="btn-ghost">O que automatizamos ↓</a>
+        </div>
+        <div class="stats">
+          <div><strong>24h</strong><span>Atendimento automático</span></div>
+          <div><strong>0</strong><span>Digitação dupla</span></div>
+          <div><strong>GPT-4</strong><span>IA de ponta</span></div>
+          <div><strong>BH</strong><span>Implementação local</span></div>
+        </div>
       </div>
-      <h1>Automatize o que é repetitivo.<br /><span class="grad">Libere sua equipe</span><br />para o que importa.</h1>
-      <p class="sub">Atendimento no WhatsApp, captura de leads, notificações e fluxos operacionais rodando sozinhos — sem custo fixo extra, sem depender de mais contratação.</p>
-      <div class="hero-btns">
-        <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">Ver como funciona</a>
-        <a href="#o-que-automatizamos" class="btn-ghost">O que automatizamos ↓</a>
-      </div>
-      <div class="stats">
-        <div><strong>24h</strong><span>Atendimento automático</span></div>
-        <div><strong>0</strong><span>Digitação dupla</span></div>
-        <div><strong>GPT-4</strong><span>IA de ponta</span></div>
-        <div><strong>BH</strong><span>Implementação local</span></div>
+      <div class="hero-visual" aria-hidden="true">
+        <img src="/img/hero-automacao.svg" alt="" width="580" height="490" loading="eager" decoding="async" />
       </div>
     </div>
   </section>
@@ -294,6 +299,11 @@ const schema = {
 
   .hero { position: relative; padding: 6rem 0 5rem; overflow: hidden; }
   .hero-glow { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%); pointer-events: none; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .hero-text { position: relative; }
+  .hero-visual { display: flex; justify-content: center; align-items: center; }
+  .hero-visual img { width: 100%; max-width: 560px; height: auto; filter: drop-shadow(0 20px 60px rgba(16,185,129,0.15)); }
+  @media(max-width:900px) { .hero-grid { grid-template-columns: 1fr; } .hero-visual { display: none; } }
   .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: #10b981; font-size: 0.8rem; font-weight: 600; padding: 0.35rem 0.9rem; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem; }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }

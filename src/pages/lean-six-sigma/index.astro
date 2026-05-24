@@ -120,22 +120,27 @@ const schema = {
   <!-- HERO -->
   <section class="hero">
     <div class="hero-glow"></div>
-    <div class="container">
-      <div class="badge">
-        <span class="dot"></span>
-        Black Belt · Lean Six Sigma · Belo Horizonte
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="badge">
+          <span class="dot"></span>
+          Black Belt · Lean Six Sigma · Belo Horizonte
+        </div>
+        <h1>Sua empresa perde dinheiro<br /><span class="grad">todos os dias</span><br />com desperdícios invisíveis</h1>
+        <p class="sub">Lean Six Sigma identifica onde a operação está sangrando — e corrige isso com método, não com chute. Para padarias, clínicas, oficinas, lojas e qualquer negócio que quer parar de apagar incêndio.</p>
+        <div class="hero-btns">
+          <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">Diagnóstico gratuito</a>
+          <a href="#o-que-e" class="btn-ghost">O que é Lean Six Sigma ↓</a>
+        </div>
+        <div class="stats">
+          <div><strong>Black Belt</strong><span>Certificação máxima</span></div>
+          <div><strong>8</strong><span>Desperdícios eliminados</span></div>
+          <div><strong>DMAIC</strong><span>Método estruturado</span></div>
+          <div><strong>BH</strong><span>Atendimento presencial</span></div>
+        </div>
       </div>
-      <h1>Sua empresa perde dinheiro<br /><span class="grad">todos os dias</span><br />com desperdícios invisíveis</h1>
-      <p class="sub">Lean Six Sigma identifica onde a operação está sangrando — e corrige isso com método, não com chute. Para padarias, clínicas, oficinas, lojas e qualquer negócio que quer parar de apagar incêndio.</p>
-      <div class="hero-btns">
-        <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">Diagnóstico gratuito</a>
-        <a href="#o-que-e" class="btn-ghost">O que é Lean Six Sigma ↓</a>
-      </div>
-      <div class="stats">
-        <div><strong>Black Belt</strong><span>Certificação máxima</span></div>
-        <div><strong>8</strong><span>Desperdícios eliminados</span></div>
-        <div><strong>DMAIC</strong><span>Método estruturado</span></div>
-        <div><strong>BH</strong><span>Atendimento presencial</span></div>
+      <div class="hero-visual" aria-hidden="true">
+        <img src="/img/hero-lean.svg" alt="" width="560" height="500" loading="eager" decoding="async" />
       </div>
     </div>
   </section>
@@ -338,6 +343,11 @@ const schema = {
   /* Hero */
   .hero { position: relative; padding: 6rem 0 5rem; overflow: hidden; }
   .hero-glow { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%); pointer-events: none; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .hero-text { position: relative; }
+  .hero-visual { display: flex; justify-content: center; align-items: center; }
+  .hero-visual img { width: 100%; max-width: 540px; height: auto; filter: drop-shadow(0 20px 60px rgba(124,58,237,0.25)); }
+  @media(max-width:900px) { .hero-grid { grid-template-columns: 1fr; } .hero-visual { display: none; } }
   .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2); color: #a78bfa; font-size: 0.8rem; font-weight: 600; padding: 0.35rem 0.9rem; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem; }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }

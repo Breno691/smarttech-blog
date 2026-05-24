@@ -1,0 +1,116 @@
+<svg width="580" height="500" viewBox="0 0 580 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="gP" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gG" cx="70%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sh"><feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="rgba(0,0,0,0.5)"/></filter>
+    <filter id="sh2"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(0,0,0,0.4)"/></filter>
+    <linearGradient id="barBad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="barGood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Glow blobs -->
+  <ellipse cx="220" cy="180" rx="260" ry="210" fill="url(#gP)"/>
+  <ellipse cx="430" cy="380" rx="180" ry="150" fill="url(#gG)"/>
+
+  <!-- Dot grid -->
+  <pattern id="dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+    <circle cx="2" cy="2" r="1.2" fill="rgba(255,255,255,0.06)"/>
+  </pattern>
+  <rect width="580" height="500" fill="url(#dots)"/>
+
+  <!-- Main card -->
+  <rect x="20" y="30" width="370" height="280" rx="14" fill="rgba(15,10,30,0.85)" stroke="rgba(167,139,250,0.2)" stroke-width="1" filter="url(#sh)"/>
+
+  <!-- Card header -->
+  <rect x="20" y="30" width="370" height="46" rx="14" fill="rgba(255,255,255,0.05)"/>
+  <rect x="20" y="58" width="370" height="18" fill="rgba(255,255,255,0.05)"/>
+  <!-- Dot controls -->
+  <circle cx="44" cy="53" r="4.5" fill="#ef4444" fill-opacity="0.7"/>
+  <circle cx="59" cy="53" r="4.5" fill="#f59e0b" fill-opacity="0.7"/>
+  <circle cx="74" cy="53" r="4.5" fill="#22c55e" fill-opacity="0.6"/>
+  <!-- Title -->
+  <text x="96" y="58" fill="rgba(255,255,255,0.6)" font-size="12" font-family="system-ui,sans-serif" font-weight="600">Análise Operacional · SmartOps IA</text>
+
+  <!-- Chart Y labels -->
+  <text x="32" y="110" fill="rgba(255,255,255,0.25)" font-size="9" font-family="system-ui">Alto</text>
+  <text x="32" y="155" fill="rgba(255,255,255,0.25)" font-size="9" font-family="system-ui">Méd</text>
+  <text x="32" y="200" fill="rgba(255,255,255,0.25)" font-size="9" font-family="system-ui">Baixo</text>
+
+  <!-- Grid lines -->
+  <line x1="58" y1="105" x2="380" y2="105" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="58" y1="150" x2="380" y2="150" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="58" y1="195" x2="380" y2="195" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <line x1="58" y1="225" x2="380" y2="225" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+  <!-- BEFORE bars (high = bad) -->
+  <rect x="75" y="112" width="28" height="113" rx="4" fill="url(#barBad)"/>
+  <rect x="113" y="100" width="28" height="125" rx="4" fill="url(#barBad)"/>
+  <rect x="151" y="118" width="28" height="107" rx="4" fill="url(#barBad)"/>
+
+  <!-- Arrow separator -->
+  <text x="195" y="178" fill="rgba(255,255,255,0.3)" font-size="22" font-family="system-ui">→</text>
+
+  <!-- AFTER bars (low = good) -->
+  <rect x="228" y="192" width="28" height="33" rx="4" fill="url(#barGood)"/>
+  <rect x="266" y="198" width="28" height="27" rx="4" fill="url(#barGood)"/>
+  <rect x="304" y="196" width="28" height="29" rx="4" fill="url(#barGood)"/>
+
+  <!-- X labels -->
+  <text x="104" y="242" fill="rgba(255,255,255,0.3)" font-size="10" font-family="system-ui" text-anchor="middle">Antes</text>
+  <text x="282" y="242" fill="rgba(255,255,255,0.35)" font-size="10" font-family="system-ui" text-anchor="middle">Lean Six Sigma</text>
+
+  <!-- Bottom row metrics inside card -->
+  <line x1="34" y1="254" x2="376" y2="254" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="52" y="271" fill="rgba(255,255,255,0.4)" font-size="10" font-family="system-ui">Retrabalho</text>
+  <text x="52" y="287" fill="#10b981" font-size="14" font-weight="800" font-family="system-ui">−67%</text>
+  <text x="160" y="271" fill="rgba(255,255,255,0.4)" font-size="10" font-family="system-ui">Tempo de ciclo</text>
+  <text x="160" y="287" fill="#10b981" font-size="14" font-weight="800" font-family="system-ui">−40%</text>
+  <text x="280" y="271" fill="rgba(255,255,255,0.4)" font-size="10" font-family="system-ui">Satisfação</text>
+  <text x="280" y="287" fill="#a78bfa" font-size="14" font-weight="800" font-family="system-ui">+28%</text>
+
+  <!-- Floating card 1: ROI -->
+  <rect x="400" y="40" width="155" height="76" rx="12" fill="rgba(10,185,129,0.1)" stroke="rgba(16,185,129,0.35)" stroke-width="1" filter="url(#sh2)"/>
+  <text x="420" y="68" fill="rgba(255,255,255,0.5)" font-size="11" font-family="system-ui,sans-serif">ROI médio do projeto</text>
+  <text x="420" y="97" fill="#10b981" font-size="26" font-weight="900" font-family="system-ui,sans-serif">3–5×</text>
+
+  <!-- Floating card 2: Black Belt -->
+  <rect x="415" y="140" width="145" height="70" rx="12" fill="rgba(124,58,237,0.12)" stroke="rgba(167,139,250,0.35)" stroke-width="1" filter="url(#sh2)"/>
+  <text x="433" y="166" fill="rgba(255,255,255,0.5)" font-size="11" font-family="system-ui,sans-serif">Certificação</text>
+  <text x="433" y="194" fill="#a78bfa" font-size="18" font-weight="800" font-family="system-ui,sans-serif">Black Belt</text>
+
+  <!-- Floating card 3: DMAIC -->
+  <rect x="60" y="340" width="185" height="70" rx="12" fill="rgba(59,130,246,0.1)" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+  <text x="78" y="366" fill="rgba(255,255,255,0.5)" font-size="11" font-family="system-ui,sans-serif">Método estruturado</text>
+  <text x="78" y="394" fill="#60a5fa" font-size="17" font-weight="800" font-family="system-ui,sans-serif">DMAIC ✓</text>
+
+  <!-- Floating card 4: Quick wins -->
+  <rect x="275" y="345" width="180" height="70" rx="12" fill="rgba(234,179,8,0.08)" stroke="rgba(234,179,8,0.25)" stroke-width="1"/>
+  <text x="292" y="370" fill="rgba(255,255,255,0.5)" font-size="11" font-family="system-ui,sans-serif">Quick wins em</text>
+  <text x="292" y="398" fill="#fbbf24" font-size="18" font-weight="800" font-family="system-ui,sans-serif">2–4 semanas</text>
+
+  <!-- Floating card 5: Local -->
+  <rect x="395" y="240" width="155" height="68" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="414" y="266" fill="rgba(255,255,255,0.5)" font-size="11" font-family="system-ui,sans-serif">Atendimento em</text>
+  <text x="414" y="293" fill="rgba(255,255,255,0.8)" font-size="17" font-weight="800" font-family="system-ui,sans-serif">BH · MG</text>
+
+  <!-- Connecting dots (decorative) -->
+  <circle cx="400" cy="80" r="3" fill="#10b981" fill-opacity="0.8"/>
+  <circle cx="390" cy="180" r="3" fill="#a78bfa" fill-opacity="0.8"/>
+  <circle cx="60" cy="325" r="3" fill="#60a5fa" fill-opacity="0.7"/>
+  <circle cx="465" cy="325" r="3" fill="#fbbf24" fill-opacity="0.7"/>
+
+  <!-- Trend arrow overlay on chart -->
+  <polyline points="75,220 113,210 151,215 228,205 266,200 304,198" stroke="rgba(16,185,129,0.5)" stroke-width="2" fill="none" stroke-dasharray="4 2"/>
+</svg>

@@ -1,0 +1,87 @@
+<svg width="560" height="500" viewBox="0 0 560 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="gP" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sh"><feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="rgba(0,0,0,0.5)"/></filter>
+    <filter id="glow"><feGaussianBlur stdDeviation="6" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+  </defs>
+
+  <!-- Background -->
+  <ellipse cx="280" cy="250" rx="270" ry="240" fill="url(#gP)"/>
+
+  <!-- Dot grid -->
+  <pattern id="dots" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse">
+    <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.05)"/>
+  </pattern>
+  <rect width="560" height="500" fill="url(#dots)"/>
+
+  <!-- Center ring -->
+  <circle cx="280" cy="248" r="140" fill="none" stroke="rgba(167,139,250,0.08)" stroke-width="1" stroke-dasharray="6 4"/>
+  <circle cx="280" cy="248" r="100" fill="none" stroke="rgba(167,139,250,0.06)" stroke-width="1"/>
+
+  <!-- Center text block -->
+  <circle cx="280" cy="248" r="62" fill="rgba(15,10,30,0.9)" stroke="rgba(167,139,250,0.25)" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="280" y="240" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="16" font-weight="800" font-family="system-ui,sans-serif">LEAN</text>
+  <text x="280" y="258" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="700" font-family="system-ui,sans-serif">SIX SIGMA</text>
+  <text x="280" y="273" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="9" font-family="system-ui,sans-serif">método DMAIC</text>
+
+  <!-- D — Definir (top) -->
+  <circle cx="280" cy="88" r="52" fill="rgba(10,10,24,0.95)" stroke="#7c3aed" stroke-width="2" filter="url(#sh)"/>
+  <text x="280" y="82" text-anchor="middle" fill="#a78bfa" font-size="28" font-weight="900" font-family="system-ui,sans-serif">D</text>
+  <text x="280" y="98" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10" font-family="system-ui,sans-serif">Definir</text>
+  <text x="280" y="113" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="8.5" font-family="system-ui,sans-serif">O problema real</text>
+
+  <!-- M — Medir (top right) -->
+  <circle cx="428" cy="178" r="52" fill="rgba(10,10,24,0.95)" stroke="#8b5cf6" stroke-width="2" filter="url(#sh)"/>
+  <text x="428" y="172" text-anchor="middle" fill="#a78bfa" font-size="28" font-weight="900" font-family="system-ui,sans-serif">M</text>
+  <text x="428" y="188" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10" font-family="system-ui,sans-serif">Medir</text>
+  <text x="428" y="203" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="8.5" font-family="system-ui,sans-serif">Coletar dados</text>
+
+  <!-- A — Analisar (bottom right) -->
+  <circle cx="378" cy="365" r="52" fill="rgba(10,10,24,0.95)" stroke="#6d28d9" stroke-width="2" filter="url(#sh)"/>
+  <text x="378" y="359" text-anchor="middle" fill="#a78bfa" font-size="28" font-weight="900" font-family="system-ui,sans-serif">A</text>
+  <text x="378" y="375" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10" font-family="system-ui,sans-serif">Analisar</text>
+  <text x="378" y="390" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="8.5" font-family="system-ui,sans-serif">Causa raiz</text>
+
+  <!-- I — Melhorar (bottom left) -->
+  <circle cx="182" cy="365" r="52" fill="rgba(10,10,24,0.95)" stroke="#059669" stroke-width="2" filter="url(#sh)"/>
+  <text x="182" y="359" text-anchor="middle" fill="#10b981" font-size="28" font-weight="900" font-family="system-ui,sans-serif">I</text>
+  <text x="182" y="375" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10" font-family="system-ui,sans-serif">Melhorar</text>
+  <text x="182" y="390" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="8.5" font-family="system-ui,sans-serif">Implementar</text>
+
+  <!-- C — Controlar (top left) -->
+  <circle cx="132" cy="178" r="52" fill="rgba(10,10,24,0.95)" stroke="#10b981" stroke-width="2" filter="url(#sh)"/>
+  <text x="132" y="172" text-anchor="middle" fill="#10b981" font-size="28" font-weight="900" font-family="system-ui,sans-serif">C</text>
+  <text x="132" y="188" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10" font-family="system-ui,sans-serif">Controlar</text>
+  <text x="132" y="203" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="8.5" font-family="system-ui,sans-serif">Sustentar</text>
+
+  <!-- Connecting arrows (arc-style) -->
+  <!-- D → M -->
+  <path d="M 322 106 Q 390 118 390 148" fill="none" stroke="rgba(167,139,250,0.45)" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- M → A -->
+  <path d="M 440 228 Q 445 290 420 322" fill="none" stroke="rgba(167,139,250,0.45)" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- A → I -->
+  <path d="M 334 392 Q 295 415 222 392" fill="none" stroke="rgba(16,185,129,0.45)" stroke-width="2" marker-end="url(#arr2)"/>
+  <!-- I → C -->
+  <path d="M 148 320 Q 128 280 142 228" fill="none" stroke="rgba(16,185,129,0.45)" stroke-width="2" marker-end="url(#arr2)"/>
+  <!-- C → D -->
+  <path d="M 168 140 Q 200 100 240 92" fill="none" stroke="rgba(167,139,250,0.35)" stroke-width="2" marker-end="url(#arr)"/>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="rgba(167,139,250,0.7)"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="rgba(16,185,129,0.7)"/>
+    </marker>
+  </defs>
+
+  <!-- Decorative dots at circle intersections -->
+  <circle cx="354" cy="122" r="4" fill="#a78bfa" fill-opacity="0.6"/>
+  <circle cx="435" cy="244" r="4" fill="#8b5cf6" fill-opacity="0.6"/>
+  <circle cx="328" cy="398" r="4" fill="#10b981" fill-opacity="0.6"/>
+  <circle cx="165" cy="398" r="4" fill="#10b981" fill-opacity="0.6"/>
+  <circle cx="142" cy="220" r="4" fill="#a78bfa" fill-opacity="0.5"/>
+</svg>

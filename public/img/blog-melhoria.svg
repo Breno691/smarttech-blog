@@ -1,0 +1,55 @@
+<svg width="800" height="420" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#030810"/>
+      <stop offset="100%" stop-color="#050c18"/>
+    </linearGradient>
+    <radialGradient id="gl" cx="30%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lineUp" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg)"/>
+  <ellipse cx="250" cy="170" rx="300" ry="230" fill="url(#gl)"/>
+  <pattern id="g" width="36" height="36" patternUnits="userSpaceOnUse">
+    <path d="M 36 0 L 0 0 0 36" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
+  </pattern>
+  <rect width="800" height="420" fill="url(#g)"/>
+
+  <!-- Ascending chart line -->
+  <polyline points="60,350 130,320 200,305 290,280 370,248 450,218 530,185 610,148 680,115" fill="none" stroke="url(#lineUp)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Area fill under chart -->
+  <polygon points="60,350 130,320 200,305 290,280 370,248 450,218 530,185 610,148 680,115 680,380 60,380" fill="rgba(59,130,246,0.06)"/>
+
+  <!-- Data points on line -->
+  <circle cx="130" cy="320" r="5" fill="#3b82f6" fill-opacity="0.8"/>
+  <circle cx="290" cy="280" r="5" fill="#3b82f6" fill-opacity="0.8"/>
+  <circle cx="450" cy="218" r="5" fill="#60a5fa" fill-opacity="0.9"/>
+  <circle cx="610" cy="148" r="7" fill="#60a5fa"/>
+  <circle cx="680" cy="115" r="9" fill="#93c5fd" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+
+  <!-- Top value badge -->
+  <rect x="660" y="60" width="100" height="46" rx="10" fill="rgba(59,130,246,0.15)" stroke="rgba(96,165,250,0.5)" stroke-width="1"/>
+  <text x="710" y="80" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="system-ui">resultado</text>
+  <text x="710" y="98" text-anchor="middle" fill="#60a5fa" font-size="18" font-weight="800" font-family="system-ui">+Δ</text>
+
+  <!-- PDCA cycle (small, decorative) -->
+  <circle cx="680" cy="280" r="60" fill="none" stroke="rgba(59,130,246,0.15)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="680" y="248" text-anchor="middle" fill="rgba(96,165,250,0.6)" font-size="11" font-weight="700" font-family="system-ui">P</text>
+  <text x="712" y="284" text-anchor="middle" fill="rgba(96,165,250,0.6)" font-size="11" font-weight="700" font-family="system-ui">D</text>
+  <text x="680" y="316" text-anchor="middle" fill="rgba(96,165,250,0.6)" font-size="11" font-weight="700" font-family="system-ui">C</text>
+  <text x="648" y="284" text-anchor="middle" fill="rgba(96,165,250,0.6)" font-size="11" font-weight="700" font-family="system-ui">A</text>
+  <text x="680" y="286" text-anchor="middle" fill="rgba(255,255,255,0.12)" font-size="10" font-family="system-ui">PDCA</text>
+
+  <!-- Title -->
+  <rect x="60" y="40" width="8" height="60" rx="4" fill="#3b82f6"/>
+  <text x="86" y="80" fill="rgba(255,255,255,0.95)" font-size="38" font-weight="900" font-family="system-ui,sans-serif" letter-spacing="-1">MELHORIA CONTÍNUA</text>
+  <text x="86" y="114" fill="rgba(96,165,250,0.7)" font-size="15" font-family="system-ui,sans-serif" letter-spacing="1">SmartOps IA · Processos · Eficiência · BH</text>
+
+  <rect x="0" y="400" width="800" height="20" fill="rgba(59,130,246,0.2)"/>
+  <rect x="0" y="400" width="450" height="20" fill="rgba(59,130,246,0.3)"/>
+</svg>

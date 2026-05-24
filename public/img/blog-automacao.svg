@@ -1,0 +1,65 @@
+<svg width="800" height="420" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#030f0a"/>
+      <stop offset="100%" stop-color="#071510"/>
+    </linearGradient>
+    <radialGradient id="gl" cx="30%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gl2" cx="80%" cy="60%" r="40%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg)"/>
+  <ellipse cx="240" cy="160" rx="300" ry="230" fill="url(#gl)"/>
+  <ellipse cx="640" cy="280" rx="220" ry="180" fill="url(#gl2)"/>
+  <pattern id="g" width="36" height="36" patternUnits="userSpaceOnUse">
+    <path d="M 36 0 L 0 0 0 36" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
+  </pattern>
+  <rect width="800" height="420" fill="url(#g)"/>
+
+  <!-- Workflow nodes bottom -->
+  <rect x="60" y="300" width="100" height="70" rx="12" fill="rgba(37,211,102,0.12)" stroke="rgba(37,211,102,0.4)" stroke-width="1.5"/>
+  <text x="110" y="332" text-anchor="middle" font-size="24" font-family="system-ui">💬</text>
+  <text x="110" y="355" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10" font-family="system-ui">WhatsApp</text>
+
+  <line x1="162" y1="335" x2="198" y2="335" stroke="rgba(16,185,129,0.4)" stroke-width="2" stroke-dasharray="4 3"/>
+  <polygon points="196,329 208,335 196,341" fill="rgba(16,185,129,0.6)"/>
+
+  <rect x="210" y="300" width="100" height="70" rx="12" fill="rgba(124,58,237,0.12)" stroke="rgba(167,139,250,0.4)" stroke-width="1.5"/>
+  <text x="260" y="332" text-anchor="middle" font-size="24" font-family="system-ui">🤖</text>
+  <text x="260" y="355" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10" font-family="system-ui">IA GPT-4</text>
+
+  <line x1="312" y1="335" x2="348" y2="335" stroke="rgba(59,130,246,0.4)" stroke-width="2" stroke-dasharray="4 3"/>
+  <polygon points="346,329 358,335 346,341" fill="rgba(59,130,246,0.6)"/>
+
+  <rect x="360" y="300" width="100" height="70" rx="12" fill="rgba(59,130,246,0.1)" stroke="rgba(59,130,246,0.4)" stroke-width="1.5"/>
+  <text x="410" y="332" text-anchor="middle" font-size="24" font-family="system-ui">⚙️</text>
+  <text x="410" y="355" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10" font-family="system-ui">n8n</text>
+
+  <line x1="462" y1="335" x2="498" y2="335" stroke="rgba(234,179,8,0.4)" stroke-width="2" stroke-dasharray="4 3"/>
+  <polygon points="496,329 508,335 496,341" fill="rgba(234,179,8,0.6)"/>
+
+  <rect x="510" y="300" width="100" height="70" rx="12" fill="rgba(234,179,8,0.08)" stroke="rgba(234,179,8,0.35)" stroke-width="1.5"/>
+  <text x="560" y="332" text-anchor="middle" font-size="24" font-family="system-ui">📋</text>
+  <text x="560" y="355" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10" font-family="system-ui">CRM</text>
+
+  <!-- Title -->
+  <rect x="60" y="40" width="8" height="60" rx="4" fill="#10b981"/>
+  <text x="86" y="80" fill="rgba(255,255,255,0.95)" font-size="40" font-weight="900" font-family="system-ui,sans-serif" letter-spacing="-1">AUTOMAÇÃO COM IA</text>
+  <text x="86" y="114" fill="rgba(16,185,129,0.7)" font-size="15" font-family="system-ui,sans-serif" letter-spacing="1">SmartOps IA · n8n · GPT-4 · WhatsApp · BH</text>
+
+  <!-- Right decorative -->
+  <text x="590" y="230" fill="rgba(16,185,129,0.05)" font-size="240" font-weight="900" font-family="system-ui,sans-serif">&lt;/&gt;</text>
+
+  <!-- 24/7 badge -->
+  <rect x="660" y="300" width="100" height="70" rx="12" fill="rgba(16,185,129,0.15)" stroke="rgba(16,185,129,0.5)" stroke-width="1.5"/>
+  <text x="710" y="330" text-anchor="middle" fill="#10b981" font-size="16" font-weight="800" font-family="system-ui,sans-serif">24/7</text>
+  <text x="710" y="354" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9" font-family="system-ui,sans-serif">sem parar</text>
+
+  <rect x="0" y="400" width="800" height="20" fill="rgba(16,185,129,0.2)"/>
+  <rect x="0" y="400" width="500" height="20" fill="rgba(16,185,129,0.3)"/>
+</svg>

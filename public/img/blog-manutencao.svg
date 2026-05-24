@@ -1,0 +1,59 @@
+<svg width="800" height="420" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e0800"/>
+      <stop offset="100%" stop-color="#140c00"/>
+    </linearGradient>
+    <radialGradient id="gl" cx="30%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg)"/>
+  <ellipse cx="250" cy="170" rx="300" ry="230" fill="url(#gl)"/>
+  <pattern id="g" width="36" height="36" patternUnits="userSpaceOnUse">
+    <path d="M 36 0 L 0 0 0 36" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
+  </pattern>
+  <rect width="800" height="420" fill="url(#g)"/>
+
+  <!-- Circuit-board style lines -->
+  <path d="M 440 380 L 440 300 L 560 300 L 560 260 L 660 260 L 660 200" fill="none" stroke="rgba(245,158,11,0.12)" stroke-width="1.5"/>
+  <path d="M 500 380 L 500 320 L 620 320 L 620 240 L 720 240 L 720 160" fill="none" stroke="rgba(245,158,11,0.1)" stroke-width="1.5"/>
+  <path d="M 380 380 L 380 280 L 480 280 L 480 220 L 580 220" fill="none" stroke="rgba(245,158,11,0.08)" stroke-width="1.5"/>
+
+  <!-- Circuit nodes -->
+  <circle cx="440" cy="300" r="4" fill="rgba(245,158,11,0.4)"/>
+  <circle cx="560" cy="260" r="4" fill="rgba(245,158,11,0.4)"/>
+  <circle cx="660" cy="200" r="4" fill="rgba(245,158,11,0.5)"/>
+  <circle cx="500" cy="320" r="4" fill="rgba(245,158,11,0.3)"/>
+  <circle cx="620" cy="240" r="4" fill="rgba(245,158,11,0.4)"/>
+  <circle cx="380" cy="280" r="4" fill="rgba(245,158,11,0.3)"/>
+  <circle cx="480" cy="220" r="4" fill="rgba(245,158,11,0.4)"/>
+
+  <!-- SSD speed bar visual -->
+  <rect x="60" y="300" width="320" height="70" rx="12" fill="rgba(245,158,11,0.06)" stroke="rgba(245,158,11,0.2)" stroke-width="1"/>
+  <text x="80" y="328" fill="rgba(255,255,255,0.5)" font-size="10" font-family="system-ui">Velocidade SSD NVMe</text>
+  <!-- progress bar -->
+  <rect x="80" y="338" width="280" height="10" rx="5" fill="rgba(255,255,255,0.06)"/>
+  <rect x="80" y="338" width="256" height="10" rx="5" fill="rgba(245,158,11,0.6)"/>
+  <text x="80" y="363" fill="#fbbf24" font-size="13" font-weight="700" font-family="system-ui">3.500 MB/s  ·  Boot 12s</text>
+
+  <!-- Windows logo (simplified) -->
+  <rect x="490" y="310" width="24" height="24" rx="2" fill="rgba(59,130,246,0.5)"/>
+  <rect x="516" y="310" width="24" height="24" rx="2" fill="rgba(16,185,129,0.5)"/>
+  <rect x="490" y="336" width="24" height="24" rx="2" fill="rgba(239,68,68,0.5)"/>
+  <rect x="516" y="336" width="24" height="24" rx="2" fill="rgba(234,179,8,0.5)"/>
+  <text x="557" y="332" fill="rgba(255,255,255,0.4)" font-size="10" font-family="system-ui">Windows</text>
+  <text x="557" y="347" fill="rgba(255,255,255,0.4)" font-size="10" font-family="system-ui">Drivers · Updates</text>
+
+  <!-- Title -->
+  <rect x="60" y="40" width="8" height="60" rx="4" fill="#f59e0b"/>
+  <text x="86" y="80" fill="rgba(255,255,255,0.95)" font-size="40" font-weight="900" font-family="system-ui,sans-serif" letter-spacing="-1">MANUTENÇÃO &amp; TI</text>
+  <text x="86" y="114" fill="rgba(251,191,36,0.7)" font-size="15" font-family="system-ui,sans-serif" letter-spacing="1">SmartOps IA · SSD · Formatação · Vírus · BH</text>
+
+  <!-- Right decorative -->
+  <text x="580" y="240" fill="rgba(245,158,11,0.05)" font-size="260" font-weight="900" font-family="system-ui,sans-serif">⚙</text>
+
+  <rect x="0" y="400" width="800" height="20" fill="rgba(245,158,11,0.2)"/>
+  <rect x="0" y="400" width="350" height="20" fill="rgba(245,158,11,0.3)"/>
+</svg>
