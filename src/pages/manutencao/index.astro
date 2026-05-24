@@ -1,0 +1,1089 @@
+---
+import Nav from '../../components/Nav.astro';
+import GTMHead from '../../components/GTMHead.astro';
+import GTMBody from '../../components/GTMBody.astro';
+import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
+import MetaPixel from '../../components/MetaPixel.astro';
+import EventTracking from '../../components/EventTracking.astro';
+
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+const canonicalURL = new URL('/manutencao', siteURL).href;
+const whatsappURL = 'https://wa.me/5531972039180?text=' + encodeURIComponent('Olá! Preciso de manutenção no meu computador. Vim pelo site da SmartOps.');
+
+const services = [
+  {
+    icon: '🔬',
+    title: 'Diagnóstico SMART',
+    subtitle: 'Descubra antes que quebre',
+    desc: 'Todo HD e SSD guarda internamente dados de saúde: temperatura, setores defeituosos, erros de leitura. Lemos esses dados, calculamos o risco de falha e te entregamos um laudo claro — sem achismo.',
+    details: ['Leitura e análise dos atributos SMART', 'Relatório de risco de falha iminente', 'Estimativa de vida útil restante', 'Recomendação baseada em dados reais'],
+    badge: 'Evita perda de dados',
+  },
+  {
+    icon: '⚡',
+    title: 'Upgrade de SSD NVMe',
+    subtitle: 'Boot de minutos para segundos',
+    desc: 'Trocar HD por SSD NVMe é a única atualização que transforma completamente a experiência de uso. Não é exagero: computadores que levavam 4–6 minutos para ligar passam a iniciar em 8–15 segundos.',
+    details: ['Clonagem completa do sistema — sem reinstalar nada', 'SSD NVMe Gen3/Gen4 instalado e alinhado', 'Backup verificado antes de qualquer alteração', 'Teste de benchmark antes e depois'],
+    badge: 'Resultado imediato',
+  },
+  {
+    icon: '🛡️',
+    title: 'Formatação Completa',
+    subtitle: 'Do zero, sem gambiarras',
+    desc: 'Formatação profissional com backup de tudo que importa verificado antes de começar. Sistema instalado limpo, drivers corretos, sem bloatware, sem tentativas de venda disfarçadas.',
+    details: ['Backup com verificação de integridade', 'Windows instalado e ativado', 'Drivers corretos para o hardware', 'Programas essenciais configurados'],
+    badge: 'Sem perda de dados',
+  },
+  {
+    icon: '🦠',
+    title: 'Remoção de Vírus e Malware',
+    subtitle: 'Limpeza real, não varredura superficial',
+    desc: 'Muitos "anti-vírus" varrem a superfície mas deixam rootkits, adware e spyware no sistema. Fazemos remoção manual e automatizada em camadas, verificando inicialização, registro e serviços.',
+    details: ['Varredura com múltiplas ferramentas', 'Análise de processos e inicialização', 'Limpeza do registro e arquivos temporários', 'Hardening básico para evitar reinfecção'],
+    badge: 'Limpeza profunda',
+  },
+  {
+    icon: '🌡️',
+    title: 'Limpeza Térmica',
+    subtitle: 'Superaquecimento mata hardware',
+    desc: 'Após 2–3 anos, a pasta térmica seca e o cooler entope de poeira. O processador passa a trabalhar acima de 90°C para executar tarefas simples — o que acelera desgaste e causa travamentos.',
+    details: ['Desmontagem e limpeza interna completa', 'Troca de pasta térmica de qualidade', 'Verificação de velocidade dos coolers', 'Teste de temperatura sob carga'],
+    badge: 'Aumenta vida útil',
+  },
+  {
+    icon: '🔧',
+    title: 'Suporte & Configuração',
+    subtitle: 'Aquilo que você não sabe que precisa',
+    desc: 'Configuração de rede, impressoras, backup automático, controle parental, acesso remoto, configuração de e-mail e contas — tudo que faz parte do dia a dia digital e vira problema quando falha.',
+    details: ['Configuração de rede e Wi-Fi', 'Backup automático configurado', 'Contas e senhas organizadas', 'Treinamento básico para o usuário'],
+    badge: 'Atendimento presencial',
+  },
+];
+
+const problems = [
+  { icon: '🐌', title: 'PC demora para ligar', desc: 'Se o Windows leva mais de 2 minutos para iniciar, é sintoma de HD com falha, RAM insuficiente ou sistema lotado de lixo. Não é "normal com o tempo".' },
+  { icon: '💀', title: 'Tela azul (BSOD)', desc: 'Blue Screen of Death indica falha de hardware (HD, RAM, placa-mãe) ou driver incompatível. Cada BSOD deixa um código — sabemos lê-los.' },
+  { icon: '🔥', title: 'Superaquecimento', desc: 'Máquina que desliga sozinha, trava no meio do uso ou ventilador barulhento a toda hora. Pasta térmica seca ou cooler entupido são as causas mais comuns — e as mais ignoradas.' },
+  { icon: '🦠', title: 'Vírus e pop-ups', desc: 'Navegador cheio de propaganda, redirecionamento para sites estranhos, programa instalado sem permissão. Adware e sequestrador de navegador são mais comuns que ransomware.' },
+  { icon: '💾', title: 'HD fazendo barulho', desc: 'Cliques ou chiados do HD são o último aviso antes da falha. Cada barulho é um setor sendo lido com dificuldade. Backup imediato e troca são urgentes.' },
+  { icon: '📡', title: 'Internet caindo', desc: 'Wi-Fi instável, queda frequente de conexão ou velocidade muito abaixo do contratado. Pode ser placa de rede, configuração de DNS, canal do roteador ou interferência.' },
+];
+
+const faqs = [
+  { q: 'Vocês atendem em domicílio?', a: 'Sim. Atendemos presencialmente em Nova Pampulha e Morro Alto. Para serviços de diagnóstico e limpeza interna, o equipamento vem até a gente — ou a gente vai até você dentro dessas regiões.' },
+  { q: 'Quanto custa um upgrade de SSD?', a: 'Depende do SSD escolhido e da capacidade. O serviço de instalação + clonagem é cobrado separado do hardware. Na conversa inicial já te passamos uma estimativa completa — sem surpresa na hora de pagar.' },
+  { q: 'Perco meus arquivos na formatação?', a: 'Não, se feita corretamente. Fazemos backup verificado de tudo antes de qualquer formatação: documentos, fotos, músicas, e-mails, favoritos do navegador. A verificação é parte do serviço — não pulamos essa etapa.' },
+  { q: 'O diagnóstico SMART é confiável?', a: 'É o mesmo método que datacenters usam para prever falha de disco. Os atributos SMART como "Reallocated Sectors", "Pending Sectors" e "Uncorrectable Errors" são indicadores comprovados de falha iminente. Não é garantia absoluta, mas é o melhor dado disponível.' },
+  { q: 'Vale a pena formatar ou é melhor comprar um computador novo?', a: 'Depende do hardware. Um notebook com processador de 4ª geração em diante e 8GB de RAM costuma viver muito bem com SSD novo + formatação — custa R$ 200–400 e entrega desempenho próximo de uma máquina nova de entrada. Fazemos essa análise no diagnóstico inicial.' },
+  { q: 'Quanto tempo leva a manutenção?', a: 'Diagnóstico: 30–60 minutos. Limpeza térmica: 1–2 horas. Formatação com backup: 3–4 horas. Upgrade de SSD com clonagem: 2–3 horas. A maioria dos serviços fica pronta no mesmo dia.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'Manutenção e Formatação de Computador | SmartOps IA — Nova Pampulha e Morro Alto',
+      description: 'Manutenção de computador em Nova Pampulha e Morro Alto: diagnóstico SMART, upgrade SSD NVMe, formatação com backup, remoção de vírus e limpeza térmica. Atendimento presencial.',
+      inLanguage: 'pt-BR',
+      isPartOf: { '@id': `${siteURL}#website` },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+          { '@type': 'ListItem', position: 2, name: 'Manutenção & TI', item: canonicalURL },
+        ],
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@type': 'Service',
+      name: 'Manutenção e Formatação de Computador',
+      provider: { '@id': `${siteURL}#business` },
+      description: 'Manutenção de computadores e notebooks: diagnóstico SMART, upgrade SSD, formatação com backup, remoção de vírus e limpeza térmica. Atendimento presencial em Nova Pampulha e Morro Alto.',
+      areaServed: [
+        { '@type': 'Place', name: 'Nova Pampulha', containedInPlace: { '@type': 'City', name: 'Belo Horizonte' } },
+        { '@type': 'Place', name: 'Morro Alto', containedInPlace: { '@type': 'AdministrativeArea', name: 'Região Metropolitana de Belo Horizonte' } },
+      ],
+      serviceType: 'Manutenção de Computadores',
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <GTMHead />
+  <MetaPixel />
+
+  <title>Manutenção e Formatação de Computador | SmartOps IA — Nova Pampulha e Morro Alto</title>
+  <meta name="description" content="Manutenção de computador em Nova Pampulha e Morro Alto: diagnóstico SMART, upgrade SSD NVMe, formatação com backup verificado, remoção de vírus e limpeza térmica. Atendimento presencial." />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SmartOps IA" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content="Manutenção e Formatação de Computador | SmartOps IA" />
+  <meta property="og:description" content="Diagnóstico SMART, upgrade SSD NVMe, formatação com backup, remoção de vírus e limpeza térmica. Nova Pampulha e Morro Alto." />
+  <meta property="og:image" content={new URL('/img/blog-manutencao.svg', siteURL).href} />
+  <meta property="og:locale" content="pt_BR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Manutenção e Formatação de Computador | SmartOps IA" />
+  <meta name="twitter:description" content="Diagnóstico SMART, upgrade SSD NVMe, formatação com backup, remoção de vírus e limpeza térmica." />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <GoogleAnalytics />
+</head>
+<body>
+  <GTMBody />
+  <Nav current="/manutencao" />
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Atendimento presencial · Nova Pampulha e Morro Alto
+      </div>
+      <h1 class="hero-title">
+        Seu computador <span class="accent-yellow">lento, travando</span><br />
+        ou com vírus?
+      </h1>
+      <p class="hero-desc">
+        Diagnóstico honesto, sem susto na conta. Trabalhamos com dados reais —
+        lemos os atributos SMART do disco, medimos temperatura, identificamos a causa
+        antes de mexer em qualquer coisa.
+      </p>
+      <div class="hero-actions">
+        <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/>
+          </svg>
+          Solicitar diagnóstico
+        </a>
+        <a href="#servicos" class="btn-ghost">Ver todos os serviços ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <strong>8–15s</strong>
+          <span>boot com SSD NVMe</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <strong>Mesmo dia</strong>
+          <span>maioria dos serviços</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <strong>0%</strong>
+          <span>perda de dados na formatação</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROBLEMAS ── -->
+  <section class="section" id="problemas">
+    <div class="container">
+      <div class="section-label">Você está aqui porque…</div>
+      <h2 class="section-title">Reconhece algum desses problemas?</h2>
+      <p class="section-desc">Cada sintoma tem uma causa raiz. Não resolvemos o sintoma — resolvemos a causa.</p>
+      <div class="problems-grid">
+        {problems.map(p => (
+          <div class="problem-card">
+            <span class="problem-icon">{p.icon}</span>
+            <div>
+              <h3 class="problem-title">{p.title}</h3>
+              <p class="problem-desc">{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CURIOSIDADE: SMART ── -->
+  <section class="section smart-section">
+    <div class="container">
+      <div class="smart-card">
+        <div class="smart-left">
+          <div class="section-label">Você sabia?</div>
+          <h2 class="smart-title">Seu HD já está avisando que vai quebrar</h2>
+          <p>Desde 1995, HDs e SSDs armazenam dados internos de saúde chamados SMART — <em>Self-Monitoring, Analysis and Reporting Technology</em>. São mais de 70 atributos monitorados continuamente pelo próprio disco.</p>
+          <p>O problema: esses dados ficam escondidos. Você não vê. O Windows não mostra. E quando o disco falha, a maioria das pessoas acha que foi do nada.</p>
+          <p><strong>Não foi do nada. Estava escrito lá há semanas.</strong></p>
+          <a href={whatsappURL} class="btn-amber" target="_blank" rel="noopener noreferrer">Quero um diagnóstico SMART →</a>
+        </div>
+        <div class="smart-right">
+          <div class="smart-attrs">
+            <div class="attr-row attr-ok">
+              <span class="attr-name">Reallocated Sectors</span>
+              <span class="attr-val ok">0 — Normal</span>
+            </div>
+            <div class="attr-row attr-warn">
+              <span class="attr-name">Pending Sectors</span>
+              <span class="attr-val warn">47 — Atenção</span>
+            </div>
+            <div class="attr-row attr-crit">
+              <span class="attr-name">Uncorrectable Errors</span>
+              <span class="attr-val crit">12 — Crítico</span>
+            </div>
+            <div class="attr-row attr-ok">
+              <span class="attr-name">Power-On Hours</span>
+              <span class="attr-val ok">14.230h</span>
+            </div>
+            <div class="attr-row attr-warn">
+              <span class="attr-name">Temperature</span>
+              <span class="attr-val warn">61°C — Alto</span>
+            </div>
+            <div class="smart-verdict">
+              <span class="verdict-icon">⚠️</span>
+              <span>Falha prevista em <strong>30–90 dias</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVIÇOS ── -->
+  <section class="section" id="servicos">
+    <div class="container">
+      <div class="section-label">O que fazemos</div>
+      <h2 class="section-title">Serviços de Manutenção & TI</h2>
+      <p class="section-desc">Cada serviço tem começo, meio e fim definidos — sem surpresa no preço e sem gambiarras no serviço.</p>
+      <div class="services-grid">
+        {services.map(s => (
+          <div class="service-card">
+            <div class="service-top">
+              <span class="service-icon">{s.icon}</span>
+              <span class="service-badge">{s.badge}</span>
+            </div>
+            <h3 class="service-title">{s.title}</h3>
+            <p class="service-subtitle">{s.subtitle}</p>
+            <p class="service-desc">{s.desc}</p>
+            <ul class="service-details">
+              {s.details.map(d => <li>{d}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMPARATIVO SSD ── -->
+  <section class="section ssd-section">
+    <div class="container">
+      <div class="ssd-card">
+        <div class="section-label">Por que upgrade de SSD?</div>
+        <h2 class="ssd-title">A diferença que você sente no primeiro boot</h2>
+        <div class="comparison">
+          <div class="comp-before">
+            <div class="comp-label before-label">Antes (HD)</div>
+            <div class="comp-bar-wrap">
+              <div class="comp-bar before-bar"></div>
+              <span class="comp-time">4–6 min para ligar</span>
+            </div>
+            <ul class="comp-list">
+              <li>Boot lento — Windows carregando por minutos</li>
+              <li>Abertura de programas trava por 30–60s</li>
+              <li>Multitarefas causa travamento completo</li>
+              <li>Barulho de leitura constante</li>
+            </ul>
+          </div>
+          <div class="comp-arrow">→</div>
+          <div class="comp-after">
+            <div class="comp-label after-label">Depois (SSD NVMe)</div>
+            <div class="comp-bar-wrap">
+              <div class="comp-bar after-bar"></div>
+              <span class="comp-time">8–15 segundos</span>
+            </div>
+            <ul class="comp-list">
+              <li>Boot praticamente instantâneo</li>
+              <li>Programas abrem em menos de 2 segundos</li>
+              <li>Multitarefas fluida sem travamentos</li>
+              <li>Silencioso — sem partes mecânicas</li>
+            </ul>
+          </div>
+        </div>
+        <p class="ssd-note">
+          <strong>Clonagem incluída:</strong> transferimos todo o seu sistema, programas e arquivos para o SSD novo.
+          Você liga e está exatamente onde parou — só muito mais rápido.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DIFERENCIAIS ── -->
+  <section class="section" id="diferenciais">
+    <div class="container">
+      <div class="section-label">Por que a SmartOps?</div>
+      <h2 class="section-title">Manutenção feita com método, não no improviso</h2>
+      <div class="diff-grid">
+        <div class="diff-card">
+          <span class="diff-icon">📊</span>
+          <h3>Diagnóstico antes de tudo</h3>
+          <p>Nenhuma ação sem dados. Antes de trocar peça ou formatar, lemos os logs do sistema, atributos SMART e medimos temperatura para saber o que está acontecendo de verdade.</p>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">💾</span>
+          <h3>Backup verificado, não prometido</h3>
+          <p>O backup é feito e verificado antes de qualquer formatação. Mostramos para você que os arquivos estão lá antes de começar. Não existe "formatei e perdi tudo" aqui.</p>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">🔍</span>
+          <h3>Transparência total</h3>
+          <p>Você sabe exatamente o que será feito, quanto vai custar e quanto tempo vai levar — antes de autorizar. Sem serviço extra descoberto no meio do caminho.</p>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">🏠</span>
+          <h3>Atendimento presencial local</h3>
+          <p>Atendemos em Nova Pampulha e Morro Alto. Você nos traz o equipamento ou, dependendo do serviço, a gente vai até você. Sem enviar para um centro de serviço anônimo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="section" id="faq">
+    <div class="container faq-container">
+      <div class="section-label">Dúvidas frequentes</div>
+      <h2 class="section-title">Perguntas sobre manutenção</h2>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary class="faq-q">{f.q}</summary>
+            <p class="faq-a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA FINAL ── -->
+  <section class="section cta-section">
+    <div class="container cta-inner">
+      <div class="cta-badge">Nova Pampulha · Morro Alto</div>
+      <h2 class="cta-title">Computador com problema?<br /><span class="accent-yellow">Diagnóstico gratuito.</span></h2>
+      <p class="cta-desc">
+        Me manda uma mensagem descrevendo o problema. Em até 30 minutos te respondo
+        com uma estimativa — sem compromisso, sem enrolação.
+      </p>
+      <a href={whatsappURL} class="btn-primary btn-large" target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/>
+        </svg>
+        Falar agora no WhatsApp
+      </a>
+      <p class="cta-note">(31) 97203-9180 · Resposta rápida em horário comercial</p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; {new Date().getFullYear()} SmartOps IA · Lean Six Sigma &amp; Automação &amp; TI · Nova Pampulha e Morro Alto, BH</p>
+      <nav class="footer-nav">
+        <a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/manutencao">Manutenção & TI</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a>
+      </nav>
+    </div>
+  </footer>
+
+  <EventTracking />
+</body>
+</html>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #06060e;
+    --bg2: #0d0d1a;
+    --fg: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #a78bfa;
+    --accent-h: #8b5cf6;
+    --amber: #f59e0b;
+    --amber-h: #d97706;
+    --border: rgba(255,255,255,0.07);
+    --max-w: 1100px;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section {
+    padding: 5rem 0;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .accent-yellow { color: var(--amber); }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #25d366;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #1db954; transform: translateY(-2px); }
+  .btn-primary.btn-large { font-size: 1.1rem; padding: 1rem 2rem; }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.85rem 1.25rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+
+  .btn-amber {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(245,158,11,0.15);
+    border: 1px solid rgba(245,158,11,0.35);
+    color: #fcd34d;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-top: 1.5rem;
+  }
+  .btn-amber:hover { background: rgba(245,158,11,0.25); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 0 4rem;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,158,11,0.06) 0%, transparent 70%);
+  }
+
+  .hero-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.25);
+    color: #fcd34d;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 580px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat strong {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--amber);
+    letter-spacing: -0.02em;
+  }
+
+  .stat span {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .stat-sep {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+  }
+
+  /* ── PROBLEMS ── */
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  .problem-card {
+    display: flex;
+    gap: 1rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .problem-card:hover { border-color: rgba(245,158,11,0.25); }
+
+  .problem-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .problem-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.35rem;
+  }
+
+  .problem-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ── SMART SECTION ── */
+  .smart-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .smart-card {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .smart-left p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .smart-left p strong { color: #fff; }
+  .smart-left p em { font-style: italic; color: var(--fg); }
+
+  .smart-title {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    line-height: 1.25;
+  }
+
+  .smart-attrs {
+    background: #0a0a16;
+    border: 1px solid rgba(245,158,11,0.15);
+    border-radius: 12px;
+    padding: 1.5rem;
+    font-family: 'Fira Code', Consolas, monospace;
+    font-size: 0.8rem;
+  }
+
+  .attr-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    gap: 1rem;
+  }
+
+  .attr-row:last-of-type { border-bottom: none; }
+
+  .attr-name { color: var(--muted); }
+
+  .attr-val { font-weight: 700; }
+  .attr-val.ok { color: #4ade80; }
+  .attr-val.warn { color: #fbbf24; }
+  .attr-val.crit { color: #f87171; }
+
+  .smart-verdict {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(248,113,113,0.1);
+    border: 1px solid rgba(248,113,113,0.25);
+    border-radius: 8px;
+    color: #fca5a5;
+    font-size: 0.82rem;
+    font-family: var(--font);
+  }
+
+  .verdict-icon { font-size: 1rem; }
+
+  /* ── SERVICES GRID ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .service-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .service-card:hover {
+    border-color: rgba(245,158,11,0.3);
+    transform: translateY(-3px);
+  }
+
+  .service-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .service-icon { font-size: 1.75rem; }
+
+  .service-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.25);
+    color: #fcd34d;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+  }
+
+  .service-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.2rem;
+  }
+
+  .service-subtitle {
+    font-size: 0.8rem;
+    color: var(--amber);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.01em;
+  }
+
+  .service-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .service-details {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .service-details li {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .service-details li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+
+  /* ── SSD SECTION ── */
+  .ssd-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ssd-card { max-width: 780px; }
+
+  .ssd-title {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    margin-bottom: 2rem;
+  }
+
+  .comp-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+
+  .before-label { color: #f87171; }
+  .after-label { color: #4ade80; }
+
+  .comp-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .comp-bar {
+    height: 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .before-bar { width: 120px; background: rgba(248,113,113,0.5); }
+  .after-bar { width: 20px; background: rgba(74,222,128,0.6); }
+
+  .comp-time {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .comp-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .comp-list li {
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .comp-list li::before { content: '·'; position: absolute; left: 0; }
+
+  .comp-arrow {
+    font-size: 1.5rem;
+    color: var(--amber);
+    align-self: center;
+    margin-top: 2rem;
+  }
+
+  .ssd-note {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.5);
+    border-left: 3px solid var(--amber);
+    padding-left: 1rem;
+  }
+
+  .ssd-note strong { color: var(--fg); }
+
+  /* ── DIFERENCIAIS ── */
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .diff-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+  }
+
+  .diff-icon { font-size: 1.5rem; display: block; margin-bottom: 1rem; }
+
+  .diff-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.6rem;
+  }
+
+  .diff-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── FAQ ── */
+  .faq-container { max-width: 720px; }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .faq-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item[open] { border-color: rgba(245,158,11,0.25); }
+
+  .faq-q {
+    cursor: pointer;
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #fff;
+    padding: 1.15rem 1.5rem;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+  }
+
+  .faq-q::-webkit-details-marker { display: none; }
+
+  .faq-q::after {
+    content: '+';
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--amber);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-q::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-a {
+    padding: 0 1.5rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(245,158,11,0.06) 0%, transparent 70%);
+    border-top: 1px solid var(--border);
+  }
+
+  .cta-inner {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .cta-badge {
+    display: inline-block;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.25);
+    color: #fcd34d;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .cta-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .cta-note {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: #04040a;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .footer-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .site-footer p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-nav a {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+  }
+
+  .footer-nav a:hover { color: #fff; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .smart-card { grid-template-columns: 1fr; }
+    .smart-right { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .section { padding: 3.5rem 0; }
+    .container { padding: 0 1.25rem; }
+    .hero { padding: 3.5rem 0 3rem; }
+    .hero-inner { padding: 0 1.25rem; }
+    .hero-stats { gap: 1.5rem; }
+    .stat-sep { display: none; }
+    .comparison { grid-template-columns: 1fr; }
+    .comp-arrow { display: none; }
+  }
+</style>
