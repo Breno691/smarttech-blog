@@ -26,6 +26,17 @@ function loadEnvKey() {
   return '';
 }
 
+// ─── Category Detection ───────────────────────────────────────────────────────
+
+function detectCategory(titulo) {
+  const t = titulo.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  if (/lean|six sigma|dmaic|dmadv|kaizen|5s|kanban|poka.?yoke|muda|muri|mura|desperdicio|fluxo de valor|takt|just.?in.?time/.test(t)) return 'lean-six-sigma';
+  if (/automat|chatbot|whatsapp|inteligencia artificial|\bia\b|n8n|webhook|workflow|bot|crm|zapier|make\.com|openai|gpt|api|sistema|software|tecnologia|digital/.test(t)) return 'automacao';
+  if (/melhoria continua|processo|eficiencia|produtividade|gestao|indicador|kpi|meta|resultado|qualidade|padronizacao|treinamento|equipe|cultura/.test(t)) return 'melhoria-continua';
+  if (/manutencao|formatacao|computador|notebook|ssd|hd|virus|windows|driver|hardware|impressora|rede|wi.?fi|suporte|ti\b|informatica/.test(t)) return 'manutencao';
+  return 'geral';
+}
+
 // ─── Slug ─────────────────────────────────────────────────────────────────────
 
 function toSlug(text) {
@@ -204,6 +215,7 @@ Objetivo: aparecer no Google para buscas relacionadas ao tema e converter o leit
   }
 
   const tagsYaml = (meta.tags || []).map(t => `  - ${t}`).join('\n');
+  const category = detectCategory(titulo);
 
   const frontmatter = `---
 title: "${titulo}"
@@ -211,6 +223,7 @@ description: "${(meta.description || '').replace(/"/g, "'")}"
 pubDate: "${today()}"
 heroImage: "/blog-placeholder-1.jpg"
 excerpt: "${(meta.excerpt || '').replace(/"/g, "'")}"
+category: "${category}"
 tags:
 ${tagsYaml}
 ---

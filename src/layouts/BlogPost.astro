@@ -5,13 +5,22 @@ import GTMBody from '../components/GTMBody.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import MetaPixel from '../components/MetaPixel.astro';
 import EventTracking from '../components/EventTracking.astro';
+import Nav from '../components/Nav.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>;
 }
 
 const { post } = Astro.props;
-const { title, description, pubDate, updatedDate, heroImage, author, tags, canonical } = post.data;
+const { title, description, pubDate, updatedDate, heroImage, author, tags, canonical, category } = post.data;
+
+const categoryLabel: Record<string, string> = {
+  'lean-six-sigma': 'Lean Six Sigma',
+  'automacao': 'Automação com IA',
+  'melhoria-continua': 'Melhoria Contínua',
+  'manutencao': 'Manutenção & TI',
+  'geral': 'Geral',
+};
 
 const siteURL = Astro.site ?? new URL('http://localhost:4321');
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, siteURL).href;
@@ -55,7 +64,7 @@ const schema = {
       '@type': 'WebPage',
       '@id': `${canonicalURL}#webpage`,
       url: canonicalURL,
-      name: `${title} | SmartOps SEO`,
+      name: `${title} | SmartOps IA`,
       description,
       inLanguage: 'pt-BR',
       isPartOf: { '@id': `${siteURL.href}#website` },
@@ -97,13 +106,13 @@ function formatDate(date: Date) {
     <MetaPixel />
 
     <!-- SEO primário -->
-    <title>{title} | SmartOps SEO</title>
+    <title>{title} | SmartOps IA</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- OpenGraph -->
     <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="SmartOps SEO" />
+    <meta property="og:site_name" content="SmartOps IA" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -134,17 +143,7 @@ function formatDate(date: Date) {
 
   <body>
     <GTMBody />
-    <header>
-      <nav>
-        <a href="/" class="site-name">SmartOps <span>IA</span></a>
-        <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="/blog" aria-current="page">Blog</a>
-          <a href="/#servicos">Serviços</a>
-          <a href="/#contato">Contato</a>
-        </div>
-      </nav>
-    </header>
+    <Nav current="/blog" />
 
     <main>
       <article>
@@ -161,11 +160,16 @@ function formatDate(date: Date) {
             />
           )}
           <div class="article-meta">
-            {tags.length > 0 && (
-              <div class="tags">
-                {tags.map(tag => <span class="tag">{tag}</span>)}
-              </div>
-            )}
+            <div class="article-top-meta">
+              {category && category !== 'geral' && (
+                <a href={`/blog?categoria=${category}`} class="cat-badge">{categoryLabel[category] ?? category}</a>
+              )}
+              {tags.length > 0 && (
+                <div class="tags">
+                  {tags.map(tag => <span class="tag">{tag}</span>)}
+                </div>
+              )}
+            </div>
             <h1 class="article-title">{title}</h1>
             <p class="article-description">{description}</p>
             <div class="article-info">
@@ -186,8 +190,13 @@ function formatDate(date: Date) {
       </article>
     </main>
 
-    <footer>
-      <p>&copy; {new Date().getFullYear()} SmartOps SEO. Todos os direitos reservados.</p>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>&copy; {new Date().getFullYear()} SmartOps IA · Lean Six Sigma &amp; Automação · Belo Horizonte, MG</p>
+        <nav class="footer-nav">
+          <a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a>
+        </nav>
+      </div>
     </footer>
     <EventTracking />
   </body>
@@ -197,32 +206,18 @@ function formatDate(date: Date) {
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #ffffff;
-    --bg2: #f9fafb;
-    --fg: #111827;
-    --muted: #6b7280;
-    --accent: #7c3aed;
-    --accent-h: #6d28d9;
-    --accent-bg: #ede9fe;
-    --border: #e5e7eb;
-    --code-bg: #f3f4f6;
+    --bg: #07070f;
+    --bg2: #0f0f1a;
+    --fg: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #a78bfa;
+    --accent-h: #8b5cf6;
+    --accent-bg: rgba(167,139,250,0.12);
+    --border: rgba(255,255,255,0.07);
+    --code-bg: #0f0f1a;
     --max-w: 768px;
-    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     --mono: 'Fira Code', 'Cascadia Code', Consolas, monospace;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f0f1a;
-      --bg2: #161625;
-      --fg: #e8e8f0;
-      --muted: #9ca3af;
-      --accent: #a78bfa;
-      --accent-h: #8b5cf6;
-      --accent-bg: #1e1b4b;
-      --border: #1f2937;
-      --code-bg: #1a1a2e;
-    }
   }
 
   html { scroll-behavior: smooth; }
@@ -234,39 +229,6 @@ function formatDate(date: Date) {
     line-height: 1.75;
     font-size: 1rem;
   }
-
-  /* ── HEADER ── */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(10px);
-  }
-
-  nav {
-    max-width: calc(var(--max-w) + 4rem);
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  nav a {
-    color: var(--fg);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: color 0.15s;
-  }
-
-  nav a:hover { color: var(--accent); }
-  .site-name { font-weight: 800; font-size: 1rem !important; margin-right: auto; }
-  .site-name span { color: var(--accent); }
-  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
-  .nav-links a { font-size: 0.875rem; font-weight: 500; padding: 0.35rem 0.7rem; border-radius: 8px; }
 
   /* ── MAIN ── */
   main {
@@ -285,22 +247,39 @@ function formatDate(date: Date) {
     object-fit: cover;
   }
 
+  .article-top-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem; }
+
+  .cat-badge {
+    display: inline-block;
+    background: rgba(167,139,250,0.15);
+    border: 1px solid rgba(167,139,250,0.3);
+    color: #c4b5fd;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .cat-badge:hover { background: rgba(167,139,250,0.25); }
+
   .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.25rem;
+    gap: 0.4rem;
   }
 
   .tag {
-    background: var(--accent-bg);
-    color: var(--accent);
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.2rem 0.75rem;
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
     border-radius: 9999px;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
   }
 
   .article-title {
@@ -309,11 +288,12 @@ function formatDate(date: Date) {
     line-height: 1.2;
     letter-spacing: -0.03em;
     margin-bottom: 1rem;
+    color: #fff;
   }
 
   .article-description {
-    font-size: 1.15rem;
-    color: var(--muted);
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.55);
     line-height: 1.65;
     margin-bottom: 1.75rem;
   }
@@ -323,12 +303,12 @@ function formatDate(date: Date) {
     flex-wrap: wrap;
     gap: 0.4rem 1.25rem;
     font-size: 0.875rem;
-    color: var(--muted);
+    color: rgba(255,255,255,0.35);
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
   }
 
-  .author { font-weight: 700; color: var(--fg); }
+  .author { font-weight: 700; color: rgba(255,255,255,0.7); }
   .updated { font-style: italic; }
 
   .article-header { margin-bottom: 3.5rem; }
@@ -385,19 +365,34 @@ function formatDate(date: Date) {
   .prose :global(th), .prose :global(td) { padding: 0.75rem 1rem; border: 1px solid var(--border); text-align: left; }
   .prose :global(th) { background: var(--bg2); font-weight: 700; }
 
-  /* ── FOOTER ── */
-  footer {
-    margin-top: 5rem;
-    padding: 2rem;
-    border-top: 1px solid var(--border);
-    text-align: center;
-    font-size: 0.875rem;
+  /* ── PROSE COLORS ── */
+  .prose :global(h2), .prose :global(h3), .prose :global(h4) { color: #fff; }
+  .prose :global(p) { color: var(--fg); }
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--accent);
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: var(--accent-bg);
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
     color: var(--muted);
   }
 
+  /* ── FOOTER ── */
+  .site-footer {
+    background: #04040a;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: 5rem;
+  }
+  .footer-inner { max-width: calc(var(--max-w) + 4rem); margin: 0 auto; padding: 0 2rem; }
+  .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+  .footer-nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+  .footer-nav a:hover { color: #fff; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
-    nav { padding: 0.875rem 1rem; }
     main { padding: 2rem 1rem 3rem; }
   }
 </style>
