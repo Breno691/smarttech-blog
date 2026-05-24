@@ -78,6 +78,11 @@ const schema = {
       provider: { '@id': `${siteURL}#business` },
       description: 'Automação de atendimento no WhatsApp, captura de leads, fluxos operacionais e integrações com IA para pequenas empresas.',
       serviceType: 'Automação Empresarial',
+      areaServed: [
+        { '@type': 'City', name: 'Belo Horizonte', containedInPlace: { '@type': 'State', name: 'Minas Gerais' } },
+        { '@type': 'Place', name: 'Nova Pampulha', containedInPlace: { '@type': 'City', name: 'Belo Horizonte' } },
+        { '@type': 'Place', name: 'Morro Alto', containedInPlace: { '@type': 'AdministrativeArea', name: 'Região Metropolitana de Belo Horizonte' } },
+      ],
     },
   ],
 };
@@ -92,7 +97,7 @@ const schema = {
   <MetaPixel />
 
   <title>Automação de Processos com IA para Empresas | SmartOps IA — BH</title>
-  <meta name="description" content="Automatize atendimento, captura de leads e fluxos operacionais com IA. Para pequenas empresas que querem crescer sem aumentar custo fixo. Diagnóstico gratuito em BH." />
+  <meta name="description" content="Automatize atendimento, captura de leads e fluxos operacionais com IA. Para pequenas empresas em BH, Nova Pampulha e Morro Alto que querem crescer sem aumentar custo fixo. Diagnóstico gratuito." />
   <meta name="keywords" content="automação de processos, automação com IA, chatbot whatsapp empresas, n8n belo horizonte, automação operacional, fluxos automáticos, inteligência artificial para empresas" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href={canonicalURL} />
@@ -133,7 +138,7 @@ const schema = {
           <div><strong>24h</strong><span>Atendimento automático</span></div>
           <div><strong>0</strong><span>Digitação dupla</span></div>
           <div><strong>GPT-4</strong><span>IA de ponta</span></div>
-          <div><strong>BH</strong><span>Implementação local</span></div>
+          <div><strong>BH · NP · MA</strong><span>Implementação local</span></div>
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
@@ -275,7 +280,7 @@ const schema = {
       <a href={whatsappURL} class="btn-primary large" target="_blank" rel="noopener noreferrer">
         Falar com especialista no WhatsApp
       </a>
-      <p class="cta-note">Atendimento em Belo Horizonte e região · (31) 97203-9180</p>
+      <p class="cta-note">Atendimento em BH, Nova Pampulha e Morro Alto · (31) 97203-9180</p>
     </div>
   </section>
 
