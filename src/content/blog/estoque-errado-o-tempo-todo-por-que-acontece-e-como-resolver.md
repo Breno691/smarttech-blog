@@ -10,6 +10,7 @@ tags:
   - soluções
   - eficiência
   - pequenas e médias empresas
+category: melhoria-continua
 ---
 
 # Estoque errado o tempo todo: por que acontece e como resolver

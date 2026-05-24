@@ -10,6 +10,7 @@ tags:
   - comunicação
   - pequenas empresas
   - recursos humanos
+category: melhoria-continua
 ---
 
 # Por que contratar mais gente não resolve o problema de produtividade

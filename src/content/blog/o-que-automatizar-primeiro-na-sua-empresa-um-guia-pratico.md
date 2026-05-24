@@ -10,6 +10,7 @@ tags:
   - gestão de processos
   - negócios
   - tecnologia
+category: automacao
 ---
 
 # O que automatizar primeiro na sua empresa: um guia prático

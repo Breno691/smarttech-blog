@@ -10,6 +10,7 @@ tags:
   - indicadores de processo
   - CRM
   - otimização
+category: lean-six-sigma
 ---
 
 # Indicadores financeiros vs indicadores de processo: qual acompanhar primeiro

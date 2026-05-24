@@ -10,6 +10,7 @@ tags:
   - diversidade de habilidades
   - trabalho em equipe
   - eficiência
+category: melhoria-continua
 ---
 
 # Por que minha equipe faz diferente toda vez que executa a mesma tarefa

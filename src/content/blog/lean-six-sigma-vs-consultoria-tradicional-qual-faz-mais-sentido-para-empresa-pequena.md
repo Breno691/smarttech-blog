@@ -10,6 +10,7 @@ tags:
   - eficiência
   - pequenas empresas
   - gestão de processos
+category: lean-six-sigma
 ---
 
 # Lean Six Sigma vs Consultoria Tradicional: Qual Faz Mais Sentido para Empresas Pequenas 

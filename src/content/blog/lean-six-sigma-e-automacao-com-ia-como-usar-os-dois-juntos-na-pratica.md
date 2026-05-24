@@ -10,6 +10,7 @@ tags:
   - automação
   - eficiência
   - pequenas e médias empresas
+category: lean-six-sigma
 ---
 
 # Lean Six Sigma e automação com IA: como usar os dois juntos na prática

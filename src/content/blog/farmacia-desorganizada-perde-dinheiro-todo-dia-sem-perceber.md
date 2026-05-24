@@ -10,6 +10,7 @@ tags:
   - perda de estoque
   - lucratividade
   - atendimento ao cliente
+category: melhoria-continua
 ---
 
 # Farmácia desorganizada perde dinheiro todo dia sem perceber

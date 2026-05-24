@@ -10,6 +10,7 @@ tags:
   - redução de defeitos
   - eficiência operacional
   - pequenas empresas
+category: lean-six-sigma
 ---
 
 # Pequena Fábrica: Como Reduzir Defeitos na Produção com Lean Six Sigma

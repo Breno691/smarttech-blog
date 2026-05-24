@@ -10,6 +10,7 @@ tags:
   - eficiência empresarial
   - tecnologia
   - PMEs
+category: lean-six-sigma
 ---
 
 # Como Integrar Automação de Processos com Melhoria Contínua sem Complicar

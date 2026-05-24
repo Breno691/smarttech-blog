@@ -10,6 +10,7 @@ tags:
   - eficiência empresarial
   - gestão de processos
   - análise de dados
+category: lean-six-sigma
 ---
 
 # Como usar IA para identificar gargalos na operação da sua empresa

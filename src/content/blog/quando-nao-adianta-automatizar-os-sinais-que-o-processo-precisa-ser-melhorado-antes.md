@@ -10,6 +10,7 @@ tags:
   - eficiência
   - gestão
   - melhoria
+category: automacao
 ---
 
 # Quando não adianta automatizar: os sinais que o processo precisa ser melhorado antes

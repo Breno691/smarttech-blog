@@ -10,6 +10,7 @@ tags:
   - gestão de processos
   - melhoria contínua
   - eficiência
+category: lean-six-sigma
 ---
 
 # Lean vs Six Sigma: qual a diferença e qual aplicar primeiro

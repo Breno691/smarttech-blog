@@ -10,6 +10,7 @@ tags:
   - eficiência
   - gestão
   - melhoria contínua
+category: automacao
 ---
 
 # Como mapear um processo antes de automatizar e por que isso muda tudo

@@ -10,6 +10,7 @@ tags:
   - otimização de processos
   - melhoria contínua
   - eficiência empresarial
+category: lean-six-sigma
 ---
 
 # Como fazer um mapeamento de fluxo de valor sem ser especialista em Lean

@@ -10,6 +10,7 @@ tags:
   - organização de processos
   - retenção de alunos
   - estratégias educacionais
+category: melhoria-continua
 ---
 
 # Escola Particular: Como Organizar Processos e Parar de Perder Aluno por Falha no Atendimento

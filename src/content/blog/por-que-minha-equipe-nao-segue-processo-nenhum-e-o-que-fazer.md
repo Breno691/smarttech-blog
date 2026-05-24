@@ -10,6 +10,7 @@ tags:
   - eficiência
   - motivação
   - soluções
+category: melhoria-continua
 ---
 
 # Por que minha equipe não segue processo nenhum e o que fazer

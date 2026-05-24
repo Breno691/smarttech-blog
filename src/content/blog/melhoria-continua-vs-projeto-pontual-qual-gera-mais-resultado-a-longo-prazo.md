@@ -10,6 +10,7 @@ tags:
   - eficiência
   - gestão
   - resultados sustentáveis
+category: lean-six-sigma
 ---
 
 # Melhoria contínua vs projeto pontual: qual gera mais resultado a longo prazo?

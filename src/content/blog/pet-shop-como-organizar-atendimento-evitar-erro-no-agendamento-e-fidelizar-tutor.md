@@ -10,6 +10,7 @@ tags:
   - agendamento
   - fidelização
   - gestão de negócios
+category: melhoria-continua
 ---
 
 # Pet shop: como organizar atendimento, evitar erro no agendamento e fidelizar tutor

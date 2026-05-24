@@ -10,6 +10,7 @@ tags:
   - eficiência
   - gestão de obras
   - retrabalho
+category: lean-six-sigma
 ---
 
 # Construtora pequena: como o Lean reduz retrabalho e atraso na obra

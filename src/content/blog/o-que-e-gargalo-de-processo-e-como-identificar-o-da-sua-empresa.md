@@ -10,6 +10,7 @@ tags:
   - produtividade
   - gestão de processos
   - identificação de problemas
+category: lean-six-sigma
 ---
 
 # O que é gargalo de processo e como identificar o da sua empresa

@@ -10,6 +10,7 @@ tags:
   - gestão
   - documentação
   - produtividade
+category: lean-six-sigma
 ---
 
 # Processo Manual vs Processo Documentado: O Que Muda na Prática

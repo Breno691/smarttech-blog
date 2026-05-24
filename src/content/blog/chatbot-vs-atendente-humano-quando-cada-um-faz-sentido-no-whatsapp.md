@@ -10,6 +10,7 @@ tags:
   - WhatsApp
   - Tecnologia
   - Automação
+category: automacao
 ---
 
 # Chatbot vs Atendente Humano: Quando Cada Um Faz Sentido no WhatsApp

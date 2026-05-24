@@ -10,6 +10,7 @@ tags:
   - produtividade
   - ambiente de trabalho
   - confiança
+category: melhoria-continua
 ---
 
 # Como cobrar da equipe sem precisar ficar em cima o tempo todo

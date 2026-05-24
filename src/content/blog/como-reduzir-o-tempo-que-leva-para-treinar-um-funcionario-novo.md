@@ -10,6 +10,7 @@ tags:
   - produtividade
   - empresas
   - Belo Horizonte
+category: melhoria-continua
 ---
 
 # Como reduzir o tempo que leva para treinar um funcionário novo

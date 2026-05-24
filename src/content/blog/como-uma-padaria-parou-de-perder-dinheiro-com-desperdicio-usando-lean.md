@@ -10,6 +10,7 @@ tags:
   - padarias
   - eficiência
   - gestão
+category: lean-six-sigma
 ---
 
 # Como uma Padaria Parou de Perder Dinheiro com Desperdício Usando Lean

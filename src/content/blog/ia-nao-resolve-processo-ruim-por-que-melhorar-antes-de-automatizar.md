@@ -10,6 +10,7 @@ tags:
   - Eficiência
   - Transformação Digital
   - Processos
+category: automacao
 ---
 
 # IA Não Resolve Processo Ruim: Por Que Melhorar Antes de Automatizar

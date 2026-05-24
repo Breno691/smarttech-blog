@@ -5,6 +5,7 @@ pubDate: "2025-05-19"
 author: "SmartOps SEO"
 tags: ["SEO", "Inteligência Artificial", "Marketing Digital"]
 heroImage: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&h=630&fit=crop"
+category: melhoria-continua
 ---
 
 A inteligência artificial deixou de ser uma tendência futura e se tornou uma realidade presente no universo do SEO. Em 2025, quem ainda cria conteúdo manualmente está perdendo terreno para competidores que automatizaram seus processos com IA.

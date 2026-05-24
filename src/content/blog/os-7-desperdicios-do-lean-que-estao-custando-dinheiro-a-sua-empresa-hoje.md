@@ -10,6 +10,7 @@ tags:
   - eficiência
   - PMEs
   - lucratividade
+category: lean-six-sigma
 ---
 
 # Os 7 desperdícios do Lean que estão custando dinheiro à sua empresa hoje

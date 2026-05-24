@@ -10,6 +10,7 @@ tags:
   - eficiência empresarial
   - desenvolvimento de equipe
   - gestão
+category: lean-six-sigma
 ---
 
 # Treinamento de equipe vs melhoria de processo: por onde começar

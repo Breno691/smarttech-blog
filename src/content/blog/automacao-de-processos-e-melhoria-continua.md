@@ -10,6 +10,7 @@ tags:
   - Lean
   - Processos
   - IA
+category: lean-six-sigma
 ---
 
 # Automação de Processos e Melhoria Contínua: Como Transformar a Operação da Sua Empresa

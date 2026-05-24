@@ -10,6 +10,7 @@ tags:
   - alta demanda
   - gestão
   - clientes
+category: melhoria-continua
 ---
 
 # Por que minha empresa perde qualidade quando fica movimentada

@@ -10,6 +10,7 @@ tags:
   - eficiência
   - gestão
   - melhoria contínua
+category: melhoria-continua
 ---
 
 # Como uma clínica reduziu o tempo de espera pela metade sem contratar ninguém

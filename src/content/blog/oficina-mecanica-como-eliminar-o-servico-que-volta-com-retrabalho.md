@@ -10,6 +10,7 @@ tags:
   - qualificação
   - manutenção de veículos
   - satisfação do cliente
+category: lean-six-sigma
 ---
 
 # Oficina Mecânica: Como Eliminar o Serviço que Volta com Retrabalho

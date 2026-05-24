@@ -10,6 +10,7 @@ tags:
   - gestão de negócios
   - eficiência
   - Belo Horizonte
+category: melhoria-continua
 ---
 
 # Minha empresa depende de mim para tudo: como mudar isso

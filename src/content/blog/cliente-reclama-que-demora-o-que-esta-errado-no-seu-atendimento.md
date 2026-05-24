@@ -10,6 +10,7 @@ tags:
   - reclamações
   - gestão empresarial
   - experiência do cliente
+category: melhoria-continua
 ---
 
 # Cliente reclama que demora: o que está errado no seu atendimento

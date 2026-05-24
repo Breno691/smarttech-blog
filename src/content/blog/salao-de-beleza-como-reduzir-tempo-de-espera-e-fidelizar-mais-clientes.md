@@ -10,6 +10,7 @@ tags:
   - tempo de espera
   - atendimento ao cliente
   - estratégias de negócio
+category: melhoria-continua
 ---
 
 # Salão de Beleza: Como Reduzir Tempo de Espera e Fidelizar Mais Clientes

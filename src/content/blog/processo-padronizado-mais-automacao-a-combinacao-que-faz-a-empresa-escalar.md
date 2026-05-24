@@ -10,6 +10,7 @@ tags:
   - eficiência
   - escalabilidade
   - negócios
+category: lean-six-sigma
 ---
 
 # Processo padronizado mais automação: a combinação que faz a empresa escalar

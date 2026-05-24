@@ -10,6 +10,7 @@ tags:
   - processos documentados
   - gestão de equipes
   - produtividade
+category: melhoria-continua
 ---
 
 # Como treinar funcionário novo em metade do tempo com processo documentado

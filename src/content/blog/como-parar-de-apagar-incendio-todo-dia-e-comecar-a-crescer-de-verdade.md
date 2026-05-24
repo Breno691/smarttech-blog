@@ -10,6 +10,7 @@ tags:
   - planejamento
   - Belo Horizonte
   - eficiência
+category: melhoria-continua
 ---
 
 # Como Parar de Apagar Incêndio Todo Dia e Começar a Crescer de Verdade

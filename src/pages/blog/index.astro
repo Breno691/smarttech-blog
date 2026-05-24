@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import Nav from '../../components/Nav.astro';
 import GTMHead from '../../components/GTMHead.astro';
 import GTMBody from '../../components/GTMBody.astro';
 import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
@@ -12,28 +13,32 @@ const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
 
+const categories = [
+  { id: 'todos', label: 'Todos' },
+  { id: 'lean-six-sigma', label: 'Lean Six Sigma' },
+  { id: 'automacao', label: 'Automação com IA' },
+  { id: 'melhoria-continua', label: 'Melhoria Contínua' },
+  { id: 'manutencao', label: 'Manutenção & TI' },
+];
+
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
-    // ── CollectionPage ────────────────────────────────────────────────────
     {
       '@type': 'CollectionPage',
       '@id': `${canonicalURL}#webpage`,
       url: canonicalURL,
-      name: 'Blog | SmartOps SEO',
-      description: 'Artigos sobre SEO, marketing digital, automação com IA e manutenção de computadores.',
+      name: 'Blog | SmartOps IA — Lean Six Sigma, Automação e Melhoria Contínua',
+      description: 'Artigos sobre Lean Six Sigma, automação com IA, melhoria contínua e eficiência operacional para pequenas empresas.',
       inLanguage: 'pt-BR',
       isPartOf: { '@id': `${siteURL}#website` },
-      breadcrumb: { '@id': `${canonicalURL}#breadcrumb` },
-    },
-    // ── BreadcrumbList ────────────────────────────────────────────────────
-    {
-      '@type': 'BreadcrumbList',
-      '@id': `${canonicalURL}#breadcrumb`,
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
-        { '@type': 'ListItem', position: 2, name: 'Blog', item: canonicalURL },
-      ],
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: canonicalURL },
+        ],
+      },
     },
   ],
 };
@@ -41,6 +46,14 @@ const schema = {
 function formatDate(date: Date) {
   return date.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' });
 }
+
+const categoryLabel: Record<string, string> = {
+  'lean-six-sigma': 'Lean Six Sigma',
+  'automacao': 'Automação',
+  'melhoria-continua': 'Melhoria Contínua',
+  'manutencao': 'Manutenção & TI',
+  'geral': 'Geral',
+};
 ---
 
 <!DOCTYPE html>
@@ -49,198 +62,182 @@ function formatDate(date: Date) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-
-    <!-- Preconnect para domínios críticos de terceiros -->
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://www.google-analytics.com" />
-    <link rel="dns-prefetch" href="https://connect.facebook.net" />
-
     <GTMHead />
     <MetaPixel />
 
-    <title>Blog | SmartOps SEO</title>
-    <meta name="description" content="Artigos sobre SEO, marketing digital e automação com IA para alavancar seu negócio." />
+    <title>Blog | SmartOps IA — Lean Six Sigma, Automação e Melhoria Contínua</title>
+    <meta name="description" content="Artigos práticos sobre Lean Six Sigma, automação com IA e melhoria contínua para pequenas empresas que querem parar de apagar incêndio e começar a escalar." />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content="Blog | SmartOps SEO" />
-    <meta property="og:description" content="Artigos sobre SEO, marketing digital e automação com IA." />
+    <meta property="og:title" content="Blog | SmartOps IA — Lean Six Sigma e Automação" />
+    <meta property="og:description" content="Artigos práticos sobre Lean Six Sigma, automação com IA e melhoria contínua para pequenas empresas." />
     <meta property="og:image" content={new URL('/og-default.svg', Astro.site).href} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content="SmartOps SEO" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Blog | SmartOps SEO" />
-    <meta name="twitter:description" content="Artigos sobre SEO, marketing digital e automação com IA." />
-    <meta name="twitter:image" content={new URL('/og-default.svg', Astro.site).href} />
+    <meta property="og:site_name" content="SmartOps IA" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
-
     <GoogleAnalytics />
   </head>
 
   <body>
     <GTMBody />
-    <header>
-      <nav>
-        <a href="/" class="site-name">SmartOps <span>IA</span></a>
-        <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="/blog" aria-current="page">Blog</a>
-          <a href="/#servicos">Serviços</a>
-          <a href="/#contato">Contato</a>
-        </div>
-      </nav>
-    </header>
+
+    <Nav current="/blog" />
 
     <main>
-      <section class="hero">
-        <h1>Blog</h1>
-        <p>Artigos gerados com IA sobre SEO, automação e marketing digital.</p>
+      <!-- Hero -->
+      <section class="blog-hero">
+        <div class="container">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            {posts.length} artigos publicados
+          </div>
+          <h1>Blog <span class="grad">SmartOps IA</span></h1>
+          <p>Lean Six Sigma, automação com IA e melhoria contínua em linguagem de quem tem empresa pra tocar — não de faculdade.</p>
+        </div>
       </section>
 
-      {posts.length === 0 ? (
-        <p class="empty">Nenhum artigo publicado ainda. Volte em breve!</p>
-      ) : (
-        <ul class="post-list">
-          {posts.map(post => (
-            <li class="post-card">
-              <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}`} class="card-link">
-                {post.data.heroImage && (
-                  <img
-                    src={post.data.heroImage}
-                    alt={post.data.title}
-                    width="800"
-                    height="420"
-                    loading="lazy"
-                    decoding="async"
-                    class="card-image"
-                  />
-                )}
-                <div class="card-body">
-                  {post.data.tags.length > 0 && (
-                    <div class="tags">
-                      {post.data.tags.slice(0, 3).map(tag => (
-                        <span class="tag">{tag}</span>
-                      ))}
-                    </div>
-                  )}
-                  <h2 class="card-title">{post.data.title}</h2>
-                  <p class="card-desc">{post.data.description}</p>
-                  <div class="card-meta">
-                    <span>{post.data.author}</span>
-                    <time datetime={post.data.pubDate.toISOString()}>
+      <!-- Filtros por categoria -->
+      <section class="filters-bar">
+        <div class="container">
+          <div class="filter-tabs" id="filter-tabs">
+            {categories.map(c => (
+              <button class={`filter-btn ${c.id === 'todos' ? 'active' : ''}`} data-cat={c.id}>
+                {c.label}
+              </button>
+            ))}
+          </div>
+          <div class="post-count" id="post-count">{posts.length} artigos</div>
+        </div>
+      </section>
+
+      <!-- Grid de posts -->
+      <section class="posts-section">
+        <div class="container">
+          <div class="post-grid" id="post-grid">
+            {posts.map(post => (
+              <article class="post-card" data-category={post.data.category ?? 'geral'}>
+                <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}`} class="card-inner">
+                  <div class="card-top">
+                    <span class="cat-badge">{categoryLabel[post.data.category ?? 'geral'] ?? post.data.category}</span>
+                    <time datetime={post.data.pubDate.toISOString()} class="card-date">
                       {formatDate(post.data.pubDate)}
                     </time>
                   </div>
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+                  <h2 class="card-title">{post.data.title}</h2>
+                  <p class="card-desc">{post.data.description?.slice(0, 115)}…</p>
+                  <span class="card-link">Ler artigo →</span>
+                </a>
+              </article>
+            ))}
+          </div>
+
+          <div class="no-results" id="no-results" style="display:none">
+            <p>Nenhum artigo encontrado nessa categoria.</p>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer>
-      <p>&copy; {new Date().getFullYear()} SmartOps SEO. Todos os direitos reservados.</p>
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 SmartOps IA · Lean Six Sigma &amp; Automação · Belo Horizonte, MG</p>
+        <nav>
+          <a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a>
+        </nav>
+      </div>
     </footer>
+
     <EventTracking />
   </body>
 </html>
 
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.post-card');
+  const countEl = document.getElementById('post-count');
+  const noResults = document.getElementById('no-results');
+
+  const params = new URLSearchParams(window.location.search);
+  const initialCat = params.get('categoria') || 'todos';
+
+  function setActive(cat: string) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+    let visible = 0;
+    cards.forEach(c => {
+      const show = cat === 'todos' || c.dataset.category === cat;
+      c.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (countEl) countEl.textContent = `${visible} artigos`;
+    if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  setActive(initialCat);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.cat || 'todos';
+      setActive(cat);
+      const url = new URL(window.location.href);
+      cat === 'todos' ? url.searchParams.delete('categoria') : url.searchParams.set('categoria', cat);
+      window.history.replaceState({}, '', url.toString());
+    });
+  });
+</script>
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #07070f; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .grad { background: linear-gradient(135deg, #a78bfa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-  :root {
-    --bg: #ffffff; --bg2: #f9fafb; --fg: #111827; --muted: #6b7280;
-    --accent: #7c3aed; --accent-h: #6d28d9; --accent-bg: #ede9fe;
-    --border: #e5e7eb; --max-w: 900px;
-    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  }
+  /* Hero */
+  .blog-hero { padding: 4rem 0 2.5rem; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2); color: #a78bfa; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+  .blog-hero p { color: rgba(255,255,255,0.6); font-size: 1.05rem; max-width: 580px; }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f0f1a; --bg2: #161625; --fg: #e8e8f0; --muted: #9ca3af;
-      --accent: #a78bfa; --accent-h: #8b5cf6; --accent-bg: #1e1b4b;
-      --border: #1f2937;
-    }
-  }
+  /* Filters */
+  .filters-bar { padding: 1.5rem 0 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); position: sticky; top: 64px; background: rgba(7,7,15,0.95); backdrop-filter: blur(12px); z-index: 50; }
+  .filters-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .filter-btn { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); font-size: 0.83rem; font-weight: 500; padding: 0.4rem 1rem; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .filter-btn:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+  .filter-btn.active { background: rgba(167,139,250,0.15); border-color: rgba(167,139,250,0.4); color: #c4b5fd; font-weight: 700; }
+  .post-count { font-size: 0.8rem; color: rgba(255,255,255,0.3); white-space: nowrap; }
 
-  body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.7; }
+  /* Grid */
+  .posts-section { padding: 2.5rem 0 5rem; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
 
-  header {
-    position: sticky; top: 0; z-index: 100;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(10px);
-  }
+  .post-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+  .post-card:hover { border-color: rgba(167,139,250,0.35); transform: translateY(-2px); }
 
-  nav {
-    max-width: calc(var(--max-w) + 4rem); margin: 0 auto;
-    padding: 1rem 2rem; display: flex; align-items: center; gap: 1.5rem;
-  }
+  .card-inner { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.4rem; text-decoration: none; color: inherit; height: 100%; }
 
-  nav a { color: var(--fg); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.15s; }
-  nav a:hover, nav a[aria-current="page"] { color: var(--accent); }
-  .site-name { font-weight: 800; font-size: 1rem !important; margin-right: auto; }
-  .site-name span { color: var(--accent); }
-  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
-  .nav-links a { font-size: 0.875rem; font-weight: 500; padding: 0.35rem 0.7rem; border-radius: 8px; }
+  .card-top { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+  .cat-badge { font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 10px; background: rgba(167,139,250,0.12); color: #a78bfa; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+  .card-date { font-size: 0.72rem; color: rgba(255,255,255,0.3); white-space: nowrap; }
 
-  main { max-width: calc(var(--max-w) + 4rem); margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .card-title { font-size: 0.97rem; font-weight: 700; line-height: 1.4; color: #fff; }
+  .card-desc { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1; }
+  .card-link { font-size: 0.8rem; color: #a78bfa; font-weight: 600; margin-top: auto; }
 
-  .hero { margin-bottom: 3rem; }
-  .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
-  .hero p { font-size: 1.1rem; color: var(--muted); }
+  .no-results { text-align: center; padding: 4rem 0; color: rgba(255,255,255,0.4); }
 
-  .empty { color: var(--muted); font-size: 1.1rem; }
-
-  .post-list { list-style: none; display: grid; gap: 1.75rem; }
-
-  @media (min-width: 640px) {
-    .post-list { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  .post-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .post-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-
-  .card-link { display: block; text-decoration: none; color: inherit; height: 100%; }
-
-  .card-image { width: 100%; height: 200px; object-fit: cover; display: block; }
-
-  .card-body { padding: 1.5rem; }
-
-  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
-  .tag {
-    background: var(--accent-bg); color: var(--accent);
-    font-size: 0.68rem; font-weight: 700;
-    padding: 0.2rem 0.6rem; border-radius: 9999px;
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
-
-  .card-title { font-size: 1.15rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
-  .card-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
-
-  .card-meta {
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.8rem; color: var(--muted);
-    padding-top: 1rem; border-top: 1px solid var(--border);
-  }
-
-  footer { padding: 2rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.875rem; color: var(--muted); }
-
-  @media (max-width: 640px) {
-    nav { padding: 0.875rem 1rem; }
-    main { padding: 2rem 1rem 3rem; }
-  }
+  /* Footer */
+  .site-footer { background: #04040a; border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; }
+  .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+  .site-footer nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+  .site-footer nav a:hover { color: #fff; }
 </style>

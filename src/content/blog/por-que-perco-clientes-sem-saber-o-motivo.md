@@ -10,6 +10,7 @@ tags:
   - comunicação
   - empresas
   - marketing
+category: melhoria-continua
 ---
 
 # Por que perco clientes sem saber o motivo

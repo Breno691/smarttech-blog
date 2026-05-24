@@ -10,6 +10,7 @@ tags:
   - gestão de tarefas
   - pequenas empresas
   - Belo Horizonte
+category: melhoria-continua
 ---
 
 # Como mapear um processo em 30 minutos sem precisar de software

@@ -10,6 +10,7 @@ tags:
   - eficiência
   - certificação
   - melhoria de processos
+category: lean-six-sigma
 ---
 
 # Certificação Lean Six Sigma Vale a Pena para Quem Tem Empresa Pequena?

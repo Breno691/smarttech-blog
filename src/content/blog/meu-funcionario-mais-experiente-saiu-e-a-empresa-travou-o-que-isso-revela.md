@@ -10,6 +10,7 @@ tags:
   - know-how
   - cultura organizacional
   - desenvolvimento organizacional
+category: melhoria-continua
 ---
 
 # Meu funcionário mais experiente saiu e a empresa travou: o que isso revela

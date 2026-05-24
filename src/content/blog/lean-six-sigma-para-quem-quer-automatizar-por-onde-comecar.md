@@ -10,6 +10,7 @@ tags:
   - eficiência
   - melhoria de processos
   - gestão
+category: lean-six-sigma
 ---
 
 # Lean Six Sigma para quem quer automatizar: por onde começar

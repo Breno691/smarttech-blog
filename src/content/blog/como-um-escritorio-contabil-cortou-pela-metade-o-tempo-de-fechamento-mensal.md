@@ -10,6 +10,7 @@ tags:
   - inteligência artificial
   - fechamento mensal
   - eficiência
+category: melhoria-continua
 ---
 
 # Como um escritório contábil cortou pela metade o tempo de fechamento mensal

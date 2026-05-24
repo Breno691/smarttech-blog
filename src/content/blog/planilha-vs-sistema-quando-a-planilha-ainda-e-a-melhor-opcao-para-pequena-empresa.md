@@ -10,6 +10,7 @@ tags:
   - pequenas empresas
   - sistemas de gestão
   - custo reduzido
+category: melhoria-continua
 ---
 
 # Planilha vs Sistema: Quando a Planilha Ainda é a Melhor Opção para Pequena Empresa

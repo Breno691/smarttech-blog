@@ -10,6 +10,7 @@ tags:
   - atendimento médico
   - eficiência
   - melhoria de processos
+category: lean-six-sigma
 ---
 
 # Clínica médica: como o Lean reduz filas e melhora o atendimento sem contratar mais

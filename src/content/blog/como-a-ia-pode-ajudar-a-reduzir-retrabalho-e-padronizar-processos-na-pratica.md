@@ -10,6 +10,7 @@ tags:
   - padronização de processos
   - empresas
   - produtividade
+category: lean-six-sigma
 ---
 
 # Como a IA pode ajudar a reduzir retrabalho e padronizar processos na prática

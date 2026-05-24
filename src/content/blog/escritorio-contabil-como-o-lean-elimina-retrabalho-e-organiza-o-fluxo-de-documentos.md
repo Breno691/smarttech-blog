@@ -10,6 +10,7 @@ tags:
   - Eficiência
   - Gestão de Documentos
   - Produtividade
+category: lean-six-sigma
 ---
 
 # Escritório Contábil: Como o Lean Elimina Retrabalho e Organiza o Fluxo de Documentos

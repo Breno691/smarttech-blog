@@ -10,6 +10,7 @@ tags:
   - otimização
   - consertos
   - atrasos
+category: melhoria-continua
 ---
 
 # Assistência técnica: como organizar o fluxo de consertos e acabar com o atraso

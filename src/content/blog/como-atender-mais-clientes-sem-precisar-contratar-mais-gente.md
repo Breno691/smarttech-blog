@@ -10,6 +10,7 @@ tags:
   - estratégias empresariais
   - eficiência operacional
   - crescimento sustentável
+category: melhoria-continua
 ---
 
 # Como atender mais clientes sem precisar contratar mais gente

@@ -10,6 +10,7 @@ tags:
   - empresas
   - Belo Horizonte
   - gestão financeira
+category: melhoria-continua
 ---
 
 # O negócio cresce mas o lucro não: onde está o dinheiro sumindo

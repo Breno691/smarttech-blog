@@ -10,6 +10,7 @@ tags:
   - empreendedorismo
   - produtividade
   - small business
+category: melhoria-continua
 ---
 
 # Como parar de depender de você para tudo na sua empresa

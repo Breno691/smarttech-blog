@@ -10,6 +10,7 @@ tags:
   - satisfação do cliente
   - gestão de erros
   - eficiência
+category: melhoria-continua
 ---
 
 # Como Reduzir Erros no Atendimento com uma Mudança Simples de Processo

@@ -10,6 +10,7 @@ tags:
   - redução de erros
   - distribuição
   - devoluções
+category: melhoria-continua
 ---
 
 # Como uma distribuidora eliminou erro de separação e reduziu devolução em 60%

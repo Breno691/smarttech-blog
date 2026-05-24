@@ -10,6 +10,7 @@ tags:
   - reconquista de clientes
   - concorrência
   - necessidades do cliente
+category: melhoria-continua
 ---
 
 # Por que meu cliente fiel parou de comprar sem dar satisfação

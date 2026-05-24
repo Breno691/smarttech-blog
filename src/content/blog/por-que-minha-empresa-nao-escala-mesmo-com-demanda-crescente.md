@@ -10,6 +10,7 @@ tags:
   - empresas
   - crescimento
   - eficiência
+category: melhoria-continua
 ---
 
 # Por que minha empresa não escala mesmo com demanda crescente

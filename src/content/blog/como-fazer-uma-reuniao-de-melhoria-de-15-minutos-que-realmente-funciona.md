@@ -10,6 +10,7 @@ tags:
   - gestão de equipes
   - melhoria contínua
   - tempo
+category: lean-six-sigma
 ---
 
 # Como Fazer uma Reunião de Melhoria de 15 Minutos que Realmente Funciona

@@ -10,6 +10,7 @@ tags:
   - fluxo de caixa
   - gestão empresarial
   - Belo Horizonte
+category: lean-six-sigma
 ---
 
 # Indicadores Simples que Toda Pequena Empresa Deveria Acompanhar

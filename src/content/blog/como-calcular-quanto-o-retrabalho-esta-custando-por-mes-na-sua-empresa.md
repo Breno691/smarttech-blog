@@ -10,6 +10,7 @@ tags:
   - finanças
   - empresas
   - Lean Six Sigma
+category: lean-six-sigma
 ---
 
 # Como calcular quanto o retrabalho está custando por mês na sua empresa

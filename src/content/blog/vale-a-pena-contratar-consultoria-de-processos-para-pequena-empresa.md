@@ -10,6 +10,7 @@ tags:
   - eficiência operacional
   - processos
   - melhoria contínua
+category: lean-six-sigma
 ---
 
 # Vale a Pena Contratar Consultoria de Processos para Pequena Empresa?

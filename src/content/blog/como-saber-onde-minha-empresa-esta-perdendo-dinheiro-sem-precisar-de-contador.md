@@ -10,6 +10,7 @@ tags:
   - controle de despesas
   - autonomia financeira
   - dicas empresariais
+category: melhoria-continua
 ---
 
 # Como saber onde minha empresa está perdendo dinheiro sem precisar de contador

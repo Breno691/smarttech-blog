@@ -10,6 +10,7 @@ tags:
   - melhoria contínua
   - treinamento
   - eficiência
+category: melhoria-continua
 ---
 
 # Por que o mesmo erro se repete toda semana na minha empresa

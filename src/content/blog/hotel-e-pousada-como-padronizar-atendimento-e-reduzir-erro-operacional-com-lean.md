@@ -10,6 +10,7 @@ tags:
   - Atendimento
   - Eficiência
   - Hotelaria
+category: lean-six-sigma
 ---
 
 # Hotel e pousada: como padronizar atendimento e reduzir erro operacional com Lean

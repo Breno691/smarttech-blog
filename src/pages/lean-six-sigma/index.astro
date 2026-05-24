@@ -1,0 +1,433 @@
+---
+import { getCollection } from 'astro:content';
+import Nav from '../../components/Nav.astro';
+import GTMHead from '../../components/GTMHead.astro';
+import GTMBody from '../../components/GTMBody.astro';
+import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
+import MetaPixel from '../../components/MetaPixel.astro';
+
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+const canonicalURL = new URL('/lean-six-sigma', siteURL).href;
+const whatsappURL = 'https://wa.me/5531972039180?text=' + encodeURIComponent('Olá! Quero saber mais sobre a consultoria Lean Six Sigma.');
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter(p => p.data.category === 'lean-six-sigma')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 9);
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+const wastes = [
+  { icon: '⚡', name: 'Superprodução', desc: 'Fazer mais do que o necessário, antes da hora — reuniões, relatórios, estoques que ninguém pediu.' },
+  { icon: '⏳', name: 'Espera', desc: 'Processo parado aguardando aprovação, resposta, documento ou pessoa. Tempo que vira custo.' },
+  { icon: '🔄', name: 'Transporte', desc: 'Informação ou material que percorre um caminho mais longo do que precisa entre setores.' },
+  { icon: '⚙️', name: 'Processamento excessivo', desc: 'Fazer mais do que o cliente pediu. Revisar três vezes o que precisava de uma.' },
+  { icon: '📦', name: 'Estoque', desc: 'Acúmulo de tarefas, pedidos ou materiais parados esperando. Fila de chamados sem atendimento.' },
+  { icon: '🚶', name: 'Movimento', desc: 'Abrir seis sistemas para fazer uma tarefa. Andar até o setor para buscar informação que devia estar acessível.' },
+  { icon: '❌', name: 'Defeitos', desc: 'Erros que precisam ser corrigidos — o retrabalho que consome tempo, dinheiro e reputação.' },
+  { icon: '🧠', name: 'Talento desperdiçado', desc: 'Pessoas capazes presas em tarefas operacionais repetitivas, sem espaço para resolver problemas reais.' },
+];
+
+const steps = [
+  { letter: 'D', name: 'Definir', desc: 'Qual é o problema real? O que o cliente ou a operação realmente precisa? Sem suposição.' },
+  { letter: 'M', name: 'Medir', desc: 'Como o processo funciona hoje? Onde estão os dados? Sem medição, não há melhoria.' },
+  { letter: 'A', name: 'Analisar', desc: 'Qual é a causa raiz? Onde o processo realmente quebra? Não o sintoma — a causa.' },
+  { letter: 'I', name: 'Melhorar', desc: 'O que muda para resolver a causa raiz? Solução testada antes de implementar em escala.' },
+  { letter: 'C', name: 'Controlar', desc: 'Como garantir que a melhoria se mantém? Processo documentado, indicador monitorado.' },
+];
+
+const faqs = [
+  { q: 'Lean Six Sigma funciona para empresa pequena?', a: 'Sim. A metodologia surgiu em grandes indústrias, mas os princípios se aplicam a qualquer tamanho de operação. Uma padaria, uma clínica ou uma oficina têm processos — e processos têm desperdícios. Lean Six Sigma identifica esses desperdícios e os elimina de forma sistemática, independente do porte.' },
+  { q: 'Quanto tempo leva para ver resultado?', a: 'Depende do projeto. Melhorias rápidas (quick wins) podem aparecer em 2 a 4 semanas — mudanças simples de processo que eliminam espera ou retrabalho óbvio. Projetos mais estruturados com DMAIC completo levam de 2 a 4 meses para resultados mensuráveis e sustentáveis.' },
+  { q: 'Precisa parar a operação para implementar?', a: 'Não. O trabalho acontece em paralelo com a operação. Mapeamos os processos enquanto a empresa funciona normalmente. As mudanças são testadas em pequena escala antes de serem aplicadas em toda a operação.' },
+  { q: 'Qual a diferença entre Lean e Six Sigma?', a: 'Lean foca em eliminar desperdícios e acelerar o fluxo — menos etapas, menos espera, mais velocidade. Six Sigma foca em reduzir erros e variações — menos defeitos, mais consistência. Lean Six Sigma usa as duas abordagens juntas: operação mais rápida e mais precisa.' },
+  { q: 'Como funciona o diagnóstico gratuito?', a: 'É uma conversa de 30 a 45 minutos para entender sua operação atual — onde estão os principais gargalos, o que está gerando retrabalho e qual processo tem maior impacto se melhorado. Sem compromisso. Você sai com uma visão clara de onde está o problema real.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'Lean Six Sigma para Pequenas Empresas | SmartOps IA',
+      description: 'Consultoria Lean Six Sigma aplicada à realidade de pequenas empresas. Identifique gargalos, elimine desperdícios e automatize processos. Black Belt em BH.',
+      inLanguage: 'pt-BR',
+      isPartOf: { '@id': `${siteURL}#website` },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+          { '@type': 'ListItem', position: 2, name: 'Lean Six Sigma', item: canonicalURL },
+        ],
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@type': 'Service',
+      name: 'Consultoria Lean Six Sigma',
+      provider: { '@id': `${siteURL}#business` },
+      description: 'Consultoria em Lean Six Sigma para pequenas empresas. Mapeamento de processos, identificação de desperdícios, DMAIC e melhoria contínua.',
+      areaServed: { '@type': 'City', name: 'Belo Horizonte' },
+      serviceType: 'Consultoria em Processos',
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <GTMHead />
+  <MetaPixel />
+
+  <title>Lean Six Sigma para Pequenas Empresas | SmartOps IA — Belo Horizonte</title>
+  <meta name="description" content="Consultoria Lean Six Sigma para pequenas empresas em BH. Identifique gargalos, elimine desperdícios e organize processos. Black Belt com método comprovado. Diagnóstico gratuito." />
+  <meta name="keywords" content="lean six sigma, lean six sigma belo horizonte, consultoria lean six sigma, melhoria de processos, gargalo operacional, desperdícios empresariais, DMAIC, PDCA, black belt" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content="Lean Six Sigma para Pequenas Empresas | SmartOps IA" />
+  <meta property="og:description" content="Sua empresa perde dinheiro com desperdícios que você ainda não viu. Lean Six Sigma identifica e elimina isso de forma sistemática." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <GoogleAnalytics />
+</head>
+<body>
+  <GTMBody />
+
+  <Nav current="/lean-six-sigma" />
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="badge">
+        <span class="dot"></span>
+        Black Belt · Lean Six Sigma · Belo Horizonte
+      </div>
+      <h1>Sua empresa perde dinheiro<br /><span class="grad">todos os dias</span><br />com desperdícios invisíveis</h1>
+      <p class="sub">Lean Six Sigma identifica onde a operação está sangrando — e corrige isso com método, não com chute. Para padarias, clínicas, oficinas, lojas e qualquer negócio que quer parar de apagar incêndio.</p>
+      <div class="hero-btns">
+        <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">Diagnóstico gratuito</a>
+        <a href="#o-que-e" class="btn-ghost">O que é Lean Six Sigma ↓</a>
+      </div>
+      <div class="stats">
+        <div><strong>Black Belt</strong><span>Certificação máxima</span></div>
+        <div><strong>8</strong><span>Desperdícios eliminados</span></div>
+        <div><strong>DMAIC</strong><span>Método estruturado</span></div>
+        <div><strong>BH</strong><span>Atendimento presencial</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE É -->
+  <section id="o-que-e" class="section">
+    <div class="container narrow">
+      <div class="section-label">Entenda de uma vez</div>
+      <h2>O que é <span class="grad">Lean Six Sigma</span></h2>
+      <p class="section-sub">São duas metodologias que se uniram para resolver dois problemas diferentes da mesma operação.</p>
+
+      <div class="two-col">
+        <div class="concept-card lean">
+          <div class="concept-tag">LEAN</div>
+          <h3>Velocidade</h3>
+          <p>Eliminar tudo que não agrega valor ao cliente. Menos etapas, menos espera, menos desperdício de tempo e movimento. Origem: Toyota, anos 1950.</p>
+        </div>
+        <div class="concept-card sigma">
+          <div class="concept-tag">SIX SIGMA</div>
+          <h3>Precisão</h3>
+          <p>Reduzir erros e variações até quase zero. 3,4 defeitos por milhão de oportunidades. Consistência que não depende de quem está de plantão. Origem: Motorola, anos 1980.</p>
+        </div>
+      </div>
+
+      <div class="result-banner">
+        <strong>Lean Six Sigma =</strong> Operação mais rápida <em>e</em> mais precisa ao mesmo tempo.
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 DESPERDÍCIOS -->
+  <section class="section dark-section">
+    <div class="container">
+      <div class="section-label">Os 8 desperdícios do Lean</div>
+      <h2>Onde o dinheiro da sua empresa<br /><span class="grad">está vazando agora</span></h2>
+      <p class="section-sub">Todo negócio tem desperdícios. A maioria não sabe quais são. Lean identifica todos eles.</p>
+      <div class="wastes-grid">
+        {wastes.map(w => (
+          <div class="waste-card">
+            <div class="waste-icon">{w.icon}</div>
+            <h3>{w.name}</h3>
+            <p>{w.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DMAIC -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">O método</div>
+      <h2>DMAIC: como resolvemos<br /><span class="grad">problemas de verdade</span></h2>
+      <p class="section-sub">Cinco etapas estruturadas. Não depende de intuição — depende de dados.</p>
+      <div class="dmaic-steps">
+        {steps.map((s, i) => (
+          <div class="dmaic-step">
+            <div class="step-letter">{s.letter}</div>
+            <div class="step-body">
+              <h3>{s.name}</h3>
+              <p>{s.desc}</p>
+            </div>
+            {i < steps.length - 1 && <div class="step-arrow">→</div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM -->
+  <section class="section dark-section">
+    <div class="container">
+      <div class="section-label">Público</div>
+      <h2>Lean Six Sigma <span class="grad">não é só para grande empresa</span></h2>
+      <p class="section-sub">Qualquer negócio com processo repetitivo tem desperdício a eliminar.</p>
+      <div class="segments-grid">
+        {['Padaria', 'Restaurante', 'Clínica', 'Farmácia', 'Oficina mecânica', 'Salão de beleza',
+          'Loja de bairro', 'Distribuidora', 'Pequena fábrica', 'E-commerce', 'Escola', 'Pet shop'].map(s => (
+          <div class="segment-tag">{s}</div>
+        ))}
+      </div>
+      <p class="segments-note">Se você tem uma equipe que executa as mesmas tarefas toda semana — você tem processo. E processo tem desperdício.</p>
+    </div>
+  </section>
+
+  <!-- COMO TRABALHAMOS -->
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-label">Como funciona</div>
+      <h2>Nossa forma de <span class="grad">trabalhar</span></h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-num">01</div>
+          <div>
+            <h3>Diagnóstico gratuito</h3>
+            <p>Conversa de 30–45 minutos para entender sua operação atual. Onde estão os gargalos, o que gera mais retrabalho e qual processo tem maior impacto se melhorado.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">02</div>
+          <div>
+            <h3>Mapeamento real</h3>
+            <p>Mapeamos como o processo realmente funciona — não como você acha que funciona. A diferença entre os dois é onde estão os desperdícios.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">03</div>
+          <div>
+            <h3>Identificação de causa raiz</h3>
+            <p>Usando as ferramentas do DMAIC, chegamos à causa real do problema. Não tratamos sintoma.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">04</div>
+          <div>
+            <h3>Melhoria e padronização</h3>
+            <p>Implementamos a melhoria, testamos em pequena escala e padronizamos para que funcione independente de quem está na operação.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">05</div>
+          <div>
+            <h3>Automação (quando faz sentido)</h3>
+            <p>Após o processo estar limpo e padronizado, identificamos o que pode ser automatizado com IA para ganhar ainda mais velocidade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTIGOS -->
+  {posts.length > 0 && (
+    <section class="section dark-section">
+      <div class="container">
+        <div class="section-label">Conteúdo</div>
+        <h2>Artigos sobre <span class="grad">Lean Six Sigma</span></h2>
+        <div class="posts-grid">
+          {posts.map(p => (
+            <a href={`/blog/${p.id}`} class="post-card">
+              <div class="post-meta">{formatDate(p.data.pubDate)}</div>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.description?.slice(0, 100)}…</p>
+              <span class="post-link">Ler artigo →</span>
+            </a>
+          ))}
+        </div>
+        <div style="text-align:center;margin-top:2rem">
+          <a href="/blog?categoria=lean-six-sigma" class="btn-ghost">Ver todos os artigos de Lean Six Sigma →</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-label">Dúvidas frequentes</div>
+      <h2>Perguntas sobre <span class="grad">Lean Six Sigma</span></h2>
+      <div class="faq-list">
+        {faqs.map(f => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container narrow" style="text-align:center">
+      <h2>Pronto para parar de adivinhar<br />onde sua empresa perde dinheiro?</h2>
+      <p>Diagnóstico inicial gratuito. Sem compromisso. Você sai sabendo exatamente onde está o gargalo real.</p>
+      <a href={whatsappURL} class="btn-primary large" target="_blank" rel="noopener noreferrer">
+        Falar com especialista no WhatsApp
+      </a>
+      <p class="cta-note">Atendimento em Belo Horizonte e região · (31) 97203-9180</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 SmartOps IA · Lean Six Sigma &amp; Automação · Belo Horizonte, MG</p>
+      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #07070f; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .container.narrow { max-width: 800px; }
+  .section { padding: 5rem 0; }
+  .dark-section { background: #0d0d1a; }
+  .grad { background: linear-gradient(135deg, #a78bfa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  /* Hero */
+  .hero { position: relative; padding: 6rem 0 5rem; overflow: hidden; }
+  .hero-glow { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%); pointer-events: none; }
+  .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2); color: #a78bfa; font-size: 0.8rem; font-weight: 600; padding: 0.35rem 0.9rem; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.25rem; }
+  .sub { font-size: 1.1rem; color: rgba(255,255,255,0.65); max-width: 600px; margin-bottom: 2rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #7c3aed, #10b981); color: #fff; font-weight: 700; padding: 0.75rem 1.75rem; border-radius: 10px; text-decoration: none; font-size: 1rem; transition: opacity 0.2s; }
+  .btn-primary.large { font-size: 1.1rem; padding: 1rem 2.5rem; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-ghost { display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); padding: 0.75rem 1.5rem; border-radius: 10px; text-decoration: none; font-size: 0.95rem; transition: border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+  .stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+  .stats div { display: flex; flex-direction: column; gap: 0.2rem; }
+  .stats strong { font-size: 1.4rem; font-weight: 800; color: #a78bfa; }
+  .stats span { font-size: 0.8rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Sections */
+  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #a78bfa; margin-bottom: 0.75rem; }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .section-sub { color: rgba(255,255,255,0.6); font-size: 1.05rem; margin-bottom: 2.5rem; max-width: 600px; }
+
+  /* Concepts */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+  @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } }
+  .concept-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.75rem; }
+  .concept-card.lean { border-top: 2px solid #a78bfa; }
+  .concept-card.sigma { border-top: 2px solid #10b981; }
+  .concept-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: #a78bfa; margin-bottom: 0.5rem; }
+  .concept-card.sigma .concept-tag { color: #10b981; }
+  .concept-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .concept-card p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.6; }
+  .result-banner { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(16,185,129,0.15)); border: 1px solid rgba(167,139,250,0.2); border-radius: 10px; padding: 1.25rem 1.75rem; font-size: 1rem; color: rgba(255,255,255,0.85); }
+  .result-banner strong { color: #fff; }
+  .result-banner em { font-style: normal; color: #10b981; font-weight: 600; }
+
+  /* Wastes */
+  .wastes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .waste-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1.5rem; transition: border-color 0.2s; }
+  .waste-card:hover { border-color: rgba(167,139,250,0.3); }
+  .waste-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .waste-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: #fff; }
+  .waste-card p { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+  /* DMAIC */
+  .dmaic-steps { display: flex; gap: 0; overflow-x: auto; padding-bottom: 0.5rem; }
+  .dmaic-step { position: relative; flex: 1; min-width: 140px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 1.5rem 1.25rem; text-align: center; }
+  .step-letter { font-size: 2.5rem; font-weight: 900; color: #a78bfa; line-height: 1; margin-bottom: 0.5rem; }
+  .dmaic-step h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .dmaic-step p { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+  .step-arrow { position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.2); font-size: 1.2rem; z-index: 1; }
+  @media(max-width:700px){ .dmaic-steps { flex-direction: column; } .step-arrow { display: none; } }
+
+  /* Segments */
+  .segments-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.5rem; }
+  .segment-tag { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2); color: #c4b5fd; font-size: 0.85rem; font-weight: 500; padding: 0.35rem 0.85rem; border-radius: 20px; }
+  .segments-note { color: rgba(255,255,255,0.5); font-size: 0.9rem; font-style: italic; }
+
+  /* How */
+  .how-steps { display: flex; flex-direction: column; gap: 1.5rem; }
+  .how-step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .how-num { font-size: 2.5rem; font-weight: 900; color: rgba(167,139,250,0.2); line-height: 1; flex-shrink: 0; width: 50px; }
+  .how-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .how-step p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.6; }
+
+  /* Posts */
+  .posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+  .post-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 1.5rem; text-decoration: none; color: inherit; transition: border-color 0.2s; display: flex; flex-direction: column; gap: 0.5rem; }
+  .post-card:hover { border-color: rgba(167,139,250,0.35); }
+  .post-meta { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+  .post-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff; line-height: 1.4; }
+  .post-card p { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.5; flex: 1; }
+  .post-link { font-size: 0.8rem; color: #a78bfa; font-weight: 600; }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .faq-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; }
+  .faq-item summary { font-size: 0.95rem; font-weight: 600; padding: 1.1rem 1.5rem; cursor: pointer; list-style: none; color: #fff; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item[open] summary { color: #a78bfa; }
+  .faq-item p { padding: 0 1.5rem 1.25rem; color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.7; }
+
+  /* CTA */
+  .cta-section { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(16,185,129,0.08)); border-top: 1px solid rgba(167,139,250,0.15); padding: 5rem 0; }
+  .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 1rem; }
+  .cta-section p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+  .cta-note { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-top: 1rem; margin-bottom: 0; }
+
+  /* Footer */
+  .site-footer { background: #04040a; border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; }
+  .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+  .site-footer nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+  .site-footer nav a:hover { color: #fff; }
+</style>

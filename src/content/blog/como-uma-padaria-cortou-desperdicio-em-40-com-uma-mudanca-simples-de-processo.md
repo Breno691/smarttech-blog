@@ -10,6 +10,7 @@ tags:
   - gestão
   - meio ambiente
   - eficiência
+category: lean-six-sigma
 ---
 
 # Como uma padaria cortou desperdício em 40% com uma mudança simples de processo

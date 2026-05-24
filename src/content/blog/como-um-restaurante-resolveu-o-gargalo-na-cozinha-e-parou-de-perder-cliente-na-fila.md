@@ -10,6 +10,7 @@ tags:
   - experiência do cliente
   - eficiência
   - Belo Horizonte
+category: lean-six-sigma
 ---
 
 # Como um Restaurante Resolveu o Gargalo na Cozinha e Parou de Perder Cliente na Fila

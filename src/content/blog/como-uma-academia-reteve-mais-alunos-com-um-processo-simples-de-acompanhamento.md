@@ -10,6 +10,7 @@ tags:
   - acompanhamento
   - satisfação do cliente
   - fitness
+category: melhoria-continua
 ---
 
 # Como uma academia reteve mais alunos com um processo simples de acompanhamento

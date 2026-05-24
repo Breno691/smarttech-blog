@@ -10,6 +10,7 @@ tags:
   - qualidade
   - eficiência
   - empresas
+category: automacao
 ---
 
 # Como automatizar o atendimento da sua empresa sem perder a qualidade

@@ -10,6 +10,7 @@ tags:
   - tecnologia
   - empresas
   - satisfação do cliente
+category: melhoria-continua
 ---
 
 # Como Reduzir o Tempo de Entrega sem Aumentar Custo

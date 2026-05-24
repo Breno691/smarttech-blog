@@ -10,6 +10,7 @@ tags:
   - Logística
   - Otimização
   - Empreendedorismo
+category: lean-six-sigma
 ---
 
 # E-commerce pequeno: como o Lean organiza separação, embalagem e entrega sem erro

@@ -10,6 +10,7 @@ tags:
   - feedback
   - gestão de reclamações
   - negócios
+category: melhoria-continua
 ---
 
 # Como Transformar Reclamação de Cliente em Melhoria Real de Processo

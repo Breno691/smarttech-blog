@@ -10,6 +10,7 @@ tags:
   - contratação
   - PMEs
   - estratégias de negócios
+category: lean-six-sigma
 ---
 
 # Contratar gerente vs organizar processo: qual resolve o problema de crescimento

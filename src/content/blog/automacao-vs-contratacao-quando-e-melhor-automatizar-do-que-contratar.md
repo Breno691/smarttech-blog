@@ -10,6 +10,7 @@ tags:
   - tecnologia
   - empresas
   - produtividade
+category: automacao
 ---
 
 # Automação vs Contratação: Quando é Melhor Automatizar do Que Contratar

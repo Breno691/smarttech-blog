@@ -10,6 +10,7 @@ tags:
   - produtividade
   - empresários
   - crescimento empresarial
+category: melhoria-continua
 ---
 
 # Como Sair da Operação Sem a Empresa Parar

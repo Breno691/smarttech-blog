@@ -10,6 +10,7 @@ tags:
   - tecnologia
   - manutenção preventiva
   - SmartOps
+category: melhoria-continua
 ---
 
 # Por que tudo na minha empresa trava quando eu não estou presente

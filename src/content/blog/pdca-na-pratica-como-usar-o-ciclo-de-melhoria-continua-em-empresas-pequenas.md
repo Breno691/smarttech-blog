@@ -10,6 +10,7 @@ tags:
   - melhoria contínua
   - pequenas empresas
   - eficiência
+category: lean-six-sigma
 ---
 
 # PDCA na prática: como usar o ciclo de melhoria contínua em empresas pequenas

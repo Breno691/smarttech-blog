@@ -10,6 +10,7 @@ tags:
   - negócios
   - empresas pequenas
   - gestão
+category: melhoria-continua
 ---
 
 # Por que minha empresa não cresce mesmo trabalhando muito

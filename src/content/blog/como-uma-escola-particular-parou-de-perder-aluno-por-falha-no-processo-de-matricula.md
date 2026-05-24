@@ -10,6 +10,7 @@ tags:
   - escola particular
   - gestão escolar
   - otimização
+category: melhoria-continua
 ---
 
 # Como uma escola particular parou de perder alunos por falha no processo de matrícula

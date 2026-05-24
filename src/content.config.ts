@@ -9,9 +9,11 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().optional(),
-    author: z.string().default('SmartOps SEO'),
+    author: z.string().default('Breno Luiz'),
     tags: z.array(z.string()).default([]),
     canonical: z.string().optional(),
+    excerpt: z.string().optional(),
+    category: z.enum(['lean-six-sigma', 'automacao', 'melhoria-continua', 'manutencao', 'geral']).default('geral'),
   }),
 });
 

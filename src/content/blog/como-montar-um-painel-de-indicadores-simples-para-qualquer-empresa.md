@@ -10,6 +10,7 @@ tags:
   - empresas
   - desempenho
   - negócios
+category: lean-six-sigma
 ---
 
 # Como Montar um Painel de Indicadores Simples para Qualquer Empresa

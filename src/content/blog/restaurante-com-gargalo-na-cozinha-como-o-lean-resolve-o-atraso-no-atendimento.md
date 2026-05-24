@@ -10,6 +10,7 @@ tags:
   - Eficiência
   - Gargalos
   - Atendimento
+category: lean-six-sigma
 ---
 
 # Restaurante com gargalo na cozinha: como o Lean resolve o atraso no atendimento

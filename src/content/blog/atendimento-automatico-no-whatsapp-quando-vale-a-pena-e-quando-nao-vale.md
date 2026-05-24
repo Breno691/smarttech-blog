@@ -10,6 +10,7 @@ tags:
   - chatbots
   - negócios
   - comunicação
+category: automacao
 ---
 
 # Atendimento automático no WhatsApp: quando vale a pena e quando não vale

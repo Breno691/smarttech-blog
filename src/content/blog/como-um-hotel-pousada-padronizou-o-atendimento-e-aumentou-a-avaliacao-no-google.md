@@ -10,6 +10,7 @@ tags:
   - avaliacão
   - pousada
   - Belo Horizonte
+category: melhoria-continua
 ---
 
 # Como um hotel pousada padronizou o atendimento e aumentou a avaliação no Google

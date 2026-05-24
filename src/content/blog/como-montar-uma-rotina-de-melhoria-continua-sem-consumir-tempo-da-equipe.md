@@ -10,6 +10,7 @@ tags:
   - eficiência operacional
   - estratégias práticas
   - produtividade
+category: lean-six-sigma
 ---
 
 # Como Montar uma Rotina de Melhoria Contínua Sem Consumir Tempo da Equipe

@@ -10,6 +10,7 @@ tags:
   - gestão de serviços
   - melhoria contínua
   - experiência do cliente
+category: melhoria-continua
 ---
 
 # Como uma Oficina Mecânica Eliminou o Serviço que Voltava e Dobrou a Satisfação do Cliente

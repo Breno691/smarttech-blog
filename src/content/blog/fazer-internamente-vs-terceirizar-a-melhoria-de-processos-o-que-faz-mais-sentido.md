@@ -10,6 +10,7 @@ tags:
   - eficiência empresarial
   - gestão de processos
   - Lean Six Sigma
+category: lean-six-sigma
 ---
 
 # Fazer internamente vs terceirizar a melhoria de processos: o que faz mais sentido

@@ -10,6 +10,7 @@ tags:
   - eficiência
   - custo
   - estratégias
+category: lean-six-sigma
 ---
 
 # Quanto custa o retrabalho na sua empresa por mês (e como calcular)

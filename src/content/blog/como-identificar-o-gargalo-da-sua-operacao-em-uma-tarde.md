@@ -10,6 +10,7 @@ tags:
   - eficiência
   - negócios
   - produtividade
+category: lean-six-sigma
 ---
 
 # Como identificar o gargalo da sua operação em uma tarde

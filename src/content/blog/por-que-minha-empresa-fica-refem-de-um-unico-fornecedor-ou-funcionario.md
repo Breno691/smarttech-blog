@@ -10,6 +10,7 @@ tags:
   - funcionários
   - risco empresarial
   - dependência
+category: melhoria-continua
 ---
 
 # Por que minha empresa fica refém de um único fornecedor ou funcionário

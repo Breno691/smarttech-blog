@@ -10,6 +10,7 @@ tags:
   - Competitividade
   - Automação
   - Inovação
+category: automacao
 ---
 
 # Como pequenas empresas estão usando IA para competir com grandes redes

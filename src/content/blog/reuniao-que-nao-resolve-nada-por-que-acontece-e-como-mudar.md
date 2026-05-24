@@ -10,6 +10,7 @@ tags:
   - gestão de equipe
   - objetivos
   - comunicação
+category: melhoria-continua
 ---
 
 # Reunião que não resolve nada: por que acontece e como mudar

@@ -10,6 +10,7 @@ tags:
   - processo de compra
   - Belo Horizonte
   - otimização de negócios
+category: melhoria-continua
 ---
 
 # Como uma loja de bairro triplicou o giro de estoque organizando o processo de compra

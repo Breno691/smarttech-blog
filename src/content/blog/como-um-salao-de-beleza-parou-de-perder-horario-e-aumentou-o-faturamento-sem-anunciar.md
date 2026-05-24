@@ -10,6 +10,7 @@ tags:
   - gestão
   - marketing
   - Dicas de negócios
+category: melhoria-continua
 ---
 
 # Como um salão de beleza parou de perder horário e aumentou o faturamento sem anunciar

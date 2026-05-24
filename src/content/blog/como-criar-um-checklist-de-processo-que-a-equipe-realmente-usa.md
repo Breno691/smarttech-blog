@@ -10,6 +10,7 @@ tags:
   - processos
   - produtividade
   - comunicação
+category: lean-six-sigma
 ---
 
 # Como criar um checklist de processo que a equipe realmente usa

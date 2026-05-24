@@ -10,6 +10,7 @@ tags:
   - experiência do aluno
   - gestão
   - retenção
+category: lean-six-sigma
 ---
 
 # Academia de ginástica: como reduzir cancelamento e melhorar a experiência do aluno com Lean

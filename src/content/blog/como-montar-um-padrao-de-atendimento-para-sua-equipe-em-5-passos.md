@@ -10,6 +10,7 @@ tags:
   - gestão de equipes
   - fidelização
   - pequenas empresas
+category: lean-six-sigma
 ---
 
 # Como montar um padrão de atendimento para sua equipe em 5 passos

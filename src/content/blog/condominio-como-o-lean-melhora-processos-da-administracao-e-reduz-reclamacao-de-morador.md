@@ -10,6 +10,7 @@ tags:
   - gestão eficiente
   - satisfação do morador
   - melhoria contínua
+category: lean-six-sigma
 ---
 
 # Condomínio: como o Lean melhora processos da administração e reduz reclamação de morador

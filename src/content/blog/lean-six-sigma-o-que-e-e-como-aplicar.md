@@ -9,6 +9,7 @@ tags:
   - Melhoria Contínua
   - Processos
   - Gestão
+category: lean-six-sigma
 ---
 
 # Lean Six Sigma: O Que É, Como Funciona e Por Que Sua Empresa Precisa Disso

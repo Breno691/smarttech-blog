@@ -10,6 +10,7 @@ tags:
   - produtividade
   - informação
   - sistemas
+category: melhoria-continua
 ---
 
 # Informação que se perde entre setores: como acabar com isso

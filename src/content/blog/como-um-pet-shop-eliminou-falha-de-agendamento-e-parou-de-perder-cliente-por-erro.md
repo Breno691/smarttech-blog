@@ -10,6 +10,7 @@ tags:
   - satisfação do cliente
   - gestão
   - Belo Horizonte
+category: melhoria-continua
 ---
 
 # Como um Pet Shop Eliminou Falha de Agendamento e Parou de Perder Clientes por Erro

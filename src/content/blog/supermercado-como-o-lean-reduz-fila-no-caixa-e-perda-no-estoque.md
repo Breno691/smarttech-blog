@@ -10,6 +10,7 @@ tags:
   - gestão de estoque
   - eficiência
   - atendimento ao cliente
+category: lean-six-sigma
 ---
 
 # Supermercado: como o Lean reduz fila no caixa e perda no estoque

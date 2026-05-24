@@ -10,6 +10,7 @@ tags:
   - empresas
   - presencial
   - online
+category: lean-six-sigma
 ---
 
 # Consultoria presencial vs consultoria online: o que funciona melhor para melhoria de processos

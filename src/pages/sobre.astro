@@ -1,0 +1,245 @@
+---
+import Nav from '../components/Nav.astro';
+import GTMHead from '../components/GTMHead.astro';
+import GTMBody from '../components/GTMBody.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+const canonicalURL = new URL('/sobre', siteURL).href;
+const whatsappURL = 'https://wa.me/5531972039180?text=' + encodeURIComponent('Olá! Vim pelo site e quero conversar sobre minha empresa.');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${siteURL}#person-breno`,
+      name: 'Breno Luiz',
+      jobTitle: 'Black Belt Lean Six Sigma · Especialista em Automação com IA',
+      worksFor: { '@id': `${siteURL}#business` },
+      url: canonicalURL,
+      knowsAbout: ['Lean Six Sigma', 'Melhoria Contínua', 'Automação de Processos', 'Inteligência Artificial', 'DMAIC', 'Kaizen'],
+      address: { '@type': 'PostalAddress', addressLocality: 'Belo Horizonte', addressRegion: 'MG', addressCountry: 'BR' },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'Sobre | SmartOps IA — Breno Luiz, Black Belt Lean Six Sigma',
+      description: 'Conheça Breno Luiz, Black Belt em Lean Six Sigma e especialista em automação com IA para pequenas empresas em Belo Horizonte.',
+      inLanguage: 'pt-BR',
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+          { '@type': 'ListItem', position: 2, name: 'Sobre', item: canonicalURL },
+        ],
+      },
+    },
+  ],
+};
+
+const credentials = [
+  { icon: '🎓', title: 'Black Belt Lean Six Sigma', desc: 'Certificação máxima na metodologia Lean Six Sigma, habilitado para liderar projetos complexos de melhoria de processos.' },
+  { icon: '🤖', title: 'Especialista em Automação com IA', desc: 'Desenvolvimento de fluxos com n8n, OpenAI GPT-4, WhatsApp Business API e integrações para operações reais.' },
+  { icon: '🏙️', title: 'Belo Horizonte, MG', desc: 'Atendimento presencial e remoto para empresas em BH e região metropolitana. Consultoria onde o negócio está.' },
+  { icon: '🔧', title: 'Manutenção & TI', desc: 'Diagnóstico SMART avançado, upgrade de SSD, formatação e remoção de vírus. Suporte técnico completo.' },
+];
+
+const values = [
+  { title: 'Método antes de solução', desc: 'Não chegamos com resposta pronta. Entendemos o problema real primeiro. A causa raiz raramente é o que parece na superfície.' },
+  { title: 'Processo antes de automação', desc: 'Automatizar problema ruim só faz você errar mais rápido. Lean Six Sigma vem antes da automação — sempre.' },
+  { title: 'Linguagem de negócio, não de academia', desc: 'Lean Six Sigma não é assunto só de multinacional. Qualquer operação tem desperdício a eliminar. Falamos com donos de empresa, não com gerentes de qualidade.' },
+  { title: 'Resultado mensurável', desc: 'Toda melhoria tem indicador. Se não dá pra medir, não dá pra saber se funcionou.' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <GTMHead />
+  <MetaPixel />
+
+  <title>Sobre | Breno Luiz — Black Belt Lean Six Sigma & Automação com IA · SmartOps</title>
+  <meta name="description" content="Breno Luiz, Black Belt em Lean Six Sigma e especialista em automação com IA. Consultoria para pequenas empresas em Belo Horizonte que querem parar de apagar incêndio e começar a escalar." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content="Sobre Breno Luiz | SmartOps IA" />
+  <meta property="og:description" content="Black Belt Lean Six Sigma e especialista em automação com IA para pequenas empresas em BH." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <GoogleAnalytics />
+</head>
+<body>
+  <GTMBody />
+  <Nav current="/sobre" />
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="avatar-wrap">
+          <div class="avatar">BL</div>
+          <div class="avatar-badge">Black Belt</div>
+        </div>
+        <div class="hero-text">
+          <div class="badge">
+            <span class="dot"></span>
+            Belo Horizonte, MG · Disponível para novos projetos
+          </div>
+          <h1>Breno Luiz</h1>
+          <p class="role">Black Belt Lean Six Sigma · Especialista em Automação com IA</p>
+          <p class="bio">Trabalho com uma premissa simples: <strong>toda pequena empresa tem desperdícios que ela ainda não viu</strong>. Meu trabalho é encontrar onde a operação está sangrando dinheiro e corrigir isso — com método, não com chute.</p>
+          <p class="bio">Lean Six Sigma que aprendi em curso de multinacional, eu aplico na padaria, na clínica, na oficina e na loja de bairro. Com a mesma seriedade. Com linguagem diferente.</p>
+          <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">Conversar sobre sua empresa</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENCIAIS -->
+  <section class="section dark-section">
+    <div class="container">
+      <div class="section-label">Credenciais</div>
+      <h2>O que <span class="grad">trago para o projeto</span></h2>
+      <div class="cred-grid">
+        {credentials.map(c => (
+          <div class="cred-card">
+            <div class="cred-icon">{c.icon}</div>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABORDAGEM -->
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-label">Como penso</div>
+      <h2>Minha <span class="grad">abordagem</span></h2>
+      <div class="values-list">
+        {values.map((v, i) => (
+          <div class="value-item">
+            <div class="value-num">{String(i + 1).padStart(2, '0')}</div>
+            <div>
+              <h3>{v.title}</h3>
+              <p>{v.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM TRABALHO -->
+  <section class="section dark-section">
+    <div class="container narrow">
+      <div class="section-label">Público</div>
+      <h2>Com quem <span class="grad">trabalho</span></h2>
+      <p class="section-sub">Não atendo todo mundo. Atendo bem quem se encaixa nesse perfil:</p>
+      <div class="who-list">
+        <div class="who-item">✅ Dono de pequena empresa que sente que <strong>trabalha muito mas cresce pouco</strong></div>
+        <div class="who-item">✅ Empresa que depende <strong>do dono para tudo funcionar</strong></div>
+        <div class="who-item">✅ Operação com <strong>retrabalho frequente</strong> que ninguém consegue resolver de vez</div>
+        <div class="who-item">✅ Negócio que cresceu mas o <strong>processo não acompanhou</strong></div>
+        <div class="who-item">✅ Empresa que quer <strong>automatizar mas não sabe por onde começar</strong></div>
+        <div class="who-item">❌ Quem quer solução mágica sem mudar nada no processo</div>
+        <div class="who-item">❌ Quem busca relatório bonito em vez de resultado real</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container narrow" style="text-align:center">
+      <h2>Vamos conversar sobre<br />a operação da sua empresa?</h2>
+      <p>Uma conversa de 30 minutos já deixa claro onde está o maior gargalo. Sem compromisso.</p>
+      <a href={whatsappURL} class="btn-primary large" target="_blank" rel="noopener noreferrer">
+        Falar no WhatsApp
+      </a>
+      <p class="cta-note">(31) 97203-9180 · Belo Horizonte, MG</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 SmartOps IA · Breno Luiz · Black Belt Lean Six Sigma · Belo Horizonte, MG</p>
+      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #07070f; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .container.narrow { max-width: 800px; }
+  .section { padding: 5rem 0; }
+  .dark-section { background: #0d0d1a; }
+  .grad { background: linear-gradient(135deg, #a78bfa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .hero { position: relative; padding: 5rem 0; }
+  .hero-glow { position: absolute; top: -150px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%); pointer-events: none; }
+  .hero-inner { display: flex; gap: 3rem; align-items: flex-start; }
+  @media(max-width:700px){ .hero-inner { flex-direction: column; align-items: center; text-align: center; } }
+
+  .avatar-wrap { position: relative; flex-shrink: 0; }
+  .avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #10b981); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; color: #fff; border: 3px solid rgba(255,255,255,0.1); }
+  .avatar-badge { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); background: #7c3aed; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 10px; white-space: nowrap; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: #10b981; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 0.75rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.25rem; }
+  .role { font-size: 1rem; color: #a78bfa; font-weight: 600; margin-bottom: 1.25rem; }
+  .bio { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.75rem; }
+  .bio strong { color: #fff; }
+  .btn-primary { display: inline-flex; align-items: center; background: linear-gradient(135deg, #7c3aed, #10b981); color: #fff; font-weight: 700; padding: 0.75rem 1.75rem; border-radius: 10px; text-decoration: none; font-size: 1rem; transition: opacity 0.2s; margin-top: 0.75rem; }
+  .btn-primary.large { font-size: 1.1rem; padding: 1rem 2.5rem; }
+  .btn-primary:hover { opacity: 0.9; }
+
+  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #a78bfa; margin-bottom: 0.75rem; }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 2rem; }
+  .section-sub { color: rgba(255,255,255,0.6); font-size: 1rem; margin-bottom: 1.5rem; }
+
+  .cred-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+  .cred-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 1.75rem; }
+  .cred-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+  .cred-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .cred-card p { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  .values-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .value-item { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .value-num { font-size: 2rem; font-weight: 900; color: rgba(167,139,250,0.2); line-height: 1; flex-shrink: 0; width: 48px; }
+  .value-item h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .value-item p { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  .who-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .who-item { font-size: 0.93rem; color: rgba(255,255,255,0.7); padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); line-height: 1.5; }
+  .who-item strong { color: #fff; }
+
+  .cta-section { background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(16,185,129,0.08)); border-top: 1px solid rgba(167,139,250,0.15); padding: 5rem 0; }
+  .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 1rem; }
+  .cta-section p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+  .cta-note { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-top: 1rem; margin-bottom: 0; }
+
+  .site-footer { background: #04040a; border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; }
+  .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+  .site-footer nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+  .site-footer nav a:hover { color: #fff; }
+</style>

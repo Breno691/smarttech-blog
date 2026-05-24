@@ -10,6 +10,7 @@ tags:
   - eficiência
   - entregas
   - mapeamento
+category: melhoria-continua
 ---
 
 # Como uma Transportadora Reduziu Atraso de Entrega Mapeando o Processo de Rota

@@ -10,6 +10,7 @@ tags:
   - tecnologia
   - atendimento ao cliente
   - automação
+category: automacao
 ---
 
 # Chatbot para WhatsApp não é só resposta automática: o que a maioria não entende

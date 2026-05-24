@@ -10,6 +10,7 @@ tags:
   - eficiência
   - gestão empresarial
   - melhoria contínua
+category: lean-six-sigma
 ---
 
 # Como Reduzir Desperdícios na Sua Empresa com Lean

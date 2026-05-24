@@ -10,6 +10,7 @@ tags:
   - eficiência
   - processos
   - empresa
+category: melhoria-continua
 ---
 
 # Como Apresentar um Problema de Processo para o Dono da Empresa e Ser Levado a Sério

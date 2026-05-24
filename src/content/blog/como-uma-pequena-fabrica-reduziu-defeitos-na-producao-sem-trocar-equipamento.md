@@ -10,6 +10,7 @@ tags:
   - eficiência
   - automação
   - qualidade
+category: melhoria-continua
 ---
 
 # Como uma pequena fábrica reduziu defeitos na produção sem trocar equipamento

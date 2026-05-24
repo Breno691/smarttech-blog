@@ -10,6 +10,7 @@ tags:
   - melhorias
   - fidelização
   - empresas
+category: melhoria-continua
 ---
 
 # Como medir a satisfação do cliente de forma simples e usar isso para melhorar

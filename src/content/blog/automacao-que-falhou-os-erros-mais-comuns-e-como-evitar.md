@@ -10,6 +10,7 @@ tags:
   - eficiência
   - planejamento
   - empresas
+category: automacao
 ---
 
 # Automação que Falhou: Os Erros Mais Comuns e Como Evitar

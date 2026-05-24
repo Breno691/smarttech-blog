@@ -10,6 +10,7 @@ tags:
   - organização interna
   - satisfação do cliente
   - otimização
+category: melhoria-continua
 ---
 
 # Como um E-commerce Pequeno Reduziu Reclamações de Entrega Organizando o Processo Interno

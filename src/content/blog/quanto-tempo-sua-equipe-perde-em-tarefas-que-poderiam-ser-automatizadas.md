@@ -10,6 +10,7 @@ tags:
   - empresas
   - eficiência
   - tecnologia
+category: automacao
 ---
 
 # Quanto tempo sua equipe perde em tarefas que poderiam ser automatizadas

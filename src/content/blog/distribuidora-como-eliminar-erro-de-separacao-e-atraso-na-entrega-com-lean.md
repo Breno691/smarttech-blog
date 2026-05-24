@@ -10,6 +10,7 @@ tags:
   - distribuição
   - eficiência
   - cadeia de suprimentos
+category: lean-six-sigma
 ---
 
 # Distribuidora: como eliminar erro de separação e atraso na entrega com Lean

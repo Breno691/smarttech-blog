@@ -10,6 +10,7 @@ tags:
   - gestão de negócios
   - confiança
   - reputação
+category: melhoria-continua
 ---
 
 # Promessa que não cumpre prazo: como parar de decepcionar cliente

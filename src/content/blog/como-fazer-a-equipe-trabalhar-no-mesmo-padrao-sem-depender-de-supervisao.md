@@ -10,6 +10,7 @@ tags:
   - gestão de equipes
   - padrões de trabalho
   - eficiência
+category: melhoria-continua
 ---
 
 # Como fazer a equipe trabalhar no mesmo padrão sem depender de supervisão

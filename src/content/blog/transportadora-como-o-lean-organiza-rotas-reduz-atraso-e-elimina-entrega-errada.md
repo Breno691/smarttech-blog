@@ -10,6 +10,7 @@ tags:
   - Transportadoras
   - Eficiência
   - Gestão
+category: lean-six-sigma
 ---
 
 # Transportadora: como o Lean organiza rotas, reduz atrasos e elimina entrega errada

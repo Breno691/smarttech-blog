@@ -10,6 +10,7 @@ tags:
   - empresa
   - melhoria contínua
   - soluções
+category: lean-six-sigma
 ---
 
 # Como aplicar o ciclo PDCA em um problema real da sua empresa agora

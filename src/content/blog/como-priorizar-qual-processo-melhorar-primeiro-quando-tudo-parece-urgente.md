@@ -10,6 +10,7 @@ tags:
   - Produtividade
   - Empreendedorismo
   - Belo Horizonte
+category: lean-six-sigma
 ---
 
 # Como Priorizar Qual Processo Melhorar Primeiro Quando Tudo Parece Urgente

@@ -8,6 +8,7 @@ tags:
   - atendimento ao cliente
   - padrão de atendimento
   - empresas pequenas
+category: lean-six-sigma
 ---
 
 # Como criar padrão de atendimento sem gastar nada e sem depender da memória de ninguém

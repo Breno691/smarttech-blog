@@ -10,6 +10,7 @@ tags:
   - gestão de equipe
   - desempenho
   - erro
+category: melhoria-continua
 ---
 
 # Funcionário novo sempre erra: a causa real e como resolver de vez

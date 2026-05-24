@@ -1,0 +1,366 @@
+---
+import { getCollection } from 'astro:content';
+import Nav from '../../components/Nav.astro';
+import GTMHead from '../../components/GTMHead.astro';
+import GTMBody from '../../components/GTMBody.astro';
+import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
+import MetaPixel from '../../components/MetaPixel.astro';
+
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+const canonicalURL = new URL('/automacao', siteURL).href;
+const whatsappURL = 'https://wa.me/5531972039180?text=' + encodeURIComponent('Olá! Quero saber mais sobre automação de processos com IA.');
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter(p => p.data.category === 'automacao')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 9);
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('pt-BR', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+const automacoes = [
+  { icon: '💬', title: 'Atendimento no WhatsApp', desc: 'Agente de IA que responde clientes, qualifica leads e agenda — 24h por dia, sem custo de pessoal extra.' },
+  { icon: '📋', title: 'Captura e gestão de leads', desc: 'Todo contato registrado automaticamente com dados, origem e histórico. Sem planilha manual.' },
+  { icon: '🔔', title: 'Notificações e follow-up', desc: 'Cliente não respondeu? Sistema dispara follow-up automático no momento certo.' },
+  { icon: '📊', title: 'Relatórios automáticos', desc: 'Dados consolidados e enviados para você todos os dias, sem ninguém montar na mão.' },
+  { icon: '🔗', title: 'Integração entre sistemas', desc: 'Pedido no balcão já atualiza o estoque, notifica a equipe e gera a nota. Zero digitação dupla.' },
+  { icon: '🤖', title: 'Fluxos com IA generativa', desc: 'Respostas inteligentes, triagem de atendimento e suporte contextual usando GPT-4 e modelos avançados.' },
+];
+
+const tools = [
+  { name: 'n8n', desc: 'Orquestração de fluxos' },
+  { name: 'OpenAI GPT-4', desc: 'Inteligência artificial' },
+  { name: 'WhatsApp Business API', desc: 'Atendimento automatizado' },
+  { name: 'Supabase', desc: 'Banco de dados e histórico' },
+  { name: 'Z-API', desc: 'Integração WhatsApp' },
+  { name: 'Make / Zapier', desc: 'Integrações simples' },
+];
+
+const faqs = [
+  { q: 'Automação substitui minha equipe?', a: 'Não. Automação libera sua equipe de tarefas repetitivas para que possam focar no que realmente importa: atender bem, resolver problemas complexos, crescer. A ideia não é demitir — é fazer mais com o mesmo time.' },
+  { q: 'Precisa ter processo organizado antes de automatizar?', a: 'Sim, e isso é importante. Automatizar um processo ruim só faz você errar mais rápido. Por isso trabalhamos com Lean Six Sigma antes da automação: primeiro organizamos o processo, depois automatizamos o que funciona bem.' },
+  { q: 'Funciona para empresa pequena?', a: 'Especialmente para empresa pequena. Uma empresa pequena perde proporcionalmente muito mais com tarefas manuais repetitivas do que uma grande empresa com equipe especializada. Automação é o caminho para competir em nível mais alto sem aumentar custo fixo.' },
+  { q: 'Quanto tempo leva para implementar?', a: 'Automações simples (como atendimento no WhatsApp) ficam prontas em 1 a 2 semanas. Fluxos mais complexos com múltiplas integrações levam de 3 a 6 semanas. Depende da complexidade da operação e das integrações necessárias.' },
+  { q: 'E se o sistema cair?', a: 'Construímos com fallback — se a automação falhar, o atendimento cai para humano ou para WhatsApp direto. Você nunca fica sem atender o cliente.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'Automação de Processos com IA para Empresas | SmartOps IA',
+      description: 'Automação de atendimento, captura de leads e fluxos operacionais com IA. Para pequenas empresas que querem crescer sem aumentar custo fixo. Belo Horizonte.',
+      inLanguage: 'pt-BR',
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+          { '@type': 'ListItem', position: 2, name: 'Automação com IA', item: canonicalURL },
+        ],
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@type': 'Service',
+      name: 'Automação de Processos com IA',
+      provider: { '@id': `${siteURL}#business` },
+      description: 'Automação de atendimento no WhatsApp, captura de leads, fluxos operacionais e integrações com IA para pequenas empresas.',
+      serviceType: 'Automação Empresarial',
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <GTMHead />
+  <MetaPixel />
+
+  <title>Automação de Processos com IA para Empresas | SmartOps IA — BH</title>
+  <meta name="description" content="Automatize atendimento, captura de leads e fluxos operacionais com IA. Para pequenas empresas que querem crescer sem aumentar custo fixo. Diagnóstico gratuito em BH." />
+  <meta name="keywords" content="automação de processos, automação com IA, chatbot whatsapp empresas, n8n belo horizonte, automação operacional, fluxos automáticos, inteligência artificial para empresas" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content="Automação de Processos com IA | SmartOps IA" />
+  <meta property="og:description" content="Automatize o que é repetitivo. Libere sua equipe para o que importa. IA aplicada à operação de pequenas empresas." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <GoogleAnalytics />
+</head>
+<body>
+  <GTMBody />
+
+  <Nav current="/automacao" />
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="badge">
+        <span class="dot"></span>
+        IA · n8n · WhatsApp Business · GPT-4
+      </div>
+      <h1>Automatize o que é repetitivo.<br /><span class="grad">Libere sua equipe</span><br />para o que importa.</h1>
+      <p class="sub">Atendimento no WhatsApp, captura de leads, notificações e fluxos operacionais rodando sozinhos — sem custo fixo extra, sem depender de mais contratação.</p>
+      <div class="hero-btns">
+        <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">Ver como funciona</a>
+        <a href="#o-que-automatizamos" class="btn-ghost">O que automatizamos ↓</a>
+      </div>
+      <div class="stats">
+        <div><strong>24h</strong><span>Atendimento automático</span></div>
+        <div><strong>0</strong><span>Digitação dupla</span></div>
+        <div><strong>GPT-4</strong><span>IA de ponta</span></div>
+        <div><strong>BH</strong><span>Implementação local</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVISO IMPORTANTE -->
+  <section class="section warning-section">
+    <div class="container narrow">
+      <div class="warning-card">
+        <div class="warning-icon">⚠️</div>
+        <div>
+          <h3>Automatizar processo ruim é perigo</h3>
+          <p>Muitas empresas automatizam antes de organizar. O resultado: erram mais rápido. Por isso nossa abordagem começa com <a href="/lean-six-sigma">Lean Six Sigma</a> — primeiro organizamos o processo, depois automatizamos o que funciona bem. Essa ordem muda tudo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE AUTOMATIZAMOS -->
+  <section id="o-que-automatizamos" class="section">
+    <div class="container">
+      <div class="section-label">Soluções</div>
+      <h2>O que <span class="grad">automatizamos</span></h2>
+      <p class="section-sub">Fluxos prontos para operar sem intervenção manual — construídos com IA e integrados ao que você já usa.</p>
+      <div class="auto-grid">
+        {automacoes.map(a => (
+          <div class="auto-card">
+            <div class="auto-icon">{a.icon}</div>
+            <h3>{a.title}</h3>
+            <p>{a.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="section dark-section">
+    <div class="container narrow">
+      <div class="section-label">Processo</div>
+      <h2>Como <span class="grad">implementamos</span></h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-num">01</div>
+          <div>
+            <h3>Diagnóstico da operação</h3>
+            <p>Entendemos como sua empresa funciona hoje — onde está o gargalo, o que é repetitivo e o que a equipe mais perde tempo fazendo sem necessidade.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">02</div>
+          <div>
+            <h3>Melhoria do processo (Lean)</h3>
+            <p>Antes de automatizar, organizamos o fluxo com Lean Six Sigma. Processo ruim automatizado erra mais rápido — não é isso que você quer.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">03</div>
+          <div>
+            <h3>Construção da automação</h3>
+            <p>Desenvolvemos o fluxo com n8n, OpenAI e as integrações necessárias. Testamos com dados reais antes de ativar em produção.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">04</div>
+          <div>
+            <h3>Ativação e acompanhamento</h3>
+            <p>Ativamos, monitoramos os primeiros dias e ajustamos o que precisar. Você recebe documentação completa e sabe exatamente o que está rodando.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FERRAMENTAS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Tecnologia</div>
+      <h2>As ferramentas que <span class="grad">usamos</span></h2>
+      <p class="section-sub">Stack moderna, open source onde possível, sem lock-in de plataforma.</p>
+      <div class="tools-grid">
+        {tools.map(t => (
+          <div class="tool-card">
+            <strong>{t.name}</strong>
+            <span>{t.desc}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTIGOS -->
+  {posts.length > 0 && (
+    <section class="section dark-section">
+      <div class="container">
+        <div class="section-label">Conteúdo</div>
+        <h2>Artigos sobre <span class="grad">Automação com IA</span></h2>
+        <div class="posts-grid">
+          {posts.map(p => (
+            <a href={`/blog/${p.id}`} class="post-card">
+              <div class="post-meta">{formatDate(p.data.pubDate)}</div>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.description?.slice(0, 100)}…</p>
+              <span class="post-link">Ler artigo →</span>
+            </a>
+          ))}
+        </div>
+        <div style="text-align:center;margin-top:2rem">
+          <a href="/blog?categoria=automacao" class="btn-ghost">Ver todos os artigos de automação →</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-label">Dúvidas</div>
+      <h2>Perguntas sobre <span class="grad">automação</span></h2>
+      <div class="faq-list">
+        {faqs.map(f => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container narrow" style="text-align:center">
+      <h2>Quanto tempo sua equipe perde<br />em tarefas que poderiam rodar sozinhas?</h2>
+      <p>Diagnóstico gratuito. A gente mapeia o que vale automatizar e o que não vale — sem empurrar solução.</p>
+      <a href={whatsappURL} class="btn-primary large" target="_blank" rel="noopener noreferrer">
+        Falar com especialista no WhatsApp
+      </a>
+      <p class="cta-note">Atendimento em Belo Horizonte e região · (31) 97203-9180</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 SmartOps IA · Lean Six Sigma &amp; Automação · Belo Horizonte, MG</p>
+      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #07070f; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .container.narrow { max-width: 800px; }
+  .section { padding: 5rem 0; }
+  .dark-section { background: #0d0d1a; }
+  .grad { background: linear-gradient(135deg, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .hero { position: relative; padding: 6rem 0 5rem; overflow: hidden; }
+  .hero-glow { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%); pointer-events: none; }
+  .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: #10b981; font-size: 0.8rem; font-weight: 600; padding: 0.35rem 0.9rem; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.25rem; }
+  .sub { font-size: 1.1rem; color: rgba(255,255,255,0.65); max-width: 600px; margin-bottom: 2rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .btn-primary { display: inline-flex; align-items: center; background: linear-gradient(135deg, #10b981, #3b82f6); color: #fff; font-weight: 700; padding: 0.75rem 1.75rem; border-radius: 10px; text-decoration: none; font-size: 1rem; transition: opacity 0.2s; }
+  .btn-primary.large { font-size: 1.1rem; padding: 1rem 2.5rem; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-ghost { display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); padding: 0.75rem 1.5rem; border-radius: 10px; text-decoration: none; font-size: 0.95rem; transition: border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+  .stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+  .stats div { display: flex; flex-direction: column; gap: 0.2rem; }
+  .stats strong { font-size: 1.4rem; font-weight: 800; color: #10b981; }
+  .stats span { font-size: 0.8rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #10b981; margin-bottom: 0.75rem; }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .section-sub { color: rgba(255,255,255,0.6); font-size: 1.05rem; margin-bottom: 2.5rem; max-width: 600px; }
+
+  .warning-section { padding: 2.5rem 0; }
+  .warning-card { display: flex; gap: 1.25rem; align-items: flex-start; background: rgba(234,179,8,0.07); border: 1px solid rgba(234,179,8,0.2); border-radius: 12px; padding: 1.5rem; }
+  .warning-icon { font-size: 1.75rem; flex-shrink: 0; }
+  .warning-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: #fbbf24; }
+  .warning-card p { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .warning-card a { color: #a78bfa; text-decoration: underline; }
+
+  .auto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+  .auto-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 1.75rem; transition: border-color 0.2s; }
+  .auto-card:hover { border-color: rgba(16,185,129,0.3); }
+  .auto-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+  .auto-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .auto-card p { font-size: 0.87rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  .how-steps { display: flex; flex-direction: column; gap: 1.5rem; }
+  .how-step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .how-num { font-size: 2.5rem; font-weight: 900; color: rgba(16,185,129,0.2); line-height: 1; flex-shrink: 0; width: 50px; }
+  .how-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .how-step p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.6; }
+
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+  .tool-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.2rem; }
+  .tool-card strong { font-size: 0.9rem; font-weight: 700; color: #10b981; }
+  .tool-card span { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+
+  .posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+  .post-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 1.5rem; text-decoration: none; color: inherit; transition: border-color 0.2s; display: flex; flex-direction: column; gap: 0.5rem; }
+  .post-card:hover { border-color: rgba(16,185,129,0.35); }
+  .post-meta { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+  .post-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff; line-height: 1.4; }
+  .post-card p { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.5; flex: 1; }
+  .post-link { font-size: 0.8rem; color: #10b981; font-weight: 600; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .faq-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; }
+  .faq-item summary { font-size: 0.95rem; font-weight: 600; padding: 1.1rem 1.5rem; cursor: pointer; list-style: none; color: #fff; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item[open] summary { color: #10b981; }
+  .faq-item p { padding: 0 1.5rem 1.25rem; color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.7; }
+
+  .cta-section { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(59,130,246,0.08)); border-top: 1px solid rgba(16,185,129,0.15); padding: 5rem 0; }
+  .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 1rem; }
+  .cta-section p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+  .cta-note { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-top: 1rem; margin-bottom: 0; }
+
+  .site-footer { background: #04040a; border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; }
+  .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+  .site-footer nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+  .site-footer nav a:hover { color: #fff; }
+</style>
