@@ -1,7 +1,7 @@
 ---
 title: "Manutenção e Formatação de Computador"
 description: ""
-pubDate: "undefined"
+pubDate: "2026-05-22"
 heroImage: "/blog-placeholder-1.jpg"
 excerpt: ""
 tags:

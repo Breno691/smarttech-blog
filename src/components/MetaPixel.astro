@@ -1,0 +1,23 @@
+---
+// Ativa automaticamente quando PUBLIC_META_PIXEL_ID estiver definida no .env
+// Sem o ID: zero bytes adicionados ao HTML — nenhum script, nenhum request
+const PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID || undefined;
+---
+{PIXEL_ID && (
+  <>
+    {/* Meta Pixel — código oficial Meta, não modificar a estrutura */}
+    <script is:inline define:vars={{ PIXEL_ID }}>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" alt=""
+        src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`} />
+    </noscript>
+  </>
+)}

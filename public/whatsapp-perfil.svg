@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1a1a3e"/>
+      <stop offset="100%" stop-color="#0d0d1a"/>
+    </radialGradient>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="gradGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#25d366"/>
+      <stop offset="100%" stop-color="#128c7e"/>
+    </linearGradient>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#25d366"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background quadrado -->
+  <rect width="500" height="500" fill="url(#bg)"/>
+
+  <!-- Borda gradiente -->
+  <rect x="2" y="2" width="496" height="496" fill="none" stroke="url(#borderGrad)" stroke-width="3" opacity="0.7"/>
+
+  <!-- Círculos decorativos de fundo -->
+  <circle cx="250" cy="250" r="210" fill="none" stroke="#a78bfa" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.2"/>
+  <circle cx="250" cy="250" r="165" fill="none" stroke="#7c3aed" stroke-width="0.5" stroke-dasharray="2 10" opacity="0.15"/>
+
+  <!-- Pontos de circuito decorativos -->
+  <circle cx="40"  cy="40"  r="3" fill="#a78bfa" opacity="0.4"/>
+  <circle cx="70"  cy="40"  r="2" fill="#a78bfa" opacity="0.3"/>
+  <circle cx="40"  cy="70"  r="2" fill="#a78bfa" opacity="0.3"/>
+  <circle cx="460" cy="460" r="3" fill="#25d366" opacity="0.4"/>
+  <circle cx="430" cy="460" r="2" fill="#25d366" opacity="0.3"/>
+  <circle cx="460" cy="430" r="2" fill="#25d366" opacity="0.3"/>
+  <circle cx="460" cy="40"  r="3" fill="#a78bfa" opacity="0.4"/>
+  <circle cx="430" cy="40"  r="2" fill="#a78bfa" opacity="0.3"/>
+  <circle cx="40"  cy="460" r="3" fill="#25d366" opacity="0.4"/>
+  <circle cx="70"  cy="460" r="2" fill="#25d366" opacity="0.3"/>
+
+  <!-- Linhas de circuito -->
+  <line x1="40"  y1="40"  x2="70"  y2="40"  stroke="#a78bfa" stroke-width="1" opacity="0.3"/>
+  <line x1="40"  y1="40"  x2="40"  y2="70"  stroke="#a78bfa" stroke-width="1" opacity="0.3"/>
+  <line x1="460" y1="460" x2="430" y2="460" stroke="#25d366" stroke-width="1" opacity="0.3"/>
+  <line x1="460" y1="460" x2="460" y2="430" stroke="#25d366" stroke-width="1" opacity="0.3"/>
+  <line x1="460" y1="40"  x2="430" y2="40"  stroke="#a78bfa" stroke-width="1" opacity="0.3"/>
+  <line x1="40"  y1="460" x2="70"  y2="460" stroke="#25d366" stroke-width="1" opacity="0.3"/>
+
+  <!-- Ícone de engrenagem/tech central -->
+  <g transform="translate(250, 200)" filter="url(#glow)">
+    <g opacity="0.9">
+      <circle cx="0" cy="0" r="58" fill="none" stroke="url(#grad)" stroke-width="3"/>
+      <!-- Dentes da engrenagem -->
+      <rect x="-6" y="-68" width="12" height="16" rx="3" fill="url(#grad)"/>
+      <rect x="-6" y="52"  width="12" height="16" rx="3" fill="url(#grad)"/>
+      <rect x="52"  y="-6" width="16" height="12" rx="3" fill="url(#grad)"/>
+      <rect x="-68" y="-6" width="16" height="12" rx="3" fill="url(#grad)"/>
+      <g transform="rotate(45)">
+        <rect x="-6" y="-68" width="12" height="16" rx="3" fill="url(#grad)"/>
+        <rect x="-6" y="52"  width="12" height="16" rx="3" fill="url(#grad)"/>
+        <rect x="52"  y="-6" width="16" height="12" rx="3" fill="url(#grad)"/>
+        <rect x="-68" y="-6" width="16" height="12" rx="3" fill="url(#grad)"/>
+      </g>
+    </g>
+    <circle cx="0" cy="0" r="40" fill="#0d0d1a"/>
+    <circle cx="0" cy="0" r="36" fill="url(#grad)" opacity="0.15"/>
+    <text x="0" y="14" font-family="Arial Black, sans-serif" font-size="42" font-weight="900"
+          fill="url(#grad)" text-anchor="middle" letter-spacing="-1">S</text>
+  </g>
+
+  <!-- Nome SmartOps -->
+  <text x="250" y="312" font-family="Arial Black, sans-serif" font-size="34" font-weight="900"
+        fill="white" text-anchor="middle" letter-spacing="2">SmartOps</text>
+
+  <!-- Subtítulo verde -->
+  <text x="250" y="342" font-family="Arial, sans-serif" font-size="15" font-weight="400"
+        fill="url(#gradGreen)" text-anchor="middle" letter-spacing="4" opacity="0.9">TECNOLOGIA &amp; IA</text>
+
+  <!-- Linha decorativa -->
+  <rect x="160" y="357" width="180" height="2" rx="1" fill="url(#grad)" opacity="0.6"/>
+</svg>

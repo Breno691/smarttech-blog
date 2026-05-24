@@ -1,7 +1,43 @@
 {
   "permissions": {
     "allow": [
-      "Bash(del \"c:\\\\Users\\\\Breno Luiz\\\\smartops-seo\\\\src\\\\content\\\\config.ts\")"
+      "Bash(del \"c:\\\\Users\\\\Breno Luiz\\\\smartops-seo\\\\src\\\\content\\\\config.ts\")",
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Read(//c/Users/Breno Luiz/Downloads/**)",
+      "Bash(Get-ChildItem -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(timeout 5)",
+      "Bash(exit 0)",
+      "Read(//c/Users/Breno Luiz/**)",
+      "Bash(Get-Content \"c:\\\\Users\\\\Breno Luiz\\\\smartops-seo\\\\dist\\\\sitemap-0.xml\")",
+      "Bash(curl -s -o - -w \"\\\\n--- HTTP Status: %{http_code} ---\\\\n\" -X POST \"https://n8n-n8nn.sumjyb.easypanel.host/webhook-test/smartops-leads\" -H \"Content-Type: application/json\" -d \"{\\\\\"nome\\\\\":\\\\\"Teste SmartOps\\\\\",\\\\\"telefone\\\\\":\\\\\"\\(31\\) 99999-0000\\\\\",\\\\\"empresa\\\\\":\\\\\"Teste\\\\\",\\\\\"servico\\\\\":\\\\\"diagnostico-smart\\\\\",\\\\\"mensagem\\\\\":\\\\\"Teste de integração do formulário\\\\\",\\\\\"origem\\\\\":\\\\\"https://smartops-ia.com.br/\\\\\",\\\\\"timestamp\\\\\":\\\\\"2026-05-20T12:20:00.000Z\\\\\"}\")",
+      "Bash(powershell -Command \"Compress-Archive -Path 'dist\\\\*' -DestinationPath 'dist-deploy.zip' -Force\")",
+      "Bash(powershell -Command \"\\(Get-Item 'dist-deploy.zip'\\).Length / 1MB\")",
+      "Bash(powershell Compress-Archive -Path dist\\\\* -DestinationPath dist-deploy-novo.zip -Force)",
+      "Bash(node -e \"try { JSON.parse\\(require\\('fs'\\).readFileSync\\('SMARTOPS - Agente WhatsApp IA v2.json', 'utf8'\\)\\); console.log\\('JSON OK'\\); } catch\\(e\\) { console.log\\('ERRO:', e.message\\); }\")",
+      "Bash(node -e ' *)",
+      "Bash(node fix-workflow.js)",
+      "Bash(node --input-type=commonjs)",
+      "Bash(node --input-type=commonjs -e \"try { JSON.parse\\(require\\('fs'\\).readFileSync\\('SMARTOPS - Agente WhatsApp IA v2.json', 'utf8'\\)\\); console.log\\('JSON VÁLIDO'\\); } catch\\(e\\) { console.log\\('ERRO:', e.message\\); }\")",
+      "Bash(del fix-workflow.js)",
+      "Bash(node build-workflow-v3.cjs)",
+      "Bash(node --input-type=commonjs -e \"const w = JSON.parse\\(require\\('fs'\\).readFileSync\\('SMARTOPS - Agente WhatsApp IA v3.json','utf8'\\)\\); console.log\\('Nodes:', w.nodes.length\\); w.nodes.forEach\\(n => console.log\\(' -', n.name\\)\\);\")",
+      "Bash(rm build-workflow-v3.cjs)",
+      "Bash(node update-prompt.cjs)",
+      "Bash(node --input-type=commonjs -e ' *)",
+      "Bash(node update-training.cjs)",
+      "Bash(node update-behavior.cjs)",
+      "Bash(node update-situations.cjs)",
+      "Bash(node create-blog.cjs \"Como reduzir desperdícios na sua empresa com Lean\")",
+      "Bash(node batch-blogs.cjs)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Breno Luiz\\Downloads"
     ]
   }
 }

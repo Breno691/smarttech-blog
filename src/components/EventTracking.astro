@@ -1,0 +1,48 @@
+<script is:inline>
+(function () {
+  'use strict';
+
+  // Mapa data-event → Meta Pixel standard events
+  // Cada handler só executa se fbq estiver disponível (Pixel ativo)
+  var META = {
+    clique_whatsapp: function (loc) {
+      if (typeof fbq !== 'function') return;
+      fbq('track', 'Contact');
+      fbq('trackCustom', 'WhatsAppClick', { event_location: loc || '' });
+    },
+    clique_cta: function (loc, label) {
+      if (typeof fbq !== 'function') return;
+      fbq('track', 'Lead', { content_name: label || loc || '' });
+    },
+  };
+
+  // Delegação universal: qualquer [data-event] clicado dispara GTM + Meta Pixel
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-event]');
+    if (!el) return;
+    var eventName = el.getAttribute('data-event');
+    var loc = el.getAttribute('data-location') || undefined;
+    var label = el.getAttribute('data-label') || undefined;
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: eventName, event_location: loc, event_label: label });
+
+    var handler = META[eventName];
+    if (handler) handler(loc, label);
+  });
+
+  // scroll_90: dispara uma única vez ao atingir 90% da página
+  var scroll90fired = false;
+  function checkScroll90() {
+    if (scroll90fired) return;
+    if ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight >= 0.9) {
+      scroll90fired = true;
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'scroll_90' });
+      if (typeof fbq === 'function') fbq('track', 'ViewContent', { scroll_depth: 90 });
+      window.removeEventListener('scroll', checkScroll90);
+    }
+  }
+  window.addEventListener('scroll', checkScroll90, { passive: true });
+})();
+</script>
