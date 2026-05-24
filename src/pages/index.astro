@@ -496,8 +496,15 @@ const schema = {
         <div class="container">
           <div class="lead-header">
             <p class="section-label">Diagnóstico gratuito</p>
-            <h2 id="lead-heading">Conta pra gente onde<br /><span class="gradient-text">sua operação trava</span></h2>
-            <p class="lead-subtitle">30 minutos de conversa. Você sai sabendo exatamente onde está o gargalo real — sem compromisso, sem custo.</p>
+            <h2 id="lead-heading">Processo travado, computador lento<br />ou <span class="gradient-text">operação no manual?</span></h2>
+            <div class="lead-tags" aria-hidden="true">
+              <span class="lead-tag lead-tag-lean">Lean Six Sigma</span>
+              <span class="lead-tag-sep">·</span>
+              <span class="lead-tag lead-tag-auto">Automação com IA</span>
+              <span class="lead-tag-sep">·</span>
+              <span class="lead-tag lead-tag-ti">Manutenção & TI</span>
+            </div>
+            <p class="lead-subtitle">Diagnóstico gratuito em 30 minutos — você sai sabendo o que fazer, por onde começar e quanto custa resolver.</p>
           </div>
 
           <div class="lead-grid">
@@ -2366,6 +2373,28 @@ const schema = {
     line-height: 1.15;
     margin-bottom: 1rem;
   }
+  .lead-tags {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .lead-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+  }
+  .lead-tag-lean { background: rgba(167,139,250,0.12); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.25); }
+  .lead-tag-auto { background: rgba(16,185,129,0.1); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+  .lead-tag-ti   { background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+
+  .lead-tag-sep { color: rgba(255,255,255,0.15); font-size: 0.9rem; }
+
   .lead-subtitle {
     color: rgba(255,255,255,0.55);
     font-size: 1.05rem;
