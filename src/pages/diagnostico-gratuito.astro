@@ -1,0 +1,588 @@
+---
+import GTMHead from '../components/GTMHead.astro';
+import GTMBody from '../components/GTMBody.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+const canonicalURL = new URL('/diagnostico-gratuito', siteURL).href;
+
+const whatsappNumber = '5531972039180';
+const whatsappMsg = encodeURIComponent('Olá! Vim pelo anúncio e quero o diagnóstico gratuito da SmartOps IA.');
+const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
+
+const pains = [
+  { icon: '🔄', text: 'Retrabalho repetindo todo mês' },
+  { icon: '💸', text: 'Custo alto sem saber onde está' },
+  { icon: '📅', text: 'Prazo sempre estourado' },
+  { icon: '😤', text: 'Atendimento lento perdendo clientes' },
+  { icon: '📊', text: 'Decisão no achismo, sem dados' },
+  { icon: '🌪️', text: 'Crescimento gerando mais caos' },
+];
+
+const deliverables = [
+  { icon: '🗺️', title: 'Mapa do seu processo atual', desc: 'Onde estão os gargalos e desperdícios visíveis.' },
+  { icon: '💰', title: 'Estimativa de custo do problema', desc: 'Quanto o processo ruim está custando por mês.' },
+  { icon: '🎯', title: 'Prioridade de ação', desc: 'O que resolver primeiro para maior impacto.' },
+  { icon: '🚀', title: 'Plano de próximos passos', desc: 'Caminho claro para resolver — com ou sem a gente.' },
+];
+
+const testimonials = [
+  {
+    stars: 5,
+    text: 'Eram 3 meses tentando resolver o retrabalho no atendimento. Em 4 semanas com o método Lean o processo ficou padronizado e o time parou de perguntar o que fazer.',
+    name: 'Fernanda O.',
+    role: 'Diretora · Clínica Odontológica',
+  },
+  {
+    stars: 5,
+    text: 'Automatizamos o WhatsApp com IA. Hoje o sistema responde clientes às 3h da manhã, qualifica e agenda. A equipe só pega casos que realmente precisam de atenção.',
+    name: 'Rodrigo M.',
+    role: 'Empresário · Serviços',
+  },
+  {
+    stars: 5,
+    text: 'O diagnóstico foi preciso. Em 40 minutos conseguiram mapear um gargalo que eu não enxergava há 2 anos. O plano de ação era simples e funcionou.',
+    name: 'Carlos A.',
+    role: 'Gestor de Operações',
+  },
+];
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <GTMHead />
+  <MetaPixel />
+
+  <title>Diagnóstico Gratuito de Processo | SmartOps IA — Descubra onde está o problema</title>
+  <meta name="description" content="Diagnóstico gratuito de 45 minutos: identificamos onde estão os gargalos, desperdícios e retrabalho da sua empresa. Lean Six Sigma + IA. BH e região." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content="Diagnóstico Gratuito de Processo | SmartOps IA" />
+  <meta property="og:description" content="45 minutos para descobrir onde está o problema real da sua operação. Sem compromisso. Lean Six Sigma + IA." />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+      background: #06060e;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: #ef4444;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 28px 16px 12px;
+      border-bottom: 1px solid #1a1a2e;
+    }
+    .brand {
+      font-size: 28px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .brand span.ops { color: #a78bfa; }
+    .brand span.ia { color: #10b981; font-size: 22px; }
+    .brand-sub {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 48px 20px 36px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #1a0808;
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 7vw, 60px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: #ef4444;
+    }
+    .hero h1 strong {
+      color: #fcd34d;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: #94a3b8;
+      margin: 16px 0 32px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #16a34a;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+      padding: 18px 36px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 24px rgba(22,163,74,0.35);
+    }
+    .cta-hero:hover { background: #15803d; transform: translateY(-2px); }
+    .cta-phone {
+      display: block;
+      margin-top: 12px;
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .cta-phone span { color: #94a3b8; font-size: 14px; font-weight: 400; margin-left: 4px; }
+    .cta-guarantee {
+      font-size: 13px;
+      color: #4b5563;
+      margin-top: 10px;
+    }
+
+    /* SECTION BASE */
+    section { padding: 56px 20px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #6b7280;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .section-sub {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 17px;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* PAINS */
+    .pains-section { background: #0a0a14; }
+    .pains-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .pain-item {
+      background: #10101c;
+      border: 1px solid #1e1e3a;
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 17px;
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+    .pain-item .pain-icon { font-size: 24px; }
+
+    /* WHAT YOU GET */
+    .deliverables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .deliverable-card {
+      background: #0f0f1e;
+      border: 1px solid #1e1e3a;
+      border-radius: 16px;
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .deliverable-card .d-icon { font-size: 36px; margin-bottom: 12px; }
+    .deliverable-card h3 { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .deliverable-card p { font-size: 14px; color: #94a3b8; }
+
+    /* HOW IT WORKS */
+    .how-section { background: #0a0a14; }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid #1a1a2e;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #10b981;
+      color: #fff;
+      font-weight: 900;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-content h3 { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .step-content p { font-size: 15px; color: #94a3b8; }
+
+    /* TESTIMONIALS */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .testimonial-card {
+      background: #0f0f1e;
+      border: 1px solid #1e1e3a;
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .stars { color: #fcd34d; font-size: 18px; margin-bottom: 12px; letter-spacing: 2px; }
+    .testimonial-text { font-size: 15px; color: #cbd5e1; margin-bottom: 16px; font-style: italic; }
+    .testimonial-author strong { font-size: 15px; color: #fff; display: block; }
+    .testimonial-author span { font-size: 13px; color: #6b7280; }
+
+    /* FAQ */
+    .faq-section { background: #0a0a14; }
+    .faq-list { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    details {
+      background: #10101c;
+      border: 1px solid #1e1e3a;
+      border-radius: 12px;
+      padding: 0;
+      overflow: hidden;
+    }
+    summary {
+      padding: 18px 20px;
+      font-weight: 700;
+      font-size: 16px;
+      color: #e2e8f0;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    summary::after { content: '+'; color: #10b981; font-size: 22px; font-weight: 900; }
+    details[open] summary::after { content: '−'; }
+    details p { padding: 0 20px 18px; font-size: 15px; color: #94a3b8; }
+
+    /* CTA BOTTOM */
+    .cta-section {
+      text-align: center;
+      padding: 64px 20px;
+      background: linear-gradient(180deg, #0a0a14 0%, #06060e 100%);
+    }
+    .cta-box {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #0f0f1e;
+      border: 1px solid #1e1e3a;
+      border-radius: 24px;
+      padding: 48px 32px;
+    }
+    .cta-box h2 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .cta-box p { font-size: 17px; color: #94a3b8; margin-bottom: 32px; }
+    .cta-big {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #16a34a;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+      padding: 20px 40px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 28px rgba(22,163,74,0.4);
+    }
+    .cta-big:hover { background: #15803d; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      border-top: 1px solid #1a1a2e;
+      font-size: 13px;
+      color: #374151;
+    }
+    footer a { color: #4b5563; text-decoration: none; }
+
+    /* STICKY CTA MOBILE */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #16a34a;
+      text-align: center;
+      padding: 14px 20px;
+      z-index: 100;
+      display: none;
+    }
+    .sticky-cta a {
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    @media (max-width: 640px) {
+      .sticky-cta { display: block; }
+      body { padding-bottom: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <GTMBody />
+
+  <!-- TOP BAR -->
+  <div class="topbar">🎯 DIAGNÓSTICO GRATUITO · Vagas limitadas · (31) 97203-9180</div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">Smart<span class="ops">Ops</span> <span class="ia">IA</span></div>
+    <div class="brand-sub">LEAN SIX SIGMA · AUTOMAÇÃO · RESULTADOS REAIS</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-section" style="padding: 0 20px;">
+    <div class="hero">
+      <div class="hero-badge">⏱️ DIAGNÓSTICO GRATUITO — 45 MINUTOS</div>
+      <h1>
+        Descubra onde está <em>o problema real</em> da sua <strong>operação</strong>
+      </h1>
+      <p class="hero-sub">
+        Em 45 minutos mapeamos seus gargalos, calculamos o custo do problema e entregamos um plano de ação. Sem compromisso. Sem enrolação.
+      </p>
+      <a href={whatsappURL} class="cta-hero" target="_blank" rel="noopener">
+        📱 Quero meu diagnóstico gratuito
+      </a>
+      <a href={`tel:+${whatsappNumber}`} class="cta-phone">
+        (31) 97203-9180 <span>— ou clique para ligar</span>
+      </a>
+      <p class="cta-guarantee">✓ Grátis  ·  ✓ Sem compromisso  ·  ✓ 45 minutos</p>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section class="pains-section">
+    <div class="section-inner">
+      <p class="section-label">VOCÊ SE IDENTIFICA COM ALGUM DESSES?</p>
+      <h2 class="section-title">Se sim, o diagnóstico é para você</h2>
+      <div class="pains-grid">
+        {pains.map(p => (
+          <div class="pain-item">
+            <span class="pain-icon">{p.icon}</span>
+            <span>{p.text}</span>
+          </div>
+        ))}
+      </div>
+      <div style="text-align:center; margin-top: 32px;">
+        <a href={whatsappURL} class="cta-hero" target="_blank" rel="noopener" style="font-size:17px; padding: 15px 28px;">
+          📱 Identifico pelo menos um — quero o diagnóstico
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">O QUE VOCÊ RECEBE</p>
+      <h2 class="section-title">Em 45 minutos você sai com isso</h2>
+      <p class="section-sub">Não é uma apresentação genérica. É análise do seu negócio, do seu processo, do seu problema.</p>
+      <div class="deliverables-grid">
+        {deliverables.map(d => (
+          <div class="deliverable-card">
+            <div class="d-icon">{d.icon}</div>
+            <h3>{d.title}</h3>
+            <p>{d.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="section-inner">
+      <p class="section-label">COMO FUNCIONA</p>
+      <h2 class="section-title">Simple. Rápido. Sem burocracia.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Você entra em contato</h3>
+            <p>Pelo WhatsApp ou telefone. Em minutos combinamos um horário que funciona para você.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Conversa de 45 minutos</h3>
+            <p>Entendemos sua operação: onde estão os gargalos, o retrabalho, os custos que aparecem sem causa clara.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Você recebe o diagnóstico</h3>
+            <p>Mapa do processo, estimativa de custo do problema e prioridade de ação. Concreto, não genérico.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Você decide o próximo passo</h3>
+            <p>Com ou sem a gente. O diagnóstico é seu. Sem pressão, sem compromisso obrigatório.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">RESULTADOS REAIS</p>
+      <h2 class="section-title">O que nossos clientes dizem</h2>
+      <div class="testimonials-grid">
+        {testimonials.map(t => (
+          <div class="testimonial-card">
+            <div class="stars">{'★'.repeat(t.stars)}</div>
+            <p class="testimonial-text">"{t.text}"</p>
+            <div class="testimonial-author">
+              <strong>{t.name}</strong>
+              <span>{t.role}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-inner">
+      <p class="section-label">DÚVIDAS FREQUENTES</p>
+      <h2 class="section-title">Perguntas antes de agendar</h2>
+      <div class="faq-list">
+        <details>
+          <summary>O diagnóstico é realmente gratuito?</summary>
+          <p>Sim. Sem pegadinha. Nenhum valor cobrado antes, durante ou depois. Você fica livre para decidir se quer continuar com a gente após a conversa.</p>
+        </details>
+        <details>
+          <summary>Quanto tempo leva a conversa?</summary>
+          <p>Em média 45 minutos. Pedimos que você tenha clareza sobre sua operação principal, principais gargalos e resultados dos últimos meses. Quanto mais informação, melhor o diagnóstico.</p>
+        </details>
+        <details>
+          <summary>Funciona para empresa pequena?</summary>
+          <p>Especialmente. Grande empresa tem folga para absorver desperdício. Pequena empresa não tem. Cada hora perdida em retrabalho é dinheiro real saindo do caixa. Lean Six Sigma funciona em qualquer porte.</p>
+        </details>
+        <details>
+          <summary>Precisa parar a operação para implementar?</summary>
+          <p>Não. O trabalho acontece em paralelo com sua operação normal. Mudanças são testadas em pequena escala antes de serem aplicadas no todo.</p>
+        </details>
+        <details>
+          <summary>Em quanto tempo aparecem os resultados?</summary>
+          <p>Quick wins aparecem em 2–4 semanas. Projetos mais completos levam 6–12 semanas. Em todos os casos você acompanha indicadores reais durante o processo.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BOTTOM -->
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2>Seu negócio pode estar perdendo dinheiro agora mesmo</h2>
+      <p>45 minutos para saber exatamente onde — e o que fazer. Grátis. Sem compromisso.</p>
+      <a href={whatsappURL} class="cta-big" target="_blank" rel="noopener">
+        📱 Agendar diagnóstico gratuito
+      </a>
+      <div style="margin-top:20px">
+        <a href={`tel:+${whatsappNumber}`} style="color:#94a3b8; font-size:20px; font-weight:700; text-decoration:none;">
+          (31) 97203-9180
+        </a>
+        <p style="font-size:13px; color:#374151; margin-top:8px;">smartops-ia.com.br · BH e região · Atendimento remoto disponível</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© {new Date().getFullYear()} SmartOps IA · <a href="/">smartops-ia.com.br</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a></p>
+    <p style="margin-top:6px;">CNPJ em processo · BH, MG · Atendimento remoto nacional</p>
+  </footer>
+
+  <!-- STICKY CTA MOBILE -->
+  <div class="sticky-cta">
+    <a href={whatsappURL} target="_blank" rel="noopener">
+      📱 Diagnóstico Gratuito — (31) 97203-9180
+    </a>
+  </div>
+
+</body>
+</html>

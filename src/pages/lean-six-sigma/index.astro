@@ -79,7 +79,11 @@ const schema = {
       name: 'Consultoria Lean Six Sigma',
       provider: { '@id': `${siteURL}#business` },
       description: 'Consultoria em Lean Six Sigma para pequenas empresas. Mapeamento de processos, identificação de desperdícios, DMAIC e melhoria contínua.',
-      areaServed: { '@type': 'City', name: 'Belo Horizonte' },
+      areaServed: [
+        { '@type': 'City', name: 'Belo Horizonte' },
+        { '@type': 'City', name: 'Nova Pampulha' },
+        { '@type': 'City', name: 'Morro Alto' },
+      ],
       serviceType: 'Consultoria em Processos',
     },
   ],
@@ -94,8 +98,8 @@ const schema = {
   <GTMHead />
   <MetaPixel />
 
-  <title>Lean Six Sigma para Pequenas Empresas | SmartOps IA — Belo Horizonte</title>
-  <meta name="description" content="Consultoria Lean Six Sigma para pequenas empresas em BH. Identifique gargalos, elimine desperdícios e organize processos. Black Belt com método comprovado. Diagnóstico gratuito." />
+  <title>Lean Six Sigma para Pequenas Empresas | SmartOps IA — BH, Nova Pampulha e Morro Alto</title>
+  <meta name="description" content="Consultoria Lean Six Sigma para pequenas empresas em BH, Nova Pampulha e Morro Alto. Identifique gargalos, elimine desperdícios e organize processos. Black Belt certificado. Diagnóstico gratuito." />
   <meta name="keywords" content="lean six sigma, lean six sigma belo horizonte, consultoria lean six sigma, melhoria de processos, gargalo operacional, desperdícios empresariais, DMAIC, PDCA, black belt" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href={canonicalURL} />
@@ -124,7 +128,7 @@ const schema = {
       <div class="hero-text">
         <div class="badge">
           <span class="dot"></span>
-          Black Belt · Lean Six Sigma · Belo Horizonte
+          Black Belt · Lean Six Sigma · BH, Nova Pampulha e Morro Alto
         </div>
         <h1>Sua empresa perde dinheiro<br /><span class="grad">todos os dias</span><br />com desperdícios invisíveis</h1>
         <p class="sub">Lean Six Sigma identifica onde a operação está sangrando — e corrige isso com método, não com chute. Para padarias, clínicas, oficinas, lojas e qualquer negócio que quer parar de apagar incêndio.</p>
@@ -318,7 +322,7 @@ const schema = {
       <a href={whatsappURL} class="btn-primary large" target="_blank" rel="noopener noreferrer">
         Falar com especialista no WhatsApp
       </a>
-      <p class="cta-note">Atendimento em Belo Horizonte e região · (31) 97203-9180</p>
+      <p class="cta-note">Atendimento em BH, Nova Pampulha e Morro Alto · (31) 97203-9180</p>
     </div>
   </section>
 
