@@ -283,10 +283,11 @@ export function initDashboard3D(mount: HTMLElement): void {
 
   // "Mergulho": a câmera começa longe (visão geral do centro de comando) e se
   // aproxima conforme o ScrollTrigger avança — dá a sensação de entrar no
-  // sistema, em vez de só o painel girar sozinho no lugar.
+  // sistema, em vez de só o painel girar sozinho no lugar. A posição real é
+  // calculada todo quadro dentro de animate() (Fase 6 — órbita + bobbing),
+  // não precisa de um valor inicial aqui.
   const CAMERA_FAR = 9.5;
   const CAMERA_NEAR = 4.3;
-  camera.position.set(0, 0, CAMERA_FAR);
 
   const keyLight = new THREE.PointLight(0xa78bfa, 8, 24);
   keyLight.position.set(3, 3, 5);
@@ -705,6 +706,16 @@ export function initDashboard3D(mount: HTMLElement): void {
   systemGroup.rotation.x = START_ROT_X;
   systemGroup.position.x = -1.1;
 
+  // ── Fase 6 — Coreografia de câmera cinematográfica ──────────────────────
+  // Antes: a câmera só andava reto no eixo Z (dolly puro). Agora o
+  // ScrollTrigger controla um ÂNGULO de órbita além do raio (arco suave ao
+  // redor do painel, não uma linha reta), e todo o resto (bobbing contínuo +
+  // lookAt dinâmico) roda por conta própria dentro de animate() — não trava
+  // no scroll, continua vivo mesmo com a página parada.
+  const cameraOrbit = { angle: 0, radius: CAMERA_FAR };
+  const ORBIT_ARC = 0.24; // arco total percorrido, em radianos — bem sutil (~14°)
+  const lookAtCurrent = new THREE.Vector3(0, 0, 0);
+
   ScrollTrigger.create({
     trigger: mount,
     start: 'top bottom',
@@ -712,7 +723,8 @@ export function initDashboard3D(mount: HTMLElement): void {
     scrub: 1,
     onUpdate(self) {
       const p = self.progress; // 0 → 1 conforme a seção atravessa a tela
-      camera.position.z = THREE.MathUtils.lerp(CAMERA_FAR, CAMERA_NEAR, p);
+      cameraOrbit.radius = THREE.MathUtils.lerp(CAMERA_FAR, CAMERA_NEAR, p);
+      cameraOrbit.angle = THREE.MathUtils.lerp(-ORBIT_ARC / 2, ORBIT_ARC / 2, p);
       systemGroup.rotation.y = THREE.MathUtils.lerp(START_ROT_Y, 0, p);
       systemGroup.rotation.x = THREE.MathUtils.lerp(START_ROT_X, 0, p);
       systemGroup.position.x = THREE.MathUtils.lerp(-1.1, 0, p);
@@ -769,6 +781,25 @@ export function initDashboard3D(mount: HTMLElement): void {
     requestAnimationFrame(animate);
     const now = performance.now();
     const t = now * 0.001;
+
+    // Respiração contínua (Fase 6) — roda sempre, independente do scroll:
+    // mesmo com a página parada, a câmera flutua levemente, tipo ambiente
+    // sem gravidade. Frequências baixas e amplitude minúscula de propósito
+    // (regra "anti-náusea" pedida) — um ciclo completo leva ~11-16s, não dá
+    // pra perceber como "balanço", só uma presença viva de fundo.
+    const bobX = Math.sin(t * 0.55) * 0.05;
+    const bobY = Math.sin(t * 0.4 + 1.7) * 0.045;
+
+    // Órbita (arco suave, não reta) + o raio que já vinha do dolly de scroll.
+    camera.position.x = Math.sin(cameraOrbit.angle) * cameraOrbit.radius + bobX;
+    camera.position.y = bobY;
+    camera.position.z = Math.cos(cameraOrbit.angle) * cameraOrbit.radius;
+
+    // LookAt dinâmico, suavizado por lerp — acompanha uma fração pequena da
+    // respiração (a câmera "olha" com o corpo todo, não trava o pescoço no
+    // mesmo ponto fixo), mas o lerp lento evita qualquer tremor perceptível.
+    lookAtCurrent.lerp(new THREE.Vector3(bobX * 0.3, bobY * 0.3, 0.1), 0.04);
+    camera.lookAt(lookAtCurrent);
 
     streamGroup.rotation.y += 0.0006;
     updateDataStream();
