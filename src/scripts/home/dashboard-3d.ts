@@ -351,6 +351,112 @@ export function initDashboard3D(mount: HTMLElement): void {
     rings.push({ mesh: ring, speed: spec.speed, axis: spec.axis });
   }
 
+  // ── Fase 4 — HUD com linhas de conexão dinâmicas (splines) ──────────────
+  // Curva (não reta) do painel principal até cada pop-up/nó. Revelada
+  // progressivamente via setDrawRange (sem shader de reveal/clipping — é
+  // literalmente a técnica sugerida: anima quantos vértices do Line são
+  // desenhados, de 0 até o total) quando a seção entra na tela. Depois de
+  // desenhada, "pacotes de dados" (pontinhos aditivos) viajam ao longo da
+  // MESMA curva em loop — é o substituto sem shader pra "textura deslizando
+  // na linha": mais simples de garantir correto, mesmo efeito percebido.
+  interface HudConnection {
+    curve: THREE.QuadraticBezierCurve3;
+    geometry: THREE.BufferGeometry;
+    pointCount: number;
+    drawState: { count: number };
+  }
+
+  const CURVE_SAMPLES = 40;
+  const connections: HudConnection[] = [];
+  const connectionsGroup = new THREE.Group();
+  const PANEL_CENTER = new THREE.Vector3(0, 0, 0.1);
+
+  function addConnection(to: THREE.Vector3, color: number, bulge: number): void {
+    const mid = PANEL_CENTER.clone().lerp(to, 0.5);
+    mid.y += bulge;
+    mid.z += 0.35;
+    const curve = new THREE.QuadraticBezierCurve3(PANEL_CENTER, mid, to);
+    const points = curve.getPoints(CURVE_SAMPLES);
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    geometry.setDrawRange(0, 0); // começa invisível — o reveal liga isso depois
+
+    const line = new THREE.Line(
+      geometry,
+      new THREE.LineBasicMaterial({
+        color,
+        transparent: true,
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      }),
+    );
+    connectionsGroup.add(line);
+    connections.push({ curve, geometry, pointCount: points.length, drawState: { count: 0 } });
+  }
+
+  // 3 ramificações principais — painel → cada pop-up, cores temáticas
+  // (roxo/verde/ciano) por serviço.
+  addConnection(new THREE.Vector3(...popupSpecs[0].pos), 0xc4b5fd, 0.9);
+  addConnection(new THREE.Vector3(...popupSpecs[1].pos), 0x6ee7b7, 0.9);
+  addConnection(new THREE.Vector3(...popupSpecs[2].pos), 0x22d3ee, 0.7);
+  // 2 ramificações bônus até os anéis (nós de dados) — só pra dar volume,
+  // como sugerido, sem precisar rastrear alvo em movimento.
+  addConnection(new THREE.Vector3(...ringSpecs[0].pos), 0xa78bfa, 0.4);
+  addConnection(new THREE.Vector3(...ringSpecs[2].pos), 0x22d3ee, 0.4);
+
+  systemGroup.add(connectionsGroup);
+
+  // Pacotes de dados — 2 por conexão, viajando em loop ao longo da curva.
+  // Um único Points compartilhado (mesmo padrão de performance do Data
+  // Stream da Fase 3) em vez de um objeto por pacote.
+  const PACKETS_PER_CONNECTION = 2;
+  const packetGeo = new THREE.BufferGeometry();
+  packetGeo.setAttribute(
+    'position',
+    new THREE.BufferAttribute(new Float32Array(connections.length * PACKETS_PER_CONNECTION * 3), 3),
+  );
+  const packets = new THREE.Points(
+    packetGeo,
+    new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.07,
+      transparent: true,
+      opacity: 0.95,
+      sizeAttenuation: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    }),
+  );
+  connectionsGroup.add(packets);
+
+  // Os pacotes só começam a "viajar" depois que a última conexão termina de
+  // se desenhar — antes disso ficam parados na origem (invisíveis, já que a
+  // linha em si ainda nem apareceu).
+  let packetsActive = false;
+
+  // Dispara o desenho das conexões quando a seção entra na tela (uma vez só).
+  ScrollTrigger.create({
+    trigger: mount,
+    start: 'top 80%',
+    once: true,
+    onEnter() {
+      connections.forEach((conn, i) => {
+        gsap.to(conn.drawState, {
+          count: conn.pointCount,
+          duration: 1.1,
+          ease: 'power2.out',
+          delay: i * 0.18,
+          onUpdate() {
+            conn.geometry.setDrawRange(0, Math.floor(conn.drawState.count));
+          },
+          onComplete() {
+            if (i === connections.length - 1) packetsActive = true;
+          },
+        });
+      });
+    },
+  });
+
   // ── Fase 3 — "Data Stream": nuvem de pontos que flui em direção ao painel,
   // com rastro (trail) curto por partícula, simulando dados sendo puxados
   // pro processamento. Estrutura-de-arrays (Float32Array simples, não um
@@ -581,6 +687,23 @@ export function initDashboard3D(mount: HTMLElement): void {
 
     streamGroup.rotation.y += 0.0006;
     updateDataStream();
+
+    if (packetsActive) {
+      const packetPos = packetGeo.attributes.position.array as Float32Array;
+      const t = now * 0.001;
+      let idx = 0;
+      for (const conn of connections) {
+        for (let p = 0; p < PACKETS_PER_CONNECTION; p++) {
+          const phase = (t * 0.22 + p / PACKETS_PER_CONNECTION) % 1;
+          const point = conn.curve.getPointAt(phase);
+          packetPos[idx * 3] = point.x;
+          packetPos[idx * 3 + 1] = point.y;
+          packetPos[idx * 3 + 2] = point.z;
+          idx++;
+        }
+      }
+      packetGeo.attributes.position.needsUpdate = true;
+    }
     for (const { mesh, speed, axis } of rings) {
       mesh.rotation[axis] += speed;
     }
