@@ -79,6 +79,7 @@ class TerminalEmulator {
     private readonly title: string,
     private readonly accent: string,
     private readonly lines: TerminalLine[],
+    private readonly onErrorStart?: () => void,
   ) {
     this.canvas = document.createElement('canvas');
     this.canvas.width = 320;
@@ -109,6 +110,10 @@ class TerminalEmulator {
         this.charIndex = 0;
         this.phaseStart = now;
         this.phase = this.lineIndex >= this.lines.length ? 'loop-pause' : 'typing';
+        // Sincronia narrativa (Fase 5): dispara exatamente quando o terminal
+        // começa a digitar a linha de erro, não depois — o glitch acontece
+        // "junto" com o timeout, não como reação atrasada a ele.
+        if (this.lines[this.lineIndex]?.isError) this.onErrorStart?.();
       }
     } else {
       if (elapsed >= LOOP_PAUSE_MS) {
@@ -180,8 +185,11 @@ class TerminalEmulator {
 }
 
 // Vidro translúcido reutilizado pro painel principal e pras telas menores —
-// só muda o tamanho de cada instância.
-function createGlassMesh(width: number, height: number, depth: number): THREE.Mesh {
+// só muda o tamanho de cada instância. Além da borda roxa normal, cria duas
+// cópias extras (vermelha/ciano) levemente deslocadas, escondidas por padrão
+// — são a "aberração cromática" da Fase 5 (glitch), ligadas só durante o
+// solavanco de glitch (ver triggerGlitch mais abaixo).
+function createGlassMesh(width: number, height: number, depth: number): { mesh: THREE.Mesh; glitchEdges: THREE.LineSegments[] } {
   const geo = new THREE.BoxGeometry(width, height, depth);
   const mat = new THREE.MeshPhysicalMaterial({
     color: 0x0d0d1c,
@@ -192,12 +200,20 @@ function createGlassMesh(width: number, height: number, depth: number): THREE.Me
     clearcoat: 0.4,
   });
   const mesh = new THREE.Mesh(geo, mat);
-  const edges = new THREE.LineSegments(
-    new THREE.EdgesGeometry(geo),
-    new THREE.LineBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.9 }),
-  );
+  const edgesGeo = new THREE.EdgesGeometry(geo);
+  const edges = new THREE.LineSegments(edgesGeo, new THREE.LineBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.9 }));
   mesh.add(edges);
-  return mesh;
+
+  const glitchOffset = Math.max(width, height) * 0.006;
+  const redEdges = new THREE.LineSegments(edgesGeo, new THREE.LineBasicMaterial({ color: 0xff4d6a, transparent: true, opacity: 0.85 }));
+  redEdges.position.x = -glitchOffset;
+  redEdges.visible = false;
+  const cyanEdges = new THREE.LineSegments(edgesGeo, new THREE.LineBasicMaterial({ color: 0x22d3ee, transparent: true, opacity: 0.85 }));
+  cyanEdges.position.x = glitchOffset;
+  cyanEdges.visible = false;
+  mesh.add(redEdges, cyanEdges);
+
+  return { mesh, glitchEdges: [redEdges, cyanEdges] };
 }
 
 // ── Fase 2 (Next Level UI v2) — raios volumétricos ("godrays") ──────────────
@@ -208,14 +224,20 @@ function createGlassMesh(width: number, height: number, depth: number): THREE.Me
 // gradiente pintada à mão) a um shader de raymarching que só se comprova
 // certo depois de muita tentativa e erro. Sem post-processing de qualquer
 // jeito, exatamente como pedido.
+// Refinamento "Atmosfera" (Diretor de Arte): a textura era um degradê linear
+// vertical só — bordas laterais duras, lia como "lâmina de laser". Agora é
+// um degradê RADIAL (mais largo que alto, cobrindo o canvas inteiro), sem
+// nenhuma borda reta — o raio fica esfumaçado em todas as direções, feito
+// luz ambiente banhando a cena, não uma linha sólida competindo com os dados.
 function createRayTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
-  canvas.width = 32;
+  canvas.width = 128;
   canvas.height = 256;
   const ctx = canvas.getContext('2d')!;
-  const grad = ctx.createLinearGradient(0, 0, 0, 256);
-  grad.addColorStop(0, 'rgba(167,139,250,0.9)');
-  grad.addColorStop(0.35, 'rgba(167,139,250,0.28)');
+  const grad = ctx.createRadialGradient(64, 40, 0, 64, 40, 150);
+  grad.addColorStop(0, 'rgba(167,139,250,0.55)');
+  grad.addColorStop(0.3, 'rgba(167,139,250,0.16)');
+  grad.addColorStop(0.65, 'rgba(167,139,250,0.04)');
   grad.addColorStop(1, 'rgba(167,139,250,0)');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -276,11 +298,16 @@ export function initDashboard3D(mount: HTMLElement): void {
   const systemGroup = new THREE.Group();
   scene.add(systemGroup);
 
+  // Fase 5 — todo mesh de vidro (painel + pop-ups) que participa do glitch
+  // rítmico entra nesta lista, junto com suas bordas RGB de aberração.
+  const glitchTargets: Array<{ mesh: THREE.Mesh; glitchEdges: THREE.LineSegments[] }> = [];
+
   // ── Painel principal — escala imersiva, quase a largura toda do container ──
   const MAIN_W = 9;
   const MAIN_H = 3.3;
-  const mainPanel = createGlassMesh(MAIN_W, MAIN_H, 0.1);
+  const { mesh: mainPanel, glitchEdges: mainPanelGlitchEdges } = createGlassMesh(MAIN_W, MAIN_H, 0.1);
   systemGroup.add(mainPanel);
+  glitchTargets.push({ mesh: mainPanel, glitchEdges: mainPanelGlitchEdges });
 
   const grid = createGrid(MAIN_W * 0.94, MAIN_H * 0.86, 14, 6);
   grid.position.z = 0.052;
@@ -302,10 +329,15 @@ export function initDashboard3D(mount: HTMLElement): void {
   ];
   const terminals: TerminalEmulator[] = [];
   for (const spec of popupSpecs) {
-    const popup = createGlassMesh(...spec.size);
+    const { mesh: popup, glitchEdges: popupGlitchEdges } = createGlassMesh(...spec.size);
     popup.position.set(...spec.pos);
+    glitchTargets.push({ mesh: popup, glitchEdges: popupGlitchEdges });
 
-    const terminal = new TerminalEmulator(spec.title, spec.accent, TERMINAL_SCRIPTS[spec.kind]);
+    // Sincronia narrativa (Fase 5): o pop-up de Automação dispara um glitch
+    // na cena inteira exatamente quando seu terminal reporta o "timeout" —
+    // ligado abaixo, depois que triggerGlitch() existir.
+    const onErrorStart = spec.kind === 'auto' ? () => triggerGlitch() : undefined;
+    const terminal = new TerminalEmulator(spec.title, spec.accent, TERMINAL_SCRIPTS[spec.kind], onErrorStart);
     terminals.push(terminal);
     const screen = new THREE.Mesh(
       new THREE.PlaneGeometry(spec.size[0] * 0.88, spec.size[1] * 0.82),
@@ -359,14 +391,21 @@ export function initDashboard3D(mount: HTMLElement): void {
   // desenhada, "pacotes de dados" (pontinhos aditivos) viajam ao longo da
   // MESMA curva em loop — é o substituto sem shader pra "textura deslizando
   // na linha": mais simples de garantir correto, mesmo efeito percebido.
+  // Refinamento "Estrutura" (Diretor de Arte): a linha deixou de ser um fio
+  // brilhante aditivo (competia com os dados) e virou um TUBO fino — a
+  // "fibra óptica" em si é escura/translúcida (sem blending aditivo, sem
+  // brilho), só a CASCA existe pra dar volume à conexão. Todo o brilho de
+  // verdade fica nos pacotes que viajam por dentro (ver mais abaixo).
   interface HudConnection {
     curve: THREE.QuadraticBezierCurve3;
-    geometry: THREE.BufferGeometry;
-    pointCount: number;
+    geometry: THREE.TubeGeometry;
+    tubularSegments: number;
+    radialSegments: number;
     drawState: { count: number };
   }
 
   const CURVE_SAMPLES = 40;
+  const TUBE_RADIAL_SEGMENTS = 6;
   const connections: HudConnection[] = [];
   const connectionsGroup = new THREE.Group();
   const PANEL_CENTER = new THREE.Vector3(0, 0, 0.1);
@@ -376,22 +415,20 @@ export function initDashboard3D(mount: HTMLElement): void {
     mid.y += bulge;
     mid.z += 0.35;
     const curve = new THREE.QuadraticBezierCurve3(PANEL_CENTER, mid, to);
-    const points = curve.getPoints(CURVE_SAMPLES);
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const geometry = new THREE.TubeGeometry(curve, CURVE_SAMPLES, 0.012, TUBE_RADIAL_SEGMENTS, false);
     geometry.setDrawRange(0, 0); // começa invisível — o reveal liga isso depois
 
-    const line = new THREE.Line(
+    const tube = new THREE.Mesh(
       geometry,
-      new THREE.LineBasicMaterial({
+      new THREE.MeshBasicMaterial({
         color,
         transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending,
+        opacity: 0.22,
         depthWrite: false,
       }),
     );
-    connectionsGroup.add(line);
-    connections.push({ curve, geometry, pointCount: points.length, drawState: { count: 0 } });
+    connectionsGroup.add(tube);
+    connections.push({ curve, geometry, tubularSegments: CURVE_SAMPLES, radialSegments: TUBE_RADIAL_SEGMENTS, drawState: { count: 0 } });
   }
 
   // 3 ramificações principais — painel → cada pop-up, cores temáticas
@@ -415,13 +452,15 @@ export function initDashboard3D(mount: HTMLElement): void {
     'position',
     new THREE.BufferAttribute(new Float32Array(connections.length * PACKETS_PER_CONNECTION * 3), 3),
   );
+  // Refinamento "Estrutura": agora que o tubo é escuro/discreto, o pacote
+  // precisa carregar 100% do brilho — maior e mais intenso que antes.
   const packets = new THREE.Points(
     packetGeo,
     new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.07,
+      size: 0.1,
       transparent: true,
-      opacity: 0.95,
+      opacity: 1,
       sizeAttenuation: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
@@ -441,13 +480,19 @@ export function initDashboard3D(mount: HTMLElement): void {
     once: true,
     onEnter() {
       connections.forEach((conn, i) => {
+        // TubeGeometry é indexada: cada "segmento revelado" corresponde a
+        // radialSegments * 2 triângulos * 3 índices. Animar em unidades de
+        // segmento (0..tubularSegments) e converter pra índices no onUpdate
+        // dá o mesmo efeito de "desenhar do ponto A ao B" que tínhamos com a
+        // Line simples, só que aplicado à malha do tubo.
         gsap.to(conn.drawState, {
-          count: conn.pointCount,
+          count: conn.tubularSegments,
           duration: 1.1,
           ease: 'power2.out',
           delay: i * 0.18,
           onUpdate() {
-            conn.geometry.setDrawRange(0, Math.floor(conn.drawState.count));
+            const segmentsRevealed = Math.floor(conn.drawState.count);
+            conn.geometry.setDrawRange(0, segmentsRevealed * conn.radialSegments * 6);
           },
           onComplete() {
             if (i === connections.length - 1) packetsActive = true;
@@ -625,19 +670,22 @@ export function initDashboard3D(mount: HTMLElement): void {
   // com o painel no dolly da câmera sem cortar feio contra a geometria —
   // AdditiveBlending + depthWrite:false garante que nunca competem com o
   // z-buffer do vidro, só somam luz por cima.
-  const RAY_COUNT = 7;
+  // Refinamento "Atmosfera": menos raios, bem mais largos (espalhados, não
+  // focados) — leem como neblina luminosa ao redor do painel, não como
+  // lasers concorrendo com as conexões/partículas.
+  const RAY_COUNT = 5;
   const rayTexture = createRayTexture();
   const rayMaterials: THREE.MeshBasicMaterial[] = [];
   const raysGroup = new THREE.Group();
-  raysGroup.position.z = -0.25; // levemente atrás do rosto do painel — "vindo de dentro"
+  raysGroup.position.z = -0.4; // mais atrás do rosto do painel — reforça "luz vindo de dentro/atrás"
   for (let i = 0; i < RAY_COUNT; i++) {
-    const rayLength = 3.6 + Math.random() * 1.4;
-    const geo = new THREE.PlaneGeometry(0.55, rayLength);
+    const rayLength = 4.2 + Math.random() * 1.6;
+    const geo = new THREE.PlaneGeometry(1.7 + Math.random() * 0.6, rayLength);
     geo.translate(0, rayLength / 2, 0); // pivô na base — o raio cresce PRA FORA do centro, não atravessa os dois lados
     const mat = new THREE.MeshBasicMaterial({
       map: rayTexture,
       transparent: true,
-      opacity: 0.16,
+      opacity: 0.05,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
       side: THREE.DoubleSide,
@@ -670,6 +718,43 @@ export function initDashboard3D(mount: HTMLElement): void {
       systemGroup.position.x = THREE.MathUtils.lerp(-1.1, 0, p);
     },
   });
+
+  // ── Fase 5 — Glitch / Aberração Cromática ────────────────────────────────
+  // "Solavanco" visual rápido (200-500ms): as bordas RGB (ver createGlassMesh)
+  // aparecem por cima da borda roxa normal, levemente deslocadas — leitura de
+  // aberração cromática sem precisar de um shader de tela cheia (depois do
+  // histórico com o UnrealBloomPass, prefiro essa técnica objeto-a-objeto,
+  // que eu controlo 100%, a um post-processing novo). Junto, um tremor rápido
+  // de posição em cada malha reforça a sensação de "solavanco".
+  const GLITCH_DURATION_S = 0.32; // dentro da faixa pedida (200-500ms)
+
+  function triggerGlitch(): void {
+    for (const { mesh, glitchEdges } of glitchTargets) {
+      for (const edge of glitchEdges) edge.visible = true;
+      gsap.to(mesh.position, {
+        x: '+=0.045',
+        duration: GLITCH_DURATION_S / 4,
+        yoyo: true,
+        repeat: 3,
+        ease: 'none',
+        onComplete() {
+          for (const edge of glitchEdges) edge.visible = false;
+        },
+      });
+    }
+  }
+
+  // Ritmo automático: dispara sozinho a cada 6-12s (faixa pedida), sem
+  // depender do usuário rolar a página — é o sistema "processando volume
+  // extremo", não uma reação a interação.
+  function scheduleNextGlitch(): void {
+    const delay = 6000 + Math.random() * 6000;
+    setTimeout(() => {
+      triggerGlitch();
+      scheduleNextGlitch();
+    }, delay);
+  }
+  scheduleNextGlitch();
 
   // Glow "neon elegante" via CSS drop-shadow no canvas (ver nota no topo do
   // arquivo — substitui o UnrealBloomPass, que se mostrou quebrado). Dois
@@ -716,7 +801,10 @@ export function initDashboard3D(mount: HTMLElement): void {
     // em sincronia com o scanner, como pedido.
     const breathe = 0.5 + 0.5 * Math.sin(t * 1.1);
     const scanCenterProximity = 1 - Math.min(1, Math.abs(scanLine.position.y) / (MAIN_H / 2));
-    const rayOpacity = 0.1 + breathe * 0.08 + scanCenterProximity * 0.22;
+    // Refinamento "Atmosfera": teto bem mais baixo (era até ~0.4, agora até
+    // ~0.13) — os raios continuam pulsando/reagindo ao scanner, só que como
+    // uma respiração de fundo, não uma luz que compete com os dados.
+    const rayOpacity = 0.02 + breathe * 0.03 + scanCenterProximity * 0.08;
     for (const mat of rayMaterials) mat.opacity = rayOpacity;
 
     const glowStrength = 0.4 + breathe * 0.35 + scanCenterProximity * 0.25;
