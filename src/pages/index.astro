@@ -837,6 +837,11 @@ const schema = {
 
   html { scroll-behavior: smooth; }
   body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.7; overflow-x: hidden; }
+  /* Next Level UI — só fica transparente depois que o shader de fundo confirma
+     que está rodando (classe via JS em background-webgl.ts). Sem essa classe
+     (celular, ou se o WebGL falhar por qualquer motivo), o body mantém o fundo
+     escuro sólido de sempre — nunca aparece uma tela quebrada/branca. */
+  html.webgl-bg-active body { background: transparent; }
   .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
 
   .gradient-text {
@@ -929,7 +934,7 @@ const schema = {
   .hero-stat-sep { width: 1px; height: 36px; background: var(--border); }
 
   /* ── SISTEMA (nova seção, Fase 2) ── */
-  .system-section { background: var(--bg3); position: relative; overflow: hidden; }
+  .system-section { background: rgba(19,19,42,0.94); position: relative; overflow: hidden; }
   .system-inner { position: relative; }
   .system-visual {
     position: relative;
@@ -1071,7 +1076,7 @@ const schema = {
   html.reveal-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
   /* Lead */
-  .lead-section { background: var(--bg2); padding: 6rem 0; }
+  .lead-section { background: rgba(13,13,28,0.94); padding: 6rem 0; }
   .lead-header { text-align: center; margin-bottom: 3.5rem; }
   .lead-header h2 { font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
   .lead-tags { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
@@ -1149,7 +1154,7 @@ const schema = {
   .wa-direct-hint { font-size: 0.75rem; color: var(--muted); }
 
   /* Testimonials — brilho roxo sutil de fundo (Fase 2), sem elemento 3D */
-  .testimonials-section { background: var(--bg2); position: relative; }
+  .testimonials-section { background: rgba(13,13,28,0.94); position: relative; }
   .testimonials-section::before {
     content: ''; position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
     width: 700px; height: 420px; background: radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 70%);
@@ -1180,7 +1185,7 @@ const schema = {
   .city-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
 
   /* FAQ */
-  .faq-section { background: var(--bg2); }
+  .faq-section { background: rgba(13,13,28,0.94); }
   .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
   .faq-item { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
   .faq-item:hover { border-color: var(--accent-border); }
@@ -1214,7 +1219,7 @@ const schema = {
   .cta-hint { position: relative; font-size: 0.78rem; color: var(--muted); margin-top: 1.1rem; }
 
   /* Footer — visual mais sólido/escuro (Fase 2), mesmo conteúdo */
-  footer { border-top: 1px solid var(--border); background: var(--bg); }
+  footer { border-top: 1px solid var(--border); background: rgba(6,6,14,0.94); }
   .footer-inner { display: flex; gap: 4rem; padding-top: 4rem; padding-bottom: 3rem; flex-wrap: wrap; }
   .footer-brand { flex: 1; min-width: 200px; }
   .footer-brand .logo { display: inline-block; margin-bottom: 0.85rem; }

@@ -13,6 +13,7 @@
 // FASE 4 concluída (dashboard 3D + ícones, via import() dinâmico abaixo).
 // Pacote "Vale do Silício" concluído (reveal/contadores/typewriter sempre;
 // tilt+spotlight + painel enriquecido só em 'full').
+// Next Level UI Fase 1 concluída (scroll suave + fundo em shader, só 'full').
 
 import { getDeviceCapability } from './device-capability';
 import { initHeroParticles } from './hero-particles';
@@ -51,6 +52,13 @@ function init() {
     if (tiltCards.length) {
       import('./card-tilt-spotlight').then(({ initCardTiltSpotlight }) => initCardTiltSpotlight(tiltCards));
     }
+
+    // Sequencial de propósito: o shader de fundo lê a velocidade do scroll da
+    // Lenis a cada quadro, então initSmoothScroll() precisa já ter rodado.
+    import('./smooth-scroll').then(({ initSmoothScroll }) => {
+      initSmoothScroll();
+      import('./background-webgl').then(({ initBackgroundWebGL }) => initBackgroundWebGL());
+    });
   } else {
     document.body.classList.add('is-reduced-motion-fallback');
   }

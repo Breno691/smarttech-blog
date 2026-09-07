@@ -87,10 +87,15 @@ export function initDashboard3D(mount: HTMLElement): void {
   const nodePositions: THREE.Vector3[] = [];
   for (let i = 0; i < nodeCount; i++) {
     nodePositions.push(
+      // Espalhamento contido de propósito: em z alto (perto da câmera), o
+      // grupo herda a rotação do painel durante o ScrollTrigger, e pontos
+      // largos + z profundo faziam o cluster "escapar" da caixa de vidro em
+      // certos ângulos de rotação. Mantendo x/y bem dentro da metade do
+      // painel (1.6 / 0.95) e z raso, o cluster fica sempre contido.
       new THREE.Vector3(
-        (Math.random() - 0.5) * 2.6,
-        (Math.random() - 0.5) * 1.5,
-        0.35 + Math.random() * 0.55,
+        (Math.random() - 0.5) * 1.7,
+        (Math.random() - 0.5) * 0.9,
+        0.12 + Math.random() * 0.18,
       ),
     );
   }
@@ -103,7 +108,7 @@ export function initDashboard3D(mount: HTMLElement): void {
   );
 
   const linePositions: number[] = [];
-  const NODE_CONNECT_DISTANCE = 1.3;
+  const NODE_CONNECT_DISTANCE = 0.85;
   for (let i = 0; i < nodePositions.length; i++) {
     for (let j = i + 1; j < nodePositions.length; j++) {
       if (nodePositions[i].distanceTo(nodePositions[j]) < NODE_CONNECT_DISTANCE) {
