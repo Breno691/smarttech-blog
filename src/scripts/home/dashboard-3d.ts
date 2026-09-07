@@ -10,6 +10,47 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// NOTA (Fase 2): a ideia original era pós-processamento de verdade
+// (EffectComposer + UnrealBloomPass). Testado e descartado depois de isolar
+// o problema com precisão: mesmo com OutputPass e o threshold bem alto
+// (0.94), o UnrealBloomPass "lavava" a cena inteira pra cinza, de forma
+// idêntica não importando o strength/threshold configurado — confirmado
+// comparando screenshot com o pass ligado vs desligado, várias combinações de
+// parâmetro, sempre o mesmo resultado quebrado. Em vez de insistir num pass
+// que não se comporta como documentado nesta versão do Three.js, o glow
+// "neon" é feito via CSS `filter: drop-shadow()` no próprio elemento
+// &lt;canvas&gt; — mesma sensação visual, sem o bug, sem custo de GPU de
+// múltiplos passes de blur.
+
+// Gera a textura de um mini-painel de HUD (label + valor), desenhado num
+// <canvas> 2D e usado como mapa de um PlaneGeometry — mais leve que carregar
+// fonte/imagem externa, e fica no mesmo tom da marca.
+function createHudTexture(label: string, value: string, accent: string): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas');
+  canvas.width = 256;
+  canvas.height = 96;
+  const ctx = canvas.getContext('2d')!;
+
+  ctx.fillStyle = 'rgba(6,6,14,0.82)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = accent;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(1.5, 1.5, canvas.width - 3, canvas.height - 3);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.font = '700 16px -apple-system, Segoe UI, sans-serif';
+  ctx.textBaseline = 'top';
+  ctx.fillText(label.toUpperCase(), 16, 16);
+
+  ctx.fillStyle = accent;
+  ctx.font = '800 30px -apple-system, Segoe UI, sans-serif';
+  ctx.fillText(value, 16, 46);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
 export function initDashboard3D(mount: HTMLElement): void {
   const width = mount.clientWidth;
   const height = mount.clientHeight;
@@ -128,6 +169,37 @@ export function initDashboard3D(mount: HTMLElement): void {
   nodeGroup.add(points, nodeLines);
   panel.add(nodeGroup);
 
+  // ── HUD flutuante — 3 mini-painéis com leitura da metodologia (Fase 2) ──
+  // Mesmos limites contidos aprendidos com o bug do cluster de nós: x/y bem
+  // dentro da metade do painel, z raso, pra nunca "escapar" do vidro em
+  // nenhum ângulo do ScrollTrigger.
+  const hudSpecs: Array<{ label: string; value: string; accent: string; pos: [number, number, number] }> = [
+    { label: 'Lean Six Sigma', value: 'Ciclo ativo', accent: '#c4b5fd', pos: [-1.15, 0.62, 0.22] },
+    { label: 'Automação IA', value: 'Rodando 24/7', accent: '#6ee7b7', pos: [1.15, 0.62, 0.22] },
+    { label: 'Diagnóstico', value: 'Em análise', accent: '#fbbf24', pos: [0, -0.78, 0.26] },
+  ];
+  const hudGroup = new THREE.Group();
+  for (const spec of hudSpecs) {
+    const texture = createHudTexture(spec.label, spec.value, spec.accent);
+    const hudPanel = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.62, 0.23),
+      new THREE.MeshBasicMaterial({ map: texture, transparent: true }),
+    );
+    hudPanel.position.set(...spec.pos);
+    hudGroup.add(hudPanel);
+
+    // leve flutuação independente, pra não parecer estático/colado
+    gsap.to(hudPanel.position, {
+      y: spec.pos[1] + 0.05,
+      duration: 1.6 + Math.random() * 0.8,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1,
+      delay: Math.random() * 0.5,
+    });
+  }
+  panel.add(hudGroup);
+
   // Estado inicial: painel entrando de lado
   panel.rotation.y = -0.9;
   panel.rotation.x = 0.15;
@@ -147,6 +219,13 @@ export function initDashboard3D(mount: HTMLElement): void {
     },
   });
 
+  // Glow "neon elegante" via CSS drop-shadow no canvas (ver nota no topo do
+  // arquivo — substitui o UnrealBloomPass, que se mostrou quebrado). Dois
+  // drop-shadows empilhados: um mais fechado (roxo) e um mais aberto/sutil
+  // (verde), ecoando as duas cores que já aparecem nas barras/nós.
+  renderer.domElement.style.filter =
+    'drop-shadow(0 0 6px rgba(167,139,250,0.45)) drop-shadow(0 0 18px rgba(110,231,183,0.18))';
+
   function animate() {
     requestAnimationFrame(animate);
     nodeGroup.rotation.y += 0.0025;
@@ -159,6 +238,10 @@ export function initDashboard3D(mount: HTMLElement): void {
   const fallback = mount.querySelector<HTMLElement>('.system-visual-fallback');
   if (fallback) fallback.style.opacity = '0';
 
+  // Nota: não existe uma função de "cleanup" aqui (nem havia antes desta fase)
+  // porque o site é multi-página estático (Astro), não uma SPA com rotas
+  // client-side — não há cenário real de "desmontar" essa seção sem recarregar
+  // a página inteira. Adicionar dispose() por precaução seria código morto.
   window.addEventListener('resize', () => {
     const w = mount.clientWidth;
     const h = mount.clientHeight;
