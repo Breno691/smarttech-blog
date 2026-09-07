@@ -224,9 +224,7 @@ const schema = {
               <span class="gradient-text">Automação com IA</span><br />
               para pequenas empresas
             </h1>
-            <p class="hero-sub">
-              Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio.
-            </p>
+            <p class="hero-sub" data-typewriter aria-label="Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio."><span class="tw-source" aria-hidden="true">Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio.</span><span class="tw-output" aria-hidden="true"></span></p>
             <div class="hero-btns">
               <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="hero" data-label="Diagnóstico Grátis">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
@@ -240,9 +238,9 @@ const schema = {
             <div class="hero-stats">
               <div class="hero-stat"><strong>Black Belt</strong><span>Lean Six Sigma</span></div>
               <div class="hero-stat-sep" aria-hidden="true"></div>
-              <div class="hero-stat"><strong>−30%</strong><span>Custo operacional</span></div>
+              <div class="hero-stat"><strong>−<span data-count-to="30">0</span>%</strong><span>Custo operacional</span></div>
               <div class="hero-stat-sep" aria-hidden="true"></div>
-              <div class="hero-stat"><strong>24h</strong><span>1º atendimento</span></div>
+              <div class="hero-stat"><strong><span data-count-to="24">0</span>h</strong><span>1º atendimento</span></div>
               <div class="hero-stat-sep" aria-hidden="true"></div>
               <div class="hero-stat"><strong>BH</strong><span>Belo Horizonte, MG</span></div>
             </div>
@@ -526,7 +524,7 @@ const schema = {
           </div>
           <ul class="testimonials-grid">
             {testimonials.map(t => (
-              <li class="testimonial-card">
+              <li class="testimonial-card reveal">
                 <span class="t-deco" aria-hidden="true">❝</span>
                 <div class="t-stars" aria-label={`${t.stars} estrelas`}>{'★'.repeat(t.stars)}</div>
                 <p class="t-text">{t.text}</p>
@@ -553,7 +551,7 @@ const schema = {
           </div>
           <ul class="cities-grid">
             {cities.map(c => (
-              <li class="city-card">
+              <li class="city-card reveal">
                 <div class="city-pin" aria-hidden="true">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 </div>
@@ -576,7 +574,7 @@ const schema = {
           </div>
           <dl class="faq-list">
             {faqs.map(f => (
-              <div class="faq-item">
+              <div class="faq-item reveal">
                 <details>
                   <summary class="faq-q">
                     <span>{f.q}</span>
@@ -601,7 +599,7 @@ const schema = {
             </div>
             <ul class="posts-grid">
               {recentPosts.map(post => (
-                <li class="post-card">
+                <li class="post-card reveal">
                   <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}`} class="post-link">
                     {post.data.heroImage && (
                       <img src={post.data.heroImage} alt={post.data.title} width="800" height="420" loading="lazy" decoding="async" class="post-img" />
@@ -911,7 +909,18 @@ const schema = {
   .badge-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
   .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 1.5rem; }
-  .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .hero-sub { position: relative; font-size: 1.1rem; color: var(--muted); max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  /* Typewriter (Pacote Vale do Silício) — .tw-source fica invisível mas ocupa
+     o espaço (mesma altura/quebra de linha), evitando CLS; .tw-output é quem
+     realmente aparece, digitado por cima. */
+  .tw-source { visibility: hidden; }
+  .tw-output { position: absolute; inset: 0; }
+  .tw-cursor {
+    display: inline-block; width: 2px; height: 1.1em; vertical-align: text-bottom;
+    background: var(--accent-l); margin-left: 2px; animation: tw-blink 0.9s step-end infinite;
+  }
+  .tw-cursor.is-done { animation: none; opacity: 0; transition: opacity 0.6s ease; }
+  @keyframes tw-blink { 50% { opacity: 0; } }
   .hero-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 3.5rem; }
   .hero-stats { display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 2.5rem; }
   .hero-stat { text-align: center; }
@@ -962,6 +971,7 @@ const schema = {
   }
 
   .svc-card {
+    position: relative;
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: 16px;
@@ -972,7 +982,7 @@ const schema = {
   }
 
   .svc-card-link { text-decoration: none; color: inherit; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; cursor: pointer; }
-  .svc-card-link:hover { border-color: rgba(245,158,11,0.35); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(245,158,11,0.08); }
+  .svc-card-link:hover { border-color: rgba(245,158,11,0.35); box-shadow: 0 12px 40px rgba(245,158,11,0.08); }
 
   .svc-icon-mount {
     width: 64px; height: 64px; margin: 0 auto 1.25rem;
@@ -1028,6 +1038,38 @@ const schema = {
 
   @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr; } }
 
+  /* Tilt 3D + spotlight (Pacote Vale do Silício) — JS liga --rx/--ry/--mx/--my
+     via card-tilt-spotlight.ts, só em desktop (capability 'full'). Sem JS, as
+     variáveis caem no fallback e o card fica parado normalmente. */
+  .svc-card, .testimonial-card {
+    transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.35s ease;
+  }
+  .svc-card:hover, .testimonial-card:hover { transition: transform 0.05s linear; }
+  .svc-card::after, .testimonial-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(167,139,250,0.16), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .svc-card:hover::after, .testimonial-card:hover::after { opacity: 1; }
+
+  /* Scroll reveal (Pacote Vale do Silício) — por padrão o conteúdo fica visível
+     (se o JS falhar ou não carregar, nada some). Só escondemos pra animar
+     quando scroll-reveal.ts confirma que está rodando (classe abaixo), e
+     revelamos de novo via .is-visible (IntersectionObserver, sem lib). */
+  .reveal { opacity: 1; transform: none; }
+  html.reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  html.reveal-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
   /* Lead */
   .lead-section { background: var(--bg2); padding: 6rem 0; }
   .lead-header { text-align: center; margin-bottom: 3.5rem; }
@@ -1051,11 +1093,15 @@ const schema = {
     color: var(--fg); font-size: 0.9rem; padding: 0.7rem 1rem;
     font-family: var(--font); transition: border-color 0.2s; outline: none; width: 100%;
   }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent-border); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--accent-l);
+    box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px rgba(124,58,237,0.25);
+  }
   .form-group input[aria-invalid="true"], .form-group select[aria-invalid="true"] { border-color: #f87171; }
   .form-group select option { background: var(--bg2); }
   .form-group textarea { resize: vertical; min-height: 110px; }
   .btn-lead {
+    position: relative; overflow: hidden;
     background: linear-gradient(135deg, var(--accent), #5b21b6);
     color: #fff; font-size: 1rem; font-weight: 700; padding: 0.9rem 1.5rem;
     border: none; border-radius: 12px; cursor: pointer;
@@ -1064,6 +1110,15 @@ const schema = {
   }
   .btn-lead:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
   .btn-lead:disabled { opacity: 0.65; cursor: not-allowed; }
+  .btn-lead-text, .btn-lead-spin { position: relative; z-index: 1; }
+  /* Brilho correndo pela borda no hover (Pacote Vale do Silício) */
+  .btn-lead::after {
+    content: ''; position: absolute; inset: -30%;
+    background: conic-gradient(from 0deg, transparent 0%, rgba(255,255,255,0.5) 8%, transparent 22%);
+    opacity: 0; transition: opacity 0.25s ease; pointer-events: none;
+  }
+  .btn-lead:hover::after { opacity: 1; animation: btn-shine-spin 2.4s linear infinite; }
+  @keyframes btn-shine-spin { to { transform: rotate(360deg); } }
   .btn-lead-spin { display: none; }
   .btn-lead.is-loading .btn-lead-text { display: none; }
   .btn-lead.is-loading .btn-lead-spin { display: block; }
@@ -1104,7 +1159,7 @@ const schema = {
   .testimonials-grid { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
   .testimonial-card { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s; }
   .testimonial-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-l), transparent); opacity: 0; transition: opacity 0.35s; }
-  .testimonial-card:hover { border-color: var(--accent-border); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(124,58,237,0.12); }
+  .testimonial-card:hover { border-color: var(--accent-border); box-shadow: 0 20px 60px rgba(124,58,237,0.12); }
   .testimonial-card:hover::before { opacity: 1; }
   .t-deco { display: block; font-size: 5rem; line-height: 1; height: 3.5rem; color: var(--accent-l); opacity: 0.18; font-family: Georgia, serif; margin-bottom: 0.5rem; }
   .t-stars { color: #fbbf24; font-size: 0.95rem; letter-spacing: 3px; margin-bottom: 1rem; }
