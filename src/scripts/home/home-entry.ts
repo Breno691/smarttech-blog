@@ -14,6 +14,8 @@
 // Pacote "Vale do Silício" concluído (reveal/contadores/typewriter sempre;
 // tilt+spotlight + painel enriquecido só em 'full').
 // Next Level UI Fase 1 concluída (scroll suave + fundo em shader, só 'full').
+// Next Level UI Fase 2 concluída (HUD do painel + glow via CSS, só 'full').
+// Next Level UI Fase 3 concluída (parallax + stagger, só 'full').
 
 import { getDeviceCapability } from './device-capability';
 import { initHeroParticles } from './hero-particles';
@@ -33,7 +35,7 @@ function init() {
   }
 
   // Roda sempre, em qualquer aparelho.
-  initScrollReveal();
+  initScrollReveal(capability === 'full');
   initCounters();
   initTypewriter();
 
@@ -59,6 +61,9 @@ function init() {
       initSmoothScroll();
       import('./background-webgl').then(({ initBackgroundWebGL }) => initBackgroundWebGL());
     });
+
+    import('./parallax-scroll').then(({ initParallaxScroll }) => initParallaxScroll());
+    import('./stagger-reveal').then(({ initStaggerReveal }) => initStaggerReveal());
   } else {
     document.body.classList.add('is-reduced-motion-fallback');
   }
