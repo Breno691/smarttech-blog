@@ -842,6 +842,36 @@ const schema = {
      (celular, ou se o WebGL falhar por qualquer motivo), o body mantém o fundo
      escuro sólido de sempre — nunca aparece uma tela quebrada/branca. */
   html.webgl-bg-active body { background: transparent; }
+
+  /* Next Level UI Fase 4 — cursor customizado. Só esconde o cursor nativo
+     depois que magnetic-cursor.ts confirma que o substituto já está no DOM
+     (classe via JS) — sem isso (celular, ou falha do JS), o cursor do
+     sistema continua normal, nunca fica "sem cursor nenhum". */
+  html.magnetic-cursor-active, html.magnetic-cursor-active * { cursor: none !important; }
+  .magnetic-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-l);
+    box-shadow: 0 0 12px 2px var(--accent-glow), 0 0 24px 6px rgba(124, 58, 237, 0.25);
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s ease, width 0.25s ease, height 0.25s ease, background 0.25s ease, border 0.25s ease;
+    will-change: transform;
+  }
+  .magnetic-cursor.is-visible { opacity: 1; }
+  .magnetic-cursor.is-active {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 2px solid var(--accent-l);
+    box-shadow: 0 0 20px 4px var(--accent-glow);
+  }
+
   .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
 
   .gradient-text {
