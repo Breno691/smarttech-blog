@@ -6,7 +6,8 @@
 // fraco, poucos núcleos, prefers-reduced-motion, ou economia de dados), o pacote
 // do Three.js nunca deve ser baixado — nem em parte.
 //
-// Implementado na FASE 3 (partículas sempre) e completado na FASE 4 (3D condicional).
+// FASE 3 concluída (partículas sempre ligadas, densidade por aparelho).
+// FASE 4 completa a parte condicional (dashboard 3D + ícones).
 
 import { getDeviceCapability } from './device-capability';
 import { initHeroParticles } from './hero-particles';
@@ -17,7 +18,7 @@ function init() {
   const heroCanvas = document.querySelector<HTMLCanvasElement>('#hero-particles');
   if (heroCanvas) {
     initHeroParticles(heroCanvas, {
-      density: capability === 'full' ? 90 : 25,
+      density: capability === 'full' ? 80 : 25,
       connectLines: capability === 'full',
     });
   }
