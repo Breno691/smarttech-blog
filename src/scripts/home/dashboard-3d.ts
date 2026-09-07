@@ -20,33 +20,149 @@ gsap.registerPlugin(ScrollTrigger);
 // feito via CSS `filter: drop-shadow()` no elemento <canvas> — mesma
 // sensação visual, sem o bug, sem o custo de múltiplos passes de blur.
 
-// Gera a textura de uma mini-tela (label + valor), desenhada num <canvas> 2D
-// e usada como mapa de um PlaneGeometry — mais leve que carregar fonte/imagem
-// externa, e fica no mesmo tom da marca.
-function createHudTexture(label: string, value: string, accent: string): THREE.CanvasTexture {
-  const canvas = document.createElement('canvas');
-  canvas.width = 256;
-  canvas.height = 96;
-  const ctx = canvas.getContext('2d')!;
+// ── Fase 1 (Next Level UI v2) — terminais animados nos pop-ups ──────────────
+// Cada pop-up agora "roda" um terminal com linhas digitando de verdade, em
+// vez de um texto estático. IMPORTANTE (perf/memória): cada instância cria
+// UM <canvas> e UMA THREE.CanvasTexture na hora de construir a cena — depois
+// disso, todo frame só REDESENHA nesse mesmo canvas e marca
+// `texture.needsUpdate = true`. Nunca cria canvas/textura/material novo por
+// frame (isso vazaria memória rápido).
 
-  ctx.fillStyle = 'rgba(6,6,14,0.82)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = accent;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(1.5, 1.5, canvas.width - 3, canvas.height - 3);
+interface TerminalLine {
+  text: string;
+  color: string;
+}
 
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.font = '700 16px -apple-system, Segoe UI, sans-serif';
-  ctx.textBaseline = 'top';
-  ctx.fillText(label.toUpperCase(), 16, 16);
+const TERMINAL_SCRIPTS: Record<string, TerminalLine[]> = {
+  lean: [
+    { text: '$ lean-six-sigma --analyze', color: '#c4b5fd' },
+    { text: '  mapeando desperdicios...', color: '#8b8baa' },
+    { text: '  > 3 gargalos identificados', color: '#6ee7b7' },
+    { text: '$ dmaic --apply', color: '#c4b5fd' },
+    { text: '  ciclo de melhoria ativo_', color: '#8b8baa' },
+  ],
+  auto: [
+    { text: '$ automacao-ia --start', color: '#6ee7b7' },
+    { text: '  conectando whatsapp...', color: '#8b8baa' },
+    { text: '  ! timeout, reconectando', color: '#fbbf24' },
+    { text: '  > conexao restabelecida', color: '#6ee7b7' },
+    { text: '$ status: rodando 24/7_', color: '#6ee7b7' },
+  ],
+  diagnostico: [
+    { text: '$ diagnostico --run', color: '#fbbf24' },
+    { text: '  coletando indicadores...', color: '#8b8baa' },
+    { text: '  processando dados...', color: '#8b8baa' },
+    { text: '  > analise concluida', color: '#6ee7b7' },
+    { text: '$ gerando proposta..._', color: '#fbbf24' },
+  ],
+};
 
-  ctx.fillStyle = accent;
-  ctx.font = '800 30px -apple-system, Segoe UI, sans-serif';
-  ctx.fillText(value, 16, 46);
+const TYPE_SPEED_MS = 38; // ms por caractere digitado
+const LINE_PAUSE_MS = 380; // pausa depois de terminar uma linha
+const LOOP_PAUSE_MS = 1600; // pausa antes de reiniciar o script do zero
 
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  return texture;
+class TerminalEmulator {
+  readonly texture: THREE.CanvasTexture;
+  private readonly canvas: HTMLCanvasElement;
+  private readonly ctx: CanvasRenderingContext2D;
+  private lineIndex = 0;
+  private charIndex = 0;
+  private phase: 'typing' | 'line-pause' | 'loop-pause' = 'typing';
+  private phaseStart = performance.now();
+
+  constructor(
+    private readonly title: string,
+    private readonly accent: string,
+    private readonly lines: TerminalLine[],
+  ) {
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = 320;
+    this.canvas.height = 180;
+    this.ctx = this.canvas.getContext('2d')!;
+    this.texture = new THREE.CanvasTexture(this.canvas);
+    this.texture.colorSpace = THREE.SRGBColorSpace;
+    this.render();
+  }
+
+  // Chamado a cada frame do loop de animação — só recalcula estado e
+  // redesenha o MESMO canvas/textura, nunca aloca nada novo.
+  update(now: number): void {
+    const elapsed = now - this.phaseStart;
+
+    if (this.phase === 'typing') {
+      const current = this.lines[this.lineIndex];
+      this.charIndex = Math.min(current.text.length, Math.floor(elapsed / TYPE_SPEED_MS));
+      if (this.charIndex >= current.text.length) {
+        this.phase = 'line-pause';
+        this.phaseStart = now;
+      }
+    } else if (this.phase === 'line-pause') {
+      if (elapsed >= LINE_PAUSE_MS) {
+        this.lineIndex++;
+        this.charIndex = 0;
+        this.phaseStart = now;
+        this.phase = this.lineIndex >= this.lines.length ? 'loop-pause' : 'typing';
+      }
+    } else {
+      if (elapsed >= LOOP_PAUSE_MS) {
+        this.lineIndex = 0;
+        this.charIndex = 0;
+        this.phase = 'typing';
+        this.phaseStart = now;
+      }
+    }
+
+    this.render();
+  }
+
+  private render(): void {
+    const ctx = this.ctx;
+    const w = this.canvas.width;
+    const h = this.canvas.height;
+
+    ctx.fillStyle = '#06060e';
+    ctx.fillRect(0, 0, w, h);
+
+    // Cabeçalho — mantém a identificação clara de qual serviço é cada tela
+    ctx.fillStyle = this.accent;
+    ctx.font = '800 14px -apple-system, Segoe UI, sans-serif';
+    ctx.textBaseline = 'top';
+    ctx.fillText(this.title.toUpperCase(), 14, 12);
+    ctx.globalAlpha = 0.35;
+    ctx.strokeStyle = this.accent;
+    ctx.beginPath();
+    ctx.moveTo(0, 34);
+    ctx.lineTo(w, 34);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Corpo — linhas do terminal, digitando
+    ctx.font = '600 13px "Courier New", monospace';
+    const lineHeight = 21;
+    let y = 46;
+
+    for (let i = 0; i < this.lineIndex; i++) {
+      const line = this.lines[i];
+      ctx.fillStyle = line.color;
+      ctx.fillText(line.text, 14, y);
+      y += lineHeight;
+    }
+
+    if (this.lineIndex < this.lines.length) {
+      const current = this.lines[this.lineIndex];
+      const typed = current.text.slice(0, this.charIndex);
+      ctx.fillStyle = current.color;
+      ctx.fillText(typed, 14, y);
+
+      // cursor piscante (~1Hz), só desenhado enquanto essa linha está "ativa"
+      if (Math.floor(performance.now() / 500) % 2 === 0) {
+        const cursorX = 14 + ctx.measureText(typed).width + 2;
+        ctx.fillRect(cursorX, y + 2, 7, 14);
+      }
+    }
+
+    this.texture.needsUpdate = true;
+  }
 }
 
 // Vidro translúcido reutilizado pro painel principal e pras telas menores —
@@ -133,25 +249,29 @@ export function initDashboard3D(mount: HTMLElement): void {
   mainPanel.add(grid);
 
   // ── Telas menores flutuando em profundidade, tipo pop-ups holográficos ──
+  // Posições em Z variadas de propósito (0.85 / 1.05 / 1.35) — é o que dá o
+  // parallax de profundidade quando a câmera se aproxima no scroll.
   const popupSpecs: Array<{
     size: [number, number, number];
     pos: [number, number, number];
-    label: string;
-    value: string;
+    title: string;
     accent: string;
+    kind: keyof typeof TERMINAL_SCRIPTS;
   }> = [
-    { size: [1.7, 0.95, 0.06], pos: [-3.3, 1.05, 0.85], label: 'Lean Six Sigma', value: 'Ciclo ativo', accent: '#c4b5fd' },
-    { size: [1.8, 1.0, 0.06], pos: [3.1, -0.95, 1.05], label: 'Automação IA', value: 'Rodando 24/7', accent: '#6ee7b7' },
-    { size: [1.5, 0.85, 0.06], pos: [0.15, 1.35, 1.35], label: 'Diagnóstico', value: 'Em análise', accent: '#fbbf24' },
+    { size: [1.9, 1.05, 0.06], pos: [-3.3, 1.05, 0.85], title: 'Lean Six Sigma', accent: '#c4b5fd', kind: 'lean' },
+    { size: [2.0, 1.1, 0.06], pos: [3.1, -0.95, 1.05], title: 'Automação IA', accent: '#6ee7b7', kind: 'auto' },
+    { size: [1.7, 0.95, 0.06], pos: [0.15, 1.35, 1.35], title: 'Diagnóstico', accent: '#fbbf24', kind: 'diagnostico' },
   ];
+  const terminals: TerminalEmulator[] = [];
   for (const spec of popupSpecs) {
     const popup = createGlassMesh(...spec.size);
     popup.position.set(...spec.pos);
 
-    const texture = createHudTexture(spec.label, spec.value, spec.accent);
+    const terminal = new TerminalEmulator(spec.title, spec.accent, TERMINAL_SCRIPTS[spec.kind]);
+    terminals.push(terminal);
     const screen = new THREE.Mesh(
-      new THREE.PlaneGeometry(spec.size[0] * 0.88, spec.size[1] * 0.8),
-      new THREE.MeshBasicMaterial({ map: texture, transparent: true }),
+      new THREE.PlaneGeometry(spec.size[0] * 0.88, spec.size[1] * 0.82),
+      new THREE.MeshBasicMaterial({ map: terminal.texture, transparent: true }),
     );
     screen.position.z = spec.size[2] / 2 + 0.005;
     popup.add(screen);
@@ -255,9 +375,13 @@ export function initDashboard3D(mount: HTMLElement): void {
 
   function animate() {
     requestAnimationFrame(animate);
+    const now = performance.now();
     pointCloud.rotation.y += 0.0018;
     for (const { mesh, speed, axis } of rings) {
       mesh.rotation[axis] += speed;
+    }
+    for (const terminal of terminals) {
+      terminal.update(now);
     }
     renderer.render(scene, camera);
   }
