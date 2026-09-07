@@ -211,6 +211,7 @@ const schema = {
 
       <!-- ── HERO ── -->
       <section class="hero">
+        <canvas id="hero-particles" class="hero-particles-canvas" aria-hidden="true"></canvas>
         <div class="hero-glow" aria-hidden="true"></div>
         <div class="container hero-inner">
           <div class="hero-text">
@@ -246,8 +247,30 @@ const schema = {
               <div class="hero-stat"><strong>BH</strong><span>Belo Horizonte, MG</span></div>
             </div>
           </div>
-          <div class="hero-visual" aria-hidden="true">
-            <img src="/img/hero-home.svg" alt="" width="580" height="500" loading="eager" decoding="async" />
+        </div>
+      </section>
+
+      <!-- ── SISTEMA (nova seção) ── -->
+      <section class="section system-section" id="sistema">
+        <div class="container system-inner">
+          <div class="section-header">
+            <p class="section-label">Metodologia + Tecnologia</p>
+            <h2 class="section-title">O sistema por trás dos <span class="gradient-text">resultados</span></h2>
+            <p class="section-sub">Lean Six Sigma mapeia onde está o desperdício. Automação com IA garante que o processo certo aconteça sozinho, todos os dias — sem depender de lembrete ou boa vontade.</p>
+          </div>
+          <div class="system-visual" id="dashboard-3d-mount" aria-hidden="true">
+            <div class="system-visual-fallback">
+              <div class="sysviz-dots"><span></span><span></span><span></span></div>
+              <div class="sysviz-bars">
+                <div class="sysviz-bar" style="--h:38%"></div>
+                <div class="sysviz-bar" style="--h:72%"></div>
+                <div class="sysviz-bar" style="--h:54%"></div>
+                <div class="sysviz-bar" style="--h:88%"></div>
+                <div class="sysviz-bar" style="--h:64%"></div>
+                <div class="sysviz-bar" style="--h:46%"></div>
+              </div>
+              <div class="sysviz-line"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -260,21 +283,17 @@ const schema = {
             <h2 class="section-title">Escolha o que resolve <span class="gradient-text">o seu problema</span></h2>
           </div>
 
-          <div class="svc-layout">
+          <div class="services-grid">
 
-            <!-- Featured: Lean + Automação -->
-            <div class="svc-card svc-featured">
+            <!-- Card: Lean Six Sigma -->
+            <div class="svc-card">
+              <div class="svc-icon-mount" data-icon="lean" aria-hidden="true"></div>
               <div class="svc-top">
                 <div class="svc-pills">
                   <span class="svc-pill svc-pill-lean">Lean Six Sigma</span>
-                  <span class="svc-plus">+</span>
-                  <span class="svc-pill svc-pill-auto">Automação com IA</span>
                 </div>
-                <p class="svc-tag-note">BH, Nova Pampulha e Morro Alto</p>
               </div>
-
               <h3 class="svc-title">Operação travada no improviso?</h3>
-
               <ul class="svc-problems-list">
                 <li>
                   <details class="prob-detail">
@@ -296,15 +315,6 @@ const schema = {
                 </li>
                 <li>
                   <details class="prob-detail">
-                    <summary><span class="prob-x">✗</span> WhatsApp caótico, clientes sem resposta</summary>
-                    <div class="prob-body">
-                      <p>Automação com IA estrutura o atendimento: categoriza mensagens, responde dúvidas frequentes e encaminha para a pessoa certa — 24h por dia, sem depender de ninguém.</p>
-                      <a href="/automacao" class="prob-link">Ver Automação com IA →</a>
-                    </div>
-                  </details>
-                </li>
-                <li>
-                  <details class="prob-detail">
                     <summary><span class="prob-x">✗</span> Processo diferente em cada pessoa</summary>
                     <div class="prob-body">
                       <p>Sem padronização a qualidade depende de quem está de plantão. Lean documenta e padroniza para que qualquer pessoa execute da mesma forma, com o mesmo resultado.</p>
@@ -313,12 +323,35 @@ const schema = {
                   </details>
                 </li>
               </ul>
-
               <div class="svc-actions">
                 <a href="/lean-six-sigma" class="svc-btn svc-btn-lean">
                   Lean Six Sigma
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
+              </div>
+            </div>
+
+            <!-- Card: Automação com IA -->
+            <div class="svc-card">
+              <div class="svc-icon-mount" data-icon="auto" aria-hidden="true"></div>
+              <div class="svc-top">
+                <div class="svc-pills">
+                  <span class="svc-pill svc-pill-auto">Automação com IA</span>
+                </div>
+              </div>
+              <h3 class="svc-title">WhatsApp caótico, cliente sem resposta?</h3>
+              <ul class="svc-problems-list">
+                <li>
+                  <details class="prob-detail">
+                    <summary><span class="prob-x">✗</span> WhatsApp caótico, clientes sem resposta</summary>
+                    <div class="prob-body">
+                      <p>Automação com IA estrutura o atendimento: categoriza mensagens, responde dúvidas frequentes e encaminha para a pessoa certa — 24h por dia, sem depender de ninguém.</p>
+                      <a href="/automacao" class="prob-link">Ver Automação com IA →</a>
+                    </div>
+                  </details>
+                </li>
+              </ul>
+              <div class="svc-actions">
                 <a href="/automacao" class="svc-btn svc-btn-auto">
                   Automação com IA
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -326,17 +359,16 @@ const schema = {
               </div>
             </div>
 
-            <!-- Secondary: Manutenção & TI -->
-            <a href="/manutencao" class="svc-card svc-side">
+            <!-- Card: Manutenção & TI -->
+            <a href="/manutencao" class="svc-card svc-card-link">
+              <div class="svc-icon-mount" data-icon="ti" aria-hidden="true"></div>
               <div class="svc-top">
                 <div class="svc-pills">
                   <span class="svc-pill svc-pill-ti">Manutenção & TI</span>
                 </div>
                 <p class="svc-tag-note">Presencial · Nova Pampulha e Morro Alto</p>
               </div>
-
               <h3 class="svc-title">PC lento, vírus ou SSD?</h3>
-
               <ul class="svc-ti-list">
                 <li>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -355,7 +387,6 @@ const schema = {
                   Remoção de vírus e limpeza térmica
                 </li>
               </ul>
-
               <span class="svc-side-cta">Ver todos os serviços →</span>
             </a>
 
@@ -701,6 +732,9 @@ const schema = {
         if (!servico) { form.servico.setAttribute('aria-invalid', 'true'); valid = false; }
         if (!valid) { form.querySelector('[aria-invalid="true"]').focus(); return; }
 
+        // event_id para deduplicação browser↔CAPI
+        var leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+
         var payload = {
           nome: nome, telefone: telefone,
           empresa: form.empresa.value.trim(),
@@ -708,11 +742,15 @@ const schema = {
           mensagem: form.mensagem.value.trim(),
           origem: window.location.href,
           timestamp: new Date().toISOString(),
+          event_id: leadEventId,  // CAPI deduplication
+          fbp: (document.cookie.match(/_fbp=([^;]+)/) || [])[1] || undefined,
+          fbc: (document.cookie.match(/_fbc=([^;]+)/) || [])[1] || undefined,
         };
 
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'envio_formulario', event_location: 'lead-form', event_label: payload.servico });
-        if (typeof fbq === 'function') fbq('track', 'SubmitApplication');
+        // FIX: Contact no envio + Lead no sucesso (melhor para otimização de campanha)
+        if (typeof fbq === 'function') fbq('track', 'Contact', {}, { eventID: leadEventId });
 
         var btn = form.querySelector('.btn-lead');
         btn.disabled = true;
@@ -720,7 +758,8 @@ const schema = {
 
         function onSuccess() {
           window.dataLayer.push({ event: 'lead_gerado', event_location: 'lead-form', event_label: payload.servico });
-          if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: payload.servico });
+          // event_id idêntico ao do Contact → CAPI deduplica Lead corretamente
+          if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: payload.servico }, { eventID: leadEventId });
           form.hidden = true;
           successEl.hidden = false;
           successEl.focus();
@@ -748,6 +787,10 @@ const schema = {
         });
       });
     })();
+    </script>
+
+    <script>
+      import '../scripts/home/home-entry.ts';
     </script>
 
     <EventTracking />
@@ -858,14 +901,12 @@ const schema = {
   .mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.5rem; border-radius: 8px; }
   .mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; }
 
-  /* Hero */
-  .hero { position: relative; padding: 6rem 0 5rem; overflow: hidden; }
-  .hero-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 65%); pointer-events: none; }
-  .hero-inner { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-  .hero-text { text-align: left; }
-  .hero-visual { display: flex; justify-content: center; align-items: center; }
-  .hero-visual img { width: 100%; max-width: 560px; height: auto; filter: drop-shadow(0 20px 60px rgba(124,58,237,0.2)); }
-  @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } .hero-text { text-align: center; } .hero-visual { display: none; } }
+  /* Hero — visual redesenhado (Fase 2): fundo de partículas full-bleed atrás do texto centralizado */
+  .hero { position: relative; padding: 7rem 0 5.5rem; overflow: hidden; }
+  .hero-particles-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  .hero-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 65%); pointer-events: none; z-index: 0; }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-text { text-align: center; }
   .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-l); border: 1px solid var(--accent-border); background: rgba(124,58,237,0.08); padding: 0.4rem 1rem; border-radius: 9999px; margin-bottom: 1.75rem; }
   .badge-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -878,14 +919,45 @@ const schema = {
   .hero-stat span { font-size: 0.78rem; color: var(--muted); }
   .hero-stat-sep { width: 1px; height: 36px; background: var(--border); }
 
-  /* ── SERVICES SECTION ── */
+  /* ── SISTEMA (nova seção, Fase 2) ── */
+  .system-section { background: var(--bg3); position: relative; overflow: hidden; }
+  .system-inner { position: relative; }
+  .system-visual {
+    position: relative;
+    min-height: 420px;
+    margin-top: 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--accent-border);
+    background: linear-gradient(160deg, rgba(124,58,237,0.10) 0%, rgba(13,13,28,0.6) 60%);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  /* Placeholder CSS puro — visível sempre; um canvas 3D é desenhado por cima quando o aparelho aguenta (Fase 4) */
+  .system-visual-fallback {
+    width: min(560px, 86%);
+    background: rgba(6,6,14,0.72);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem 1.75rem;
+    box-shadow: 0 30px 80px rgba(124,58,237,0.18);
+  }
+  .sysviz-dots { display: flex; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .sysviz-dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+  .sysviz-dots span:first-child { background: #f87171; }
+  .sysviz-dots span:nth-child(2) { background: #fbbf24; }
+  .sysviz-dots span:nth-child(3) { background: #6ee7b7; }
+  .sysviz-bars { display: flex; align-items: flex-end; gap: 0.6rem; height: 120px; margin-bottom: 1rem; }
+  .sysviz-bar { flex: 1; height: var(--h); border-radius: 6px 6px 0 0; background: linear-gradient(180deg, var(--accent-l) 0%, var(--accent) 100%); opacity: 0.85; }
+  .sysviz-line { height: 1px; background: linear-gradient(90deg, transparent, var(--accent-border), transparent); }
+  @media (max-width: 600px) { .system-visual { min-height: 320px; } }
+
+  /* ── SERVIÇOS — grade de 3 (Fase 2) ── */
   .services-section { background: rgba(13,13,28,0.6); }
 
-  .svc-layout {
+  .services-grid {
     display: grid;
-    grid-template-columns: 1fr 360px;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
-    align-items: start;
   }
 
   .svc-card {
@@ -893,101 +965,67 @@ const schema = {
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 2rem;
-  }
-
-  .svc-featured {
-    border-color: rgba(124,58,237,0.2);
-    background: linear-gradient(135deg, rgba(124,58,237,0.05) 0%, rgba(16,185,129,0.03) 100%);
-  }
-
-  .svc-side {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
+    gap: 0;
   }
-  .svc-side:hover { border-color: rgba(245,158,11,0.35); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(245,158,11,0.08); }
+
+  .svc-card-link { text-decoration: none; color: inherit; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+  .svc-card-link:hover { border-color: rgba(245,158,11,0.35); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(245,158,11,0.08); }
+
+  .svc-icon-mount {
+    width: 64px; height: 64px; margin: 0 auto 1.25rem;
+    border-radius: 18px;
+    background: radial-gradient(circle at 35% 30%, var(--accent-l) 0%, var(--accent) 55%, transparent 100%);
+    opacity: 0.9;
+    box-shadow: 0 8px 28px var(--accent-glow);
+  }
 
   .svc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
-
   .svc-pills { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-
-  .svc-plus { color: rgba(255,255,255,0.35); font-weight: 700; font-size: 0.9rem; }
-
   .svc-pill { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 9999px; }
   .svc-pill-lean { background: rgba(124,58,237,0.15); border: 1px solid rgba(167,139,250,0.3); color: #c4b5fd; }
   .svc-pill-auto { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
   .svc-pill-ti { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: #fcd34d; }
-
   .svc-tag-note { font-size: 0.7rem; color: rgba(255,255,255,0.3); white-space: nowrap; line-height: 1.3; text-align: right; }
 
-  .svc-title { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 0.65rem; color: #fff; }
-  .svc-side .svc-title { font-size: 1.1rem; }
+  .svc-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 1rem; color: #fff; text-align: center; }
 
-  .svc-sub { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 1.75rem; }
-
-  .svc-problems {
-    background: rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 10px;
-    padding: 1.25rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .svc-problems-label {
-    font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.4);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.85rem;
-  }
-
-  .svc-problems-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-
-  .svc-problems-list li { font-size: 0.875rem; color: rgba(255,255,255,0.68); }
-
+  .svc-problems-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.5rem; }
   .prob-x { color: #f87171; font-weight: 700; flex-shrink: 0; margin-right: 0.5rem; }
-
   .prob-detail { border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
   .prob-detail[open] { border-color: rgba(167,139,250,0.2); }
-
   .prob-detail summary {
     display: flex; align-items: flex-start; gap: 0;
     padding: 0.65rem 0.85rem; cursor: pointer; list-style: none;
-    font-size: 0.875rem; line-height: 1.45; color: rgba(255,255,255,0.7);
-    user-select: none; transition: background 0.15s; gap: 0;
+    font-size: 0.85rem; line-height: 1.45; color: rgba(255,255,255,0.7);
+    user-select: none; transition: background 0.15s;
   }
   .prob-detail summary::-webkit-details-marker { display: none; }
   .prob-detail summary:hover { background: rgba(255,255,255,0.04); color: #fff; }
   .prob-detail[open] summary { color: #fff; background: rgba(124,58,237,0.06); }
-
-  .prob-body {
-    padding: 0 0.85rem 0.85rem;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    margin-top: 0;
-  }
-  .prob-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.65rem; padding-top: 0.65rem; }
+  .prob-body { padding: 0 0.85rem 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 0; }
+  .prob-body p { font-size: 0.8rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.65rem; padding-top: 0.65rem; }
   .prob-link { font-size: 0.78rem; font-weight: 700; color: var(--accent-l); text-decoration: none; transition: color 0.15s; }
   .prob-link:hover { color: #fff; }
 
-  .svc-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
+  .svc-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: auto; }
   .svc-btn { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; font-weight: 700; padding: 0.55rem 1.25rem; border-radius: 9px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
   .svc-btn:hover { opacity: 0.82; transform: translateY(-1px); }
   .svc-btn-lean { background: rgba(124,58,237,0.18); border: 1px solid rgba(167,139,250,0.3); color: #c4b5fd; }
   .svc-btn-auto { background: rgba(16,185,129,0.13); border: 1px solid rgba(16,185,129,0.25); color: #6ee7b7; }
 
-  .svc-ti-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
-  .svc-ti-list li { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.875rem; color: rgba(255,255,255,0.62); line-height: 1.45; }
+  .svc-ti-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; margin-bottom: 1.25rem; }
+  .svc-ti-list li { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.85rem; color: rgba(255,255,255,0.62); line-height: 1.45; }
   .svc-ti-list svg { flex-shrink: 0; margin-top: 2px; stroke: #fbbf24; }
   .svc-ti-list strong { color: rgba(255,255,255,0.85); }
 
   .svc-side-cta {
     display: block; font-size: 0.85rem; font-weight: 700; color: #fbbf24;
-    margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); text-align: center;
   }
 
-  @media (max-width: 900px) { .svc-layout { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr; } }
 
   /* Lead */
   .lead-section { background: var(--bg2); padding: 6rem 0; }
@@ -1054,8 +1092,14 @@ const schema = {
   .wa-direct-label { font-size: 0.8rem; font-weight: 600; color: var(--muted); }
   .wa-direct-hint { font-size: 0.75rem; color: var(--muted); }
 
-  /* Testimonials */
-  .testimonials-section { background: var(--bg2); }
+  /* Testimonials — brilho roxo sutil de fundo (Fase 2), sem elemento 3D */
+  .testimonials-section { background: var(--bg2); position: relative; }
+  .testimonials-section::before {
+    content: ''; position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 420px; background: radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  .testimonials-section .container { position: relative; z-index: 1; }
   .testimonials-grid { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
   .testimonial-card { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s; }
   .testimonial-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-l), transparent); opacity: 0; transition: opacity 0.35s; }
@@ -1113,8 +1157,8 @@ const schema = {
   .cta-inner .btn-wa { position: relative; }
   .cta-hint { position: relative; font-size: 0.78rem; color: var(--muted); margin-top: 1.1rem; }
 
-  /* Footer */
-  footer { border-top: 1px solid var(--border); }
+  /* Footer — visual mais sólido/escuro (Fase 2), mesmo conteúdo */
+  footer { border-top: 1px solid var(--border); background: var(--bg); }
   .footer-inner { display: flex; gap: 4rem; padding-top: 4rem; padding-bottom: 3rem; flex-wrap: wrap; }
   .footer-brand { flex: 1; min-width: 200px; }
   .footer-brand .logo { display: inline-block; margin-bottom: 0.85rem; }
