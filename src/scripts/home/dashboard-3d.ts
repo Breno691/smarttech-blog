@@ -31,35 +31,39 @@ gsap.registerPlugin(ScrollTrigger);
 interface TerminalLine {
   text: string;
   color: string;
+  speed?: number; // multiplicador de velocidade de digitação (1 = normal, <1 mais rápido, >1 mais devagar)
+  isError?: boolean; // linha de "erro" — some visualmente pro tom resolvido assim que o script segue adiante
+  resolvedColor?: string; // cor que a linha de erro assume depois de "recuperada" (ver isError)
 }
 
 const TERMINAL_SCRIPTS: Record<string, TerminalLine[]> = {
   lean: [
-    { text: '$ lean-six-sigma --analyze', color: '#c4b5fd' },
-    { text: '  mapeando desperdicios...', color: '#8b8baa' },
+    { text: '$ lean-six-sigma --analyze', color: '#c4b5fd', speed: 0.85 },
+    { text: '  mapeando desperdicios...', color: '#8b8baa', speed: 1.15 },
     { text: '  > 3 gargalos identificados', color: '#6ee7b7' },
-    { text: '$ dmaic --apply', color: '#c4b5fd' },
+    { text: '$ dmaic --apply', color: '#c4b5fd', speed: 0.85 },
     { text: '  ciclo de melhoria ativo_', color: '#8b8baa' },
   ],
   auto: [
-    { text: '$ automacao-ia --start', color: '#6ee7b7' },
-    { text: '  conectando whatsapp...', color: '#8b8baa' },
-    { text: '  ! timeout, reconectando', color: '#fbbf24' },
+    { text: '$ automacao-ia --start', color: '#6ee7b7', speed: 0.85 },
+    { text: '  conectando whatsapp...', color: '#8b8baa', speed: 1.15 },
+    { text: '  ! timeout, reconectando', color: '#f87171', isError: true, resolvedColor: '#4d6b5a' },
     { text: '  > conexao restabelecida', color: '#6ee7b7' },
-    { text: '$ status: rodando 24/7_', color: '#6ee7b7' },
+    { text: '$ status: rodando 24/7_', color: '#6ee7b7', speed: 0.85 },
   ],
   diagnostico: [
-    { text: '$ diagnostico --run', color: '#fbbf24' },
-    { text: '  coletando indicadores...', color: '#8b8baa' },
-    { text: '  processando dados...', color: '#8b8baa' },
+    { text: '$ diagnostico --run', color: '#fbbf24', speed: 0.85 },
+    { text: '  coletando indicadores...', color: '#8b8baa', speed: 1.2 },
+    { text: '  processando dados...', color: '#8b8baa', speed: 1.2 },
     { text: '  > analise concluida', color: '#6ee7b7' },
-    { text: '$ gerando proposta..._', color: '#fbbf24' },
+    { text: '$ gerando proposta..._', color: '#fbbf24', speed: 0.85 },
   ],
 };
 
-const TYPE_SPEED_MS = 38; // ms por caractere digitado
+const TYPE_SPEED_MS = 38; // ms por caractere digitado (base — cada linha aplica seu próprio multiplicador)
 const LINE_PAUSE_MS = 380; // pausa depois de terminar uma linha
 const LOOP_PAUSE_MS = 1600; // pausa antes de reiniciar o script do zero
+const ERROR_FLASH_MS = 700; // por quanto tempo a linha de erro "pisca" antes de ser dada como resolvida
 
 class TerminalEmulator {
   readonly texture: THREE.CanvasTexture;
@@ -69,6 +73,7 @@ class TerminalEmulator {
   private charIndex = 0;
   private phase: 'typing' | 'line-pause' | 'loop-pause' = 'typing';
   private phaseStart = performance.now();
+  private lineCompletedAt: number[] = []; // timestamp em que cada linha terminou de digitar (p/ recovery visual)
 
   constructor(
     private readonly title: string,
@@ -91,8 +96,10 @@ class TerminalEmulator {
 
     if (this.phase === 'typing') {
       const current = this.lines[this.lineIndex];
-      this.charIndex = Math.min(current.text.length, Math.floor(elapsed / TYPE_SPEED_MS));
+      const msPerChar = TYPE_SPEED_MS * (current.speed ?? 1);
+      this.charIndex = Math.min(current.text.length, Math.floor(elapsed / msPerChar));
       if (this.charIndex >= current.text.length) {
+        this.lineCompletedAt[this.lineIndex] = now;
         this.phase = 'line-pause';
         this.phaseStart = now;
       }
@@ -107,6 +114,7 @@ class TerminalEmulator {
       if (elapsed >= LOOP_PAUSE_MS) {
         this.lineIndex = 0;
         this.charIndex = 0;
+        this.lineCompletedAt = [];
         this.phase = 'typing';
         this.phaseStart = now;
       }
@@ -143,7 +151,13 @@ class TerminalEmulator {
 
     for (let i = 0; i < this.lineIndex; i++) {
       const line = this.lines[i];
-      ctx.fillStyle = line.color;
+      // Recovery visual: uma linha de erro já digitada continua vermelha só
+      // durante o "flash" logo depois de completar — passado esse tempo,
+      // assume a cor resolvida (o sistema já seguiu em frente, o problema
+      // passou), sem precisar reescrever o texto.
+      const completedAt = this.lineCompletedAt[i];
+      const isFlashing = completedAt !== undefined && performance.now() - completedAt < ERROR_FLASH_MS;
+      ctx.fillStyle = line.isError && !isFlashing ? (line.resolvedColor ?? line.color) : line.color;
       ctx.fillText(line.text, 14, y);
       y += lineHeight;
     }
@@ -184,6 +198,30 @@ function createGlassMesh(width: number, height: number, depth: number): THREE.Me
   );
   mesh.add(edges);
   return mesh;
+}
+
+// ── Fase 2 (Next Level UI v2) — raios volumétricos ("godrays") ──────────────
+// Decisão de técnica: o pedido permitia raymarching via shader OU malhas com
+// AdditiveBlending. Escolhi malhas — depois do histórico de bugs reais do
+// UnrealBloomPass (cena inteira lavando pra cinza, ver nota acima), prefiro
+// uma técnica cujo resultado eu controle 100% visualmente (textura em
+// gradiente pintada à mão) a um shader de raymarching que só se comprova
+// certo depois de muita tentativa e erro. Sem post-processing de qualquer
+// jeito, exatamente como pedido.
+function createRayTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas');
+  canvas.width = 32;
+  canvas.height = 256;
+  const ctx = canvas.getContext('2d')!;
+  const grad = ctx.createLinearGradient(0, 0, 0, 256);
+  grad.addColorStop(0, 'rgba(167,139,250,0.9)');
+  grad.addColorStop(0.35, 'rgba(167,139,250,0.28)');
+  grad.addColorStop(1, 'rgba(167,139,250,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
 }
 
 // Grade de wireframe no rosto do painel principal — sugere "interface de
@@ -345,6 +383,36 @@ export function initDashboard3D(mount: HTMLElement): void {
   });
   scanLine.position.y = -MAIN_H / 2 + 0.1;
 
+  // ── Raios volumétricos — emanam do centro do painel, tipo "energia" ──
+  // Filhos de mainPanel (não de systemGroup direto): assim mergulham junto
+  // com o painel no dolly da câmera sem cortar feio contra a geometria —
+  // AdditiveBlending + depthWrite:false garante que nunca competem com o
+  // z-buffer do vidro, só somam luz por cima.
+  const RAY_COUNT = 7;
+  const rayTexture = createRayTexture();
+  const rayMaterials: THREE.MeshBasicMaterial[] = [];
+  const raysGroup = new THREE.Group();
+  raysGroup.position.z = -0.25; // levemente atrás do rosto do painel — "vindo de dentro"
+  for (let i = 0; i < RAY_COUNT; i++) {
+    const rayLength = 3.6 + Math.random() * 1.4;
+    const geo = new THREE.PlaneGeometry(0.55, rayLength);
+    geo.translate(0, rayLength / 2, 0); // pivô na base — o raio cresce PRA FORA do centro, não atravessa os dois lados
+    const mat = new THREE.MeshBasicMaterial({
+      map: rayTexture,
+      transparent: true,
+      opacity: 0.16,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    rayMaterials.push(mat);
+    const ray = new THREE.Mesh(geo, mat);
+    ray.rotation.z = (i / RAY_COUNT) * Math.PI * 2 + Math.random() * 0.3;
+    ray.rotation.x = (Math.random() - 0.5) * 0.5; // leve inclinação 3D, não é um leque 2D chapado
+    raysGroup.add(ray);
+  }
+  mainPanel.add(raysGroup);
+
   // Estado inicial do grupo: entrando de lado, câmera longe (ver ScrollTrigger)
   const START_ROT_Y = -0.5;
   const START_ROT_X = 0.08;
@@ -370,12 +438,16 @@ export function initDashboard3D(mount: HTMLElement): void {
   // arquivo — substitui o UnrealBloomPass, que se mostrou quebrado). Dois
   // drop-shadows empilhados: um mais fechado (roxo) e um mais aberto/sutil
   // (verde), ecoando as duas cores que já aparecem nos anéis/telas.
-  renderer.domElement.style.filter =
-    'drop-shadow(0 0 6px rgba(167,139,250,0.45)) drop-shadow(0 0 18px rgba(110,231,183,0.18))';
+  //
+  // Refinamento "Glow Dinâmico": em vez de um filtro estático, o raio de
+  // desfoque e a opacidade respiram devagar (seno) — atualizado a cada
+  // quadro dentro de animate(), junto com o pulso dos raios volumétricos.
 
   function animate() {
     requestAnimationFrame(animate);
     const now = performance.now();
+    const t = now * 0.001;
+
     pointCloud.rotation.y += 0.0018;
     for (const { mesh, speed, axis } of rings) {
       mesh.rotation[axis] += speed;
@@ -383,6 +455,20 @@ export function initDashboard3D(mount: HTMLElement): void {
     for (const terminal of terminals) {
       terminal.update(now);
     }
+
+    // Pulso lento e contínuo (independe do scroll) + um boost quando o
+    // scanner está passando perto do centro do painel — os raios "acendem"
+    // em sincronia com o scanner, como pedido.
+    const breathe = 0.5 + 0.5 * Math.sin(t * 1.1);
+    const scanCenterProximity = 1 - Math.min(1, Math.abs(scanLine.position.y) / (MAIN_H / 2));
+    const rayOpacity = 0.1 + breathe * 0.08 + scanCenterProximity * 0.22;
+    for (const mat of rayMaterials) mat.opacity = rayOpacity;
+
+    const glowStrength = 0.4 + breathe * 0.35 + scanCenterProximity * 0.25;
+    renderer.domElement.style.filter =
+      `drop-shadow(0 0 ${(5 + glowStrength * 4).toFixed(1)}px rgba(167,139,250,${(0.35 + glowStrength * 0.25).toFixed(2)})) ` +
+      `drop-shadow(0 0 ${(14 + glowStrength * 10).toFixed(1)}px rgba(110,231,183,${(0.12 + glowStrength * 0.12).toFixed(2)}))`;
+
     renderer.render(scene, camera);
   }
   animate();
