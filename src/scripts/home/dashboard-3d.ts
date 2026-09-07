@@ -351,21 +351,152 @@ export function initDashboard3D(mount: HTMLElement): void {
     rings.push({ mesh: ring, speed: spec.speed, axis: spec.axis });
   }
 
-  // ── Nuvem de pontos densa — "processamento massivo de dados" ──
+  // ── Fase 3 — "Data Stream": nuvem de pontos que flui em direção ao painel,
+  // com rastro (trail) curto por partícula, simulando dados sendo puxados
+  // pro processamento. Estrutura-de-arrays (Float32Array simples, não um
+  // array de objetos/Vector3) de propósito — 220 partículas × rastro por
+  // quadro é um loop quente, e evitar alocar objeto novo por partícula
+  // reduz o trabalho do garbage collector.
   const CLOUD_COUNT = 220;
-  const cloudPositions = new Float32Array(CLOUD_COUNT * 3);
-  for (let i = 0; i < CLOUD_COUNT; i++) {
-    cloudPositions[i * 3] = (Math.random() - 0.5) * MAIN_W * 1.15;
-    cloudPositions[i * 3 + 1] = (Math.random() - 0.5) * MAIN_H * 1.3;
-    cloudPositions[i * 3 + 2] = 0.3 + Math.random() * 1.6;
+  const TRAIL_LENGTH = 18; // dentro da faixa pedida (15-20 quadros de histórico)
+  const ATTRACT_STRENGTH = 0.00085;
+  const DAMPING = 0.985;
+  const RESPAWN_DIST = 0.4;
+  const TARGET_Z = 0.4; // ponto de "processamento", levemente à frente do rosto do painel
+
+  const posX = new Float32Array(CLOUD_COUNT);
+  const posY = new Float32Array(CLOUD_COUNT);
+  const posZ = new Float32Array(CLOUD_COUNT);
+  const velX = new Float32Array(CLOUD_COUNT);
+  const velY = new Float32Array(CLOUD_COUNT);
+  const velZ = new Float32Array(CLOUD_COUNT);
+  // Histórico de posições por partícula, sempre em ordem cronológica (mais
+  // antigo no índice 0, mais novo no último) — permite copyWithin (rápido,
+  // nativo) em vez de recalcular tudo a cada quadro.
+  const trails = new Float32Array(CLOUD_COUNT * TRAIL_LENGTH * 3);
+
+  function spawnParticle(i: number): void {
+    const x = (Math.random() - 0.5) * MAIN_W * 1.3;
+    const y = (Math.random() - 0.5) * MAIN_H * 1.5;
+    const z = 0.5 + Math.random() * 2.4;
+    posX[i] = x;
+    posY[i] = y;
+    posZ[i] = z;
+    velX[i] = velY[i] = velZ[i] = 0;
+    const base = i * TRAIL_LENGTH * 3;
+    for (let t = 0; t < TRAIL_LENGTH; t++) {
+      trails[base + t * 3] = x;
+      trails[base + t * 3 + 1] = y;
+      trails[base + t * 3 + 2] = z;
+    }
   }
-  const cloudGeo = new THREE.BufferGeometry();
-  cloudGeo.setAttribute('position', new THREE.BufferAttribute(cloudPositions, 3));
+  for (let i = 0; i < CLOUD_COUNT; i++) spawnParticle(i);
+
+  // "Cabeça" de cada partícula — ponto brilhante na posição atual
+  const headGeo = new THREE.BufferGeometry();
+  headGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(CLOUD_COUNT * 3), 3));
   const pointCloud = new THREE.Points(
-    cloudGeo,
-    new THREE.PointsMaterial({ color: 0xa78bfa, size: 0.035, transparent: true, opacity: 0.75, sizeAttenuation: true }),
+    headGeo,
+    new THREE.PointsMaterial({
+      color: 0xd8b4fe,
+      size: 0.045,
+      transparent: true,
+      opacity: 0.9,
+      sizeAttenuation: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    }),
   );
-  systemGroup.add(pointCloud);
+
+  // Rastro — UM único LineSegments pra todas as 220 partículas (não 220
+  // objetos Line separados: seria 220 draw calls por quadro só pra isso).
+  // Cor por vértice pré-calculada UMA vez (cauda ciano/escura → ponta roxo
+  // brilhante) — só as posições mudam a cada quadro.
+  const SEGMENTS_PER_PARTICLE = TRAIL_LENGTH - 1;
+  const trailVertexCount = CLOUD_COUNT * SEGMENTS_PER_PARTICLE * 2;
+  const trailPositions = new Float32Array(trailVertexCount * 3);
+  const trailColors = new Float32Array(trailVertexCount * 3);
+
+  const tailColor = new THREE.Color(0x22d3ee); // ciano
+  const headColor = new THREE.Color(0xc084fc); // roxo brilhante
+  for (let i = 0; i < CLOUD_COUNT; i++) {
+    const segBase = i * SEGMENTS_PER_PARTICLE * 2 * 3;
+    for (let s = 0; s < SEGMENTS_PER_PARTICLE; s++) {
+      const t = s / (SEGMENTS_PER_PARTICLE - 1); // 0 na cauda, 1 na ponta
+      const c = tailColor.clone().lerp(headColor, t).multiplyScalar(0.12 + t * 0.88);
+      const outA = segBase + s * 2 * 3;
+      const outB = outA + 3;
+      trailColors[outA] = c.r; trailColors[outA + 1] = c.g; trailColors[outA + 2] = c.b;
+      trailColors[outB] = c.r; trailColors[outB + 1] = c.g; trailColors[outB + 2] = c.b;
+    }
+  }
+  const trailGeo = new THREE.BufferGeometry();
+  trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
+  trailGeo.setAttribute('color', new THREE.BufferAttribute(trailColors, 3));
+  const trailLines = new THREE.LineSegments(
+    trailGeo,
+    new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    }),
+  );
+
+  const streamGroup = new THREE.Group();
+  streamGroup.add(trailLines, pointCloud);
+  systemGroup.add(streamGroup);
+
+  // Chamado a cada quadro — só grava direto nos Float32Array já existentes
+  // (setDrawRange/needsUpdate), nunca recria geometria ou aloca por partícula.
+  function updateDataStream(): void {
+    const headArr = headGeo.attributes.position.array as Float32Array;
+    const trailArr = trailGeo.attributes.position.array as Float32Array;
+
+    for (let i = 0; i < CLOUD_COUNT; i++) {
+      const dx = -posX[i];
+      const dy = -posY[i];
+      const dz = TARGET_Z - posZ[i];
+      const dist = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+
+      velX[i] = (velX[i] + (dx / dist) * ATTRACT_STRENGTH) * DAMPING;
+      velY[i] = (velY[i] + (dy / dist) * ATTRACT_STRENGTH) * DAMPING;
+      velZ[i] = (velZ[i] + (dz / dist) * ATTRACT_STRENGTH) * DAMPING;
+      posX[i] += velX[i];
+      posY[i] += velY[i];
+      posZ[i] += velZ[i];
+
+      if (dist < RESPAWN_DIST) {
+        spawnParticle(i); // "processada" — some e reaparece longe, com rastro novo
+      } else {
+        const base = i * TRAIL_LENGTH * 3;
+        trails.copyWithin(base, base + 3, base + TRAIL_LENGTH * 3);
+        const lastIdx = base + (TRAIL_LENGTH - 1) * 3;
+        trails[lastIdx] = posX[i];
+        trails[lastIdx + 1] = posY[i];
+        trails[lastIdx + 2] = posZ[i];
+      }
+
+      headArr[i * 3] = posX[i];
+      headArr[i * 3 + 1] = posY[i];
+      headArr[i * 3 + 2] = posZ[i];
+
+      const trailBase = i * TRAIL_LENGTH * 3;
+      const segBase = i * SEGMENTS_PER_PARTICLE * 2 * 3;
+      for (let s = 0; s < SEGMENTS_PER_PARTICLE; s++) {
+        const aIdx = trailBase + s * 3;
+        const bIdx = trailBase + (s + 1) * 3;
+        const outA = segBase + s * 2 * 3;
+        const outB = outA + 3;
+        trailArr[outA] = trails[aIdx]; trailArr[outA + 1] = trails[aIdx + 1]; trailArr[outA + 2] = trails[aIdx + 2];
+        trailArr[outB] = trails[bIdx]; trailArr[outB + 1] = trails[bIdx + 1]; trailArr[outB + 2] = trails[bIdx + 2];
+      }
+    }
+
+    headGeo.attributes.position.needsUpdate = true;
+    trailGeo.attributes.position.needsUpdate = true;
+  }
 
   // ── Scanner — linha fina varrendo o painel principal, efeito radar ──
   const scanLine = new THREE.Mesh(
@@ -448,7 +579,8 @@ export function initDashboard3D(mount: HTMLElement): void {
     const now = performance.now();
     const t = now * 0.001;
 
-    pointCloud.rotation.y += 0.0018;
+    streamGroup.rotation.y += 0.0006;
+    updateDataStream();
     for (const { mesh, speed, axis } of rings) {
       mesh.rotation[axis] += speed;
     }
