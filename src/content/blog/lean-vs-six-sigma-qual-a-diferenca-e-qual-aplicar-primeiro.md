@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Lean vs Six Sigma: qual a diferença e qual aplicar primeiro
-
 Quando se fala em gestão de processos e melhoria contínua, dois termos costumam aparecer com frequência: Lean e Six Sigma. Ambas as abordagens visam aumentar a eficiência, reduzir desperdícios e melhorar a qualidade. Mas você sabe qual a diferença entre elas e qual aplicar primeiro em sua empresa? Neste artigo, vamos esclarecer esses pontos para ajudar pequenas e médias empresas em Belo Horizonte a otimizar seus processos.
 
 ## O que é Lean?

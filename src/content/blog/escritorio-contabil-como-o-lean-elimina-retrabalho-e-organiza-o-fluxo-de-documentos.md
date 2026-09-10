@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Escritório Contábil: Como o Lean Elimina Retrabalho e Organiza o Fluxo de Documentos
-
 Gerenciar um escritório contábil pode ser desafiador. As pequenas e médias empresas frequentemente enfrentam problemas com retrabalho, perda de documentos e desorganização do fluxo de trabalho. Uma solução eficaz para esses desafios é a metodologia Lean, que pode transformar a forma como sua empresa lida com documentos e processos contábeis.
 
 ## O Que É a Metodologia Lean?

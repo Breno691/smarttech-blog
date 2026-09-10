@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como uma Oficina Mecânica Eliminou o Serviço que Voltava e Dobrou a Satisfação do Cliente
-
 Em um mercado competitivo, a satisfação do cliente é o que diferencia uma empresa da outra. Recentemente, uma oficina mecânica em Belo Horizonte implementou mudanças significativas em seus processos e teve resultados impressionantes: a eliminação de um serviço que exigia retorno e, como consequência, o dobro na satisfação do cliente. Neste artigo, vamos entender como essa mudança estratégica pode servir de inspiração para pequenas e médias empresas.
 
 ## O Problema Inicial: O Serviço Que Voltava

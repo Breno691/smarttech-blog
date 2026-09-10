@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como atender mais clientes sem precisar contratar mais gente
-
 Atender cada vez mais clientes sem aumentar a equipe é um desafio que muitas pequenas e médias empresas enfrentam. Com o ritmo acelerado do mercado e a crescente demanda por serviços, é essencial encontrar maneiras eficientes de otimizar seu atendimento e aumentar a capacidade de resposta. Neste artigo, vamos discutir algumas estratégias práticas que podem ajudar a sua empresa a crescer sem sobrecarregar seus colaboradores.
 
 ## 1. Investir em automação

@@ -6,6 +6,7 @@ import GTMBody from '../../components/GTMBody.astro';
 import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
 import MetaPixel from '../../components/MetaPixel.astro';
 import EventTracking from '../../components/EventTracking.astro';
+import ExitIntentModal from '../../components/ExitIntentModal.astro';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -177,6 +178,7 @@ const categoryThumb: Record<string, string> = {
     </footer>
 
     <EventTracking />
+    <ExitIntentModal />
   </body>
 </html>
 

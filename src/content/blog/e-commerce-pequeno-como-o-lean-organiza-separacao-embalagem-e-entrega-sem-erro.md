@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# E-commerce pequeno: como o Lean organiza separação, embalagem e entrega sem erro
-
 Gerenciar um e-commerce pequeno pode ser um desafio, principalmente quando se trata de separação, embalagem e entrega de produtos. A eficiência nesses processos é fundamental para garantir a satisfação do cliente e, consequentemente, o sucesso do seu negócio. É aqui que o Lean entra como uma abordagem valiosa, ajudando a otimizar cada etapa do seu fluxo de trabalho. 
 
 ## O que é o Lean?

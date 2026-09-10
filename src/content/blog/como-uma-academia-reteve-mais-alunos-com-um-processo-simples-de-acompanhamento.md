@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como uma academia reteve mais alunos com um processo simples de acompanhamento
-
 Manter os alunos motivados e engajados em uma academia pode ser um desafio, especialmente em um mercado tão competitivo quanto o de Belo Horizonte. A fidelização dos alunos é crucial para o sucesso do seu negócio, e um bom acompanhamento pode fazer toda a diferença. Neste artigo, você vai entender como um processo simples pode reter mais alunos na sua academia.
 
 ## O que é acompanhamento de alunos?

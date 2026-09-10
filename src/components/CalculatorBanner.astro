@@ -1,0 +1,63 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+const {
+  title = 'Descobriu com qual desperdício você perde dinheiro?',
+  subtitle = 'Descubra exatamente quanto isso custa em Reais por mês na nossa calculadora.',
+} = Astro.props;
+---
+
+<section class="calc-interrupt">
+  <div class="calc-interrupt-inner">
+    <h3>{title}</h3>
+    <p>{subtitle}</p>
+    <a href="/calculadora-desperdicio" class="calc-interrupt-btn">Calcular Meu Prejuízo Agora →</a>
+  </div>
+</section>
+
+<style>
+  .calc-interrupt {
+    background: linear-gradient(135deg, #7c3aed, #10b981);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin: 3rem auto;
+    max-width: 900px;
+    box-shadow: 0 20px 50px rgba(124, 58, 237, 0.25);
+  }
+  .calc-interrupt-inner {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .calc-interrupt h3 {
+    font-size: clamp(1.3rem, 3vw, 1.75rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+  .calc-interrupt p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    margin-bottom: 1.75rem;
+  }
+  .calc-interrupt-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    color: #7c3aed;
+    font-weight: 800;
+    padding: 0.9rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .calc-interrupt-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+</style>

@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como uma Transportadora Reduziu Atraso de Entrega Mapeando o Processo de Rota
-
 Atrasos na entrega são um dos maiores pesadelos para transportadoras e seus clientes. Imagine a frustração de um cliente que espera ansiosamente por um produto e, ao final, não recebe na data prevista. Esse problema é comum e pode afetar a reputação da sua empresa. Neste artigo, vamos contar como uma transportadora local em Belo Horizonte conseguiu reduzir seus atrasos utilizando técnicas de mapeamento de processos. 
 
 ## O Desafio da Transportadora 

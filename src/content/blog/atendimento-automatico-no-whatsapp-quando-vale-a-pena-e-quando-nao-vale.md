@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# Atendimento automático no WhatsApp: quando vale a pena e quando não vale
-
 Nos dias de hoje, muitas empresas estão adotando o atendimento automático no WhatsApp como uma forma de agilizar a comunicação com seus clientes. Mas será que essa é a melhor solução para todos os tipos de negócio? Neste artigo, vamos analisar as situações em que o atendimento automático é vantajoso e em quais momentos ele pode não ser a melhor escolha.
 
 ## O que é atendimento automático no WhatsApp?

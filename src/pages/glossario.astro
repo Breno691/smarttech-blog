@@ -1,0 +1,228 @@
+---
+import Nav from '../components/Nav.astro';
+import GTMHead from '../components/GTMHead.astro';
+import GTMBody from '../components/GTMBody.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+import ExitIntentModal from '../components/ExitIntentModal.astro';
+
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+const canonicalURL = new URL('/glossario', siteURL).href;
+const whatsappURL = 'https://wa.me/5531972039180?text=' + encodeURIComponent('Olá! Vi um termo no glossário do site e queria entender melhor pra minha empresa.');
+
+interface Term {
+  term: string;
+  def: string;
+  link?: { href: string; label: string };
+}
+
+const leanTerms: Term[] = [
+  { term: '5S', def: 'Método japonês de organização do ambiente de trabalho em 5 etapas (Senso de utilização, ordenação, limpeza, padronização e disciplina). Reduz tempo perdido procurando ferramenta, material ou informação.' },
+  { term: 'Black Belt', def: 'Nível mais avançado de certificação em Lean Six Sigma. Quem tem esse título está habilitado a liderar projetos complexos de melhoria de processo do início ao fim.', link: { href: '/sobre', label: 'Conheça o Black Belt por trás da SmartOps' } },
+  { term: 'DMAIC', def: 'As 5 etapas de um projeto de melhoria: Definir o problema, Medir o processo atual, Analisar a causa raiz, Melhorar (Improve) e Controlar pra garantir que não volte ao normal antigo.', link: { href: '/lean-six-sigma', label: 'Veja o DMAIC na prática' } },
+  { term: 'Gargalo', def: 'O ponto do processo que trava tudo o resto — mesmo que as outras etapas estejam rápidas, a velocidade final da operação é sempre a velocidade do gargalo.' },
+  { term: 'Gemba', def: 'Termo japonês para "o lugar onde a coisa realmente acontece" — o chão de fábrica, o balcão, a linha de produção. Base do Lean: entender o problema observando o trabalho real, não só relatório.' },
+  { term: 'Kaizen', def: 'Filosofia de melhoria contínua em pequenos passos, todos os dias, feita por quem executa o trabalho — não uma reforma única e grande, e sim ajuste constante.' },
+  { term: 'Lead Time', def: 'Tempo total desde o pedido do cliente até a entrega final. Reduzir lead time normalmente importa mais pro cliente do que reduzir custo interno.' },
+  { term: 'Muda (Desperdício)', def: 'Qualquer atividade que consome tempo ou recurso sem gerar valor pro cliente — retrabalho, espera, movimento desnecessário, estoque parado.' },
+  { term: 'Retrabalho', def: 'Refazer algo que já tinha sido feito, porque saiu errado da primeira vez. É um dos desperdícios mais caros e mais escondidos numa operação.', link: { href: '/lean-six-sigma', label: 'Como o Lean elimina retrabalho' } },
+  { term: 'VSM (Mapa de Fluxo de Valor)', def: 'Desenho visual de todas as etapas de um processo, do início ao fim, mostrando onde o tempo é gasto de verdade — inclusive as esperas que ninguém enxerga no dia a dia.' },
+];
+
+const automacaoTerms: Term[] = [
+  { term: 'Agente de IA', def: 'Um programa que usa inteligência artificial pra executar uma tarefa sozinho — responder cliente, qualificar lead, organizar dado — sem precisar de uma pessoa acompanhando cada passo.' },
+  { term: 'API', def: 'A "porta" que permite dois sistemas diferentes conversarem entre si automaticamente — por exemplo, seu WhatsApp avisando seu sistema de vendas assim que um cliente manda mensagem.' },
+  { term: 'Automação de Processos', def: 'Fazer o computador executar sozinho uma tarefa repetitiva que hoje depende de uma pessoa lembrar de fazer — como responder pergunta frequente ou organizar planilha.', link: { href: '/automacao', label: 'Veja o que dá pra automatizar' } },
+  { term: 'Chatbot', def: 'Programa que conversa com o cliente pelo WhatsApp ou site, respondendo dúvida comum e encaminhando pra pessoa certa quando o assunto é mais complexo.' },
+  { term: 'CRM', def: 'Sistema que guarda organizado o histórico de cada cliente — o que ele comprou, quando foi o último contato, o que ficou combinado — pra ninguém depender da memória.' },
+  { term: 'IA Generativa', def: 'Tipo de inteligência artificial (como a que tem por trás do ChatGPT) capaz de escrever texto, responder pergunta ou criar conteúdo original a partir de um pedido em linguagem natural.' },
+  { term: 'Integração de Sistemas', def: 'Conectar duas ferramentas que hoje não conversam (ex: WhatsApp e planilha de vendas) pra que a informação passe de uma pra outra sozinha, sem copiar e colar manual.' },
+  { term: 'n8n', def: 'Ferramenta usada pra montar automações — o "cérebro" que liga WhatsApp, planilha, e-mail e inteligência artificial num fluxo só, sem precisar programar do zero.' },
+  { term: 'Webhook', def: 'Um aviso automático que um sistema manda pro outro assim que algo acontece — por exemplo, "chegou uma mensagem nova" disparando a automação na hora.' },
+];
+
+const manutencaoTerms: Term[] = [
+  { term: 'Backup', def: 'Cópia de segurança dos arquivos importantes, guardada em outro lugar — se o computador quebrar ou pegar vírus, nada se perde.' },
+  { term: 'Diagnóstico SMART', def: 'Leitura de sensores internos do HD/SSD que avisa sinais de que o disco está prestes a falhar, antes de perder dado de verdade.', link: { href: '/manutencao', label: 'Ver o Diagnóstico SMART da SmartOps' } },
+  { term: 'Formatação', def: 'Apagar tudo do computador e reinstalar o sistema do zero — resolve lentidão extrema e a maioria dos vírus, mas exige backup antes.' },
+  { term: 'SSD', def: 'Tipo de armazenamento mais rápido que o HD tradicional (sem partes mecânicas girando) — trocar um HD antigo por SSD costuma ser o upgrade que mais se sente no dia a dia.' },
+  { term: 'Upgrade', def: 'Trocar ou melhorar uma peça do computador (memória, SSD) pra ele rodar mais rápido, sem precisar comprar um aparelho novo.' },
+  { term: 'Vírus / Malware', def: 'Programa malicioso que entra no computador sem permissão pra roubar dado, travar o sistema ou espionar — removido com ferramenta especializada, não só "deletando arquivo".' },
+];
+
+const sections = [
+  { id: 'lean', label: 'Lean Six Sigma', terms: leanTerms },
+  { id: 'automacao', label: 'Automação com IA', terms: automacaoTerms },
+  { id: 'manutencao', label: 'Manutenção & TI', terms: manutencaoTerms },
+];
+
+const allTerms = [...leanTerms, ...automacaoTerms, ...manutencaoTerms];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'DefinedTermSet',
+      '@id': `${canonicalURL}#glossario`,
+      name: 'Glossário SmartOps IA',
+      description: 'Termos de Lean Six Sigma, Automação com IA e Manutenção de Computadores explicados em linguagem simples.',
+      url: canonicalURL,
+      hasDefinedTerm: allTerms.map((t) => ({
+        '@type': 'DefinedTerm',
+        name: t.term,
+        description: t.def,
+        inDefinedTermSet: `${canonicalURL}#glossario`,
+      })),
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'Glossário | SmartOps IA',
+      description: 'Termos de Lean Six Sigma, Automação com IA e Manutenção de Computadores, explicados sem jargão.',
+      inLanguage: 'pt-BR',
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+          { '@type': 'ListItem', position: 2, name: 'Glossário', item: canonicalURL },
+        ],
+      },
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <GTMHead />
+  <MetaPixel />
+
+  <title>Glossário Lean Six Sigma e Automação | SmartOps IA</title>
+  <meta name="description" content="O que é DMAIC, Kaizen, gargalo, automação, n8n, SSD e outros termos — explicados em linguagem simples, sem academia." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content="Glossário | SmartOps IA" />
+  <meta property="og:description" content="Termos de Lean Six Sigma, Automação com IA e Manutenção explicados sem jargão." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <GoogleAnalytics />
+</head>
+<body>
+  <GTMBody />
+  <Nav current="/glossario" />
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="badge">
+        <span class="dot"></span>
+        Sem jargão, sem academia
+      </div>
+      <h1>Glossário <span class="grad">SmartOps IA</span></h1>
+      <p class="bio">Termo técnico que ninguém te explica direito? Aqui está, em linguagem de dono de empresa — não de sala de aula.</p>
+    </div>
+  </section>
+
+  <!-- ÍNDICE -->
+  <nav class="toc">
+    <div class="container">
+      {sections.map((s) => (
+        <a href={`#${s.id}`} class="toc-link">{s.label}</a>
+      ))}
+    </div>
+  </nav>
+
+  {sections.map((s, i) => (
+    <section class:list={['section', i % 2 === 1 && 'dark-section']} id={s.id}>
+      <div class="container narrow">
+        <div class="section-label">{s.label}</div>
+        <div class="term-list">
+          {s.terms.map((t) => (
+            <div class="term-item">
+              <h2>{t.term}</h2>
+              <p>{t.def}</p>
+              {t.link && <a href={t.link.href} class="term-link">{t.link.label} →</a>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container narrow" style="text-align:center">
+      <h2>Termo que não está aqui?<br />Pergunta direto.</h2>
+      <p>Mande sua dúvida no WhatsApp — respondemos sem enrolação.</p>
+      <a href={whatsappURL} class="btn-primary large" target="_blank" rel="noopener noreferrer">
+        Falar no WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 SmartOps IA · Breno Luiz · Black Belt Lean Six Sigma · BH, Nova Pampulha e Morro Alto</p>
+      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/glossario">Glossário</a> · <a href="/diagnostico-rapido">Diagnóstico Rápido</a> · <a href="/sobre">Sobre</a></nav>
+    </div>
+  </footer>
+  <ExitIntentModal />
+</body>
+</html>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #07070f; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .container.narrow { max-width: 800px; }
+  .section { padding: 4rem 0; }
+  .dark-section { background: #0d0d1a; }
+  .grad { background: linear-gradient(135deg, #a78bfa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .hero { position: relative; padding: 4rem 0 3rem; text-align: center; }
+  .hero-glow { position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%); pointer-events: none; }
+  .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: #10b981; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+  .bio { color: rgba(255,255,255,0.65); font-size: 1rem; line-height: 1.7; max-width: 620px; margin: 0 auto; }
+
+  .toc { position: sticky; top: 0; z-index: 10; background: rgba(7,7,15,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0.9rem 0; }
+  .toc .container { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+  .toc-link { font-size: 0.85rem; font-weight: 700; color: #a78bfa; text-decoration: none; }
+  .toc-link:hover { color: #fff; }
+
+  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #a78bfa; margin-bottom: 1.5rem; }
+
+  .term-list { display: flex; flex-direction: column; gap: 1.75rem; }
+  .term-item { border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 1.75rem; }
+  .term-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .term-item h2 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff; }
+  .term-item p { font-size: 0.92rem; color: rgba(255,255,255,0.65); line-height: 1.65; margin-bottom: 0.5rem; }
+  .term-link { font-size: 0.85rem; font-weight: 700; color: #10b981; text-decoration: none; }
+  .term-link:hover { color: #fff; }
+
+  .cta-section { background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(16,185,129,0.08)); border-top: 1px solid rgba(167,139,250,0.15); padding: 4rem 0; }
+  .cta-section h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin-bottom: 1rem; }
+  .cta-section p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+  .btn-primary { display: inline-flex; align-items: center; background: linear-gradient(135deg, #7c3aed, #10b981); color: #fff; font-weight: 700; padding: 0.75rem 1.75rem; border-radius: 10px; text-decoration: none; font-size: 1rem; transition: opacity 0.2s; }
+  .btn-primary.large { font-size: 1.1rem; padding: 1rem 2.5rem; }
+  .btn-primary:hover { opacity: 0.9; }
+
+  .site-footer { background: #04040a; border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; }
+  .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+  .site-footer nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+  .site-footer nav a:hover { color: #fff; }
+</style>

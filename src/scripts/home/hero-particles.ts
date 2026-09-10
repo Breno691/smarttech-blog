@@ -2,6 +2,8 @@
 // Densidade e cálculo de linhas conectivas variam conforme getDeviceCapability()
 // (ver home-entry.ts, que decide os parâmetros e chama initHeroParticles uma vez).
 
+import { observeVisibilityLifecycle } from './visibility-lifecycle';
+
 export interface HeroParticlesOptions {
   density: number; // ~80 no modo 'full', ~25 no modo 'reduced'
   connectLines: boolean; // desligado no modo 'reduced' — é o cálculo mais caro (O(n²)), mais que a quantidade
@@ -126,8 +128,22 @@ export function initHeroParticles(canvas: HTMLCanvasElement, options: HeroPartic
       }
     }
 
-    requestAnimationFrame(step);
+    rafId = requestAnimationFrame(step);
   }
 
-  requestAnimationFrame(step);
+  // Pausa o loop (e o custo O(n²) das linhas conectivas) assim que o Hero sai
+  // da viewport pelo scroll — sem isso, o canvas continuava calculando e
+  // desenhando pra sempre, mesmo com o usuário lendo o resto da página.
+  let rafId: number | null = null;
+  observeVisibilityLifecycle(canvas, {
+    onVisible: () => {
+      if (rafId === null) step();
+    },
+    onHidden: () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    },
+  });
 }

@@ -1,0 +1,15 @@
+# Força HTTPS em todo o site (visitante que digitar http:// vai direto pra versão segura)
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirects de posts de blog duplicados (limpeza jul/2026)
+Redirect 301 /blog/mantenacao-e-formatacao-de-computador/ /blog/manutencao-formatacao-computadores/
+Redirect 301 /blog/mantenicao-e-formatacao-de-computador/ /blog/manutencao-formatacao-computadores/
+Redirect 301 /blog/manutencao-e-formatacao-de-computador/ /blog/manutencao-formatacao-computadores/
+
+# Páginas fantasmas de uma versão bem mais antiga do site, achadas via Search
+# Console (set/2026) — arquivos soltos no servidor, fora do build atual do
+# Astro. Redirecionando pro equivalente de hoje em vez de deixar 404.
+Redirect 301 /diagnostico.html /diagnostico-gratuito
+Redirect 301 /como-funciona.html /lean-six-sigma

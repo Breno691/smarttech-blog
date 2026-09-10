@@ -1,0 +1,191 @@
+{
+  "name": "SMARTOPS - Captura de Leads (Site) v3",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "captura-leads",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "id": "node-webhook",
+      "name": "Webhook: Recebe Lead",
+      "webhookId": "smartops-leads"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\n\nconst nome = (body.nome || '').trim();\nconst telefone = (body.telefone || '').replace(/\\D/g, '');\nconst empresa = (body.empresa || '').trim();\nconst servico = body.servico || 'outro';\nconst mensagem = (body.mensagem || '').trim();\nconst origem = body.origem || 'site';\n\nif (!nome || !telefone) {\n  throw new Error('nome e telefone sao obrigatorios');\n}\n\nreturn [{\n  json: {\n    nome,\n    telefone,\n    empresa,\n    segmento: servico,\n    dor_principal: mensagem || ('Interesse em ' + servico),\n    origem,\n    status: 'novo',\n    temperatura: 'morno'\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0],
+      "id": "node-preparar",
+      "name": "Preparar Lead"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ewtujmicxmcyfitgsokm.supabase.co/rest/v1/leads",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0],
+      "id": "node-http",
+      "name": "Supabase: Salvar Lead",
+      "continueOnFail": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "rbb2jaW7M5A29u6U",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "check-error",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [660, 0],
+      "id": "node-if",
+      "name": "Salvou com sucesso?"
+    },
+    {
+      "parameters": {
+        "chatId": "1349738505",
+        "text": "=🎯 NOVO LEAD CAPTURADO\n\n👤 Nome: {{ $('Preparar Lead').first().json.nome }}\n📱 WhatsApp: {{ $('Preparar Lead').first().json.telefone }}\n🏢 Empresa: {{ $('Preparar Lead').first().json.empresa || 'não informado' }}\n🔧 Serviço: {{ $('Preparar Lead').first().json.segmento }}\n💬 Dor: {{ $('Preparar Lead').first().json.dor_principal }}\n📍 Origem: {{ $('Preparar Lead').first().json.origem }}\n\n🔗 wa.me/{{ $('Preparar Lead').first().json.telefone }}\n\n⏰ Follow-up automático em 1h.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [880, -120],
+      "id": "node-telegram-ok",
+      "name": "Telegram: Lead Recebido",
+      "credentials": {
+        "telegramApi": {
+          "id": "6HgbckktjsHpblo6",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1349738505",
+        "text": "=⚠️ ERRO AO SALVAR LEAD\n\n👤 Nome: {{ $('Preparar Lead').first().json.nome }}\n📱 Telefone: {{ $('Preparar Lead').first().json.telefone }}\n\n❌ Erro: {{ $json.error || 'Desconhecido' }}\n\nVerifique o n8n manualmente.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [880, 120],
+      "id": "node-telegram-erro",
+      "name": "Telegram: Erro Lead",
+      "credentials": {
+        "telegramApi": {
+          "id": "6HgbckktjsHpblo6",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": true, \"message\": \"Lead recebido com sucesso\" }",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1100, -120],
+      "id": "node-resp-200",
+      "name": "Responder 200 OK"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": false, \"message\": \"Erro interno, tente novamente\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1100, 120],
+      "id": "node-resp-500",
+      "name": "Responder 500 Erro"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook: Recebe Lead": {
+      "main": [[{ "node": "Preparar Lead", "type": "main", "index": 0 }]]
+    },
+    "Preparar Lead": {
+      "main": [[{ "node": "Supabase: Salvar Lead", "type": "main", "index": 0 }]]
+    },
+    "Supabase: Salvar Lead": {
+      "main": [[{ "node": "Salvou com sucesso?", "type": "main", "index": 0 }]]
+    },
+    "Salvou com sucesso?": {
+      "main": [
+        [{ "node": "Telegram: Lead Recebido", "type": "main", "index": 0 }],
+        [{ "node": "Telegram: Erro Lead", "type": "main", "index": 0 }]
+      ]
+    },
+    "Telegram: Lead Recebido": {
+      "main": [[{ "node": "Responder 200 OK", "type": "main", "index": 0 }]]
+    },
+    "Telegram: Erro Lead": {
+      "main": [[{ "node": "Responder 500 Erro", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "instanceId": "e1d9cb57c2168aabf7ccee9b9e1dc60b4c00120cb599d8c8c032500ab91deacb"
+  },
+  "tags": []
+}

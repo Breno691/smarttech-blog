@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Restaurante com gargalo na cozinha: como o Lean resolve o atraso no atendimento
-
 Um dos maiores desafios enfrentados por restaurantes é a gestão da cozinha. Um fluxo ineficiente pode resultar em gargalos que atrasam o atendimento, impactando não apenas a experiência dos clientes, mas também a lucratividade do negócio. Nesse cenário, a metodologia Lean se destaca como uma solução eficaz para otimizar processos e melhorar a eficiência da operação.
 
 ## O que são gargalos na cozinha?

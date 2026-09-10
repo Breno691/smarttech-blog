@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# O negócio cresce mas o lucro não: onde está o dinheiro sumindo
-
 É comum que pequenas e médias empresas passem por um crescimento nas vendas, mas a satisfação com esse resultado acaba sendo ofuscada por lucros que não aparecem. Se você se identificou com essa situação, não está sozinho. Muitos empreendedores de Belo Horizonte (MG) enfrentam esse dilema. Neste artigo, vamos identificar onde pode estar o dinheiro que parece estar sumindo e como é possível reverter essa situação.
 
 ## Lucro x Receita: Entenda a Diferença

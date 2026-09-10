@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que tudo na minha empresa trava quando eu não estou presente
-
 Você já se perguntou por que sua empresa enfrenta instabilidades e falhas nos sistemas sempre que você se ausenta? Situações como essas são frustrantes e podem afetar a produtividade e os resultados do seu negócio. Vamos entender algumas causas comuns e como a SmartOps pode ajudar a resolver esses problemas.
 
 ## Esteja preparado para as quedas de desempenho

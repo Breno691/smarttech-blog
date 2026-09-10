@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como calcular quanto o retrabalho está custando por mês na sua empresa
-
 O retrabalho é um dos principais vilões da eficiência dentro de uma empresa. Você sabia que todo erro pode custar muito mais do que você imagina? Se você é dono de uma pequena ou média empresa em Belo Horizonte (MG), é hora de entender como calcular essas perdas e o impacto que o retrabalho pode ter nas suas finanças.
 
 ## O que é retrabalho?

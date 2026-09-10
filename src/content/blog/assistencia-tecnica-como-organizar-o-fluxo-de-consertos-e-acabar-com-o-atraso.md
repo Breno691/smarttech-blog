@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Assistência técnica: como organizar o fluxo de consertos e acabar com o atraso
-
 Um dos maiores desafios enfrentados por assistência técnica, especialmente em pequenas e médias empresas, é manter um fluxo organizado de consertos. Os atrasos não apenas afetam a satisfação do cliente, mas também podem prejudicar a reputação do negócio. Neste artigo, vamos apresentar estratégias práticas para que sua assistência técnica melhore a organização dos fluxos de conserto e acabe com os atrasos.
 
 ## Entenda o fluxo de trabalho atual
@@ -91,6 +89,8 @@ Um ambiente bem organizado pode facilitar a execução dos serviços. Certifique
 - Área de testes: onde os equipamentos são testados antes da entrega.
 
 Um espaço organizado minimiza o tempo gasto procurando ferramentas ou peças, contribuindo para um fluxo de trabalho mais eficiente.
+
+**Quer saber quanto o atraso no conserto custa pra sua assistência técnica?** Use a nossa [Calculadora de Desperdício Operacional](/calculadora-desperdicio) e descubra o valor em horas perdidas por mês.
 
 ## Conclusão
 

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Academia de ginástica: como reduzir cancelamento e melhorar a experiência do aluno com Lean
-
 Nos dias de hoje, as academias enfrentam um desafio constante: a alta taxa de cancelamento de alunos. Em um mercado competitivo como o de Belo Horizonte, é essencial não apenas atrair novos clientes, mas também reter os que já estão na sua academia. Uma abordagem poderosa para alcançar esse objetivo é a filosofia Lean, que visa a eficiência e a maximização da experiência do cliente. Neste artigo, vamos entender como implementar essa metodologia para reduzir cancelamentos e melhorar a experiência dos alunos.
 
 ## O que é Lean?

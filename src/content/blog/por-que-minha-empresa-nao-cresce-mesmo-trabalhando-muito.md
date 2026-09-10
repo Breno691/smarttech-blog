@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que minha empresa não cresce mesmo trabalhando muito
-
 A frustração de investir horas e esforço em um negócio sem observar o crescimento desejado é comum entre pequenas e médias empresas. Você pode se perguntar: "Por que minha empresa não cresce mesmo trabalhando muito?" A resposta pode estar em diversos fatores que, muitas vezes, não são percebidos à primeira vista. Vamos discutir isso de maneira clara e objetiva.
 
 ## Falta de Planejamento Estratégico

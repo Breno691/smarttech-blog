@@ -4,6 +4,7 @@ import GTMHead from '../components/GTMHead.astro';
 import GTMBody from '../components/GTMBody.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import MetaPixel from '../components/MetaPixel.astro';
+import ExitIntentModal from '../components/ExitIntentModal.astro';
 
 const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
 const canonicalURL = new URL('/sobre', siteURL).href;
@@ -180,6 +181,7 @@ const values = [
       <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a></nav>
     </div>
   </footer>
+  <ExitIntentModal />
 </body>
 </html>
 

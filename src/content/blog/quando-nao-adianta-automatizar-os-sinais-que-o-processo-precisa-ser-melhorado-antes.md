@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# Quando não adianta automatizar: os sinais que o processo precisa ser melhorado antes
-
 A automação de processos é uma estratégia que promete aumentar a eficiência e reduzir custos nas empresas. No entanto, muitas vezes, a pressa em automatizar acaba sendo um tiro no pé. Antes de implementar soluções tecnológicas, é fundamental avaliar se o processo em questão está realmente pronto para essa transformação. Neste artigo, vamos discutir os sinais que indicam que o processo precisa ser melhorado antes de partir para a automação.
 
 ## Sinal 1: Processos confusos e mal definidos

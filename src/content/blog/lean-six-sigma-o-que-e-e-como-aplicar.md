@@ -12,8 +12,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Lean Six Sigma: O Que É, Como Funciona e Por Que Sua Empresa Precisa Disso
-
 Tem um problema silencioso que a maioria das empresas carrega sem perceber: processos que funcionam, mas funcionam mal. Não são desastres óbvios. São os pequenos vazamentos — a tarefa que se repete, o erro que volta, a aprovação que fica parada, o cliente que espera mais do que deveria.
 
 Lean Six Sigma foi criado exatamente para isso.

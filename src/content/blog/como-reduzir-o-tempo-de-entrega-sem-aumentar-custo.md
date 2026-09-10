@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como Reduzir o Tempo de Entrega sem Aumentar Custo
-
 Reduzir o tempo de entrega de produtos e serviços é um desafio que muitas pequenas e médias empresas enfrentam. A eficiência na entrega pode melhorar a satisfação do cliente e, consequentemente, aumentar as vendas. No entanto, cortar prazos muitas vezes parece estar ligado a aumento de custos. Neste artigo, você entenderá como otimizar sua operação sem comprometer o orçamento.
 
 ## Avalie Seu Processo Atual

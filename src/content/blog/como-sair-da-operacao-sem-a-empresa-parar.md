@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como Sair da Operação Sem a Empresa Parar
-
 A sua empresa está pronta para crescer, mas você sente que precisa se afastar da operação do dia a dia? Esse é um desafio comum entre pequenos e médios empresários. Felizmente, é possível fazer isso sem afetar a continuidade dos processos e serviços da sua empresa. Vamos discutir como você pode sair da operação e manter sua empresa funcionando suavemente.
 
 ## A Importância da Delegação

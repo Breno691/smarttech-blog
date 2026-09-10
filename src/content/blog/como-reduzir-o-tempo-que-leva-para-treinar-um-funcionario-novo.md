@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como reduzir o tempo que leva para treinar um funcionário novo
-
 O tempo que leva para treinar um funcionário novo pode impactar diretamente a produtividade da sua empresa. Para pequenas e médias empresas em Belo Horizonte (MG), otimizar o processo de integração é crucial. Aqui estão algumas dicas práticas para acelerar esse treinamento, mantendo a qualidade necessária.
 
 ## Estruture um Programa de Onboarding Eficiente

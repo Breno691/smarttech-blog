@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Lean Six Sigma para quem quer automatizar: por onde começar
-
 A automação é uma tendência crescente e, quando combinada com a metodologia Lean Six Sigma, pode trazer resultados impressionantes para pequenas e médias empresas. Mas como você pode iniciar esse processo? Vamos esclarecer as etapas necessárias para implementar a automação com a ajuda do Lean Six Sigma.
 
 ## O que é Lean Six Sigma?

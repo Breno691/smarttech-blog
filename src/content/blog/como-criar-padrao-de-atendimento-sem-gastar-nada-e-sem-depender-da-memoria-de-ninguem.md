@@ -11,8 +11,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como criar padrão de atendimento sem gastar nada e sem depender da memória de ninguém
-
 Para pequenas e médias empresas, um bom atendimento ao cliente é crucial. Um padrão de atendimento eficaz melhora a experiência do cliente e, consequentemente, a lealdade à marca. Mas como criar esses padrões sem gastar nada e sem depender da memória de ninguém? Vamos abordar algumas estratégias práticas.
 
 ## Entenda a importância do padrão de atendimento

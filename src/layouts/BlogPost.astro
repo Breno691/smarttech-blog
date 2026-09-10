@@ -6,6 +6,7 @@ import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import MetaPixel from '../components/MetaPixel.astro';
 import EventTracking from '../components/EventTracking.astro';
 import Nav from '../components/Nav.astro';
+import ExitIntentModal from '../components/ExitIntentModal.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -154,6 +155,9 @@ function formatDate(date: Date) {
   </head>
 
   <body>
+    <div class="reading-progress-container" aria-hidden="true">
+      <div class="reading-progress-bar" id="reading-progress"></div>
+    </div>
     <GTMBody />
     <Nav current="/blog" />
 
@@ -209,6 +213,7 @@ function formatDate(date: Date) {
       </div>
     </footer>
     <EventTracking />
+    <ExitIntentModal />
   </body>
 </html>
 
@@ -405,4 +410,42 @@ function formatDate(date: Date) {
   @media (max-width: 640px) {
     main { padding: 2rem 1rem 3rem; }
   }
+
+  /* ── BARRA DE PROGRESSO DE LEITURA ── */
+  .reading-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 10001; /* acima do header e do Exit-Intent Modal (10000) */
+    pointer-events: none;
+  }
+  .reading-progress-bar {
+    height: 100%;
+    width: 100%;
+    background: var(--accent);
+    transform-origin: left;
+    transform: scaleX(0);
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+  }
 </style>
+
+<script>
+  const bar = document.getElementById('reading-progress');
+  if (bar) {
+    window.addEventListener(
+      'scroll',
+      () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = height > 0 ? scrollTop / height : 0;
+        // scaleX em vez de width: fica no compositor da GPU, não força layout/reflow a cada tick de scroll.
+        bar.style.transform = `scaleX(${scrolled})`;
+      },
+      { passive: true },
+    );
+  }
+</script>

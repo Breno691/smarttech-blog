@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como saber onde minha empresa está perdendo dinheiro sem precisar de contador
-
 Gerenciar uma pequena ou média empresa não é uma tarefa fácil. Um dos maiores desafios é entender onde está o dinheiro. Muitos empresários acreditam que precisam de um contador para identificar e resolver problemas financeiros. No entanto, existem métodos práticos que você pode usar para descobrir onde sua empresa está perdendo dinheiro, sem depender de um contador.
 
 ## 1. Monitore suas despesas regularmente

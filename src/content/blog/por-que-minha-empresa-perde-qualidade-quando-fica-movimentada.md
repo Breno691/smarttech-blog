@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que minha empresa perde qualidade quando fica movimentada
-
 Em tempos de alta demanda, é comum que pequenas e médias empresas percebam uma queda na qualidade dos serviços ou produtos oferecidos. Essa situação pode gerar insatisfação entre os clientes e afetar negativamente os resultados do negócio. Mas por que isso acontece? Vamos entender os principais motivos e como você pode contornar essa situação.
 
 ## A pressão da alta demanda

@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como um E-commerce Pequeno Reduziu Reclamações de Entrega Organizando o Processo Interno
-
 Gerenciar um e-commerce pode ser um desafio, especialmente quando se trata de lidar com as reclamações dos clientes sobre a entrega. Um pequeno e-commerce de Belo Horizonte, que passou por esse dilema, decidiu otimizar seu processo interno e obteve resultados surpreendentes. Neste artigo, vamos detalhar como a organização interna impactou a experiência do cliente e trouxe uma redução significativa nas reclamações de entrega.
 
 ## O Desafio Inicial

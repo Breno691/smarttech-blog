@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que minha equipe faz diferente toda vez que executa a mesma tarefa
-
 É comum nas pequenas e médias empresas encontrarmos equipes que parecem ter uma maneira distinta de realizar as mesmas tarefas. Essa variação nem sempre é uma questão de qualidade, mas pode afetar a eficiência e a produtividade. Vamos entender por que isso acontece e como ajustá-lo.
 
 ## A Diversidade de Abordagens

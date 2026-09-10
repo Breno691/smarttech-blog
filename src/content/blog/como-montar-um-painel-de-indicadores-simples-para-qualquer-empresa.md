@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como Montar um Painel de Indicadores Simples para Qualquer Empresa
-
 Nos dias de hoje, ter controle sobre os indicadores de desempenho da sua empresa é essencial. Um painel de indicadores proporciona uma visão clara e objetiva sobre a saúde do seu negócio. Neste artigo, vamos mostrar como montar um painel de indicadores simples e eficaz que pode ser facilmente implementado em pequenas e médias empresas.
 
 ## O Que é um Painel de Indicadores?

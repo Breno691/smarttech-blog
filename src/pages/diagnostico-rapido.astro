@@ -1,0 +1,352 @@
+---
+import Nav from '../components/Nav.astro';
+import GTMHead from '../components/GTMHead.astro';
+import GTMBody from '../components/GTMBody.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+const canonicalURL = new URL('/diagnostico-rapido', siteURL).href;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'Diagnóstico Rápido | SmartOps IA',
+      description: 'Responda 3 perguntas rápidas e descubra na hora onde sua empresa está perdendo tempo ou dinheiro.',
+      inLanguage: 'pt-BR',
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+          { '@type': 'ListItem', position: 2, name: 'Diagnóstico Rápido', item: canonicalURL },
+        ],
+      },
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <GTMHead />
+  <MetaPixel />
+
+  <title>Diagnóstico Rápido Grátis | SmartOps IA</title>
+  <meta name="description" content="3 perguntas rápidas. Descubra na hora onde sua empresa está perdendo tempo ou dinheiro — e receba o resultado direto no WhatsApp." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content="Diagnóstico Rápido Grátis | SmartOps IA" />
+  <meta property="og:description" content="3 perguntas. Resultado na hora. Direto no WhatsApp." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <GoogleAnalytics />
+</head>
+<body>
+  <GTMBody />
+  <Nav current="/diagnostico-rapido" />
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container narrow">
+      <div class="badge"><span class="dot"></span> Leva menos de 1 minuto</div>
+      <h1>Diagnóstico <span class="grad">Rápido</span></h1>
+      <p class="lead">3 perguntas. Resultado na hora, escrito pra sua empresa. Sem cadastro, sem enrolação.</p>
+    </div>
+  </section>
+
+  <section class="quiz-section">
+    <div class="container narrow">
+      <div id="quiz-card" class="quiz-card">
+        <!-- preenchido via JS -->
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 SmartOps IA · Breno Luiz · Black Belt Lean Six Sigma · BH, Nova Pampulha e Morro Alto</p>
+      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/glossario">Glossário</a> · <a href="/sobre">Sobre</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #07070f; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .container.narrow { max-width: 680px; }
+  .grad { background: linear-gradient(135deg, #a78bfa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .hero { position: relative; padding: 4rem 0 1rem; text-align: center; }
+  .hero-glow { position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%); pointer-events: none; }
+  .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: #10b981; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  h1 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+  .lead { color: rgba(255,255,255,0.65); font-size: 1.02rem; }
+
+  .quiz-section { padding: 2.5rem 0 5rem; }
+  .quiz-card {
+    background: #0d0d1c; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+    padding: 2.25rem; min-height: 280px; display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .q-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #a78bfa; margin-bottom: 0.9rem; }
+  .q-text { font-size: 1.25rem; font-weight: 700; line-height: 1.45; margin-bottom: 1.75rem; min-height: 2.9em; }
+  .q-cursor { display: inline-block; width: 2px; height: 1.1em; background: #a78bfa; margin-left: 2px; vertical-align: text-bottom; animation: blink 0.9s step-end infinite; }
+  .q-cursor.is-done { display: none; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .opt-list { display: flex; flex-direction: column; gap: 0.7rem; opacity: 0; transition: opacity 0.35s ease; }
+  .opt-list.is-visible { opacity: 1; }
+  .opt-btn {
+    text-align: left; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.09);
+    color: #e2e8f0; padding: 0.9rem 1.15rem; border-radius: 12px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: border-color 0.2s, background 0.2s, transform 0.1s;
+  }
+  .opt-btn:hover { border-color: rgba(167,139,250,0.5); background: rgba(167,139,250,0.08); transform: translateX(3px); }
+
+  .result-tag { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
+  .result-tag.leve { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
+  .result-tag.moderado { background: rgba(245,158,11,0.12); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+  .result-tag.critico { background: rgba(239,68,68,0.12); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+  .result-text { font-size: 1.02rem; line-height: 1.7; color: #e2e8f0; margin-bottom: 1.75rem; min-height: 5em; }
+  .btn-wa {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: #25d366; color: #04240f; font-weight: 800; padding: 0.95rem 1.5rem; border-radius: 12px;
+    text-decoration: none; font-size: 1rem; opacity: 0; transition: opacity 0.4s ease, transform 0.15s;
+  }
+  .btn-wa.is-visible { opacity: 1; }
+  .btn-wa:hover { transform: translateY(-2px); }
+  .restart-link { display: block; text-align: center; margin-top: 1rem; font-size: 0.82rem; color: rgba(255,255,255,0.4); text-decoration: none; }
+  .restart-link:hover { color: #fff; }
+
+  .site-footer { background: #04040a; border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; }
+  .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+  .site-footer nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+  .site-footer nav a:hover { color: #fff; }
+</style>
+
+<script>
+  const WHATSAPP_NUMBER = '5531972039180';
+
+  type Option = { label: string; points: number };
+  type Question = { text: string; options: Option[] };
+  type Path = {
+    id: string;
+    intro: string;
+    questions: Question[];
+    results: { max: number; tag: 'leve' | 'moderado' | 'critico'; label: string; text: (answers: string[]) => string }[];
+  };
+
+  const paths: Record<string, Path> = {
+    lean: {
+      id: 'lean',
+      intro: 'Processo e retrabalho',
+      questions: [
+        {
+          text: 'Com que frequência sua equipe refaz um trabalho porque saiu errado da primeira vez?',
+          options: [
+            { label: 'Quase nunca', points: 0 },
+            { label: 'Às vezes, mas resolve rápido', points: 1 },
+            { label: 'Toda semana, é praticamente rotina', points: 2 },
+          ],
+        },
+        {
+          text: 'Se você tirasse uma semana de férias sem avisar ninguém, o que aconteceria com a operação?',
+          options: [
+            { label: 'Funcionaria normal', points: 0 },
+            { label: 'Ia dar uns perrengues, mas ia', points: 1 },
+            { label: 'Provavelmente ia parar ou dar problema sério', points: 2 },
+          ],
+        },
+      ],
+      results: [
+        { max: 1, tag: 'leve', label: 'Operação organizada', text: () => 'Sua operação está mais organizada do que a maioria — mas "funcionar" e "funcionar no seu potencial" são coisas diferentes. Vale uma conversa rápida pra achar o próximo gargalo antes que ele apareça sozinho.' },
+        { max: 3, tag: 'moderado', label: 'Gargalo escondido', text: () => 'Você tem um padrão clássico de gargalo escondido: as coisas funcionam, mas dependem de apagar incêndio com frequência. Isso tem causa raiz identificável — e solução, sem precisar continuar assim.' },
+        { max: 4, tag: 'critico', label: 'Operação no limite', text: () => 'Sua empresa está rodando na base do herói: alguém segurando tudo nas costas, e o primeiro imprevisto derruba a casa. Esse é o padrão número 1 que o Lean Six Sigma foi feito pra resolver — e resolve rápido quando bem mapeado.' },
+      ],
+    },
+    auto: {
+      id: 'auto',
+      intro: 'WhatsApp e atendimento',
+      questions: [
+        {
+          text: 'Quanto tempo, em média, um cliente espera resposta no WhatsApp da sua empresa?',
+          options: [
+            { label: 'Minutos', points: 0 },
+            { label: 'Algumas horas', points: 1 },
+            { label: 'Só respondo quando dá, às vezes no dia seguinte', points: 2 },
+          ],
+        },
+        {
+          text: 'Pergunta repetida (preço, horário, endereço) — quem responde isso hoje?',
+          options: [
+            { label: 'Já está tudo automatizado', points: 0 },
+            { label: 'Alguém do time, sempre do zero', points: 1 },
+            { label: 'Só eu mesmo respondo tudo', points: 2 },
+          ],
+        },
+      ],
+      results: [
+        { max: 1, tag: 'leve', label: 'Atendimento saudável', text: () => 'Seu atendimento já está num nível bom — automação aqui seria ganho de eficiência, não resgate de emergência.' },
+        { max: 3, tag: 'moderado', label: 'Tempo escorrendo', text: () => 'Você está perdendo tempo (e provavelmente cliente) respondendo manualmente algo que um robô resolveria em segundos. É a automação mais rápida de implementar, com retorno mais imediato.' },
+        { max: 4, tag: 'critico', label: 'Dependência total de você', text: () => 'Hoje seu atendimento depende de alguém estar disponível o tempo todo — isso é insustentável e provavelmente já custou venda perdida. Automatizar isso é prioridade, não luxo.' },
+      ],
+    },
+    ti: {
+      id: 'ti',
+      intro: 'Computador e TI',
+      questions: [
+        {
+          text: 'Seu computador de trabalho trava, congela ou demora muito pra abrir programa?',
+          options: [
+            { label: 'Raramente', points: 0 },
+            { label: 'De vez em quando, incomoda mas dá pra levar', points: 1 },
+            { label: 'Todo santo dia', points: 2 },
+          ],
+        },
+        {
+          text: 'Quando foi a última vez que você fez backup de verdade dos arquivos importantes?',
+          options: [
+            { label: 'Recentemente, é automático', points: 0 },
+            { label: 'Já faz um tempo, não lembro exatamente', points: 1 },
+            { label: 'Nunca fiz / não sei nem como', points: 2 },
+          ],
+        },
+      ],
+      results: [
+        { max: 1, tag: 'leve', label: 'Máquina saudável', text: () => 'Sua máquina está numa faixa saudável — vale um diagnóstico preventivo pra continuar assim.' },
+        { max: 3, tag: 'moderado', label: 'Sinal de alerta', text: () => 'Tem sinal real de que o equipamento está no limite. Vale um diagnóstico antes que vire perda de arquivo ou parada total no meio do trabalho.' },
+        { max: 4, tag: 'critico', label: 'Risco real de perda de dado', text: () => 'Isso é risco real de perda de dado a qualquer momento — sem backup e com máquina falhando todo dia, é questão de tempo. Merece atenção esta semana, não "quando sobrar tempo".' },
+      ],
+    },
+  };
+
+  const MS_PER_CHAR = 18;
+
+  function typewrite(el: HTMLElement, text: string, onDone?: () => void) {
+    el.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'q-cursor';
+    el.appendChild(cursor);
+    const start = performance.now();
+    let shown = 0;
+    function tick(now: number) {
+      const targetChars = Math.min(text.length, Math.floor((now - start) / MS_PER_CHAR));
+      if (targetChars > shown) {
+        cursor.insertAdjacentText('beforebegin', text.slice(shown, targetChars));
+        shown = targetChars;
+      }
+      if (shown < text.length) {
+        requestAnimationFrame(tick);
+      } else {
+        cursor.classList.add('is-done');
+        onDone?.();
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const card = document.getElementById('quiz-card');
+  if (card) {
+    let currentPath: Path | null = null;
+    let step = 0;
+    let score = 0;
+    const pickedLabels: string[] = [];
+
+    function renderPathChoice() {
+      card!.innerHTML = `
+        <div class="q-label">Diagnóstico Rápido</div>
+        <p class="q-text" id="q-text"></p>
+        <div class="opt-list" id="opt-list">
+          <button class="opt-btn" data-path="lean">Perco tempo com processo manual e retrabalho</button>
+          <button class="opt-btn" data-path="auto">WhatsApp e atendimento viram bagunça e demora</button>
+          <button class="opt-btn" data-path="ti">Computador lento, trava, ou já perdi arquivo</button>
+        </div>
+      `;
+      const qText = document.getElementById('q-text') as HTMLElement;
+      const optList = document.getElementById('opt-list') as HTMLElement;
+      typewrite(qText, 'Qual dessas frases mais parece com a sua empresa hoje?', () => {
+        optList.classList.add('is-visible');
+      });
+      optList.querySelectorAll<HTMLButtonElement>('.opt-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const pathId = btn.dataset.path!;
+          currentPath = paths[pathId];
+          step = 0;
+          score = 0;
+          pickedLabels.length = 0;
+          renderQuestion();
+        });
+      });
+    }
+
+    function renderQuestion() {
+      const q = currentPath!.questions[step];
+      card!.innerHTML = `
+        <div class="q-label">${currentPath!.intro} · Pergunta ${step + 1} de ${currentPath!.questions.length}</div>
+        <p class="q-text" id="q-text"></p>
+        <div class="opt-list" id="opt-list"></div>
+      `;
+      const qText = document.getElementById('q-text') as HTMLElement;
+      const optList = document.getElementById('opt-list') as HTMLElement;
+      optList.innerHTML = q.options.map((o, i) => `<button class="opt-btn" data-idx="${i}">${o.label}</button>`).join('');
+      typewrite(qText, q.text, () => {
+        optList.classList.add('is-visible');
+      });
+      optList.querySelectorAll<HTMLButtonElement>('.opt-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.idx!, 10);
+          score += q.options[idx].points;
+          pickedLabels.push(q.options[idx].label);
+          step++;
+          if (step < currentPath!.questions.length) {
+            renderQuestion();
+          } else {
+            renderResult();
+          }
+        });
+      });
+    }
+
+    function renderResult() {
+      const result = currentPath!.results.find((r) => score <= r.max) ?? currentPath!.results[currentPath!.results.length - 1];
+      const resultText = result.text(pickedLabels);
+      card!.innerHTML = `
+        <span class="result-tag ${result.tag}">${result.label}</span>
+        <p class="result-text" id="result-text"></p>
+        <a class="btn-wa" id="wa-btn" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+          Falar sobre isso no WhatsApp
+        </a>
+        <a href="/diagnostico-rapido" class="restart-link" id="restart-link">Refazer o diagnóstico</a>
+      `;
+      const resultTextEl = document.getElementById('result-text') as HTMLElement;
+      const waBtn = document.getElementById('wa-btn') as HTMLAnchorElement;
+      typewrite(resultTextEl, resultText, () => {
+        waBtn.classList.add('is-visible');
+      });
+
+      const message = `Olá! Fiz o Diagnóstico Rápido no site e o resultado foi:\n\n📋 Área: ${currentPath!.intro}\n📊 Nível: ${result.label}\n\nMinhas respostas:\n${pickedLabels.map((l, i) => `${i + 1}. ${l}`).join('\n')}\n\nQuero entender melhor o que fazer a partir disso.`;
+      waBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
+    renderPathChoice();
+  }
+</script>

@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que o mesmo erro se repete toda semana na minha empresa
-
 Erros recorrentes em uma empresa podem ser frustrantes e desmantelar o moral da equipe. Você já se perguntou por que, mesmo após identificar um problema, ele continua a se repetir? Vamos discutir os principais motivos pelos quais os mesmos erros se perpetuam nas pequenas e médias empresas e como solucioná-los de forma eficiente.
 
 ## Entendendo a Raiz do Problema

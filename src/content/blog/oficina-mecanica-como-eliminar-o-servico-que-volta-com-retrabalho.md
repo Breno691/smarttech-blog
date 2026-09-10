@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Oficina Mecânica: Como Eliminar o Serviço que Volta com Retrabalho
-
 Quando você leva seu veículo a uma oficina mecânica, a última coisa que espera é que o serviço precise ser feito novamente em pouco tempo. O retrabalho é um dos maiores pesadelos dos proprietários de automóveis e uma preocupação constante para quem dirige. Neste artigo, vamos abordar como as oficinas mecânicas podem eliminar o retrabalho, apresentando soluções práticas e eficientes.
 
 ## O Que é Retrabalho?

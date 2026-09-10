@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# Como automatizar o atendimento da sua empresa sem perder a qualidade
-
 A automação de atendimento tem se tornado uma necessidade para muitas pequenas e médias empresas. Quando bem implementada, ela não apenas melhora a eficiência, mas também mantém a qualidade do atendimento ao cliente. Neste artigo, vamos discutir como você pode automatizar o atendimento da sua empresa em Belo Horizonte sem sacrificá-lo.
 
 ## Por que automatizar o atendimento?

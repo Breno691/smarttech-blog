@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# Como pequenas empresas estão usando IA para competir com grandes redes
-
 No mundo atual, a inteligência artificial (IA) não é mais uma tecnologia exclusiva das grandes corporações. Cada vez mais, pequenas e médias empresas estão adotando soluções de IA para otimizar seus processos, aumentar a produtividade e competir em pé de igualdade com grandes redes. Neste artigo, vamos discutir como essas empresas estão utilizando a IA e quais benefícios ela traz para o seu negócio.
 
 ## O que é IA e como ela pode ajudar pequenas empresas?

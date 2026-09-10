@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como uma loja de bairro triplicou o giro de estoque organizando o processo de compra
-
 Quando uma loja de bairro consegue triplicar o giro de estoque, as primeiras perguntas que surgem são: como? O que mudou? Nesse artigo, vamos contar a história de uma pequena loja de roupas em Belo Horizonte (MG) que, ao reorganizar seu processo de compra, obteve resultados impressionantes. E se você tem uma pequena ou média empresa, pode aplicar esses aprendizados para otimizar o seu negócio.
 
 ## O cenário antes da mudança

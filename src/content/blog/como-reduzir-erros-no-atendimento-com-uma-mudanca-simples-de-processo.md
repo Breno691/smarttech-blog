@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como Reduzir Erros no Atendimento com uma Mudança Simples de Processo
-
 O atendimento ao cliente é um dos pontos mais críticos em qualquer empresa. Pequenas falhas podem gerar insatisfação e até mesmo a perda de clientes. Neste artigo, vamos discutir uma mudança simples de processo que pode ajudar a reduzir erros no atendimento e, consequentemente, melhorar a experiência do consumidor.
 
 ## A Importância de Processos Bem Definidos

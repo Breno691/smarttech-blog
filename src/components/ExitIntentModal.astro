@@ -1,0 +1,192 @@
+<div class="exit-backdrop" id="exit-backdrop" aria-hidden="true">
+  <div class="exit-card" role="dialog" aria-modal="true" aria-labelledby="exit-title">
+    <button class="exit-close" id="exit-close" aria-label="Fechar">✕</button>
+    <p class="exit-eyebrow">Antes de você sair</p>
+    <h2 id="exit-title">Saindo sem saber o tamanho do seu gargalo?</h2>
+    <p class="exit-sub">Use nossa Calculadora de Desperdício gratuita e descubra em 1 minuto quanto dinheiro sua operação está perdendo por mês com ineficiência.</p>
+    <a href="/calculadora-desperdicio" class="exit-cta-primary" id="exit-cta-calc" data-event="exit_intent_cta_click" data-location="exit-intent" data-label="Calcular Meu Desperdício Agora">
+      Calcular Meu Desperdício Agora
+    </a>
+    <a href="https://wa.me/5531972039180?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20falar%20com%20um%20especialista%20antes%20de%20sair." class="exit-cta-secondary" id="exit-cta-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="exit-intent" data-label="Falar com especialista">
+      Ou fale direto com o especialista no WhatsApp
+    </a>
+  </div>
+</div>
+
+<style>
+  /* Paleta própria, fixa — este componente é incluído em páginas que não
+     compartilham as mesmas variáveis CSS de tema (cada página do site define
+     as suas localmente), então os valores ficam hardcoded pra renderizar
+     igual em qualquer página onde for incluído. */
+  .exit-backdrop {
+    position: fixed;
+    inset: 0;
+    /* Precisa ficar acima de tudo que já existe no site — o valor mais alto
+       hoje é o cursor decorativo customizado da home (z-index: 9999). */
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgba(6, 6, 14, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .exit-backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .exit-card {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    background: #0d0d1c;
+    border: 1px solid rgba(167, 139, 250, 0.25);
+    border-radius: 20px;
+    padding: 2.25rem 2rem;
+    text-align: center;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #e2e8f0;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .exit-backdrop.is-visible .exit-card {
+    transform: scale(1);
+  }
+
+  .exit-close {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .exit-close:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
+  .exit-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #a78bfa;
+    margin-bottom: 0.75rem;
+  }
+  .exit-card h2 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.9rem;
+  }
+  .exit-sub {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+  }
+
+  .exit-cta-primary {
+    display: block;
+    background: linear-gradient(135deg, #7c3aed, #10b981);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 0.95rem 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    transition: opacity 0.2s;
+  }
+  .exit-cta-primary:hover { opacity: 0.9; }
+
+  .exit-cta-secondary {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .exit-cta-secondary:hover { color: #fff; }
+</style>
+
+<script>
+  (function () {
+    'use strict';
+
+    var STORAGE_KEY = 'smartops_exit_intent_shown';
+    var COOLDOWN_MS = 3 * 24 * 60 * 60 * 1000; // 1x a cada 3 dias por visitante
+    var INACTIVITY_MS = 45 * 1000; // fallback mobile: 45s sem interação
+
+    var backdrop = document.getElementById('exit-backdrop');
+    var card = backdrop ? backdrop.querySelector('.exit-card') : null;
+    var closeBtn = document.getElementById('exit-close');
+    if (!backdrop || !card || !closeBtn) return;
+
+    function alreadyShownRecently() {
+      try {
+        var last = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+        return Date.now() - last < COOLDOWN_MS;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    var shownThisLoad = false;
+
+    function show() {
+      if (shownThisLoad || alreadyShownRecently()) return;
+      shownThisLoad = true;
+      try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
+      backdrop.classList.add('is-visible');
+      // Evento próprio (fora do mapa de eventos do EventTracking.astro, então não
+      // dispara nenhum evento de Meta Pixel sozinho) — só pra medir taxa de exibição
+      // do modal isolada da taxa de clique, sem misturar com outra métrica do site.
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({ event: 'exit_intent_shown' });
+    }
+
+    function hide() {
+      backdrop.classList.remove('is-visible');
+    }
+
+    closeBtn.addEventListener('click', hide);
+    backdrop.addEventListener('click', function (e) {
+      if (e.target === backdrop) hide();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') hide();
+    });
+
+    // Desktop: mouse saindo em direção à barra de abas/endereço.
+    document.addEventListener('mouseleave', function (e) {
+      if (e.clientY <= 5) show();
+    });
+
+    // Mobile (sem mouseleave): timer de inatividade em vez de detectar
+    // velocidade de scroll perto do rodapé — essa segunda opção teria muito
+    // falso positivo em post de blog longo (leitor rolando rápido pra cima
+    // só pra reler um trecho não é intenção de saída).
+    var inactivityTimer: ReturnType<typeof setTimeout> | null = null;
+    function resetInactivityTimer() {
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(show, INACTIVITY_MS);
+    }
+    ['scroll', 'touchstart', 'click', 'keydown'].forEach(function (evt) {
+      document.addEventListener(evt, resetInactivityTimer, { passive: true });
+    });
+    resetInactivityTimer();
+  })();
+</script>

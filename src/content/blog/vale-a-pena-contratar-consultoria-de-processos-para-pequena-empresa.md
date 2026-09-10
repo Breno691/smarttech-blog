@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Vale a Pena Contratar Consultoria de Processos para Pequena Empresa?
-
 Em um mercado cada vez mais competitivo, a eficiência operacional é um dos principais diferenciais que podem alavancar pequenas e médias empresas. Uma forma de otimizar essa eficiência é através da consultoria de processos. Mas será que vale a pena investir nesse serviço? Neste artigo, vamos esclarecer essa dúvida e mostrar como a consultoria de processos pode ser um grande diferencial para o seu negócio.
 
 ## O que é Consultoria de Processos?

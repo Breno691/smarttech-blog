@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Escola Particular: Como Organizar Processos e Parar de Perder Aluno por Falha no Atendimento
-
 Em um cenário competitivo como o atual, escolas particulares enfrentam o desafio constante de manter e atrair alunos. Cada aluno conta, e uma falha no atendimento pode ser a diferença entre um estudante a mais e uma vaga vazia. Neste artigo, vamos discutir estratégias práticas para organizar processos dentro da sua escola, evitando perdas por falhas no atendimento.
 
 ## A Importância do Atendimento ao Cliente

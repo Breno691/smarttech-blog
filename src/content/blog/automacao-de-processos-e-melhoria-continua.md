@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Automação de Processos e Melhoria Contínua: Como Transformar a Operação da Sua Empresa
-
 Se você sente que sua equipe passa mais tempo apagando incêndio do que crescendo, provavelmente existe um problema de processo. A boa notícia é que **automação de processos** e **melhoria contínua** são as duas ferramentas mais eficazes para resolver isso — e hoje estão ao alcance de empresas de qualquer tamanho.
 
 Neste artigo você vai entender o que é cada conceito, como eles se complementam e por onde começar na prática.

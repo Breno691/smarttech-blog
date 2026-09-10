@@ -1,19 +1,38 @@
 ---
+// MetaPixel.astro — Meta Pixel com Advanced Matching + event_id para deduplicação CAPI
 // Ativa automaticamente quando PUBLIC_META_PIXEL_ID estiver definida no .env
 // Sem o ID: zero bytes adicionados ao HTML — nenhum script, nenhum request
 const PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID || undefined;
 ---
 {PIXEL_ID && (
   <>
-    {/* Meta Pixel — código oficial Meta, não modificar a estrutura */}
+    {/* Meta Pixel — código oficial Meta com Advanced Matching e event_id */}
     <script is:inline define:vars={{ PIXEL_ID }}>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', PIXEL_ID);
-    fbq('track', 'PageView');
+
+    // Advanced Matching: tenta ler dados salvos de sessões anteriores
+    // Populado pelo EventTracking.astro quando usuário preenche formulário
+    var _am = {};
+    try {
+      var _stored = sessionStorage.getItem('_fbam');
+      if (_stored) _am = JSON.parse(_stored);
+    } catch(e) {}
+
+    fbq('init', PIXEL_ID, _am);
+
+    // event_id único por pageview para deduplicação com CAPI
+    // Formato: pv_<timestamp>_<random> — o mesmo ID deve ser enviado pelo CAPI
+    var _eid = 'pv_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    window._fbEventId = _eid; // exposto globalmente para uso no CAPI payload
+
+    fbq('track', 'PageView', {}, { eventID: _eid });
+
+    // Salva event_id no sessionStorage para n8n/CAPI consumir via API route
+    try { sessionStorage.setItem('_fbPageEventId', _eid); } catch(e) {}
     </script>
     <noscript>
       <img height="1" width="1" style="display:none" alt=""

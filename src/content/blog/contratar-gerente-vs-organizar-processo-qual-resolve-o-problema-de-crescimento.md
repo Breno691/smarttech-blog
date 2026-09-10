@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Contratar gerente vs organizar processo: qual resolve o problema de crescimento
-
 O crescimento de uma pequena ou média empresa (PME) pode ser um desafio. Muitas vezes, a solução parece estar em contratar um gerente ou em organizar melhor os processos internos. Mas qual dessas estratégias realmente resolve o problema de crescimento? Neste artigo, vamos analisar as duas abordagens e ajudar você a decidir qual é mais adequada para o seu negócio.
 
 ## Por que o crescimento é um desafio para PMEs?

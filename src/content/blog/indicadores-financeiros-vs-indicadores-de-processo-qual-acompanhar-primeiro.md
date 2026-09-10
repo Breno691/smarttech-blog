@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Indicadores financeiros vs indicadores de processo: qual acompanhar primeiro
-
 Quando se fala em gestão de negócios, um dos dilemas mais comuns é sobre quais indicadores devem ter prioridade: os financeiros ou os de processo. Esta dúvida é muito comum, especialmente entre pequenas e médias empresas, que frequentemente buscam otimizar seus resultados sem perder de vista a saúde financeira. Neste artigo, vamos esclarecer os dois tipos de indicadores, suas diferenças e como utilizá-los da melhor maneira.
 
 ## O que são indicadores financeiros?

@@ -1,14 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
 import Nav from '../../components/Nav.astro';
+import CalculatorBanner from '../../components/CalculatorBanner.astro';
 import GTMHead from '../../components/GTMHead.astro';
 import GTMBody from '../../components/GTMBody.astro';
 import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
 import MetaPixel from '../../components/MetaPixel.astro';
+import EventTracking from '../../components/EventTracking.astro';
+import ExitIntentModal from '../../components/ExitIntentModal.astro';
 
 const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
 const canonicalURL = new URL('/lean-six-sigma', siteURL).href;
 const whatsappURL = 'https://wa.me/5531972039180?text=' + encodeURIComponent('Olá! Quero saber mais sobre a consultoria Lean Six Sigma.');
+
+// Depoimento real, o mesmo já usado na home — não inventar depoimento novo aqui.
+const testimonial = {
+  stars: 5,
+  text: 'Eram 3 meses tentando resolver o retrabalho no atendimento. Em 4 semanas com o método Lean o processo ficou padronizado e o time parou de perguntar o que fazer. Resultado real, não promessa.',
+  name: 'Fernanda O.',
+  role: 'Diretora · Clínica Odontológica · Lean Six Sigma',
+};
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
@@ -98,11 +109,12 @@ const schema = {
   <GTMHead />
   <MetaPixel />
 
-  <title>Lean Six Sigma para Pequenas Empresas | SmartOps IA — BH, Nova Pampulha e Morro Alto</title>
-  <meta name="description" content="Consultoria Lean Six Sigma para pequenas empresas em BH, Nova Pampulha e Morro Alto. Identifique gargalos, elimine desperdícios e organize processos. Black Belt certificado. Diagnóstico gratuito." />
-  <meta name="keywords" content="lean six sigma, lean six sigma belo horizonte, consultoria lean six sigma, melhoria de processos, gargalo operacional, desperdícios empresariais, DMAIC, PDCA, black belt" />
+  <title>Lean Six Sigma + Automação com IA para Pequenas Empresas | SmartOps IA — BH</title>
+  <meta name="description" content="Lean Six Sigma e Automação com IA para pequenas empresas em BH, Nova Pampulha e Morro Alto. Elimine desperdícios, automatize processos e ganhe escala. Black Belt certificado. Diagnóstico gratuito em 30 min." />
+  <meta name="keywords" content="lean six sigma belo horizonte, automação com IA pequena empresa, consultoria lean six sigma BH, melhoria de processos, black belt BH, automação n8n, diagnóstico gratuito" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href={canonicalURL} />
+  <link rel="preload" href="/img/hero-lean.svg" as="image" fetchpriority="high" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content={canonicalURL} />
@@ -144,7 +156,7 @@ const schema = {
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
-        <img src="/img/hero-lean.svg" alt="" width="560" height="500" loading="eager" decoding="async" />
+        <img src="/img/hero-lean.svg" alt="" width="560" height="500" loading="eager" decoding="async" fetchpriority="high" />
       </div>
     </div>
   </section>
@@ -192,6 +204,8 @@ const schema = {
       </div>
     </div>
   </section>
+
+  <CalculatorBanner />
 
   <!-- DMAIC -->
   <section class="section">
@@ -275,9 +289,79 @@ const schema = {
     </div>
   </section>
 
+  <!-- LEAN + AUTOMAÇÃO COM IA -->
+  <section class="section dark-section" id="lean-automacao">
+    <div class="container">
+      <div class="section-label">A combinação que escala</div>
+      <h2>Lean Six Sigma +<br /><span class="grad">Automação com IA</span></h2>
+      <p class="section-sub">Automatizar processo ruim só faz errar mais rápido. A sequência certa: eliminar desperdícios com Lean → padronizar → só então automatizar o que funciona.</p>
+
+      <div class="combo-flow">
+        <div class="combo-card">
+          <div class="combo-icon">🔍</div>
+          <div class="combo-tag combo-tag-lean">Lean Six Sigma</div>
+          <h3>Processo limpo</h3>
+          <p>Mapeamos, identificamos a causa-raiz e eliminamos os desperdícios. Padronizado — funciona igual sem depender de quem está de plantão.</p>
+        </div>
+        <div class="combo-arrow" aria-hidden="true">→</div>
+        <div class="combo-card">
+          <div class="combo-icon">🤖</div>
+          <div class="combo-tag combo-tag-auto">Automação com IA</div>
+          <h3>Operação automática</h3>
+          <p>Com o processo limpo, automatizamos o que é repetitivo: lembretes, atendimento, follow-up, relatórios — sem trabalho manual.</p>
+        </div>
+        <div class="combo-arrow" aria-hidden="true">→</div>
+        <div class="combo-card combo-card-result">
+          <div class="combo-icon">📈</div>
+          <div class="combo-tag combo-tag-result">Resultado</div>
+          <h3>Escala sem contratar</h3>
+          <p>Operação eficiente com parte rodando automaticamente. Equipe focada em vender — não em apagar incêndio e tarefas repetitivas.</p>
+        </div>
+      </div>
+
+      <div class="automacoes-list">
+        <p class="automacoes-title">Automações mais usadas nas PMEs em BH</p>
+        <div class="automacoes-grid">
+          <div class="automacao-item">
+            <span class="automacao-icon">📅</span>
+            <div>
+              <strong>Lembrete de agendamento</strong>
+              <p>Confirmação automática 24h antes. Reduz faltas e no-show sem precisar ligar para cada cliente.</p>
+            </div>
+          </div>
+          <div class="automacao-item">
+            <span class="automacao-icon">💬</span>
+            <div>
+              <strong>Atendimento inicial com IA</strong>
+              <p>Responde dúvidas frequentes, qualifica o lead e agenda diagnóstico — funciona 24h, sem depender de funcionário.</p>
+            </div>
+          </div>
+          <div class="automacao-item">
+            <span class="automacao-icon">🔁</span>
+            <div>
+              <strong>Follow-up de orçamento</strong>
+              <p>Cliente que não respondeu recebe seguimento automático. Menos venda perdida por esquecimento.</p>
+            </div>
+          </div>
+          <div class="automacao-item">
+            <span class="automacao-icon">📊</span>
+            <div>
+              <strong>Relatórios automáticos</strong>
+              <p>Indicadores do processo consolidados diariamente. Você vê o painel — não procura planilha.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem">
+        <a href="#diagnostico" class="btn-primary">Quero processo limpo + automação →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ARTIGOS -->
   {posts.length > 0 && (
-    <section class="section dark-section">
+    <section class="section dark-section render-lazy">
       <div class="container">
         <div class="section-label">Conteúdo</div>
         <h2>Artigos sobre <span class="grad">Lean Six Sigma</span></h2>
@@ -298,8 +382,84 @@ const schema = {
     </section>
   )}
 
+  <!-- DEPOIMENTO REAL -->
+  <section class="section testimonial-section">
+    <div class="container narrow">
+      <div class="testimonial-card">
+        <div class="testimonial-stars" aria-hidden="true">{'★'.repeat(testimonial.stars)}</div>
+        <p class="testimonial-text">"{testimonial.text}"</p>
+        <div class="testimonial-author">
+          <strong>{testimonial.name}</strong>
+          <span>{testimonial.role}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD FORM — DIAGNÓSTICO GRATUITO -->
+  <section class="section dark-section" id="diagnostico">
+    <div class="container narrow">
+      <div class="section-label">Primeiro contato gratuito</div>
+      <h2>30 minutos que mostram onde sua empresa<br /><span class="grad">está perdendo dinheiro</span></h2>
+      <p class="section-sub">Diagnóstico gratuito, sem compromisso. Você sai sabendo o que fazer, por onde começar e qual o ROI esperado.</p>
+
+      <div class="lsform-wrap">
+        <form id="ls-form" class="ls-form" novalidate autocomplete="on">
+          <div class="ls-row">
+            <div class="ls-group">
+              <label for="ls-nome">Nome <span class="ls-req">*</span></label>
+              <input type="text" id="ls-nome" name="nome" required placeholder="Seu nome" maxlength="100" autocomplete="name" />
+            </div>
+            <div class="ls-group">
+              <label for="ls-tel">WhatsApp <span class="ls-req">*</span></label>
+              <input type="tel" id="ls-tel" name="telefone" required placeholder="(31) 99999-9999" maxlength="20" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="ls-group">
+            <label for="ls-servico">Interesse principal <span class="ls-req">*</span></label>
+            <select id="ls-servico" name="servico" required>
+              <option value="">Selecione...</option>
+              <option value="lean-six-sigma">Lean Six Sigma — eliminar desperdícios e retrabalho</option>
+              <option value="automacao-ia">Automação com IA — lembrete, atendimento, follow-up</option>
+              <option value="lean-automacao">Lean + Automação — processo limpo e automatizado</option>
+            </select>
+          </div>
+          <div class="ls-group">
+            <label for="ls-msg">Qual o maior problema da sua operação hoje?</label>
+            <textarea id="ls-msg" name="mensagem" rows="3" placeholder="Ex: muito retrabalho, clientes sem resposta, processo sem padrão, equipe sempre no improviso..." maxlength="500"></textarea>
+          </div>
+          <button type="submit" class="btn-primary ls-submit">
+            <span class="ls-btn-text">Quero o diagnóstico gratuito →</span>
+            <span class="ls-btn-spin" hidden>Enviando…</span>
+          </button>
+          <p class="ls-privacy">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Sem spam · Resposta em até 30 minutos · (31) 97203-9180
+          </p>
+        </form>
+
+        <div id="ls-success" hidden class="ls-success" tabindex="-1" aria-live="polite">
+          <div class="ls-check" aria-hidden="true">✅</div>
+          <h3>Solicitação recebida!</h3>
+          <p>Breno vai analisar sua situação e entrar em contato pelo WhatsApp em até 30 minutos.</p>
+          <a href={whatsappURL} class="btn-primary" target="_blank" rel="noopener noreferrer">Confirmar pelo WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="ls-trust">
+        <div class="ls-trust-item"><strong>Black Belt</strong><span>Lean Six Sigma</span></div>
+        <div class="ls-trust-sep" aria-hidden="true"></div>
+        <div class="ls-trust-item"><strong>−30%</strong><span>Custo operacional</span></div>
+        <div class="ls-trust-sep" aria-hidden="true"></div>
+        <div class="ls-trust-item"><strong>30 min</strong><span>Diagnóstico gratuito</span></div>
+        <div class="ls-trust-sep" aria-hidden="true"></div>
+        <div class="ls-trust-item"><strong>BH</strong><span>Presencial + remoto</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
-  <section class="section">
+  <section class="section render-lazy">
     <div class="container narrow">
       <div class="section-label">Dúvidas frequentes</div>
       <h2>Perguntas sobre <span class="grad">Lean Six Sigma</span></h2>
@@ -329,9 +489,68 @@ const schema = {
   <footer class="site-footer">
     <div class="container">
       <p>© 2026 SmartOps IA · Lean Six Sigma &amp; Automação · Belo Horizonte, MG</p>
-      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a></nav>
+      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/glossario">Glossário</a> · <a href="/diagnostico-rapido">Diagnóstico Rápido</a> · <a href="/sobre">Sobre</a></nav>
     </div>
   </footer>
+  <script is:inline>
+  (function() {
+    var WEBHOOK = 'https://n8n-n8nn.sumjyb.easypanel.host/webhook/captura-leads';
+    var form = document.getElementById('ls-form');
+    var success = document.getElementById('ls-success');
+    if (!form || !success) return;
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nome = form.nome.value.trim();
+      var telefone = form.telefone.value.trim();
+      var servico = form.servico.value;
+
+      ['nome','telefone','servico'].forEach(function(f) { form[f].removeAttribute('aria-invalid'); });
+
+      var valid = true;
+      if (!nome) { form.nome.setAttribute('aria-invalid','true'); valid = false; }
+      if (!telefone) { form.telefone.setAttribute('aria-invalid','true'); valid = false; }
+      if (!servico) { form.servico.setAttribute('aria-invalid','true'); valid = false; }
+      if (!valid) { form.querySelector('[aria-invalid]').focus(); return; }
+
+      var btn = form.querySelector('.ls-submit');
+      btn.disabled = true;
+      form.querySelector('.ls-btn-text').hidden = true;
+      form.querySelector('.ls-btn-spin').hidden = false;
+
+      var payload = {
+        nome: nome, telefone: telefone, servico: servico, empresa: '',
+        mensagem: form.mensagem.value.trim(),
+        origem: window.location.href, timestamp: new Date().toISOString()
+      };
+
+      function onSuccess() {
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+        if (window.dataLayer) window.dataLayer.push({ event: 'lead_gerado', event_location: 'lean-form', event_label: payload.servico });
+        if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: payload.servico });
+      }
+
+      function fallbackWA() {
+        var lines = ['Olá! Quero um diagnóstico gratuito.','Nome: '+payload.nome,'WhatsApp: '+payload.telefone,'Interesse: '+payload.servico];
+        if (payload.mensagem) lines.push('Problema: '+payload.mensagem);
+        window.open('https://wa.me/5531972039180?text='+encodeURIComponent(lines.join('\n')),'_blank');
+        onSuccess();
+      }
+
+      var timeout = new Promise(function(_,rej){ setTimeout(rej,8000); });
+      Promise.race([
+        fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+          .then(function(r){ if(!r.ok) throw new Error(); }),
+        timeout
+      ]).then(onSuccess).catch(fallbackWA);
+    });
+  })();
+  </script>
+
+  <EventTracking />
+  <ExitIntentModal />
 </body>
 </html>
 
@@ -444,4 +663,70 @@ const schema = {
   .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
   .site-footer nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
   .site-footer nav a:hover { color: #fff; }
+
+  /* Combo Flow — Lean + Automação */
+  .combo-flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: start; margin-bottom: 2.5rem; }
+  @media(max-width:700px) { .combo-flow { grid-template-columns: 1fr; } .combo-arrow { text-align: center; transform: rotate(90deg); padding: 0.25rem 0; } }
+  .combo-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.75rem; }
+  .combo-card-result { border-color: rgba(16,185,129,0.2); background: linear-gradient(135deg, rgba(16,185,129,0.04), rgba(124,58,237,0.04)); }
+  .combo-arrow { display: flex; align-items: center; justify-content: center; padding: 0 1rem; color: rgba(255,255,255,0.2); font-size: 1.4rem; margin-top: 2.5rem; }
+  .combo-icon { font-size: 1.75rem; margin-bottom: 0.6rem; }
+  .combo-tag { display: inline-block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 9999px; margin-bottom: 0.6rem; }
+  .combo-tag-lean { background: rgba(124,58,237,0.15); border: 1px solid rgba(167,139,250,0.3); color: #c4b5fd; }
+  .combo-tag-auto { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+  .combo-tag-result { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); }
+  .combo-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .combo-card p { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin: 0; }
+
+  /* Automações */
+  .automacoes-list { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.75rem; }
+  .automacoes-title { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 1.25rem; }
+  .automacoes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+  .automacao-item { display: flex; gap: 0.9rem; align-items: flex-start; }
+  .automacao-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .automacao-item strong { display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.25rem; color: #fff; }
+  .automacao-item p { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.5; margin: 0; }
+
+  /* Lead Form */
+  .lsform-wrap { background: rgba(255,255,255,0.03); border: 1px solid rgba(167,139,250,0.15); border-radius: 16px; padding: 2.5rem; margin-bottom: 2rem; }
+  .ls-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .ls-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media(max-width:580px) { .ls-row { grid-template-columns: 1fr; } }
+  .ls-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .ls-group label { font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+  .ls-req { color: #a78bfa; }
+  .ls-group input, .ls-group select, .ls-group textarea { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 0.7rem 1rem; color: #fff; font-size: 0.9rem; font-family: inherit; width: 100%; transition: border-color 0.2s; }
+  .ls-group select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+  .ls-group input:focus, .ls-group select:focus, .ls-group textarea:focus { outline: none; border-color: rgba(167,139,250,0.5); }
+  .ls-group input[aria-invalid="true"], .ls-group select[aria-invalid="true"] { border-color: #f87171; }
+  .ls-group textarea { resize: vertical; }
+  .ls-submit { width: 100%; justify-content: center; font-size: 1rem; padding: 0.9rem; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  .ls-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+  .ls-submit:not(:disabled):hover { box-shadow: 0 8px 24px rgba(124,58,237,0.35); }
+  .ls-submit:not(:disabled):active { transform: scale(0.96); }
+  .ls-submit:focus-visible { outline: 2px solid #a78bfa; outline-offset: 2px; }
+  .ls-privacy { font-size: 0.78rem; color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .ls-success { text-align: center; padding: 2rem; }
+  .ls-check { font-size: 2.5rem; margin-bottom: 1rem; }
+  .ls-success h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .ls-success p { color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+  /* Trust row */
+  .ls-trust { display: flex; justify-content: center; align-items: center; gap: 2.5rem; flex-wrap: wrap; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; background: rgba(255,255,255,0.02); }
+  .ls-trust-item { text-align: center; }
+  .ls-trust-item strong { display: block; font-size: 1.1rem; font-weight: 800; color: #a78bfa; }
+  .ls-trust-item span { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.05em; }
+  .ls-trust-sep { width: 1px; height: 30px; background: rgba(255,255,255,0.07); flex-shrink: 0; }
+
+  /* Depoimento real */
+  .testimonial-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; padding: 2.5rem; text-align: center; }
+  .testimonial-stars { color: #fcd34d; font-size: 1.3rem; letter-spacing: 0.2em; margin-bottom: 1.25rem; }
+  .testimonial-text { font-size: 1.1rem; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 1.5rem; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .testimonial-author strong { display: block; font-size: 1rem; color: #fff; }
+  .testimonial-author span { font-size: 0.85rem; color: rgba(255,255,255,0.45); }
+
+  /* Adia o trabalho de renderização de seções abaixo da dobra (Blog e FAQ) —
+     content-intrinsic-size é uma altura estimada, só evita "pulo" de layout
+     quando a seção entra na tela. */
+  .render-lazy { content-visibility: auto; contain-intrinsic-size: 1px 800px; }
 </style>

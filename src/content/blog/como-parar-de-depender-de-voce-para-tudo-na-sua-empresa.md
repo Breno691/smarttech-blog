@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como parar de depender de você para tudo na sua empresa
-
 Gerir uma empresa não é tarefa fácil, e muitas vezes, os empreendedores acabam se tornando o ponto central de todas as operações. Essa dependência pode causar estresse, diminuição da produtividade e até fazer com que você perca boas oportunidades. Se você tem uma pequena ou média empresa em Belo Horizonte (MG), este artigo vai te ajudar a entender como pode diminuir essa dependência e começar a delegar tarefas com mais eficiência.
 
 ## Identifique as Atividades Repetitivas

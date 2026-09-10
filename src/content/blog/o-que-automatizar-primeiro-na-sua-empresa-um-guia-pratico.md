@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# O que automatizar primeiro na sua empresa: um guia prático
-
 A automação de processos está se tornando uma prioridade para muitas empresas, especialmente pequenas e médias. O aumento da eficiência e a redução de custos são benefícios atraentes, mas por onde começar? Neste guia, vamos abordar os principais pontos que você deve considerar ao decidir o que automatizar primeiro na sua empresa.
 
 ## Entenda suas necessidades

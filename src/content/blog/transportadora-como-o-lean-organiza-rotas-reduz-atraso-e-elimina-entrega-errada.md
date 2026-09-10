@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Transportadora: como o Lean organiza rotas, reduz atrasos e elimina entrega errada
-
 A otimização de processos logísticos é um desafio para muitas transportadoras, principalmente para pequenas e médias empresas. O método Lean, focado na eliminação de desperdícios e eficiência, pode ser a solução ideal para esses problemas. Neste artigo, vamos entender como o Lean pode organizar rotas, reduzir atrasos e eliminar entregas erradas.
 
 ## O que é o Lean?

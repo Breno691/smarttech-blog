@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Informação que se perde entre setores: como acabar com isso
-
 Em pequenas e médias empresas, a comunicação entre setores é fundamental para o sucesso do negócio. No entanto, é comum encontrar falhas nessa troca de informações, o que pode resultar em problemas operacionais e perda de eficiência. Neste artigo, vamos discutir como acabar com a informação que se perde entre setores e melhorar a produtividade da sua empresa.
 
 ## Identificando as falhas na comunicação

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# O que é gargalo de processo e como identificar o da sua empresa
-
 Em um ambiente empresarial, a eficiência é essencial para garantir a produtividade e a lucratividade. Um dos principais inimigos dessa eficiência é o gargalo de processo. Mas o que exatamente é isso e como você pode identificá-lo na sua empresa? Vamos entender.
 
 ## O que é um gargalo de processo?

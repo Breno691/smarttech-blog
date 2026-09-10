@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Condomínio: como o Lean melhora processos da administração e reduz reclamação de morador
-
 Administrar um condomínio pode ser um desafio. Entre coletar taxas, resolver conflitos e garantir a segurança, muitas vezes os gestores se deparam com processos ineficientes e reclamações constantes. Neste cenário, a aplicação do Lean pode ser a chave para transformar a administração condominial. Neste artigo, vamos entender como o Lean pode melhorar os processos da administração de condomínios e reduzir as reclamações dos moradores.
 
 ## O que é Lean?

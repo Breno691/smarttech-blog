@@ -5,6 +5,7 @@ import GTMBody from '../../components/GTMBody.astro';
 import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
 import MetaPixel from '../../components/MetaPixel.astro';
 import EventTracking from '../../components/EventTracking.astro';
+import ExitIntentModal from '../../components/ExitIntentModal.astro';
 
 const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
 const canonicalURL = new URL('/manutencao', siteURL).href;
@@ -403,12 +404,13 @@ const schema = {
     <div class="footer-inner">
       <p>&copy; {new Date().getFullYear()} SmartOps IA · Lean Six Sigma &amp; Automação &amp; TI · Nova Pampulha e Morro Alto, BH</p>
       <nav class="footer-nav">
-        <a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/manutencao">Manutenção & TI</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a>
+        <a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/manutencao">Manutenção & TI</a> · <a href="/blog">Blog</a> · <a href="/glossario">Glossário</a> · <a href="/diagnostico-rapido">Diagnóstico Rápido</a> · <a href="/sobre">Sobre</a>
       </nav>
     </div>
   </footer>
 
   <EventTracking />
+  <ExitIntentModal />
 </body>
 </html>
 

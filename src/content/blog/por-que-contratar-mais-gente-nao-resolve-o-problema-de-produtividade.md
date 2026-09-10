@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que contratar mais gente não resolve o problema de produtividade
-
 Aumentar a equipe pode parecer uma solução simples para problemas de produtividade, mas a realidade é que isso nem sempre é o caminho certo. Muitas pequenas e médias empresas em Belo Horizonte (MG) enfrentam esse dilema: quando as coisas ficam muito sobrecarregadas, a primeira ideia é contratar mais pessoas. Mas será que isso realmente resolve a questão?
 
 ## O erro comum de aumentar a equipe

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como Fazer uma Reunião de Melhoria de 15 Minutos que Realmente Funciona
-
 Em um mundo onde o tempo é precioso, realizar reuniões mais curtas e produtivas é fundamental, especialmente para pequenas e médias empresas. Este artigo traz um guia prático sobre como conduzir uma reunião de melhoria de 15 minutos com foco em resultados efetivos.
 
 ## Por que Reuniões Curtas?

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como usar IA para identificar gargalos na operação da sua empresa
-
 Identificar gargalos na operação de uma empresa é essencial para aumentar a eficiência e reduzir custos. A boa notícia é que a Inteligência Artificial (IA) pode ajudar nessa tarefa, facilitando o trabalho de gestores e aumentando a competitividade do negócio. Neste artigo, vamos explicar como utilizar a IA para identificar esses pontos de estrangulamento na sua empresa. 
 
 ## O que são gargalos operacionais?

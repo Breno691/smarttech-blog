@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como cobrar da equipe sem precisar ficar em cima o tempo todo
-
 Gerenciar uma equipe pode ser um dos maiores desafios em pequenas e médias empresas. A pressão para garantir que as tarefas sejam executadas no prazo, com qualidade, e que todos estejam engajados pode ser estressante. Contudo, isso não significa que você precise monitorar cada movimento de seus colaboradores constantemente. Neste artigo, vamos discutir estratégias práticas para cobrar da sua equipe de forma eficaz, sem o desgaste da supervisão excessiva.
 
 ## Crie um ambiente de confiança

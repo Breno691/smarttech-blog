@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Farmácia desorganizada perde dinheiro todo dia sem perceber
-
 A gestão de farmácias é um desafio constante. Muitos proprietários não percebem que uma farmácia desorganizada pode estar perdendo dinheiro diariamente. Neste artigo, vamos abordar os principais pontos que podem transformar a realidade da sua farmácia, economizar recursos e aumentar os lucros.
 
 ## A Importância da Organização

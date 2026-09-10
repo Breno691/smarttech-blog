@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Processo padronizado mais automação: a combinação que faz a empresa escalar
-
 No mundo dos negócios, especialmente para pequenas e médias empresas, a busca por eficiência e escalabilidade é constante. Um dos caminhos mais eficazes para alcançar esses objetivos é a combinação de processos padronizados com automação. Quando você une essas duas estratégias, sua empresa não só ganha em produtividade, mas também melhora a qualidade do serviço, reduzindo erros e aumentando a satisfação do cliente. Vamos entender como isso funciona na prática e como você pode implementar na sua empresa.
 
 ## O que são processos padronizados?

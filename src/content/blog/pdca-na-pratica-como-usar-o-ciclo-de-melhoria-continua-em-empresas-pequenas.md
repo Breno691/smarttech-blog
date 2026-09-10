@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# PDCA na prática: como usar o ciclo de melhoria contínua em empresas pequenas
-
 O ciclo PDCA, que significa Planejar, Executar, Verificar e Agir, é uma ferramenta poderosa para implementar melhoria contínua nas empresas, especialmente para pequenas e médias. Se você possui um negócio em Belo Horizonte e quer aumentar a eficiência e a qualidade dos seus processos, esse método pode ser o que você precisa.
 
 ## O que é o ciclo PDCA?

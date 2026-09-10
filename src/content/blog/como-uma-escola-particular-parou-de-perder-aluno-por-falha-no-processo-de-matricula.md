@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como uma escola particular parou de perder alunos por falha no processo de matrícula
-
 A gestão de uma escola particular envolve diversos desafios, e um dos mais críticos é o processo de matrícula. Para muitas instituições, uma falha nesse processo pode resultar na perda de alunos preciosos. Neste artigo, vamos ver como uma escola em Belo Horizonte conseguiu reverter essa situação e otimizar suas inscrições. 
 
 ## O problema da matrícula

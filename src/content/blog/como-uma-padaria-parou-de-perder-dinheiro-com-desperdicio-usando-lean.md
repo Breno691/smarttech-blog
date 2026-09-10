@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como uma Padaria Parou de Perder Dinheiro com Desperdício Usando Lean
-
 O desperdício de recursos é um dos principais vilões para a rentabilidade de pequenas e médias empresas, especialmente em setores alimentícios, como as padarias. Para ter uma ideia, segundo estudos, até 30% dos produtos em um estabelecimento deste tipo podem ir para o lixo. Mas como lidar com essa questão de forma eficaz? A resposta pode estar na metodologia Lean. 
 
 ## O que é a Metodologia Lean?

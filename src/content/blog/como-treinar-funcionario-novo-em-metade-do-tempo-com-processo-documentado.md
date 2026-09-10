@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como treinar funcionário novo em metade do tempo com processo documentado
-
 Contratar um novo funcionário é um momento crucial para qualquer empresa. Porém, o treinamento desse colaborador muitas vezes consome tempo e recursos que poderiam ser usados em outras áreas. Se você busca eficiência, um processo documentado pode ser a solução que transforma a maneira como você treina novos funcionários. Neste artigo, vamos abordar como criar um processo eficaz e acelerar o treinamento da sua equipe.
 
 ## Entendendo a importância de um processo documentado

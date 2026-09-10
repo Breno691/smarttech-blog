@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Supermercado: como o Lean reduz fila no caixa e perda no estoque
-
 O setor de supermercados enfrenta diversos desafios, desde a gestão de estoque até o atendimento ao cliente. Uma das metodologias que tem se destacado para otimizar processos e melhorar a eficiência é o Lean. Neste artigo, vamos entender como o Lean pode ajudar supermercados em Belo Horizonte a reduzir filas no caixa e minimizar perdas no estoque.
 
 ## O que é o Lean?

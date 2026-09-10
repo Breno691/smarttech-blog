@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Pequena Fábrica: Como Reduzir Defeitos na Produção com Lean Six Sigma
-
 O cenário atual do mercado exige que pequenas e médias empresas busquem incessantemente maneiras de otimizar sua produção. Reduzir defeitos na fabricação não só melhora a qualidade dos produtos, como também gera economia e aumenta a satisfação do cliente. Neste artigo, vamos mostrar como a metodologia Lean Six Sigma pode ser a solução ideal para sua pequena fábrica em Belo Horizonte (MG).
 
 ## O que é Lean Six Sigma?

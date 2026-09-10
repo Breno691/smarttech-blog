@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como um hotel pousada padronizou o atendimento e aumentou a avaliação no Google
-
 Na era digital, as avaliações online podem fazer toda a diferença para negócios, especialmente na área de hospedagem. Um hotel ou pousada em Belo Horizonte que deseja se destacar precisa não apenas proporcionar uma boa experiência, mas também garantir que isso se reflita em suas avaliações no Google. Neste artigo, vamos mostrar como um hotel pousada conseguiu padronizar seu atendimento e, em consequência, aumentar suas avaliações na plataforma.
 
 ## O Desafio do Atendimento

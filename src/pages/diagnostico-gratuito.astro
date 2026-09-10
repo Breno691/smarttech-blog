@@ -2,6 +2,8 @@
 import GTMHead from '../components/GTMHead.astro';
 import GTMBody from '../components/GTMBody.astro';
 import MetaPixel from '../components/MetaPixel.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import EventTracking from '../components/EventTracking.astro';
 
 const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
 const canonicalURL = new URL('/diagnostico-gratuito', siteURL).href;
@@ -55,6 +57,7 @@ const testimonials = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <GTMHead />
   <MetaPixel />
+  <GoogleAnalytics />
 
   <title>Diagnóstico Gratuito de Processo | SmartOps IA — Descubra onde está o problema</title>
   <meta name="description" content="Diagnóstico gratuito de 45 minutos: identificamos onde estão os gargalos, desperdícios e retrabalho da sua empresa. Lean Six Sigma + IA. BH e região." />
@@ -417,10 +420,12 @@ const testimonials = [
       <p class="hero-sub">
         Em 45 minutos mapeamos seus gargalos, calculamos o custo do problema e entregamos um plano de ação. Sem compromisso. Sem enrolação.
       </p>
-      <a href={whatsappURL} class="cta-hero" target="_blank" rel="noopener">
+      <a href={whatsappURL} class="cta-hero" target="_blank" rel="noopener"
+         data-event="schedule_diagnostico" data-location="hero">
         📱 Quero meu diagnóstico gratuito
       </a>
-      <a href={`tel:+${whatsappNumber}`} class="cta-phone">
+      <a href={`tel:+${whatsappNumber}`} class="cta-phone"
+         data-event="clique_telefone" data-location="hero">
         (31) 97203-9180 <span>— ou clique para ligar</span>
       </a>
       <p class="cta-guarantee">✓ Grátis  ·  ✓ Sem compromisso  ·  ✓ 45 minutos</p>
@@ -441,7 +446,8 @@ const testimonials = [
         ))}
       </div>
       <div style="text-align:center; margin-top: 32px;">
-        <a href={whatsappURL} class="cta-hero" target="_blank" rel="noopener" style="font-size:17px; padding: 15px 28px;">
+        <a href={whatsappURL} class="cta-hero" target="_blank" rel="noopener" style="font-size:17px; padding: 15px 28px;"
+           data-event="schedule_diagnostico" data-location="pain-section">
           📱 Identifico pelo menos um — quero o diagnóstico
         </a>
       </div>
@@ -559,11 +565,13 @@ const testimonials = [
     <div class="cta-box">
       <h2>Seu negócio pode estar perdendo dinheiro agora mesmo</h2>
       <p>45 minutos para saber exatamente onde — e o que fazer. Grátis. Sem compromisso.</p>
-      <a href={whatsappURL} class="cta-big" target="_blank" rel="noopener">
+      <a href={whatsappURL} class="cta-big" target="_blank" rel="noopener"
+         data-event="schedule_diagnostico" data-location="cta-bottom">
         📱 Agendar diagnóstico gratuito
       </a>
       <div style="margin-top:20px">
-        <a href={`tel:+${whatsappNumber}`} style="color:#94a3b8; font-size:20px; font-weight:700; text-decoration:none;">
+        <a href={`tel:+${whatsappNumber}`} style="color:#94a3b8; font-size:20px; font-weight:700; text-decoration:none;"
+           data-event="clique_telefone" data-location="cta-bottom">
           (31) 97203-9180
         </a>
         <p style="font-size:13px; color:#374151; margin-top:8px;">smartops-ia.com.br · BH e região · Atendimento remoto disponível</p>
@@ -579,10 +587,12 @@ const testimonials = [
 
   <!-- STICKY CTA MOBILE -->
   <div class="sticky-cta">
-    <a href={whatsappURL} target="_blank" rel="noopener">
+    <a href={whatsappURL} target="_blank" rel="noopener"
+       data-event="schedule_diagnostico" data-location="sticky-cta">
       📱 Diagnóstico Gratuito — (31) 97203-9180
     </a>
   </div>
 
+  <EventTracking />
 </body>
 </html>

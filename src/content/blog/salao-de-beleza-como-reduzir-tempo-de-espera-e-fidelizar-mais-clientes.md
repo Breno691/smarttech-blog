@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Salão de Beleza: Como Reduzir Tempo de Espera e Fidelizar Mais Clientes
-
 Em um salão de beleza, o tempo de espera é um fator crucial que pode determinar a satisfação do cliente e, consequentemente, a fidelização. Quando um cliente passa muito tempo esperando por um serviço, a experiência pode ser negativa. Nesse artigo, vamos apresentar estratégias práticas para reduzir o tempo de espera e aumentar a fidelização no seu salão de beleza.
 
 ## Entenda a Importância do Tempo de Espera

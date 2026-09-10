@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como montar um padrão de atendimento para sua equipe em 5 passos
-
 Na era da experiência do cliente, ter um padrão de atendimento claro e eficaz é fundamental para pequenas e médias empresas. Um bom atendimento não só fideliza clientes, mas também atrai novas oportunidades. Neste artigo, vamos mostrar como montar um padrão de atendimento para sua equipe em cinco passos simples.
 
 ## 1. Defina a visão e os valores do atendimento

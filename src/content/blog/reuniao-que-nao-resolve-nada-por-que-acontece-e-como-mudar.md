@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Reunião que não resolve nada: por que acontece e como mudar
-
 As reuniões fazem parte do cotidiano de empresas de todos os tamanhos. No entanto, muitas vezes, elas se transformam em um emaranhado de conversas que não resultam em ações concretas. Se você está cansado de reuniões que não levam a lugar nenhum, este artigo vai mostrar por que isso acontece e o que pode ser feito para mudar esse cenário.
 
 ## Por que reuniões não funcionam?

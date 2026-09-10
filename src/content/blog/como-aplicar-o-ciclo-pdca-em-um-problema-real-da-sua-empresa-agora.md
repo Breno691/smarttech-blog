@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como aplicar o ciclo PDCA em um problema real da sua empresa agora
-
 O ciclo PDCA é uma ferramenta poderosa para qualquer empresa que deseja melhorar seu desempenho e resolver problemas de forma eficiente. Se você está em Belo Horizonte e busca soluções práticas para desafios diários em seu negócio, entender como aplicar o PDCA pode ser um excelente primeiro passo. Neste artigo, vamos mostrar como você pode implementar essa metodologia imediata e efetivamente.
 
 ## O que é o ciclo PDCA?

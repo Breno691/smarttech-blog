@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Construtora pequena: como o Lean reduz retrabalho e atraso na obra
-
 ## O que é Lean?
 
 O Lean é uma filosofia de gestão que busca maximizar valor ao cliente, minimizando desperdícios. Essa abordagem é especialmente útil para pequenas construtoras, onde cada recurso conta e a eficiência é fundamental para se destacar no mercado. Ao implementar o Lean, é possível obter resultados expressivos em prazos e custos.

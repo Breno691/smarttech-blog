@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Pet shop: como organizar atendimento, evitar erro no agendamento e fidelizar tutor
-
 Gerenciar um pet shop pode ser desafiador, especialmente quando se trata de atendimento ao cliente e agendamentos. Com a crescente demanda por serviços relacionados a animais de estimação, é essencial ter um processo eficaz para evitar erros e garantir a satisfação dos tutores. Neste artigo, vamos abordar como organizar o atendimento no seu pet shop, minimizar erros de agendamento e fidelizar os clientes.
 
 ## Organizando o Atendimento

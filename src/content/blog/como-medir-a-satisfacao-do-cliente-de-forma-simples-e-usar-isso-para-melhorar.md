@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como medir a satisfação do cliente de forma simples e usar isso para melhorar
-
 Medir a satisfação do cliente é essencial para qualquer empresa que pretenda se destacar no mercado, especialmente pequenas e médias empresas em Belo Horizonte (MG). Saber o que os clientes pensam sobre seus produtos ou serviços pode ser a chave para o crescimento e fidelização. Neste artigo, vamos ver métodos simples para medir essa satisfação e como usar os dados obtidos para fazer melhorias significativas.
 
 ## Por que medir a satisfação do cliente?

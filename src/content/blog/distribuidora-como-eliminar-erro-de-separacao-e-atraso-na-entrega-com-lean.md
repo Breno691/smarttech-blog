@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Distribuidora: como eliminar erro de separação e atraso na entrega com Lean
-
 As distribuidoras têm um papel crucial na cadeia de suprimentos. No entanto, erros de separação e atrasos na entrega são problemas recorrentes que podem comprometer a satisfação do cliente e a eficiência operacional. Uma abordagem que tem se mostrado eficaz para resolver esses desafios é o Lean. Neste artigo, vamos mostrar como a metodologia Lean pode transformar a sua distribuidora, eliminando erros e melhorando os prazos de entrega.
 
 ## Entendendo o Problema

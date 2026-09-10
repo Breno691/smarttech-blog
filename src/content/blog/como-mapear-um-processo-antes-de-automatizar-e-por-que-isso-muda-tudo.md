@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# Como mapear um processo antes de automatizar e por que isso muda tudo
-
 A automação de processos é uma tendência crescente entre pequenas e médias empresas. No entanto, antes de se jogar nessa transformação, é essencial entender como mapear um processo de forma eficaz. Fazer isso corretamente pode ser a chave para aumentar a eficiência e alcançar resultados surpreendentes. Vamos entender como isso funciona e por que esse passo é fundamental.
 
 ## O que é mapeamento de processos?

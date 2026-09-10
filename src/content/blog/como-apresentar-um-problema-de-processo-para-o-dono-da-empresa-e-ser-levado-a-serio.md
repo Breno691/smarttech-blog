@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como Apresentar um Problema de Processo para o Dono da Empresa e Ser Levado a Sério
-
 Quando você percebe que existe um problema em um processo da sua empresa, é fundamental comunicar isso de forma eficaz ao dono. Se feito corretamente, essa abordagem pode trazer melhorias significativas e aumentar a eficiência do negócio. Mas como fazer isso de maneira que o dono da empresa realmente se importe e esteja disposto a agir? Aqui estão algumas estratégias.
 
 ## Entenda o Problema

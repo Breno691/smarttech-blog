@@ -5,6 +5,8 @@ import GTMHead from '../../components/GTMHead.astro';
 import GTMBody from '../../components/GTMBody.astro';
 import GoogleAnalytics from '../../components/GoogleAnalytics.astro';
 import MetaPixel from '../../components/MetaPixel.astro';
+import EventTracking from '../../components/EventTracking.astro';
+import ExitIntentModal from '../../components/ExitIntentModal.astro';
 
 const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
 const canonicalURL = new URL('/automacao', siteURL).href;
@@ -96,16 +98,16 @@ const schema = {
   <GTMHead />
   <MetaPixel />
 
-  <title>Automação de Processos com IA para Empresas | SmartOps IA — BH</title>
-  <meta name="description" content="Automatize atendimento, captura de leads e fluxos operacionais com IA. Para pequenas empresas em BH, Nova Pampulha e Morro Alto que querem crescer sem aumentar custo fixo. Diagnóstico gratuito." />
+  <title>WhatsApp Lento? Automatize com IA — SmartOps BH</title>
+  <meta name="description" content="Chega de cliente esperando resposta. Automação com IA no WhatsApp, leads e processos — sem aumentar sua equipe. Diagnóstico gratuito." />
   <meta name="keywords" content="automação de processos, automação com IA, chatbot whatsapp empresas, n8n belo horizonte, automação operacional, fluxos automáticos, inteligência artificial para empresas" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href={canonicalURL} />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content={canonicalURL} />
-  <meta property="og:title" content="Automação de Processos com IA | SmartOps IA" />
-  <meta property="og:description" content="Automatize o que é repetitivo. Libere sua equipe para o que importa. IA aplicada à operação de pequenas empresas." />
+  <meta property="og:title" content="WhatsApp Lento? Automatize com IA — SmartOps BH" />
+  <meta property="og:description" content="Chega de cliente esperando resposta. Automação com IA no WhatsApp, leads e processos — sem aumentar sua equipe." />
   <meta property="og:locale" content="pt_BR" />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -281,15 +283,18 @@ const schema = {
         Falar com especialista no WhatsApp
       </a>
       <p class="cta-note">Atendimento em BH, Nova Pampulha e Morro Alto · (31) 97203-9180</p>
+      <p class="cta-note"><a href="/calculadora-desperdicio" style="color:#a78bfa">Ou calcule agora quanto isso custa por mês →</a></p>
     </div>
   </section>
 
   <footer class="site-footer">
     <div class="container">
       <p>© 2026 SmartOps IA · Lean Six Sigma &amp; Automação · Belo Horizonte, MG</p>
-      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/sobre">Sobre</a></nav>
+      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/glossario">Glossário</a> · <a href="/diagnostico-rapido">Diagnóstico Rápido</a> · <a href="/sobre">Sobre</a></nav>
     </div>
   </footer>
+  <EventTracking />
+  <ExitIntentModal />
 </body>
 </html>
 

@@ -5,6 +5,7 @@ import GTMBody from '../components/GTMBody.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import MetaPixel from '../components/MetaPixel.astro';
 import EventTracking from '../components/EventTracking.astro';
+import ExitIntentModal from '../components/ExitIntentModal.astro';
 
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts
@@ -150,16 +151,16 @@ const schema = {
     <GTMHead />
     <MetaPixel />
 
-    <title>SmartOps IA — Lean Six Sigma, Automação com IA e Manutenção em BH</title>
-    <meta name="description" content="Lean Six Sigma e Automação com IA para pequenas empresas em BH, Nova Pampulha e Morro Alto. Manutenção & TI presencial em Nova Pampulha e Morro Alto. Diagnóstico gratuito." />
+    <title>Pare de Apagar Incêndios | Lean Six Sigma e IA — SmartOps</title>
+    <meta name="description" content="Sua empresa trabalha muito e cresce pouco? Lean Six Sigma e automação com IA pra parar de apagar incêndio. Diagnóstico gratuito em BH." />
     <meta name="keywords" content="lean six sigma belo horizonte, automação com IA, manutenção computadores nova pampulha, consultoria processos BH, n8n belo horizonte, upgrade SSD, formatação computador" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content="SmartOps IA — Lean Six Sigma, Automação e Manutenção" />
-    <meta property="og:description" content="Lean Six Sigma e Automação com IA para pequenas empresas. Manutenção & TI em Nova Pampulha e Morro Alto. Diagnóstico gratuito." />
+    <meta property="og:title" content="Pare de Apagar Incêndios | Lean Six Sigma e IA — SmartOps" />
+    <meta property="og:description" content="Sua empresa trabalha muito e cresce pouco? Lean Six Sigma e automação com IA pra parar de apagar incêndio. Diagnóstico gratuito em BH." />
     <meta property="og:image" content={new URL('/og-default.svg', Astro.site).href} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -167,8 +168,8 @@ const schema = {
     <meta property="og:site_name" content="SmartOps IA" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="SmartOps IA — Lean Six Sigma, Automação e Manutenção" />
-    <meta name="twitter:description" content="Lean Six Sigma e Automação com IA para pequenas empresas em BH." />
+    <meta name="twitter:title" content="Pare de Apagar Incêndios | Lean Six Sigma e IA — SmartOps" />
+    <meta name="twitter:description" content="Sua empresa trabalha muito e cresce pouco? Lean Six Sigma e automação com IA pra parar de apagar incêndio." />
     <meta name="twitter:image" content={new URL('/og-default.svg', Astro.site).href} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -195,6 +196,7 @@ const schema = {
           <a href="/automacao">Automação com IA</a>
           <a href="/manutencao">Manutenção & TI</a>
           <a href="/blog">Blog</a>
+          <a href="/glossario">Glossário</a>
           <a href="/sobre">Sobre</a>
         </div>
         <a href={whatsappURL} class="nav-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="navbar" data-label="Falar agora">
@@ -220,9 +222,9 @@ const schema = {
               Black Belt Lean Six Sigma · Belo Horizonte, MG
             </div>
             <h1>
-              Lean Six Sigma e<br />
-              <span class="gradient-text">Automação com IA</span><br />
-              para pequenas empresas
+              Pare de apagar incêndios.<br />
+              <span class="gradient-text">Escale sua operação</span><br />
+              com Lean Six Sigma e IA
             </h1>
             <p class="hero-sub" data-typewriter aria-label="Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio."><span class="tw-source" aria-hidden="true">Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio.</span><span class="tw-output" aria-hidden="true"></span></p>
             <div class="hero-btns">
@@ -243,6 +245,109 @@ const schema = {
               <div class="hero-stat"><strong><span data-count-to="24">0</span>h</strong><span>1º atendimento</span></div>
               <div class="hero-stat-sep" aria-hidden="true"></div>
               <div class="hero-stat"><strong>BH</strong><span>Belo Horizonte, MG</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── BANNER DIAGNÓSTICO RÁPIDO ── -->
+      <section class="diag-banner">
+        <div class="container diag-banner-inner">
+          <div>
+            <p class="diag-banner-label">Leva menos de 1 minuto</p>
+            <h2 class="diag-banner-title">Onde sua empresa está perdendo tempo ou dinheiro?</h2>
+          </div>
+          <a href="/diagnostico-rapido" class="diag-banner-btn">Fazer Diagnóstico Rápido →</a>
+        </div>
+      </section>
+
+      <!-- ── BANNER CALCULADORA DE DESPERDÍCIO ── -->
+      <section class="diag-banner calc-banner">
+        <div class="container diag-banner-inner">
+          <div>
+            <p class="diag-banner-label">Em números, agora</p>
+            <h2 class="diag-banner-title">Quantas horas — e quanto dinheiro — sua empresa perde por mês com tarefa manual?</h2>
+          </div>
+          <a href="/calculadora-desperdicio" class="diag-banner-btn">Calcular Desperdício Operacional →</a>
+        </div>
+      </section>
+
+      <!-- ── GÊMEO DIGITAL (Fase 8) ── -->
+      <section class="section twin-section" id="gemeo-digital">
+        <div class="container twin-inner">
+          <div class="section-header">
+            <p class="section-label" data-speed="1.06">Prova em tempo real</p>
+            <h2 class="section-title" data-speed="0.95">Veja o <span class="gradient-text">Gêmeo Digital</span> em ação</h2>
+            <p class="section-sub">Um gargalo de produção nascendo, sendo detectado pela IA e resolvido — ao vivo, na tela. É exatamente esse nível de controle e automação que orquestramos na sua operação.</p>
+            <div class="twin-view-toggle" role="group" aria-label="Alternar nível de detalhe do painel">
+              <button type="button" class="twin-view-btn is-active" data-view="biz">Visão de Negócios</button>
+              <button type="button" class="twin-view-btn" data-view="tech">Visão Técnica</button>
+            </div>
+          </div>
+          <div class="twin-visual" id="digital-twin-mount" aria-hidden="true">
+            <div class="twin-visual-fallback">
+              <div class="sysviz-dots"><span></span><span></span><span></span></div>
+              <p class="twin-fallback-text">Carregando simulação do processo…</p>
+            </div>
+            <!-- Tracker do DMAIC — HTML/CSS de verdade por cima do canvas
+                 (mais nítido que texto pintado numa textura 3D em ângulo).
+                 digital-twin.ts troca a letra ativa e a legenda a cada fase. -->
+            <div class="twin-dmaic-hud" id="digital-twin-hud" aria-hidden="true">
+              <div class="twin-dmaic-letters">
+                <span data-phase="define">D</span>
+                <span data-phase="measure">M</span>
+                <span data-phase="analyze">A</span>
+                <span data-phase="improve">I</span>
+                <span data-phase="control">C</span>
+              </div>
+              <p class="twin-dmaic-caption">DEFINE — Mapeando o processo (SIPOC)</p>
+            </div>
+            <!-- Project Charter — painel HTML que "digita" ao vivo, canto esquerdo. -->
+            <div class="twin-charter-hud" id="digital-twin-charter" aria-hidden="true">
+              <p class="twin-charter-title" data-label-tech="PROJECT CHARTER">Resumo do Problema</p>
+              <p class="twin-charter-line" data-field="business"><strong data-label-tech="BUSINESS CASE">O Impacto</strong><span></span></p>
+              <p class="twin-charter-line" data-field="scope"><strong data-label-tech="ESCOPO">Onde Acontece</strong><span></span></p>
+              <p class="twin-charter-line" data-field="ctq"><strong data-label-tech="CTQ">O Que Importa pro Cliente</strong><span></span></p>
+            </div>
+            <!-- Baseline de Medição — mesmo canto do Project Charter, entra por
+                 cima dele (crossfade em opacity) quando a fase Measure começa. -->
+            <div class="twin-baseline-hud" id="digital-twin-baseline" aria-hidden="true">
+              <p class="twin-baseline-title" data-label-tech="BASELINE DE MEDIÇÃO">Situação Atual</p>
+              <p class="twin-baseline-line" data-field="leadtime"><strong data-label-tech="LEAD TIME ATUAL">Tempo Atual de Entrega</strong><span></span></p>
+              <p class="twin-baseline-line" data-field="sigma"><strong data-label-tech="NÍVEL SIGMA">Nível de Qualidade</strong><span></span></p>
+              <p class="twin-baseline-line" data-field="pce"><strong data-label-tech="PCE">% do Tempo que Gera Resultado</strong><span></span></p>
+            </div>
+            <!-- Root Cause Analysis — mesmo canto, entra por cima do Baseline
+                 quando a fase Analyze começa. -->
+            <div class="twin-rootcause-hud" id="digital-twin-rootcause" aria-hidden="true">
+              <p class="twin-rootcause-title" data-label-tech="ROOT CAUSE ANALYSIS">Causa Real do Problema</p>
+              <p class="twin-rootcause-line" data-field="diagnostico"><strong data-label-tech="DIAGNÓSTICO">Diagnóstico</strong><span></span></p>
+              <p class="twin-rootcause-line" data-field="regra8020"><strong data-label-tech="REGRA 80/20">Principal Causa</strong><span></span></p>
+              <p class="twin-rootcause-line" data-field="causaraiz"><strong data-label-tech="CAUSA RAIZ">O Motivo Real</strong><span></span></p>
+              <p class="twin-rootcause-line" data-field="classificacao"><strong data-label-tech="CLASSIFICAÇÃO">Tipo de Problema</strong><span></span></p>
+            </div>
+            <!-- Future State Specs — mesmo canto, entra por cima do Root Cause
+                 quando a fase Improve começa. -->
+            <div class="twin-futurestate-hud" id="digital-twin-futurestate" aria-hidden="true">
+              <p class="twin-futurestate-title" data-label-tech="FUTURE STATE SPECS">Como Vai Ficar</p>
+              <p class="twin-futurestate-line" data-field="intervencao"><strong data-label-tech="INTERVENÇÃO">O Que Muda</strong><span></span></p>
+              <p class="twin-futurestate-line" data-field="leadtime"><strong data-label-tech="NOVO LEAD TIME">Novo Tempo de Entrega</strong><span></span></p>
+              <p class="twin-futurestate-line" data-field="nva"><strong data-label-tech="NON-VALUE ADDED">Tempo Desperdiçado Eliminado</strong><span></span></p>
+              <p class="twin-futurestate-line" data-field="roi"><strong data-label-tech="ROI ESTIMADO">Retorno Esperado</strong><span></span></p>
+            </div>
+            <!-- Continuous Monitoring — mesmo canto, entra por cima do Future
+                 State quando a fase Control começa (última do ciclo). -->
+            <div class="twin-continuous-hud" id="digital-twin-continuous" aria-hidden="true">
+              <p class="twin-continuous-title" data-label-tech="CONTINUOUS MONITORING">Acompanhamento Contínuo</p>
+              <p class="twin-continuous-line" data-field="status"><strong data-label-tech="STATUS">Status</strong><span></span></p>
+              <p class="twin-continuous-line" data-field="sla"><strong data-label-tech="SLA COMPLIANCE">Prazo Cumprido</strong><span></span></p>
+              <p class="twin-continuous-line" data-field="sigma"><strong data-label-tech="PROCESS SIGMA">Nível de Qualidade</strong><span></span></p>
+              <p class="twin-continuous-line" data-field="audit"><strong data-label-tech="NEXT AUDIT">Próxima Revisão</strong><span></span></p>
+            </div>
+            <!-- Log do sistema — terminal HTML real, canto direito. -->
+            <div class="twin-logs-hud" id="digital-twin-logs" aria-hidden="true">
+              <p class="twin-logs-title" data-label-tech="SYSTEM LOG">Registro em Tempo Real</p>
+              <div class="twin-logs-lines"></div>
             </div>
           </div>
         </div>
@@ -285,7 +390,6 @@ const schema = {
 
             <!-- Card: Lean Six Sigma -->
             <div class="svc-card stagger-reveal">
-              <div class="svc-icon-mount" data-icon="lean" aria-hidden="true"></div>
               <div class="svc-top">
                 <div class="svc-pills">
                   <span class="svc-pill svc-pill-lean">Lean Six Sigma</span>
@@ -331,7 +435,6 @@ const schema = {
 
             <!-- Card: Automação com IA -->
             <div class="svc-card stagger-reveal">
-              <div class="svc-icon-mount" data-icon="auto" aria-hidden="true"></div>
               <div class="svc-top">
                 <div class="svc-pills">
                   <span class="svc-pill svc-pill-auto">Automação com IA</span>
@@ -359,7 +462,6 @@ const schema = {
 
             <!-- Card: Manutenção & TI -->
             <a href="/manutencao" class="svc-card stagger-reveal svc-card-link">
-              <div class="svc-icon-mount" data-icon="ti" aria-hidden="true"></div>
               <div class="svc-top">
                 <div class="svc-pills">
                   <span class="svc-pill svc-pill-ti">Manutenção & TI</span>
@@ -442,7 +544,7 @@ const schema = {
                   <label for="lead-msg">Qual é o maior problema da sua operação hoje?</label>
                   <textarea id="lead-msg" name="mensagem" rows="4" placeholder="Ex: equipe sempre apagando incêndio, atendimento no WhatsApp caótico, muito retrabalho, processo sem padrão..." maxlength="1000"></textarea>
                 </div>
-                <button type="submit" class="btn-lead" data-event="clique_cta" data-location="lead-form" data-label="Enviar Lead">
+                <button type="submit" class="btn-lead">
                   <span class="btn-lead-text">Quero o diagnóstico gratuito <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
                   <span class="btn-lead-spin" aria-hidden="true">Enviando…</span>
                 </button>
@@ -475,6 +577,16 @@ const schema = {
                   <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer">Falar pelo WhatsApp</a>
                 </div>
               </div>
+            </div>
+
+            <div id="lead-recovery" class="lead-recovery" hidden role="dialog" aria-label="Continuar conversa pelo WhatsApp">
+              <button type="button" id="lead-recovery-close" class="lead-recovery-close" aria-label="Fechar">&times;</button>
+              <p class="lead-recovery-title">Antes de você sair...</p>
+              <p class="lead-recovery-body">Pelo que você já escreveu, já dá pra ter uma ideia de por onde começar. Quer só continuar essa conversa pelo WhatsApp, sem precisar terminar o formulário?</p>
+              <a href="#" id="lead-recovery-wa" class="lead-recovery-btn" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="lead-recovery" data-label="Recuperar Formulário">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+                Continuar no WhatsApp
+              </a>
             </div>
 
             <aside class="lead-col-info">
@@ -601,7 +713,13 @@ const schema = {
               {recentPosts.map(post => (
                 <li class="post-card reveal">
                   <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}`} class="post-link">
-                    {post.data.heroImage && (
+                    {post.data.heroImage && post.data.heroImage === '/blog-placeholder-1.jpg' && (
+                      <picture>
+                        <source srcset="/blog-placeholder-1.webp" type="image/webp" />
+                        <img src="/blog-placeholder-1.jpg" alt={post.data.title} width="800" height="420" loading="lazy" decoding="async" class="post-img" />
+                      </picture>
+                    )}
+                    {post.data.heroImage && post.data.heroImage !== '/blog-placeholder-1.jpg' && (
                       <img src={post.data.heroImage} alt={post.data.title} width="800" height="420" loading="lazy" decoding="async" class="post-img" />
                     )}
                     <div class="post-body">
@@ -671,6 +789,8 @@ const schema = {
             <h4>Navegação</h4>
             <a href="/">Home</a>
             <a href="/blog">Blog</a>
+            <a href="/glossario">Glossário</a>
+            <a href="/diagnostico-rapido">Diagnóstico Rápido</a>
             <a href="/sobre">Sobre</a>
             <a href="/#faq">FAQ</a>
             <a href="/#contato">Contato</a>
@@ -787,11 +907,107 @@ const schema = {
     })();
     </script>
 
+    <script is:inline>
+    (function () {
+      'use strict';
+      var WA = '5531972039180';
+
+      var form = document.getElementById('lead-form');
+      var successEl = document.getElementById('lead-success');
+      var recoveryEl = document.getElementById('lead-recovery');
+      var waBtn = document.getElementById('lead-recovery-wa');
+      var closeBtn = document.getElementById('lead-recovery-close');
+      if (!form || !successEl || !recoveryEl || !waBtn || !closeBtn) return;
+
+      var STORAGE_KEY = 'smartops_lead_recovery_shown';
+      var alreadyShown = false;
+      try { alreadyShown = sessionStorage.getItem(STORAGE_KEY) === '1'; } catch (e) {}
+
+      function hasPartialData() {
+        return form.nome.value.trim().length > 1 || form.telefone.value.trim().length > 3;
+      }
+
+      function buildMessage() {
+        var lines = ['Olá! Comecei a preencher o formulário do site mas não terminei.', ''];
+        if (form.nome.value.trim()) lines.push('Nome: ' + form.nome.value.trim());
+        if (form.telefone.value.trim()) lines.push('Telefone: ' + form.telefone.value.trim());
+        if (form.empresa.value.trim()) lines.push('Empresa: ' + form.empresa.value.trim());
+        if (form.servico.value) lines.push('Interesse: ' + form.servico.options[form.servico.selectedIndex].text);
+        if (form.mensagem.value.trim()) lines.push('', form.mensagem.value.trim());
+        lines.push('', 'Pode me ajudar a continuar?');
+        return lines.join('\n');
+      }
+
+      function showRecovery() {
+        if (alreadyShown || !successEl.hidden || !hasPartialData()) return;
+        alreadyShown = true;
+        try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+        waBtn.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(buildMessage());
+        recoveryEl.hidden = false;
+        requestAnimationFrame(function () { recoveryEl.classList.add('is-visible'); });
+      }
+
+      function hideRecovery() {
+        recoveryEl.classList.remove('is-visible');
+        setTimeout(function () { recoveryEl.hidden = true; }, 350);
+      }
+
+      closeBtn.addEventListener('click', hideRecovery);
+
+      // Gatilho 1: a seção do formulário sai da tela (rolou pra longe) sem enviar.
+      var formSection = document.getElementById('contato');
+      if (formSection && 'IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) setTimeout(showRecovery, 4000);
+          });
+        }, { threshold: 0 });
+        observer.observe(formSection);
+      }
+
+      // Gatilho 2: usuário voltou de outro app/aba (trocou de tela e retornou).
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') setTimeout(showRecovery, 800);
+      });
+    })();
+    </script>
+
     <script>
       import '../scripts/home/home-entry.ts';
     </script>
 
+    <script is:inline>
+    (function () {
+      'use strict';
+      // Alterna os rótulos do painel do Gêmeo Digital entre linguagem de
+      // negócio (padrão, pro dono de padaria/clínica entender) e o jargão
+      // técnico original (CTQ, PCE, SLA Compliance...) — só troca texto,
+      // não mexe na animação em si.
+      var buttons = document.querySelectorAll('.twin-view-btn');
+      var labeledEls = document.querySelectorAll('#digital-twin-charter [data-label-tech], #digital-twin-baseline [data-label-tech], #digital-twin-rootcause [data-label-tech], #digital-twin-futurestate [data-label-tech], #digital-twin-continuous [data-label-tech], #digital-twin-logs [data-label-tech]');
+      if (!buttons.length || !labeledEls.length) return;
+
+      labeledEls.forEach(function (el) {
+        el.dataset.labelBiz = el.textContent || '';
+      });
+
+      function setView(view) {
+        labeledEls.forEach(function (el) {
+          el.textContent = view === 'tech' ? el.dataset.labelTech : el.dataset.labelBiz;
+        });
+        buttons.forEach(function (btn) {
+          btn.classList.toggle('is-active', btn.dataset.view === view);
+        });
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () { setView(btn.dataset.view); });
+      });
+    })();
+    </script>
+
     <EventTracking />
+    <ExitIntentModal />
   </body>
 </html>
 
@@ -920,6 +1136,12 @@ const schema = {
   .section-title { font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
   .section-sub { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; }
 
+  /* Toggle Visão de Negócios / Visão Técnica (Gêmeo Digital) */
+  .twin-view-toggle { display: inline-flex; gap: 0.25rem; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 9999px; padding: 0.25rem; margin-top: 1.25rem; }
+  .twin-view-btn { border: none; background: transparent; color: var(--muted); font-size: 0.8rem; font-weight: 600; padding: 0.45rem 1.1rem; border-radius: 9999px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+  .twin-view-btn.is-active { background: var(--accent); color: #fff; }
+  .twin-view-btn:not(.is-active):hover { color: var(--fg); }
+
   /* Nav */
   header { position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--border); backdrop-filter: blur(16px); background: rgba(6,6,14,0.85); }
   nav { max-width: var(--max-w); margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; gap: 1rem; }
@@ -996,6 +1218,150 @@ const schema = {
   .sysviz-line { height: 1px; background: linear-gradient(90deg, transparent, var(--accent-border), transparent); }
   @media (max-width: 600px) { .system-visual { min-height: 320px; } }
 
+  /* ── GÊMEO DIGITAL (Fase 8, nova seção) ── */
+  .twin-section { background: rgba(13,13,28,0.94); position: relative; overflow: hidden; }
+  .twin-inner { position: relative; }
+  /* v4 "Digital War Room" — dark mode corporativo (azul/cinza/ciano/vermelho),
+     nada de gradiente roxo/ciano "sci-fi" como nas versões anteriores. */
+  .twin-visual {
+    position: relative;
+    min-height: 620px;
+    margin-top: 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(148,163,184,0.18);
+    background: linear-gradient(160deg, rgba(59,130,246,0.07) 0%, rgba(11,18,32,0.7) 60%);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  /* Tracker do DMAIC — faixa discreta no canto superior esquerdo (breadcrumb
+     de progresso, não protagonista da cena — o protagonista agora é o
+     diagrama SIPOC). HTML/CSS de verdade por cima do canvas: mais nítido que
+     texto pintado numa textura 3D em ângulo, nunca bloqueia clique/scroll
+     (pointer-events:none), sempre acima do <canvas> (z-index). */
+  .twin-dmaic-hud {
+    position: absolute;
+    left: clamp(1rem, 3vw, 1.75rem);
+    top: clamp(1rem, 3vw, 1.5rem);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    pointer-events: none;
+  }
+  .twin-dmaic-letters { display: flex; flex-direction: row; gap: clamp(0.4rem, 1vw, 0.7rem); }
+  .twin-dmaic-letters span {
+    font-family: var(--font);
+    font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+    font-weight: 900;
+    color: rgba(255,255,255,0.16);
+    transform: scale(1) translateY(0);
+    transition: color 0.6s ease, text-shadow 0.6s ease, transform 0.6s ease;
+  }
+  .twin-dmaic-letters span.is-active { transform: scale(1.2) translateY(-0.1rem); }
+  .twin-dmaic-caption {
+    margin-top: 0.4rem;
+    font-size: clamp(0.62rem, 0.9vw, 0.72rem);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    text-align: left;
+    max-width: 13rem;
+    transition: color 0.5s ease;
+  }
+  /* Project Charter (canto esquerdo) e Log do Sistema (canto direito) —
+     painéis HTML reais (não canvas), documento/terminal de verdade digitando
+     ao vivo. Mesma lógica de sobreposição do tracker acima. */
+  .twin-charter-hud, .twin-baseline-hud, .twin-rootcause-hud, .twin-futurestate-hud, .twin-continuous-hud, .twin-logs-hud {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: clamp(13rem, 20vw, 15.5rem);
+    background: rgba(11,18,32,0.82);
+    border: 1px solid rgba(148,163,184,0.22);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+  /* Baseline, Root Cause, Future State e Continuous Monitoring ocupam o
+     MESMO canto do Project Charter — digital-twin.ts alterna a opacity entre
+     eles quando cada fase começa (crossfade, não um corte seco). Todos
+     começam invisíveis: só a fase Define é visível no primeiro frame. */
+  .twin-charter-hud, .twin-baseline-hud, .twin-rootcause-hud, .twin-futurestate-hud, .twin-continuous-hud { left: clamp(1rem, 3vw, 1.75rem); }
+  .twin-charter-hud { border-left: 3px solid var(--accent-l); opacity: 1; }
+  .twin-baseline-hud { border-left: 3px solid #22d3ee; opacity: 0; }
+  .twin-rootcause-hud { border-left: 3px solid #ef4444; opacity: 0; }
+  .twin-futurestate-hud { border-left: 3px solid #34d399; opacity: 0; }
+  .twin-continuous-hud { border-left: 3px solid #22d3ee; opacity: 0; }
+  .twin-logs-hud { right: clamp(1rem, 3vw, 1.75rem); border-left: 3px solid #22d3ee; font-family: "Courier New", monospace; }
+  .twin-charter-title, .twin-baseline-title, .twin-rootcause-title, .twin-futurestate-title, .twin-continuous-title, .twin-logs-title {
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
+    color: var(--muted); margin-bottom: 0.6rem; text-transform: uppercase;
+  }
+  .twin-charter-line, .twin-baseline-line, .twin-rootcause-line, .twin-futurestate-line, .twin-continuous-line { font-size: 0.72rem; line-height: 1.5; color: #e2e8f0; margin-bottom: 0.55rem; }
+  .twin-charter-line strong, .twin-baseline-line strong, .twin-rootcause-line strong, .twin-futurestate-line strong, .twin-continuous-line strong { display: block; font-size: 0.62rem; letter-spacing: 0.05em; color: #60a5fa; margin-bottom: 0.15rem; }
+  .twin-charter-line span::after, .twin-baseline-line span::after, .twin-rootcause-line span::after, .twin-futurestate-line span::after, .twin-continuous-line span::after { content: '_'; opacity: 0.6; }
+  .twin-logs-line { font-size: 0.66rem; line-height: 1.6; color: #67e8f9; margin-bottom: 0.4rem; word-break: break-word; }
+  /* Fase 11 (08/set/2026): esses painéis viam de `display:none` abaixo de
+     900px — ninguém no celular via o Project Charter/log/etc., só a
+     simulação "pelada". Usuário pediu que todo mundo veja a experiência
+     completa, então em vez de esconder, os painéis empilham (Charter/
+     Baseline/Root Cause/Future State/Continuous no topo, Log embaixo),
+     ocupando a largura toda — e `.twin-visual` ganha bem mais altura pra
+     abrir espaço pros dois sem espremer o diagrama do meio. */
+  @media (max-width: 900px) {
+    .twin-visual { min-height: 980px; }
+    .twin-charter-hud, .twin-baseline-hud, .twin-rootcause-hud, .twin-futurestate-hud, .twin-continuous-hud {
+      left: 1rem;
+      right: 1rem;
+      top: 4.75rem;
+      transform: none;
+      width: auto;
+    }
+    .twin-logs-hud {
+      left: 1rem;
+      right: 1rem;
+      top: auto;
+      bottom: 1rem;
+      transform: none;
+      width: auto;
+    }
+  }
+  /* Placeholder CSS puro — mesma lógica do .system-visual-fallback: visível
+     sempre, só some (opacity) depois que o canvas real desenha por cima; em
+     modo 'reduced' o script nem baixa, então o placeholder fica pra sempre. */
+  .twin-visual-fallback {
+    width: min(420px, 86%);
+    text-align: center;
+    background: rgba(6,6,14,0.72);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: 0 30px 80px rgba(59,130,246,0.14);
+    transition: opacity 0.5s ease;
+  }
+  .twin-visual-fallback .sysviz-dots { justify-content: center; margin-bottom: 1rem; }
+  .twin-fallback-text { font-size: 0.85rem; color: var(--muted); }
+  /* Regra antiga (420px) removida daqui — conflitava com o breakpoint de
+     900px acima (que precisa de MAIS altura pros painéis empilhados) e,
+     por vir depois na cascata, sempre vencia em telas ≤600px. */
+
+  /* ── BANNER DIAGNÓSTICO RÁPIDO ── */
+  .diag-banner { padding: 2.25rem 0; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(16,185,129,0.06)); border-top: 1px solid rgba(167,139,250,0.15); border-bottom: 1px solid rgba(167,139,250,0.15); }
+  .diag-banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+  .diag-banner-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #10b981; margin-bottom: 0.35rem; }
+  .diag-banner-title { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; margin: 0; }
+  .diag-banner-btn { flex-shrink: 0; display: inline-flex; align-items: center; background: linear-gradient(135deg, #7c3aed, #10b981); color: #fff; font-weight: 700; padding: 0.75rem 1.5rem; border-radius: 10px; text-decoration: none; font-size: 0.92rem; white-space: nowrap; transition: opacity 0.2s; }
+  .diag-banner-btn:hover { opacity: 0.88; }
+  @media (max-width: 700px) { .diag-banner-inner { flex-direction: column; align-items: flex-start; } .diag-banner-btn { width: 100%; justify-content: center; } }
+
+  /* Banner da Calculadora vem logo abaixo do Diagnóstico Rápido — remove a
+     borda superior duplicada e inverte o degradê pra diferenciar visualmente */
+  .calc-banner { border-top: none; background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(124,58,237,0.06)); }
+  .calc-banner .diag-banner-label { color: #a78bfa; }
+  .calc-banner .diag-banner-btn { background: linear-gradient(135deg, #10b981, #7c3aed); }
+
   /* ── SERVIÇOS — grade de 3 (Fase 2) ── */
   .services-section { background: rgba(13,13,28,0.6); }
 
@@ -1018,14 +1384,6 @@ const schema = {
 
   .svc-card-link { text-decoration: none; color: inherit; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; cursor: pointer; }
   .svc-card-link:hover { border-color: rgba(245,158,11,0.35); box-shadow: 0 12px 40px rgba(245,158,11,0.08); }
-
-  .svc-icon-mount {
-    width: 64px; height: 64px; margin: 0 auto 1.25rem;
-    border-radius: 18px;
-    background: radial-gradient(circle at 35% 30%, var(--accent-l) 0%, var(--accent) 55%, transparent 100%);
-    opacity: 0.9;
-    box-shadow: 0 8px 28px var(--accent-glow);
-  }
 
   .svc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
   .svc-pills { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
@@ -1148,6 +1506,32 @@ const schema = {
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     transition: opacity 0.2s, transform 0.15s; box-shadow: 0 4px 20px rgba(124,58,237,0.35);
   }
+  /* ── Recuperação de formulário abandonado ── */
+  .lead-recovery {
+    position: fixed; left: 1rem; right: 1rem; bottom: 6rem; z-index: 400;
+    max-width: 380px; margin-left: auto;
+    background: #12122a; border: 1px solid rgba(167,139,250,0.35);
+    border-radius: 16px; padding: 1.25rem 1.4rem;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    transform: translateY(20px); opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease;
+    pointer-events: none;
+  }
+  .lead-recovery.is-visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .lead-recovery-close {
+    position: absolute; top: 0.5rem; right: 0.6rem; background: none; border: none;
+    color: rgba(255,255,255,0.4); font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 0.3rem;
+  }
+  .lead-recovery-close:hover { color: #fff; }
+  .lead-recovery-title { font-weight: 800; font-size: 1rem; margin-bottom: 0.45rem; color: #fff; padding-right: 1.5rem; }
+  .lead-recovery-body { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.55; margin-bottom: 1.1rem; }
+  .lead-recovery-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: var(--green); color: #04240f; font-weight: 800; padding: 0.75rem 1.2rem;
+    border-radius: 10px; text-decoration: none; font-size: 0.88rem; transition: opacity 0.2s;
+  }
+  .lead-recovery-btn:hover { opacity: 0.88; }
+  @media (max-width: 480px) { .lead-recovery { left: 0.75rem; right: 0.75rem; bottom: 5.5rem; max-width: none; } }
+
   .btn-lead:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
   .btn-lead:disabled { opacity: 0.65; cursor: not-allowed; }
   .btn-lead-text, .btn-lead-spin { position: relative; z-index: 1; }
@@ -1281,17 +1665,36 @@ const schema = {
     .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(6,6,14,0.98); border-bottom: 1px solid var(--border); flex-direction: column; align-items: flex-start; padding: 1rem; gap: 0.25rem; }
     .nav-links.open { display: flex; }
     .nav-links a { width: 100%; padding: 0.65rem 1rem; }
-    .mobile-toggle { display: flex; }
+    .mobile-toggle { display: flex; min-width: 44px; min-height: 44px; justify-content: center; }
     header { position: relative; }
+    /* Área de toque confortável no celular (mínimo recomendado 44x44px) */
+    .nav-wa { min-height: 44px; }
+    .svc-btn { min-height: 44px; }
     .hero { padding: 5rem 0 4rem; }
     .hero-stat-sep { display: none; }
     .footer-inner { flex-direction: column; gap: 2rem; }
     .footer-nav { gap: 2rem; }
     .form-row { grid-template-columns: 1fr; }
+
+    /* Depoimentos e cidades viram carrossel de arrastar (sem lib JS) em vez
+       de empilhar tudo na vertical — evita rolagem longa no celular. */
+    .testimonials-grid, .cities-grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      margin: 0 -1.25rem;
+      padding: 0.25rem 1.25rem 0.75rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .testimonials-grid .testimonial-card, .cities-grid .city-card {
+      flex: 0 0 82%;
+      scroll-snap-align: center;
+    }
   }
 
   @media (max-width: 600px) {
-    .cities-grid { grid-template-columns: 1fr; }
     .posts-grid { grid-template-columns: 1fr; }
     .section { padding: 4rem 0; }
     .container { padding: 0 1.25rem; }

@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como uma pequena fábrica reduziu defeitos na produção sem trocar equipamento
-
 No mundo competitivo das pequenas e médias empresas, a eficiência na produção é fundamental. Uma fábrica de Belo Horizonte, especializada na fabricação de componentes eletrônicos, conseguiu reduzir os defeitos de produção sem a necessidade de grandes investimentos em novos equipamentos. A história dessa fábrica serve como um exemplo prático de como estratégias de automação e uma abordagem Lean Six Sigma podem transformar processos de produção.
 
 ## O Desafio: Altos Níveis de Defeitos

@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Planilha vs Sistema: Quando a Planilha Ainda é a Melhor Opção para Pequena Empresa
-
 Gerir uma pequena ou média empresa pode ser um desafio. Muitas vezes, o orçamento é limitado, e a escolha entre usar planilhas ou investir em um sistema de gestão pode ser delicada. Neste artigo, vamos discutir quando a planilha ainda é a melhor opção para pequenas empresas.
 
 ## Vantagens das Planilhas

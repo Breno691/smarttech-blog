@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Funcionário novo sempre erra: a causa real e como resolver de vez
-
 Contratar um funcionário novo é um desafio para qualquer pequeno ou médio empresário. É normal que os novos colaboradores cometam erros nas primeiras semanas, mas quando essas falhas se tornam recorrentes, é hora de olhar mais de perto. Por que isso acontece? Neste artigo, vamos entender a causa real do problema e como você pode resolver de vez essa situação.
 
 ## A causa real dos erros de funcionários novos

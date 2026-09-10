@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como Montar uma Rotina de Melhoria Contínua Sem Consumir Tempo da Equipe
-
 A melhoria contínua é um conceito que pode impulsionar as operações de qualquer empresa, mas muitas vezes as equipes se sentem sobrecarregadas e sem tempo para implementar mudanças. A boa notícia é que é possível estabelecer uma rotina de melhoria contínua que não consuma o tempo ou a energia da equipe. Neste artigo, vamos discutir como fazer isso de maneira prática e eficiente.
 
 ## O que é Melhoria Contínua?

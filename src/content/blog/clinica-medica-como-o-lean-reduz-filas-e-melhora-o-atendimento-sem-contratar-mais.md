@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Clínica médica: como o Lean reduz filas e melhora o atendimento sem contratar mais
-
 Em um cenário onde a eficiência no atendimento médico é fundamental, clínicas enfrentam desafios como filas longas e insatisfação dos pacientes. Uma abordagem que tem se mostrado eficaz para resolver esses problemas é a metodologia Lean. Neste artigo, vamos mostrar como o Lean pode ajudar a sua clínica a melhorar o atendimento e reduzir filas, sem a necessidade de contratar mais funcionários.
 
 ## O que é Lean?

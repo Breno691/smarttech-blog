@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como fazer um mapeamento de fluxo de valor sem ser especialista em Lean
-
 O mapeamento de fluxo de valor (MFV) é uma ferramenta poderosa que pode ajudar pequenas e médias empresas a identificar desperdícios e otimizar processos. Apesar de ser uma técnica comum em metodologias Lean, você não precisa ser um especialista para aplicar seus conceitos básicos. Neste artigo, vamos te mostrar como fazer isso de forma simples, sem complicações.
 
 ## O que é mapeamento de fluxo de valor?

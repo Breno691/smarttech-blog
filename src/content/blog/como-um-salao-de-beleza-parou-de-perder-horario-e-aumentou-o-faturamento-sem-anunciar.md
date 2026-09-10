@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como um salão de beleza parou de perder horário e aumentou o faturamento sem anunciar
-
 Gerenciar um salão de beleza pode ser um desafio, especialmente quando se trata de manter a agenda cheia. A boa notícia é que é possível aumentar o faturamento e diminuir o número de horários perdidos sem precisar investir em anúncios caros. Vamos entender como um salão de beleza em Belo Horizonte conseguiu essa façanha.
 
 ## O desafio: horários perdidos

@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como um Pet Shop Eliminou Falha de Agendamento e Parou de Perder Clientes por Erro
-
 Gerenciar um pet shop é um desafio. Entre cuidar dos clientes peludinhos e atender seus donos, muitos proprietários enfrentam um problema comum: falhas no agendamento. Isso não só gera frustração, mas também pode custar a perda de clientes. Neste artigo, vamos contar a história de um pet shop em Belo Horizonte que resolveu esse problema e como você também pode aplicar soluções práticas para evitar erros que prejudicam seu negócio.
 
 ## O Problema dos Agendamentos

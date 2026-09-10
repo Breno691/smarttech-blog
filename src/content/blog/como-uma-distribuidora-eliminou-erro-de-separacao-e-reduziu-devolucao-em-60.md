@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como uma distribuidora eliminou erro de separação e reduziu devolução em 60%
-
 A eficiência operacional é uma das chaves para o sucesso de qualquer distribuidora. Um dos grandes desafios enfrentados nesse setor é o erro de separação de pedidos, que pode resultar em devoluções, insatisfação do cliente e, consequentemente, perda de receita. Neste artigo, vamos contar como uma distribuidora em Belo Horizonte eliminou esses erros e conseguiu reduzir a taxa de devolução em 60% usando estratégias simples e efetivas.
 
 ## O problema dos erros de separação

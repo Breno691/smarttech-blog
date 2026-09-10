@@ -2,8 +2,7 @@
 (function () {
   'use strict';
 
-  // Mapa data-event → Meta Pixel standard events
-  // Cada handler só executa se fbq estiver disponível (Pixel ativo)
+  // ─── Mapa data-event → Meta Pixel standard events ──────────────────────────
   var META = {
     clique_whatsapp: function (loc) {
       if (typeof fbq !== 'function') return;
@@ -14,24 +13,39 @@
       if (typeof fbq !== 'function') return;
       fbq('track', 'Lead', { content_name: label || loc || '' });
     },
+    // FIX: schedule_diagnostico → Meta 'Schedule' + 'Lead' (campanha de agendamento)
+    schedule_diagnostico: function (loc) {
+      if (typeof fbq !== 'function') return;
+      fbq('track', 'Schedule');
+      fbq('track', 'Lead', { content_name: 'diagnostico_gratuito', event_location: loc || '' });
+      fbq('trackCustom', 'DiagnosticoClick', { event_location: loc || '' });
+    },
+    // FIX: clique_telefone → Contact via phone
+    clique_telefone: function (loc) {
+      if (typeof fbq !== 'function') return;
+      fbq('track', 'Contact');
+      fbq('trackCustom', 'PhoneClick', { event_location: loc || '' });
+    },
   };
 
-  // Delegação universal: qualquer [data-event] clicado dispara GTM + Meta Pixel
+  // ─── Delegação universal: qualquer [data-event] clicado dispara GTM + Meta ─
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-event]');
     if (!el) return;
     var eventName = el.getAttribute('data-event');
-    var loc = el.getAttribute('data-location') || undefined;
-    var label = el.getAttribute('data-label') || undefined;
+    var loc       = el.getAttribute('data-location') || undefined;
+    var label     = el.getAttribute('data-label')    || undefined;
 
+    // GTM dataLayer — sempre
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: eventName, event_location: loc, event_label: label });
 
+    // Meta Pixel — só se fbq disponível
     var handler = META[eventName];
     if (handler) handler(loc, label);
   });
 
-  // scroll_90: dispara uma única vez ao atingir 90% da página
+  // ─── scroll_90: dispara uma única vez ao atingir 90% da página ─────────────
   var scroll90fired = false;
   function checkScroll90() {
     if (scroll90fired) return;
@@ -44,5 +58,23 @@
     }
   }
   window.addEventListener('scroll', checkScroll90, { passive: true });
+
+  // ─── Advanced Matching hook ─────────────────────────────────────────────────
+  // Quando usuário preenche telefone ou email no formulário, atualiza fbq com
+  // dados de matching para aumentar Event Match Quality (EMQ)
+  document.addEventListener('change', function (e) {
+    var el = e.target;
+    if (!el || typeof fbq !== 'function') return;
+    var name = el.getAttribute('name') || '';
+    if (name === 'telefone' && el.value) {
+      // Normaliza telefone: só dígitos, com DDI 55
+      var ph = el.value.replace(/\D/g, '');
+      if (ph.length >= 10) {
+        ph = ph.startsWith('55') ? ph : '55' + ph;
+        fbq('init', undefined, { ph: ph }); // re-init com dados parciais
+      }
+    }
+  });
+
 })();
 </script>

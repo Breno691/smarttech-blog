@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Lean Six Sigma e automação com IA: como usar os dois juntos na prática
-
 As pequenas e médias empresas em Belo Horizonte (MG) estão sempre em busca de maneiras de otimizar processos e aumentar a eficiência. Duas abordagens que têm ganhado destaque são o Lean Six Sigma e a automação com Inteligência Artificial (IA). Neste artigo, vamos entender como essas duas metodologias podem trabalhar em conjunto para transformar sua empresa.
 
 ## O que é Lean Six Sigma?

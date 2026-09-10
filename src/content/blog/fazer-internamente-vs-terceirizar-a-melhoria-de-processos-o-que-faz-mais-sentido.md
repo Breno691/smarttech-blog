@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Fazer internamente vs terceirizar a melhoria de processos: o que faz mais sentido
-
 No mundo dos negócios, a eficiência e a melhoria de processos são fundamentais para garantir a competitividade e a satisfação do cliente. Muitas pequenas e médias empresas em Belo Horizonte se deparam com a questão: é melhor fazer a melhoria de processos internamente ou terceirizar essa função? Neste artigo, vamos analisar as vantagens e desvantagens de cada abordagem para que você possa tomar a melhor decisão para seu negócio.
 
 ## Entendendo a melhoria de processos

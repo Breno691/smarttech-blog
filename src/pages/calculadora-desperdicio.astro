@@ -1,0 +1,380 @@
+---
+import Nav from '../components/Nav.astro';
+import GTMHead from '../components/GTMHead.astro';
+import GTMBody from '../components/GTMBody.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+import EventTracking from '../components/EventTracking.astro';
+
+const siteURL = Astro.site?.href ?? 'https://smartops-ia.com.br/';
+const canonicalURL = new URL('/calculadora-desperdicio', siteURL).href;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
+      name: 'Calculadora de Desperdício Operacional | SmartOps IA',
+      description: 'Descubra quantas horas e quanto dinheiro sua empresa perde por mês com tarefas manuais e retrabalho. Cálculo instantâneo, plano de ação gratuito.',
+      inLanguage: 'pt-BR',
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteURL },
+          { '@type': 'ListItem', position: 2, name: 'Calculadora de Desperdício Operacional', item: canonicalURL },
+        ],
+      },
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <GTMHead />
+  <MetaPixel />
+
+  <title>Calculadora de Desperdício Operacional | SmartOps IA</title>
+  <meta name="description" content="Digite nº de funcionários, horas perdidas por semana e salário médio — descubra na hora quanto sua empresa perde por mês com tarefas manuais. Plano de ação gratuito." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content="Calculadora de Desperdício Operacional | SmartOps IA" />
+  <meta property="og:description" content="Descubra em segundos quantas horas e quanto dinheiro sua empresa perde por mês com tarefa manual." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <GoogleAnalytics />
+</head>
+<body>
+  <GTMBody />
+  <Nav current="/calculadora-desperdicio" />
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container narrow">
+      <div class="badge"><span class="dot"></span> Leva menos de 1 minuto</div>
+      <h1>Calculadora de <span class="grad">Desperdício Operacional</span></h1>
+      <p class="lead">Digite 3 números da sua operação e veja, na hora, quantas horas — e quanto dinheiro — sua empresa está deixando de aproveitar todo mês.</p>
+    </div>
+  </section>
+
+  <section class="calc-section">
+    <div class="container narrow">
+      <div class="calc-card" id="calc-card">
+        <div class="calc-inputs">
+          <div class="input-group">
+            <label for="in-funcionarios">Nº de funcionários</label>
+            <input type="number" id="in-funcionarios" inputmode="numeric" min="1" max="500" placeholder="Ex: 8" />
+          </div>
+          <div class="input-group">
+            <label for="in-horas">Horas perdidas por semana (por pessoa)</label>
+            <input type="number" id="in-horas" inputmode="numeric" min="0" max="40" step="0.5" placeholder="Ex: 5" />
+          </div>
+          <div class="input-group">
+            <label for="in-salario">Salário médio mensal (R$)</label>
+            <input type="number" id="in-salario" inputmode="numeric" min="0" step="50" placeholder="Ex: 2200" />
+          </div>
+        </div>
+
+        <div class="calc-result" id="calc-result">
+          <p class="result-hint">Preencha os campos acima pra ver o resultado.</p>
+        </div>
+
+        <div class="calc-gate" id="calc-gate" hidden>
+          <p class="gate-title">Quer o Plano de Ação com as prioridades de onde começar?</p>
+          <p class="gate-sub">Deixe seus dados — sem custo, sem compromisso.</p>
+          <form id="calc-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="lead-empresa">Empresa <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="lead-empresa" name="empresa" required placeholder="Nome da empresa" autocomplete="organization" maxlength="100" />
+              </div>
+              <div class="form-group">
+                <label for="lead-email">E-mail <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="lead-email" name="email" required placeholder="voce@empresa.com" autocomplete="email" maxlength="120" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lead-telefone">WhatsApp <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="lead-telefone" name="telefone" required placeholder="(31) 99999-9999" autocomplete="tel" maxlength="20" />
+            </div>
+            <button type="submit" class="btn-gate">
+              <span class="btn-gate-text">Quero meu Plano de Ação</span>
+              <span class="btn-gate-spin" aria-hidden="true">Enviando…</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="calc-plan" id="calc-plan" hidden>
+          <span class="plan-tag" id="plan-tag"></span>
+          <p class="plan-text" id="plan-text"></p>
+          <a class="btn-wa" id="plan-wa-btn" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="calculadora-desperdicio" data-label="Plano de Ação">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
+            Falar sobre o meu Plano de Ação
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© {new Date().getFullYear()} SmartOps IA · Breno Luiz · Black Belt Lean Six Sigma · BH, Nova Pampulha e Morro Alto</p>
+      <nav><a href="/">Home</a> · <a href="/lean-six-sigma">Lean Six Sigma</a> · <a href="/automacao">Automação</a> · <a href="/blog">Blog</a> · <a href="/glossario">Glossário</a> · <a href="/diagnostico-rapido">Diagnóstico Rápido</a> · <a href="/sobre">Sobre</a></nav>
+    </div>
+  </footer>
+
+  <EventTracking />
+</body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #07070f; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .container.narrow { max-width: 680px; }
+  .grad { background: linear-gradient(135deg, #a78bfa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .hero { position: relative; padding: 4rem 0 1rem; text-align: center; }
+  .hero-glow { position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%); pointer-events: none; }
+  .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: #10b981; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  h1 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+  .lead { color: rgba(255,255,255,0.65); font-size: 1.02rem; }
+
+  .calc-section { padding: 2.5rem 0 5rem; }
+  .calc-card {
+    background: #0d0d1c; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+    padding: 2.25rem; display: flex; flex-direction: column; gap: 1.75rem;
+  }
+
+  .calc-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+  .input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .input-group label { font-size: 0.8rem; font-weight: 600; color: #94a3b8; }
+  .input-group input {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.12); color: #fff;
+    padding: 0.7rem 0.9rem; border-radius: 10px; font-size: 1rem; font-family: inherit;
+  }
+  .input-group input:focus { outline: none; border-color: #a78bfa; }
+
+  .calc-result { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; min-height: 3em; }
+  .result-hint { color: rgba(255,255,255,0.4); font-size: 0.92rem; }
+  .result-headline { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; }
+  .result-headline strong { color: #a78bfa; }
+  .result-sub { font-size: 0.95rem; color: rgba(255,255,255,0.6); }
+  .result-sub strong { color: #6ee7b7; }
+
+  .calc-gate { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; }
+  .gate-title { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+  .gate-sub { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.25rem; }
+
+  #calc-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.82rem; font-weight: 600; color: #94a3b8; }
+  .req { color: #f87171; }
+  .form-group input {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.12); color: #fff;
+    padding: 0.7rem 0.9rem; border-radius: 10px; font-size: 1rem; font-family: inherit;
+  }
+  .form-group input:focus { outline: none; border-color: #a78bfa; }
+  .form-group input[aria-invalid="true"] { border-color: #f87171; }
+
+  .btn-gate {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #7c3aed; color: #fff; font-weight: 800; padding: 0.95rem 1.5rem; border-radius: 12px;
+    border: none; font-size: 1rem; cursor: pointer; transition: opacity 0.2s;
+  }
+  .btn-gate:hover { opacity: 0.9; }
+  .btn-gate:disabled { opacity: 0.6; cursor: default; }
+  .btn-gate-spin { display: none; }
+  .btn-gate.is-loading .btn-gate-text { display: none; }
+  .btn-gate.is-loading .btn-gate-spin { display: inline; }
+
+  .calc-plan { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; }
+  .plan-tag { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
+  .plan-tag.leve { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
+  .plan-tag.moderado { background: rgba(245,158,11,0.12); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+  .plan-tag.critico { background: rgba(239,68,68,0.12); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+  .plan-text { font-size: 1rem; line-height: 1.7; color: #e2e8f0; margin-bottom: 1.5rem; }
+  .btn-wa {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: #25d366; color: #04240f; font-weight: 800; padding: 0.95rem 1.5rem; border-radius: 12px;
+    text-decoration: none; font-size: 1rem; transition: transform 0.15s;
+  }
+  .btn-wa:hover { transform: translateY(-2px); }
+
+  .site-footer { background: #04040a; border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; }
+  .site-footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+  .site-footer nav a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; }
+  .site-footer nav a:hover { color: #fff; }
+</style>
+
+<script>
+  const WHATSAPP_NUMBER = '5531972039180';
+  const WEBHOOK_URL = 'https://n8n-n8nn.sumjyb.easypanel.host/webhook/captura-leads';
+  const WEEKS_PER_MONTH = 4.345;
+  const MONTHLY_WORK_HOURS = 220; // divisor legal (CLT) pra achar valor da hora a partir do salário mensal
+
+  const inFuncionarios = document.getElementById('in-funcionarios') as HTMLInputElement;
+  const inHoras = document.getElementById('in-horas') as HTMLInputElement;
+  const inSalario = document.getElementById('in-salario') as HTMLInputElement;
+  const resultEl = document.getElementById('calc-result') as HTMLElement;
+  const gateEl = document.getElementById('calc-gate') as HTMLElement;
+  const planEl = document.getElementById('calc-plan') as HTMLElement;
+
+  function formatBRL(value: number) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+  }
+
+  function currentNumbers() {
+    const funcionarios = Math.max(0, parseFloat(inFuncionarios.value) || 0);
+    const horas = Math.max(0, parseFloat(inHoras.value) || 0);
+    const salario = Math.max(0, parseFloat(inSalario.value) || 0);
+    const horasPerdidasMes = funcionarios * horas * WEEKS_PER_MONTH;
+    const valorHora = salario / MONTHLY_WORK_HOURS;
+    const custoEstimadoMes = horasPerdidasMes * valorHora;
+    return { funcionarios, horas, salario, horasPerdidasMes, custoEstimadoMes };
+  }
+
+  function severity(horasPerdidasMes: number): { tag: 'leve' | 'moderado' | 'critico'; label: string } {
+    if (horasPerdidasMes < 40) return { tag: 'leve', label: 'Desperdício leve' };
+    if (horasPerdidasMes < 160) return { tag: 'moderado', label: 'Desperdício moderado' };
+    return { tag: 'critico', label: 'Desperdício crítico' };
+  }
+
+  function updateResult() {
+    const n = currentNumbers();
+    if (n.funcionarios <= 0 || n.horas <= 0) {
+      resultEl.innerHTML = '<p class="result-hint">Preencha os campos acima pra ver o resultado.</p>';
+      gateEl.hidden = true;
+      return;
+    }
+    resultEl.innerHTML = `
+      <p class="result-headline">Sua empresa perde <strong>${n.horasPerdidasMes.toFixed(0)} horas por mês</strong></p>
+      <p class="result-sub">Isso pode estar custando <strong>${formatBRL(n.custoEstimadoMes)}/mês</strong> jogados fora com tarefa manual e retrabalho.</p>
+    `;
+    gateEl.hidden = false;
+  }
+
+  [inFuncionarios, inHoras, inSalario].forEach((el) => el.addEventListener('input', updateResult));
+  updateResult();
+
+  const form = document.getElementById('calc-form') as HTMLFormElement;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const empresa = (form.elements.namedItem('empresa') as HTMLInputElement).value.trim();
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const telefone = (form.elements.namedItem('telefone') as HTMLInputElement).value.trim();
+
+    [['empresa', empresa], ['email', email], ['telefone', telefone]].forEach(([name]) => {
+      (form.elements.namedItem(name as string) as HTMLInputElement).removeAttribute('aria-invalid');
+    });
+
+    let valid = true;
+    if (!empresa) { (form.elements.namedItem('empresa') as HTMLInputElement).setAttribute('aria-invalid', 'true'); valid = false; }
+    if (!email) { (form.elements.namedItem('email') as HTMLInputElement).setAttribute('aria-invalid', 'true'); valid = false; }
+    if (!telefone) { (form.elements.namedItem('telefone') as HTMLInputElement).setAttribute('aria-invalid', 'true'); valid = false; }
+    if (!valid) return;
+
+    const n = currentNumbers();
+    const sev = severity(n.horasPerdidasMes);
+    const leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+
+    const payload = {
+      nome: empresa,
+      empresa,
+      email,
+      telefone,
+      ferramenta: 'calculadora-desperdicio',
+      funcionarios: n.funcionarios,
+      horas_perdidas_semana_por_pessoa: n.horas,
+      salario_medio_mensal: n.salario,
+      horas_perdidas_mes: Math.round(n.horasPerdidasMes),
+      custo_estimado_mes: Math.round(n.custoEstimadoMes),
+      origem: window.location.href,
+      timestamp: new Date().toISOString(),
+      event_id: leadEventId,
+      fbp: (document.cookie.match(/_fbp=([^;]+)/) || [])[1] || undefined,
+      fbc: (document.cookie.match(/_fbc=([^;]+)/) || [])[1] || undefined,
+    };
+
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: 'envio_formulario', event_location: 'calculadora-desperdicio' });
+    if (typeof (window as any).fbq === 'function') (window as any).fbq('track', 'Contact', {}, { eventID: leadEventId });
+
+    const btn = form.querySelector('.btn-gate') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.classList.add('is-loading');
+
+    function showPlan() {
+      const planTag = document.getElementById('plan-tag') as HTMLElement;
+      const planText = document.getElementById('plan-text') as HTMLElement;
+      const planWaBtn = document.getElementById('plan-wa-btn') as HTMLAnchorElement;
+
+      planTag.textContent = sev.label;
+      planTag.className = 'plan-tag ' + sev.tag;
+
+      const texts: Record<string, string> = {
+        leve: `Sua operação já está numa faixa saudável (~${n.horasPerdidasMes.toFixed(0)}h/mês). O próximo passo é padronizar o que já funciona bem, pra esse número não voltar a crescer conforme a empresa cresce.`,
+        moderado: `${n.horasPerdidasMes.toFixed(0)} horas por mês é tempo real escapando da operação — o equivalente a quase uma pessoa trabalhando só nesse desperdício. Dá pra recuperar boa parte disso mapeando o processo antes de automatizar.`,
+        critico: `${n.horasPerdidasMes.toFixed(0)} horas por mês é um volume crítico — mais de um funcionário em tempo integral perdido só em tarefa manual e retrabalho. Isso costuma vir de processo sem padrão, não de falta de esforço da equipe. Vale prioridade esta semana.`,
+      };
+      planText.textContent = texts[sev.tag];
+
+      const waMsg = `Olá! Usei a Calculadora de Desperdício Operacional no site e o resultado foi:\n\n👥 Funcionários: ${n.funcionarios}\n⏱️ Horas perdidas/mês: ${n.horasPerdidasMes.toFixed(0)}h\n💰 Custo estimado: ${formatBRL(n.custoEstimadoMes)}/mês\n\nQuero entender o Plano de Ação pra resolver isso.`;
+      planWaBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMsg)}`;
+
+      gateEl.hidden = true;
+      planEl.hidden = false;
+    }
+
+    function onSuccess() {
+      // 'lead_gerado' + event_location mantém a métrica agregada de leads do site inteiro
+      // (mesmo padrão do formulário da home); 'lead_gerado_calculadora' é dedicado, pra
+      // medir a conversão desta calculadora isolada, sem precisar filtrar por parâmetro.
+      (window as any).dataLayer.push({ event: 'lead_gerado', event_location: 'calculadora-desperdicio' });
+      (window as any).dataLayer.push({
+        event: 'lead_gerado_calculadora',
+        horas_perdidas_mes: n.horasPerdidasMes,
+        custo_estimado_mes: n.custoEstimadoMes,
+      });
+      if (typeof (window as any).fbq === 'function') {
+        // Evento padrão 'Lead' primeiro — é o que o Meta usa pra otimizar campanha
+        // (trocar por um nome customizado aqui perderia esse aprendizado do algoritmo).
+        (window as any).fbq('track', 'Lead', { content_name: 'calculadora-desperdicio' }, { eventID: leadEventId });
+        // Evento customizado à parte, só pra relatório isolado no Gerenciador de Eventos
+        // (mesmo padrão já usado em EventTracking.astro pra WhatsAppClick/DiagnosticoClick).
+        (window as any).fbq('trackCustom', 'LeadCalculadora', {
+          value: Math.round(n.custoEstimadoMes),
+          currency: 'BRL',
+        });
+      }
+      showPlan();
+    }
+
+    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000));
+
+    Promise.race([
+      fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        .then((r) => { if (!r.ok) throw new Error(String(r.status)); }),
+      timeout,
+    ]).then(onSuccess).catch(() => {
+      (window as any).dataLayer.push({ event: 'erro_formulario_fallback', event_location: 'calculadora-desperdicio' });
+      onSuccess();
+    });
+  });
+</script>

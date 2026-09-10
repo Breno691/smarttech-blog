@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Estoque errado o tempo todo: por que acontece e como resolver
-
 Gerenciar estoque pode ser um dos maiores desafios para pequenas e médias empresas. Quando a sua empresa enfrenta problemas constantes com estoque errado, a situação se torna estressante, prejudicando a eficiência e a rentabilidade. Vamos entender por que isso acontece e como você pode resolver.
 
 ## Causas comuns de estoques errados

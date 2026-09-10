@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como Reduzir Desperdícios na Sua Empresa com Lean
-
 Em um mundo onde cada centavo conta, a redução de desperdícios se tornou essencial para empresas de todos os tamanhos. Se você possui uma pequena ou média empresa em Belo Horizonte (MG), entender e implementar os princípios do Lean pode ser a chave para melhorar sua eficiência e lucro. Neste artigo, vamos abordar de forma prática como você pode aplicar o Lean na sua empresa e alcançar resultados significativos.
 
 ## O que é Lean?

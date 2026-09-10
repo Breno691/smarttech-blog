@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como mapear um processo em 30 minutos sem precisar de software
-
 Mapear um processo é essencial para aumentar a eficiência de qualquer operação. Para pequenas e médias empresas em Belo Horizonte, ter clareza sobre como as tarefas são realizadas pode evitar desperdícios e melhorar resultados. E o melhor: você não precisa de software sofisticado para isso. Neste artigo, vamos mostrar como mapear um processo em apenas 30 minutos, usando papel, caneta e um pouco de organização.
 
 ## O que é mapeamento de processo?

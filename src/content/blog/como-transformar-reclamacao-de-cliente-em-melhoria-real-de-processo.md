@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como Transformar Reclamação de Cliente em Melhoria Real de Processo
-
 Receber reclamações de clientes é parte do dia a dia de qualquer negócio, especialmente para pequenas e médias empresas em Belo Horizonte (MG). O que muitos não percebem é que essas reclamações podem ser valiosas oportunidades de melhoria. Neste artigo, vamos entender como transformar essas insatisfações em mudanças reais que beneficiam tanto a empresa quanto os clientes.
 
 ## Por Que Escutar o Cliente é Fundamental

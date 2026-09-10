@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# Quanto tempo sua equipe perde em tarefas que poderiam ser automatizadas
-
 A rotina de trabalho em pequenas e médias empresas muitas vezes é marcada por uma série de tarefas repetitivas e manuais que consomem horas preciosas da equipe. Mas, você já parou para pensar quanto tempo realmente sua equipe está perdendo com essas atividades que poderiam ser automatizadas? Automação não é apenas uma tendência, mas uma necessidade se você deseja aumentar a produtividade e reduzir custos.
 
 ## O impacto da falta de automação

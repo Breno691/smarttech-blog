@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como Integrar Automação de Processos com Melhoria Contínua sem Complicar
-
 No mundo dos negócios, integrar automação de processos com práticas de melhoria contínua pode parecer um desafio, especialmente para pequenas e médias empresas. No entanto, essa combinação pode trazer vantagens significativas, contribuindo para a eficiência e a competitividade da sua operação. Neste artigo, vamos mostrar como você pode implementar essa integração de forma simples e prática.
 
 ## O Que é Automação de Processos?

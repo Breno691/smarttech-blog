@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que perco clientes sem saber o motivo
-
 Você já se perguntou por que alguns clientes simplesmente somem? A frustração de perder clientes sem saber o motivo é comum entre pequenas e médias empresas, especialmente em um mercado tão competitivo como o de Belo Horizonte (MG). Vamos falar sobre os principais fatores que podem contribuir para essa situação e o que você pode fazer para reverter esse quadro.
 
 ## Fatores Comuns que Resultam na Perda de Clientes

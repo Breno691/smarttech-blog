@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# Chatbot vs Atendente Humano: Quando Cada Um Faz Sentido no WhatsApp
-
 A comunicação entre empresas e clientes evoluiu com a chegada de novas tecnologias. No WhatsApp, um dos aplicativos mais utilizados para conversar, as empresas agora têm duas opções principais de atendimento: chatbots e atendentes humanos. Mas como saber qual é a melhor solução para o seu negócio? Vamos entender melhor as diferenças e quando cada um deles faz sentido.
 
 ## O Que é um Chatbot?

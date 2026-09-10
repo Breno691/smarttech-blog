@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Meu funcionário mais experiente saiu e a empresa travou: o que isso revela
-
 A saída de um funcionário experiente pode ser um verdadeiro golpe para qualquer empresa. Quando um colaborador que detém um vasto conhecimento ou habilidades específicas deixa a equipe, os impactos podem ser sentidos em várias áreas. Se você está passando por isso, saiba que não está sozinho. Vamos entender o que essa situação revela e como evitar que a empresa entre em colapso.
 
 ## O impacto da saída de um funcionário experiente

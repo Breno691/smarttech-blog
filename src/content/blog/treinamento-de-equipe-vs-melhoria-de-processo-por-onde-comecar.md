@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Treinamento de equipe vs melhoria de processo: por onde começar
-
 No mundo dos negócios, especialmente para pequenas e médias empresas, a eficiência é a chave para o sucesso. Você já se perguntou se deve priorizar o treinamento de equipe ou a melhoria de processo? Neste artigo, vamos esclarecer esses conceitos e ajudar você a decidir por onde começar.
 
 ## O que é treinamento de equipe?

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Os 7 desperdícios do Lean que estão custando dinheiro à sua empresa hoje
-
 No mundo dos negócios, cada centavo conta. Identificar e eliminar desperdícios é uma estratégia essencial para melhorar a eficiência e aumentar a lucratividade. O Lean é uma filosofia que visa justamente isso: reduzir desperdícios em processos. Neste artigo, vamos abordar os 7 desperdícios do Lean que podem estar custando dinheiro à sua empresa, focando em como pequenas e médias empresas (PMEs) em Belo Horizonte podem se beneficiar dessa metodologia.
 
 ## 1. Superprodução

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Lean Six Sigma vs Consultoria Tradicional: Qual Faz Mais Sentido para Empresas Pequenas 
-
 No mundo dos negócios, a eficiência é essencial, especialmente para pequenas e médias empresas que buscam crescimento e sustentabilidade. Neste cenário, duas abordagens ganham destaque: Lean Six Sigma e consultoria tradicional. Mas, qual delas realmente faz mais sentido para sua empresa? Vamos entender as diferenças e quando cada uma delas pode ser a solução ideal.
 
 ## O que é Lean Six Sigma?

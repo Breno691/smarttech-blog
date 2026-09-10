@@ -1,6 +1,6 @@
 ---
-title: "Quanto custa o retrabalho na sua empresa por mês (e como calcular)"
-description: "Descubra quanto o retrabalho pode custar à sua empresa mensalmente e aprenda a calcular esse impacto financeiro."
+title: "Quanto o Retrabalho Custa na Sua Empresa? Calcule"
+description: "Retrabalho parece pequeno até você calcular o valor real por mês. Veja o método simples pra descobrir quanto sua empresa perde."
 pubDate: "2026-05-24"
 heroImage: "/blog-placeholder-1.jpg"
 excerpt: "Aprenda a calcular o custo do retrabalho na sua empresa e como minimizá-lo."
@@ -12,8 +12,6 @@ tags:
   - estratégias
 category: lean-six-sigma
 ---
-
-# Quanto custa o retrabalho na sua empresa por mês (e como calcular)
 
 Todo empresário já enfrentou a frustração do retrabalho. Mesmo que pareça apenas uma dor de cabeça momentânea, ele pode ter um impacto financeiro significativo. Neste artigo, vamos mostrar como calcular o custo do retrabalho na sua empresa e algumas estratégias para minimizá-lo.
 
@@ -52,6 +50,8 @@ Se houver mais funcionários envolvidos, faça o mesmo cálculo para cada um del
 ### 4. Some os custos mensais
 
 Depois de calcular o custo de cada atividade que gera retrabalho, some os valores para obter o custo total mensal. Isso será um indicativo claro de quanto sua empresa está perdendo por conta do retrabalho.
+
+**Quer pular a conta na mão?** Use a nossa [Calculadora de Desperdício Operacional](/calculadora-desperdicio) — você digita nº de funcionários, horas perdidas e salário médio, e recebe o valor mensal na hora, junto com um plano de ação.
 
 ## Exemplos práticos
 

@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como uma clínica reduziu o tempo de espera pela metade sem contratar ninguém
-
 A experiência do cliente é um fator crucial para o sucesso de qualquer negócio. Quando falamos de clínicas de saúde, esse prisma é ainda mais relevante. Um dos principais desafios enfrentados é o tempo de espera dos pacientes, que pode ser um grande irritante e, portanto, um fator decisivo na escolha do prestador de serviços. Neste artigo, vamos contar a história de uma clínica que conseguiu reduzir o tempo de espera pela metade, e o melhor, sem precisar contratar novos funcionários.
 
 ## O desafio do tempo de espera

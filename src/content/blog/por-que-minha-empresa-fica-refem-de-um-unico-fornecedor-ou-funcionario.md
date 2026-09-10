@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que minha empresa fica refém de um único fornecedor ou funcionário
-
 Várias pequenas e médias empresas em Belo Horizonte enfrentam um dilema comum: a dependência excessiva de um único fornecedor ou funcionário. Essa situação pode parecer confortável a curto prazo, mas a longo prazo, representa riscos e limitações significativas para o crescimento e a operação do negócio. Neste artigo, vamos entender por que isso acontece e como você pode evitar que sua empresa fique refém de um único recurso.
 
 ## A armadilha da dependência

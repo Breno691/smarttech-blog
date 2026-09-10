@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Minha empresa depende de mim para tudo: como mudar isso
-
 Gerenciar uma pequena ou média empresa em Belo Horizonte muitas vezes significa que você é o coração e a alma do negócio. Se você sente que tudo depende de você, saiba que essa não é uma situação sustentável. A boa notícia é que existem estratégias práticas que podem ajudar a mudar essa dinâmica e permitir que você foque no crescimento do seu negócio. Neste artigo, vamos dar algumas dicas eficazes e diretas para você contribuir para um ambiente de trabalho mais eficiente e menos dependente da sua presença constante.
 
 ## Entenda a necessidade de delegar

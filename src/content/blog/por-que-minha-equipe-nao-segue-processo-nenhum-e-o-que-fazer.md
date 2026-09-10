@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que minha equipe não segue processo nenhum e o que fazer
-
 Você já se perguntou por que sua equipe parece ignorar processos importantes? Muitos gestores enfrentam essa situação e, na maioria das vezes, o problema é mais comum do que se imagina. Neste artigo, vamos entender as razões por trás dessa questão e apresentar soluções práticas para que você consiga implementar processos eficazes na sua empresa.
 
 ## O problema com a falta de processos

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Certificação Lean Six Sigma Vale a Pena para Quem Tem Empresa Pequena?
-
 O mundo dos negócios está em constante evolução, e pequenas e médias empresas (PMEs) em Belo Horizonte (MG) estão sempre em busca de formas de otimizar processos e aumentar a eficiência. A certificação Lean Six Sigma se apresenta como uma opção bastante interessante, mas será que realmente vale a pena? Neste artigo, vamos discutir as vantagens, desvantagens e se essa certificação pode ser um diferencial competitivo nas pequenas empresas. 
 
 ## O que é Lean Six Sigma?

@@ -1,0 +1,30 @@
+{
+  "_comment": "Adicione este nó 'Code' após o nó de salvar lead no workflow captura-leads do n8n",
+  "_instrucoes": [
+    "1. Abra o workflow 'captura-leads' no n8n",
+    "2. Após o nó que salva o lead (webhook/banco), adicione um nó 'Code'",
+    "3. Cole o código abaixo na aba 'JavaScript' do nó Code",
+    "4. Adicione as credenciais META_PIXEL_ID e META_CAPI_ACCESS_TOKEN nas variáveis de ambiente do n8n",
+    "5. Ative e teste com o Test Event Code do Events Manager"
+  ],
+  "n8n_code_node": {
+    "name": "Meta CAPI — Lead Event",
+    "type": "n8n-nodes-base.code",
+    "typeVersion": 2,
+    "parameters": {
+      "language": "javaScript",
+      "jsCode": "// Meta Conversions API — Evento Lead\n// Executado após captura de lead no webhook\n\nconst crypto = require('crypto');\n\n// ── Config ──────────────────────────────────────────────────────────────────\nconst PIXEL_ID     = $env.META_PIXEL_ID     || '';\nconst ACCESS_TOKEN = $env.META_CAPI_TOKEN   || '';\nconst API_VERSION  = 'v20.0';\n\nif (!PIXEL_ID || !ACCESS_TOKEN) {\n  throw new Error('META_PIXEL_ID ou META_CAPI_TOKEN não configurados nas env vars do n8n');\n}\n\n// ── Dados do lead vindos do webhook ────────────────────────────────────────\nconst item  = $input.first().json;\nconst nome  = item.nome  || '';\nconst fone  = item.telefone || '';\nconst serv  = item.servico   || '';\nconst url   = item.origem    || 'https://smartops-ia.com.br';\nconst eventId = item.event_id || ('capi_lead_' + Date.now()); // para deduplicação\n\n// ── Hash SHA-256 normalizado (exigência da Meta) ────────────────────────────\nfunction h(v) {\n  if (!v) return undefined;\n  return crypto.createHash('sha256').update(v.trim().toLowerCase()).digest('hex');\n}\n\nfunction normPhone(p) {\n  const d = (p || '').replace(/\\D/g, '');\n  return d.startsWith('55') ? d : '55' + d;\n}\n\n// ── Montar nomes (tenta split no campo nome) ────────────────────────────────\nconst partes = nome.trim().split(/\\s+/);\nconst fn = partes[0] || '';\nconst ln = partes.slice(1).join(' ') || '';\n\n// ── user_data ───────────────────────────────────────────────────────────────\nconst userData = {\n  fn: h(fn),\n  ln: h(ln) || undefined,\n  ph: h(normPhone(fone)),\n  ct: h('belo horizonte'),   // cidade fixa — ajuste se tiver campo cidade\n  st: h('mg'),\n  country: h('br'),\n  // fbp e fbc: passar se disponíveis nos cookies enviados pelo webhook\n  // fbp: item.fbp || undefined,\n  // fbc: item.fbc || undefined,\n};\n\n// Remove chaves undefined\nObject.keys(userData).forEach(k => userData[k] === undefined && delete userData[k]);\n\n// ── Payload CAPI ─────────────────────────────────────────────────────────────\nconst payload = {\n  data: [{\n    event_name: 'Lead',\n    event_time: Math.floor(Date.now() / 1000),\n    event_id: eventId,\n    event_source_url: url,\n    action_source: 'website',\n    user_data: userData,\n    custom_data: {\n      content_name: serv || 'diagnostico_gratuito',\n      content_category: 'consultoria_lean_ia',\n    },\n  }],\n  // test_event_code: 'TEST12345',  // descomente para testar no Events Manager\n};\n\n// ── Enviar para Meta CAPI ────────────────────────────────────────────────────\nconst endpoint = `https://graph.facebook.com/${API_VERSION}/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`;\n\nconst response = await fetch(endpoint, {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify(payload),\n});\n\nconst result = await response.json();\n\nif (!response.ok) {\n  console.error('CAPI Error:', JSON.stringify(result));\n  throw new Error(`Meta CAPI falhou: ${response.status}`);\n}\n\nconsole.log('CAPI Lead enviado:', result.events_received, 'eventos recebidos');\n\nreturn [{ json: { capi_status: 'ok', events_received: result.events_received, event_id: eventId } }];"
+    }
+  },
+  "n8n_env_vars": {
+    "META_PIXEL_ID": "SEU_PIXEL_ID_AQUI",
+    "META_CAPI_TOKEN": "SEU_CAPI_ACCESS_TOKEN_AQUI",
+    "_instrucoes_token": "Obter em: Events Manager → Configurações → Conversions API → Gerar token de acesso"
+  },
+  "deduplicacao": {
+    "_explicacao": "Para deduplicação browser↔server funcionar, o event_id precisa ser o mesmo nos dois lados",
+    "browser": "fbq('track', 'Lead', {}, { eventID: 'lead_XYZ' })",
+    "server": "event_id: 'lead_XYZ' no payload CAPI",
+    "como_passar_event_id": "O webhook pode receber o event_id gerado pelo browser via campo hidden no formulário ou via sessionStorage"
+  }
+}

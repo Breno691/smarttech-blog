@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como uma padaria cortou desperdício em 40% com uma mudança simples de processo
-
 A gestão de pequenos negócios, como uma padaria, pode ser cheia de desafios. Um dos mais comuns é o desperdício de alimentos, que impacta não apenas o lucro, mas também o meio ambiente. Neste artigo, vamos contar a história de como uma padaria conseguiu reduzir seu desperdício em 40% com uma mudança simples e prática em seu processo.
 
 ## O cenário inicial: uma padaria em Belo Horizonte

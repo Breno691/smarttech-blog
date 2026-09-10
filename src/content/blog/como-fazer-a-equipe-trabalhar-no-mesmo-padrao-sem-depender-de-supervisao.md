@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como fazer a equipe trabalhar no mesmo padrão sem depender de supervisão
-
 A produtividade e a eficiência de uma equipe estão diretamente ligadas à capacidade de alinhamento e à autonomia dos colaboradores. Para pequenas e médias empresas, é fundamental estabelecer um padrão de trabalho que minimize a dependência de supervisão constante. Neste artigo, vamos apresentar estratégias práticas que podem ser implementadas para alcançar esse objetivo.
 
 ## A importância de padrões claros

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como um Restaurante Resolveu o Gargalo na Cozinha e Parou de Perder Cliente na Fila
-
 Em tempos em que a experiência do cliente é primordial, muitos restaurantes enfrentam desafios na hora de atender à demanda, especialmente em horários de pico. Um desses desafios é o famoso "gargalo" na cozinha, que pode resultar em longas filas e, consequentemente, na perda de clientes. Vamos ver como um restaurante em Belo Horizonte conseguiu resolver essa questão e trouxe eficiência para suas operações.
 
 ## O Problema: Longas Filas e Clientes Insatisfeitos

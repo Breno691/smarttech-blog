@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Processo Manual vs Processo Documentado: O Que Muda na Prática
-
 No mundo corporativo, a eficiência é a chave para o sucesso. Para pequenas e médias empresas, entender a diferença entre um processo manual e um processo documentado pode ser o fator decisivo para otimizar operações, reduzir custos e aumentar a produtividade. Neste artigo, vamos abordar esse tema de forma clara e objetiva, explicando o que muda na prática ao optar por cada um desses tipos de processos.
 
 ## O Que É um Processo Manual?

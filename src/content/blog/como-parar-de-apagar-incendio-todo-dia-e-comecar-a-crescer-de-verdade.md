@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como Parar de Apagar Incêndio Todo Dia e Começar a Crescer de Verdade
-
 Administrar uma pequena ou média empresa em Belo Horizonte (MG) pode ser um desafio diário. Muitos empresários se sentem como se estivessem sempre apagando incêndios, lidando com problemas imediatos e urgentes, esquecendo do crescimento estratégico do negócio. Mas, como parar esse ciclo e começar a evoluir? Neste artigo, vamos discutir algumas ações práticas que você pode adotar.
 
 ## Identifique as Causas dos Incêndios

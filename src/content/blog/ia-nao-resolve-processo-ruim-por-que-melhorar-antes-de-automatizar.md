@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# IA Não Resolve Processo Ruim: Por Que Melhorar Antes de Automatizar
-
 A transformação digital está em alta, e muitas empresas têm investido em inteligência artificial (IA) para otimizar seus processos. No entanto, é fundamental entender que a IA não é uma solução mágica. Automatizar um processo ineficiente pode resultar em desperdício de recursos e problemas agravados. Neste artigo, vamos discutir por que é essencial melhorar seus processos antes de implementar automação com IA.
 
 ## O que é um Processo Ruim?

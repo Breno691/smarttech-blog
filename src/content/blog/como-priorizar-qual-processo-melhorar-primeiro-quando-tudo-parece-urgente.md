@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como Priorizar Qual Processo Melhorar Primeiro Quando Tudo Parece Urgente
-
 Em um cenário onde tudo é urgente, é comum se sentir perdido sobre por onde começar a melhorar os processos de sua empresa. As pequenas e médias empresas de Belo Horizonte (MG) enfrentam esse desafio diariamente, especialmente quando se trata de aumentar a eficiência e a produtividade. A seguir, vamos apresentar um guia prático e direto sobre como priorizar qual processo melhorar primeiro, garantindo resultados efetivos a curto e longo prazo.
 
 ## 1. Identifique os Gargalos

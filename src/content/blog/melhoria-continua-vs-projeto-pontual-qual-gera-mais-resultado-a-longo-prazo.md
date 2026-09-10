@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Melhoria contínua vs projeto pontual: qual gera mais resultado a longo prazo?
-
 No mundo dos negócios, especialmente para pequenas e médias empresas, a busca por eficiência e resultados sustentáveis é constante. Uma dúvida comum é: investir em melhoria contínua ou optar por projetos pontuais? Neste artigo, vamos analisar cada uma dessas abordagens e suas implicações para o sucesso a longo prazo.
 
 ## O que é melhoria contínua?

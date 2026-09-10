@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Indicadores Simples que Toda Pequena Empresa Deveria Acompanhar
-
 Para pequenas empresas, acompanhar os indicadores corretos pode fazer toda a diferença entre o sucesso e a estagnação. No dia a dia corrido dos negócios, é fácil se perder em detalhes e esquecer do que realmente importa. Aqui estão alguns indicadores simples, mas essenciais, que toda pequena empresa em Belo Horizonte (MG) deveria monitorar.
 
 ## 1. Fluxo de Caixa

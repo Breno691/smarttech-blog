@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como a IA pode ajudar a reduzir retrabalho e padronizar processos na prática
-
 Em um mundo empresarial cada vez mais competitivo, pequenas e médias empresas precisam adotar soluções eficientes para garantir a produtividade e a qualidade dos serviços. Uma dessas soluções é a Inteligência Artificial (IA). A seguir, vamos mostrar como a IA pode ser sua aliada no combate ao retrabalho e na padronização de processos.
 
 ## O que é retrabalho e por que evitá-lo?

@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Por que meu cliente fiel parou de comprar sem dar satisfação
-
 É comum nas relações de consumo que um cliente habitual, que sempre foi leal à sua marca, simplesmente suma. Essa situação pode causar estranhamento e preocupações para pequenas e médias empresas. Afinal, o que pode ter acontecido? Neste artigo, vamos analisar algumas razões pelas quais seu cliente fiel pode ter parado de comprar e sugerir ações que você pode adotar para reconquistá-lo.
 
 ## O que pode ter levado à desistência?

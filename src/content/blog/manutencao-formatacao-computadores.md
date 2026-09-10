@@ -8,8 +8,6 @@ tags:
   - IA
 ---
 
-# Manual Completo de Manutenção e Formatação de Computadores
-
 A manutenção e formatação de computadores são práticas essenciais para garantir o bom funcionamento e a longevidade do seu equipamento. Neste artigo, abordaremos tudo o que você precisa saber sobre esses processos.
 
 ## Por que Manter seu Computador?

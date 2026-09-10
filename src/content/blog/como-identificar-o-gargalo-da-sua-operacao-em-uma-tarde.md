@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como identificar o gargalo da sua operação em uma tarde
-
 Todo empresário sabe que agir de forma rápida e eficiente é fundamental para o sucesso de uma operação. No entanto, identificar os gargalos na sua operação pode parecer uma tarefa complicada. Neste artigo, vamos te mostrar como você pode descobrir esses pontos críticos em apenas uma tarde, usando técnicas simples e práticas.
 
 ## O que é um gargalo?

@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Consultoria presencial vs consultoria online: o que funciona melhor para melhoria de processos
-
 Quando pequenas e médias empresas buscam melhorar seus processos, uma das primeiras decisões é escolher entre consultoria presencial ou online. Ambas as modalidades têm suas vantagens e desvantagens, e a escolha certa pode influenciar diretamente os resultados da sua empresa. Vamos entender cada uma delas para que você tome a melhor decisão.
 
 ## O que é consultoria?

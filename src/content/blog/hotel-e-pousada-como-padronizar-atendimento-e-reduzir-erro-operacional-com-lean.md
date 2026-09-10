@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Hotel e pousada: como padronizar atendimento e reduzir erro operacional com Lean
-
 No setor de hospedagem, a experiência do cliente é fundamental. Hotéis e pousadas que se destacam possuem um atendimento padronizado e eficiente. O que muitos gestores não percebem é que pequenas melhorias podem ter um grande impacto na operação. Neste artigo, vamos mostrar como implementar a metodologia Lean pode ajudar a padronizar o atendimento e reduzir erros operacionais.
 
 ## O que é Lean?

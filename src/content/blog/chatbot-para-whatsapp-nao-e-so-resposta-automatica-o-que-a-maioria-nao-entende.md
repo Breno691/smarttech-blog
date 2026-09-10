@@ -13,8 +13,6 @@ tags:
 category: automacao
 ---
 
-# Chatbot para WhatsApp não é só resposta automática: o que a maioria não entende
-
 Nos últimos anos, os chatbots se tornaram uma ferramenta poderosa para empresas de todos os tamanhos, especialmente com a popularização do WhatsApp. No entanto, muitos ainda acreditam que um chatbot se resume a respostas automáticas. Nesse artigo, vamos esclarecer o que realmente é um chatbot, como ele pode beneficiar sua empresa e os erros comuns que as pequenas e médias empresas cometem ao implementá-los.
 
 ## O que é um chatbot?

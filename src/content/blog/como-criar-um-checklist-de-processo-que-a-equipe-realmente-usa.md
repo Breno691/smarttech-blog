@@ -13,8 +13,6 @@ tags:
 category: lean-six-sigma
 ---
 
-# Como criar um checklist de processo que a equipe realmente usa
-
 Na rotina de uma empresa, a eficiência é a chave para garantir que tudo funcione da melhor maneira possível. Um dos instrumentos que podem ajudar nesse caminho é o checklist de processos. No entanto, não é suficiente apenas criar um checklist; é preciso que ele seja efetivamente utilizado pela equipe. Neste artigo, vamos mostrar como criar um checklist funcional e que atende às necessidades do seu negócio.
 
 ## Por que utilizar checklists nos processos?

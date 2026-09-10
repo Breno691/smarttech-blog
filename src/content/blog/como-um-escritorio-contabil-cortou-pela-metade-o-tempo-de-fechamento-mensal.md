@@ -13,8 +13,6 @@ tags:
 category: melhoria-continua
 ---
 
-# Como um escritório contábil cortou pela metade o tempo de fechamento mensal
-
 O fechamento contábil é um dos momentos mais críticos para empresas de qualquer porte. Para os pequenos e médios negócios, essa etapa pode ser especialmente desafiadora, demandando tempo e recursos que poderiam ser melhor utilizados em outras ações estratégicas. Mas o que acontece quando um escritório contábil consegue reduzir esse tempo pela metade? É isso que vamos discutir neste artigo.
 
 ## O Desafio do Fechamento Mensal
