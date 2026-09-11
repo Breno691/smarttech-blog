@@ -8,6 +8,9 @@ Redirect 301 /blog/mantenacao-e-formatacao-de-computador/ /blog/manutencao-forma
 Redirect 301 /blog/mantenicao-e-formatacao-de-computador/ /blog/manutencao-formatacao-computadores/
 Redirect 301 /blog/manutencao-e-formatacao-de-computador/ /blog/manutencao-formatacao-computadores/
 
+# Post duplicado sobre atender mais clientes (set/2026) — consolidado num só
+Redirect 301 /blog/como-atender-mais-clientes-sem-precisar-contratar-mais-gente/ /blog/como-atender-mais-clientes-sem-contratar-mais-gente/
+
 # Páginas fantasmas de uma versão bem mais antiga do site, achadas via Search
 # Console (set/2026) — arquivos soltos no servidor, fora do build atual do
 # Astro. Redirecionando pro equivalente de hoje em vez de deixar 404.
