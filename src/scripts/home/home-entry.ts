@@ -50,36 +50,59 @@ function init() {
   initCounters();
   initTypewriter();
 
-  if (shouldLoadStorytellingScenes()) {
-    const dashboardMount = document.querySelector<HTMLElement>('#dashboard-3d-mount');
-    if (dashboardMount) {
-      import('./dashboard-3d').then(({ initDashboard3D }) => initDashboard3D(dashboardMount));
+  if (capability !== 'full') {
+    document.body.classList.add('is-reduced-motion-fallback');
+  }
+
+  // Tudo abaixo é pesado (Three.js, ScrollTrigger, shader) — adiado pra depois
+  // do `load` (e de um idle real, quando o navegador suportar) pra não competir
+  // por banda com o conteúdo crítico da primeira pintura da página. Ninguém
+  // perde a cena (nem no celular — ver Fase 11 acima): só passa a baixar um
+  // instante depois da página já estar de pé, não durante.
+  function loadHeavyScenes() {
+    if (shouldLoadStorytellingScenes()) {
+      const dashboardMount = document.querySelector<HTMLElement>('#dashboard-3d-mount');
+      if (dashboardMount) {
+        import('./dashboard-3d').then(({ initDashboard3D }) => initDashboard3D(dashboardMount));
+      }
+
+      const twinMount = document.querySelector<HTMLElement>('#digital-twin-mount');
+      if (twinMount) {
+        import('./digital-twin').then(({ initDigitalTwin }) => initDigitalTwin(twinMount));
+      }
     }
 
-    const twinMount = document.querySelector<HTMLElement>('#digital-twin-mount');
-    if (twinMount) {
-      import('./digital-twin').then(({ initDigitalTwin }) => initDigitalTwin(twinMount));
+    if (capability === 'full') {
+      const tiltCards = Array.from(document.querySelectorAll<HTMLElement>('.svc-card, .testimonial-card'));
+      if (tiltCards.length) {
+        import('./card-tilt-spotlight').then(({ initCardTiltSpotlight }) => initCardTiltSpotlight(tiltCards));
+      }
+
+      // Sequencial de propósito: o shader de fundo lê a velocidade do scroll da
+      // Lenis a cada quadro, então initSmoothScroll() precisa já ter rodado.
+      import('./smooth-scroll').then(({ initSmoothScroll }) => {
+        initSmoothScroll();
+        import('./background-webgl').then(({ initBackgroundWebGL }) => initBackgroundWebGL());
+      });
+
+      import('./parallax-scroll').then(({ initParallaxScroll }) => initParallaxScroll());
+      import('./stagger-reveal').then(({ initStaggerReveal }) => initStaggerReveal());
+      import('./magnetic-cursor').then(({ initMagneticCursor }) => initMagneticCursor());
     }
   }
 
-  if (capability === 'full') {
-    const tiltCards = Array.from(document.querySelectorAll<HTMLElement>('.svc-card, .testimonial-card'));
-    if (tiltCards.length) {
-      import('./card-tilt-spotlight').then(({ initCardTiltSpotlight }) => initCardTiltSpotlight(tiltCards));
+  function scheduleHeavyScenes() {
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(loadHeavyScenes, { timeout: 2000 });
+    } else {
+      setTimeout(loadHeavyScenes, 300);
     }
+  }
 
-    // Sequencial de propósito: o shader de fundo lê a velocidade do scroll da
-    // Lenis a cada quadro, então initSmoothScroll() precisa já ter rodado.
-    import('./smooth-scroll').then(({ initSmoothScroll }) => {
-      initSmoothScroll();
-      import('./background-webgl').then(({ initBackgroundWebGL }) => initBackgroundWebGL());
-    });
-
-    import('./parallax-scroll').then(({ initParallaxScroll }) => initParallaxScroll());
-    import('./stagger-reveal').then(({ initStaggerReveal }) => initStaggerReveal());
-    import('./magnetic-cursor').then(({ initMagneticCursor }) => initMagneticCursor());
+  if (document.readyState === 'complete') {
+    scheduleHeavyScenes();
   } else {
-    document.body.classList.add('is-reduced-motion-fallback');
+    window.addEventListener('load', scheduleHeavyScenes);
   }
 }
 
