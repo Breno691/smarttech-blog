@@ -1,22 +1,14 @@
-<!-- Google Tag Manager — adiado pra depois do load (12/set/2026): 675KB de
-     script travando o H1 na frente era o maior peso restante no PageSpeed.
-     Conversão (clique no WhatsApp) só acontece depois da pessoa ler a
-     página, então não é afetada; só visita que fecha a aba em menos de 1s
-     pode deixar de contar. -->
-<script is:inline>(function(w,d,s,l,i){
-  // dataLayer + timestamp real ficam de imediato (não pesa nada, é só um
-  // array) — só o script de 675KB em si (a parte pesada de verdade) espera
-  // a página terminar de carregar.
-  w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-  function boot(){
-    var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  }
-  if (d.readyState === 'complete') { setTimeout(boot, 0); }
-  else { w.addEventListener('load', function(){ setTimeout(boot, 0); }); }
+<!-- Google Tag Manager -->
+<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-MQ69PTC9');</script>
 <!-- End Google Tag Manager -->
+<!-- 12/set/2026: tentei adiar isso pra depois do load (mesma técnica do
+     Clarity abaixo) — piorou o placar do PageSpeed (68→62): os 3 scripts do
+     Google chegavam juntos assim que a página carregava, travando a tela
+     ali. Revertido de propósito, não mexer sem motivo forte. -->
 
 <!-- Microsoft Clarity — adiado pra depois do load: gravação de sessão não precisa
      competir com o carregamento inicial da página por banda/conexão. -->

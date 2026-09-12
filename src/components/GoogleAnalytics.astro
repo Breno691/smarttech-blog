@@ -1,20 +1,13 @@
 ---
 const GA_ID = 'G-9GFH1BS308';
 ---
-<!-- Google Analytics — script pesado adiado pra depois do load (12/set/2026,
-     mesmo motivo do GTM: não competir pelo H1 na primeira pintura). -->
+<!-- Google Analytics -->
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
 <script is:inline define:vars={{ GA_ID }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());
   gtag('config', GA_ID);
-
-  function bootGA() {
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-    document.head.appendChild(s);
-  }
-  if (document.readyState === 'complete') { setTimeout(bootGA, 0); }
-  else { window.addEventListener('load', function(){ setTimeout(bootGA, 0); }); }
 </script>
+<!-- 12/set/2026: adiar isso pra depois do load piorou o PageSpeed (68→62,
+     TBT subiu) — revertido, ver GTMHead.astro pro detalhe. -->
