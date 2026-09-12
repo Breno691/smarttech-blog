@@ -54,41 +54,68 @@ function init() {
     document.body.classList.add('is-reduced-motion-fallback');
   }
 
-  // Tudo abaixo é pesado (Three.js, ScrollTrigger, shader) — adiado pra depois
-  // do `load` (e de um idle real, quando o navegador suportar) pra não competir
-  // por banda com o conteúdo crítico da primeira pintura da página. Ninguém
-  // perde a cena (nem no celular — ver Fase 11 acima): só passa a baixar um
-  // instante depois da página já estar de pé, não durante.
+  // Tudo abaixo é pesado (Three.js × 2 cenas, shader WebGL, GSAP em 4 módulos) —
+  // adiado pra depois do `load` E enfileirado um de cada vez (nunca os ~7 juntos
+  // na mesma tarefa) pra não travar a thread principal por segundos seguidos.
+  // Cada item só começa depois que o navegador teve uma folga real pra pintar/
+  // responder ao toque — é essa fila, não o adiamento em si, que ataca o "Total
+  // Blocking Time" que o PageSpeed reportou (12/set/2026, TBT ~3s no celular).
+  // Ninguém perde cena nem efeito (celular incluído — ver Fase 11 acima):
+  // tudo roda, só espaçado no tempo em vez de empilhado num só instante.
+  function runQueued(tasks: Array<() => void | Promise<unknown>>) {
+    let i = 0;
+    function next() {
+      if (i >= tasks.length) return;
+      const task = tasks[i++];
+      Promise.resolve(task()).finally(() => {
+        if ('requestIdleCallback' in window) {
+          (window as any).requestIdleCallback(next, { timeout: 500 });
+        } else {
+          setTimeout(next, 50);
+        }
+      });
+    }
+    next();
+  }
+
   function loadHeavyScenes() {
+    const tasks: Array<() => void | Promise<unknown>> = [];
+
     if (shouldLoadStorytellingScenes()) {
       const dashboardMount = document.querySelector<HTMLElement>('#dashboard-3d-mount');
       if (dashboardMount) {
-        import('./dashboard-3d').then(({ initDashboard3D }) => initDashboard3D(dashboardMount));
+        tasks.push(() => import('./dashboard-3d').then(({ initDashboard3D }) => initDashboard3D(dashboardMount)));
       }
 
       const twinMount = document.querySelector<HTMLElement>('#digital-twin-mount');
       if (twinMount) {
-        import('./digital-twin').then(({ initDigitalTwin }) => initDigitalTwin(twinMount));
+        tasks.push(() => import('./digital-twin').then(({ initDigitalTwin }) => initDigitalTwin(twinMount)));
       }
     }
 
     if (capability === 'full') {
       const tiltCards = Array.from(document.querySelectorAll<HTMLElement>('.svc-card, .testimonial-card'));
       if (tiltCards.length) {
-        import('./card-tilt-spotlight').then(({ initCardTiltSpotlight }) => initCardTiltSpotlight(tiltCards));
+        tasks.push(() => import('./card-tilt-spotlight').then(({ initCardTiltSpotlight }) => initCardTiltSpotlight(tiltCards)));
       }
 
-      // Sequencial de propósito: o shader de fundo lê a velocidade do scroll da
-      // Lenis a cada quadro, então initSmoothScroll() precisa já ter rodado.
-      import('./smooth-scroll').then(({ initSmoothScroll }) => {
-        initSmoothScroll();
-        import('./background-webgl').then(({ initBackgroundWebGL }) => initBackgroundWebGL());
-      });
+      // Sequencial de propósito (independente da fila): o shader de fundo lê a
+      // velocidade do scroll da Lenis a cada quadro, então initSmoothScroll()
+      // precisa já ter rodado antes dele — os dois entram como um único item
+      // da fila pra manter essa ordem.
+      tasks.push(() =>
+        import('./smooth-scroll').then(({ initSmoothScroll }) => {
+          initSmoothScroll();
+          return import('./background-webgl').then(({ initBackgroundWebGL }) => initBackgroundWebGL());
+        }),
+      );
 
-      import('./parallax-scroll').then(({ initParallaxScroll }) => initParallaxScroll());
-      import('./stagger-reveal').then(({ initStaggerReveal }) => initStaggerReveal());
-      import('./magnetic-cursor').then(({ initMagneticCursor }) => initMagneticCursor());
+      tasks.push(() => import('./parallax-scroll').then(({ initParallaxScroll }) => initParallaxScroll()));
+      tasks.push(() => import('./stagger-reveal').then(({ initStaggerReveal }) => initStaggerReveal()));
+      tasks.push(() => import('./magnetic-cursor').then(({ initMagneticCursor }) => initMagneticCursor()));
     }
+
+    runQueued(tasks);
   }
 
   function scheduleHeavyScenes() {
