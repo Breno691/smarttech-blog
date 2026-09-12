@@ -29,7 +29,6 @@ import { getDeviceCapability } from './device-capability';
 import { initHeroParticles } from './hero-particles';
 import { initScrollReveal } from './scroll-reveal';
 import { initCounters } from './counters';
-import { initTypewriter } from './typewriter';
 
 function init() {
   const capability = getDeviceCapability();
@@ -45,7 +44,9 @@ function init() {
   // Roda sempre, em qualquer aparelho.
   initScrollReveal(capability === 'full');
   initCounters();
-  initTypewriter();
+  // 12/set/2026: efeito de digitação removido — a caixa que deveria reservar
+  // o espaço (anti-CLS) não estava funcionando, causando ~0.2 de troca de
+  // layout no PageSpeed. Texto agora aparece direto, sem animação.
 
   if (capability !== 'full') {
     document.body.classList.add('is-reduced-motion-fallback');
