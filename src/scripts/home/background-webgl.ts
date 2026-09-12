@@ -2,20 +2,25 @@
 // import() dinâmico atrás da checagem de device-capability (ver
 // home-entry.ts) — chamado depois de initSmoothScroll(), pra já poder ler a
 // velocidade do scroll (getScrollVelocity()) desde o primeiro quadro.
+//
+// 12/set/2026: reescrito de Three.js pra WebGL puro — o visual é idêntico
+// (mesmo shader, pixel por pixel), só a "cola" que desenha o triângulo na
+// tela mudou. Three.js inteiro (505KB) só pra desenhar um retângulo cheio de
+// tela era o maior peso do site, maior que qualquer outra coisa.
 
-import * as THREE from 'three';
 import { getScrollVelocity } from './smooth-scroll';
 
-const vertexShader = /* glsl */ `
+const vertexShaderSrc = `
+  attribute vec2 position;
   void main() {
-    gl_Position = vec4(position, 1.0);
+    gl_Position = vec4(position, 0.0, 1.0);
   }
 `;
 
 // Ruído "fumaça digital" bem sutil, tons quase-preto/roxo/verde escuro (mesma
 // paleta da marca: --bg #06060e, --accent #7c3aed, e um verde escuro de apoio).
 // u_scrollVelocity agita o ruído quando o usuário rola rápido.
-const fragmentShader = /* glsl */ `
+const fragmentShaderSrc = `
   precision highp float;
   uniform float u_time;
   uniform float u_scrollVelocity;
@@ -54,6 +59,13 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
+function compileShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader {
+  const shader = gl.createShader(type)!;
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  return shader;
+}
+
 export function initBackgroundWebGL(): void {
   const canvas = document.createElement('canvas');
   canvas.style.position = 'fixed';
@@ -64,38 +76,49 @@ export function initBackgroundWebGL(): void {
   canvas.style.pointerEvents = 'none';
   document.body.prepend(canvas);
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  const gl = (canvas.getContext('webgl', { antialias: false }) ||
+    canvas.getContext('experimental-webgl', { antialias: false })) as WebGLRenderingContext | null;
+  // Sem WebGL disponível: o fundo escuro sólido padrão (CSS) continua
+  // valendo, nunca fica tela quebrada/branca — mesma garantia de antes.
+  if (!gl) return;
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.Camera(); // truque padrão de shader fullscreen — sem projeção 3D real
+  const program = gl.createProgram()!;
+  gl.attachShader(program, compileShader(gl, gl.VERTEX_SHADER, vertexShaderSrc));
+  gl.attachShader(program, compileShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSrc));
+  gl.linkProgram(program);
+  gl.useProgram(program);
 
-  const uniforms = {
-    u_time: { value: 0 },
-    u_scrollVelocity: { value: 0 },
-    u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-  };
+  // Triângulo único cobrindo a tela toda (mais barato que 2 triângulos/quad,
+  // mesmo resultado visual já que só o que cai dentro do viewport é pintado).
+  const buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const posLoc = gl.getAttribLocation(program, 'position');
+  gl.enableVertexAttribArray(posLoc);
+  gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
 
-  const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
-  scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
+  const uTime = gl.getUniformLocation(program, 'u_time');
+  const uScrollVelocity = gl.getUniformLocation(program, 'u_scrollVelocity');
+  const uResolution = gl.getUniformLocation(program, 'u_resolution');
 
-  // Só torna o body transparente depois que o shader confirma que está
-  // rodando — se o WebGL falhar por qualquer motivo, o fundo escuro sólido
-  // padrão (CSS) continua valendo, nunca fica uma tela quebrada/branca.
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(window.innerWidth * dpr);
+    canvas.height = Math.round(window.innerHeight * dpr);
+    gl!.viewport(0, 0, canvas.width, canvas.height);
+    gl!.uniform2f(uResolution, canvas.width, canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
   document.documentElement.classList.add('webgl-bg-active');
 
-  const clock = new THREE.Clock();
+  const start = performance.now();
   function animate() {
     requestAnimationFrame(animate);
-    uniforms.u_time.value = clock.getElapsedTime();
-    uniforms.u_scrollVelocity.value = getScrollVelocity();
-    renderer.render(scene, camera);
+    gl!.uniform1f(uTime, (performance.now() - start) / 1000);
+    gl!.uniform1f(uScrollVelocity, getScrollVelocity());
+    gl!.drawArrays(gl!.TRIANGLES, 0, 3);
   }
   animate();
-
-  window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
-  });
 }
