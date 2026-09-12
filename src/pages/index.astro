@@ -1002,12 +1002,16 @@ const schema = {
   /* Buttons */
   .btn-wa {
     display: inline-flex; align-items: center; gap: 0.6rem;
-    background: var(--green); color: #fff; font-weight: 700; font-size: 1rem;
+    /* Verde mais escuro que --green só aqui: texto branco em cima do verde
+       claro do WhatsApp não batia o contraste mínimo (achado real do
+       PageSpeed, 12/set/2026) — o resto do site que usa --green continua
+       igual, esse ajuste é só pro botão com texto por cima. */
+    background: #128040; color: #fff; font-weight: 700; font-size: 1rem;
     padding: 0.85rem 1.75rem; border-radius: 12px; text-decoration: none;
     transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     box-shadow: 0 4px 24px rgba(37,211,102,0.25);
   }
-  .btn-wa:hover { background: var(--green-h); transform: translateY(-2px); box-shadow: 0 6px 32px rgba(37,211,102,0.4); }
+  .btn-wa:hover { background: #0e6a34; transform: translateY(-2px); box-shadow: 0 6px 32px rgba(37,211,102,0.4); }
   .btn-wa-lg { font-size: 1.1rem; padding: 1rem 2.25rem; }
 
   .btn-outline {
@@ -1457,7 +1461,7 @@ const schema = {
   .trust-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-l); margin-bottom: 1.25rem; }
   .trust-steps { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
   .trust-steps li { display: flex; gap: 1rem; align-items: flex-start; font-size: 0.875rem; }
-  .step-num { font-size: 1.4rem; font-weight: 900; color: rgba(167,139,250,0.25); flex-shrink: 0; line-height: 1; width: 28px; }
+  .step-num { font-size: 1.4rem; font-weight: 900; color: rgba(167,139,250,0.55); flex-shrink: 0; line-height: 1; width: 28px; }
   .trust-steps strong { display: block; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.2rem; }
   .trust-steps p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
   .lead-guarantee { display: flex; align-items: center; gap: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; }
