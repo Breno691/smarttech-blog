@@ -19,16 +19,13 @@
 // Next Level UI Fase 4 concluída (cursor magnético, só 'full').
 // Fase 8 concluída (Gêmeo Digital — simulação de gargalo/IA, via import()
 // dinâmico, só 'full').
-// Fase 11 (08/set/2026): usuário pediu que o Gêmeo Digital e o Centro de
-// Comando (dashboard-3d) sejam vistos por TODO MUNDO, celular incluído — as
-// duas passaram a usar `shouldLoadStorytellingScenes()` (só bloqueia por
-// prefers-reduced-motion/economia de dados, ignora tela estreita/poucos
-// núcleos) em vez do gate geral `capability === 'full'`. O resto da lista
-// (ícones 3D, tilt-spotlight, shader de fundo, parallax, cursor magnético)
-// continua só em 'full' — são efeitos decorativos, não a "prova em tempo
-// real" que o usuário quer que ninguém perca.
+// 12/set/2026: Gêmeo Digital e Centro de Comando (dashboard-3d) REMOVIDOS de
+// vez — o peso de Three.js (LCP/TBT no PageSpeed, celular real) deixou de
+// valer a pena frente ao efeito visual. dashboard-3d.ts/digital-twin.ts
+// seguem no repo, sem nenhum import daqui; podem ser apagados quando alguém
+// confirmar que não vão voltar.
 
-import { getDeviceCapability, shouldLoadStorytellingScenes } from './device-capability';
+import { getDeviceCapability } from './device-capability';
 import { initHeroParticles } from './hero-particles';
 import { initScrollReveal } from './scroll-reveal';
 import { initCounters } from './counters';
@@ -80,18 +77,6 @@ function init() {
 
   function loadHeavyScenes() {
     const tasks: Array<() => void | Promise<unknown>> = [];
-
-    if (shouldLoadStorytellingScenes()) {
-      const dashboardMount = document.querySelector<HTMLElement>('#dashboard-3d-mount');
-      if (dashboardMount) {
-        tasks.push(() => import('./dashboard-3d').then(({ initDashboard3D }) => initDashboard3D(dashboardMount)));
-      }
-
-      const twinMount = document.querySelector<HTMLElement>('#digital-twin-mount');
-      if (twinMount) {
-        tasks.push(() => import('./digital-twin').then(({ initDigitalTwin }) => initDigitalTwin(twinMount)));
-      }
-    }
 
     if (capability === 'full') {
       const tiltCards = Array.from(document.querySelectorAll<HTMLElement>('.svc-card, .testimonial-card'));
