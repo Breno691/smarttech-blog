@@ -1084,7 +1084,8 @@ const schema = {
   .hero-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 3.5rem; }
   .hero-stats { display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 2.5rem; }
   .hero-stat { text-align: center; }
-  .hero-stat strong { display: block; font-size: 1.5rem; font-weight: 800; color: var(--accent-l); }
+  .hero-stat strong { display: block; font-size: 1.5rem; font-weight: 800; color: var(--accent-l); font-variant-numeric: tabular-nums; }
+  .hero-stat strong [data-count-to] { display: inline-block; min-width: 1.2em; text-align: center; }
   .hero-stat span { font-size: 0.78rem; color: var(--muted); }
   .hero-stat-sep { width: 1px; height: 36px; background: var(--border); }
 
