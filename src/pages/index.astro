@@ -226,7 +226,7 @@ const schema = {
               <span class="gradient-text">Escale sua operação</span><br />
               com Lean Six Sigma e IA
             </h1>
-            <p class="hero-sub" data-typewriter aria-label="Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio."><span class="tw-source" aria-hidden="true">Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio.</span><span class="tw-output" aria-hidden="true"></span></p>
+            <p class="hero-sub" data-typewriter role="text" aria-label="Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio."><span class="tw-source" aria-hidden="true">Eliminamos desperdícios e automatizamos processos repetitivos para que sua equipe foque no que gera resultado. Método comprovado, linguagem de negócio.</span><span class="tw-output" aria-hidden="true"></span></p>
             <div class="hero-btns">
               <a href={whatsappURL} class="btn-wa" target="_blank" rel="noopener noreferrer" data-event="clique_whatsapp" data-location="hero" data-label="Diagnóstico Grátis">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.372l-.359-.214-3.723.947.985-3.596-.235-.369A9.818 9.818 0 1 1 12 21.818z"/></svg>
@@ -693,7 +693,7 @@ const schema = {
             <h2 class="section-title" data-speed="0.95">Perguntas <span class="gradient-text">frequentes</span></h2>
             <p class="section-sub">Tire suas dúvidas antes de entrar em contato.</p>
           </div>
-          <dl class="faq-list">
+          <div class="faq-list">
             {faqs.map(f => (
               <div class="faq-item stagger-reveal">
                 <details>
@@ -705,7 +705,7 @@ const schema = {
                 </details>
               </div>
             ))}
-          </dl>
+          </div>
         </div>
       </section>
 
@@ -789,13 +789,13 @@ const schema = {
         </div>
         <nav class="footer-nav" aria-label="Navegação do rodapé">
           <div class="footer-col">
-            <h4>Serviços</h4>
+            <h3>Serviços</h3>
             <a href="/lean-six-sigma">Lean Six Sigma</a>
             <a href="/automacao">Automação com IA</a>
             <a href="/manutencao">Manutenção & TI</a>
           </div>
           <div class="footer-col">
-            <h4>Navegação</h4>
+            <h3>Navegação</h3>
             <a href="/">Home</a>
             <a href="/blog">Blog</a>
             <a href="/glossario">Glossário</a>
@@ -805,7 +805,7 @@ const schema = {
             <a href="/#contato">Contato</a>
           </div>
           <div class="footer-col">
-            <h4>Regiões</h4>
+            <h3>Regiões</h3>
             <a href="/#local">Nova Pampulha</a>
             <a href="/#local">Morro Alto</a>
             <a href="/#local">Belo Horizonte</a>
@@ -1656,7 +1656,7 @@ const schema = {
   .footer-wa:hover { color: var(--green-h); }
   .footer-nav { display: flex; gap: 3rem; flex-wrap: wrap; }
   .footer-col { display: flex; flex-direction: column; gap: 0.6rem; min-width: 130px; }
-  .footer-col h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg); margin-bottom: 0.35rem; }
+  .footer-col h3 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg); margin-bottom: 0.35rem; }
   .footer-col a { color: var(--muted); text-decoration: none; font-size: 0.875rem; transition: color 0.15s; }
   .footer-col a:hover { color: var(--accent-l); }
   .footer-bottom { border-top: 1px solid var(--border); padding: 1.5rem 2rem; max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem; color: var(--muted); }
@@ -1715,6 +1715,6 @@ const schema = {
 
   .soro-test-section { padding: 3rem 0 5rem; border-top: 1px solid rgba(255,255,255,0.06); }
   .soro-test-container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
-  .soro-test-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1rem; }
+  .soro-test-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 1rem; }
   #soro-blog { min-height: 120px; }
 </style>

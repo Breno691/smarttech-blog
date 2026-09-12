@@ -151,6 +151,7 @@
       shownThisLoad = true;
       try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
       backdrop.classList.add('is-visible');
+      backdrop.setAttribute('aria-hidden', 'false');
       // Evento próprio (fora do mapa de eventos do EventTracking.astro, então não
       // dispara nenhum evento de Meta Pixel sozinho) — só pra medir taxa de exibição
       // do modal isolada da taxa de clique, sem misturar com outra métrica do site.
@@ -160,6 +161,7 @@
 
     function hide() {
       backdrop.classList.remove('is-visible');
+      backdrop.setAttribute('aria-hidden', 'true');
     }
 
     closeBtn.addEventListener('click', hide);
