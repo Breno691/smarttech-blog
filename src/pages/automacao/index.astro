@@ -86,6 +86,18 @@ const schema = {
         { '@type': 'Place', name: 'Morro Alto', containedInPlace: { '@type': 'AdministrativeArea', name: 'Região Metropolitana de Belo Horizonte' } },
       ],
     },
+    {
+      '@type': 'HowTo',
+      '@id': `${canonicalURL}#como-implementamos`,
+      name: 'Como a SmartOps implementa automação de processos com IA',
+      description: 'Passo a passo real usado para implementar automação de processos com IA em pequenas empresas.',
+      step: [
+        { '@type': 'HowToStep', position: 1, name: 'Diagnóstico da operação', text: 'Entendemos como a empresa funciona hoje — onde está o gargalo, o que é repetitivo e o que a equipe mais perde tempo fazendo sem necessidade.' },
+        { '@type': 'HowToStep', position: 2, name: 'Melhoria do processo (Lean)', text: 'Antes de automatizar, organizamos o fluxo com Lean Six Sigma. Processo ruim automatizado erra mais rápido.' },
+        { '@type': 'HowToStep', position: 3, name: 'Construção da automação', text: 'Desenvolvemos o fluxo com n8n, OpenAI e as integrações necessárias, testado com dados reais antes de ativar em produção.' },
+        { '@type': 'HowToStep', position: 4, name: 'Ativação e acompanhamento', text: 'Ativamos, monitoramos os primeiros dias e ajustamos o que precisar, com documentação completa entregue ao cliente.' },
+      ],
+    },
   ],
 };
 ---
