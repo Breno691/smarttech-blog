@@ -76,6 +76,7 @@ const schema = {
           { '@type': 'ListItem', position: 2, name: 'Lean Six Sigma', item: canonicalURL },
         ],
       },
+      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.faq-a'] },
     },
     {
       '@type': 'FAQPage',
@@ -467,7 +468,7 @@ const schema = {
         {faqs.map(f => (
           <details class="faq-item">
             <summary>{f.q}</summary>
-            <p>{f.a}</p>
+            <p class="faq-a">{f.a}</p>
           </details>
         ))}
       </div>
